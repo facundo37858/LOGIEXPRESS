@@ -1,5 +1,6 @@
 
 import {Model,Column,Table,CreatedAt,UpdatedAt} from 'sequelize-typescript'
+import {v4 as uuid} from 'uuid'
 
 @Table
 export class User extends Model<User>{
@@ -12,13 +13,8 @@ export class User extends Model<User>{
     @Column
     paswword!:string
 
-    @CreatedAt
-    @Column
-    createdAt!:Date
-    
-    @UpdatedAt
-    @Column
-    updatedAt!:Date
+   
 
 
 }
+

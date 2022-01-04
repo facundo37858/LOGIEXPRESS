@@ -10,6 +10,29 @@ export class User extends Model<User>{
     @PrimaryKey
     @Column
     id:string=uuid()
+
+    @Column
+    ducumentoIdentidad!:number
+
+    @Column
+    eMail!:string
+
+    
+    @Column
+    ubicacion!:string
+
+    @Column
+    cel!:number
+
+    @Column
+    tel!:number
+
+    @Column
+    fotoPerfil!:string
+
+    @Column
+    medioPago!:string
+
     @Column
     name!:string
 
@@ -18,6 +41,9 @@ export class User extends Model<User>{
 
     @Column
     paswword!:string
+
+    @Column
+    terminosCondiciones!:boolean
 
    
 

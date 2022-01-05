@@ -2,15 +2,24 @@
 import {Model,Column,Table,CreatedAt,UpdatedAt} from 'sequelize-typescript'
 
 @Table
-export class User extends Model<User>{
+export class Vehicle extends Model<Vehicle>{
     @Column
-    name!:string
+    id!:number
 
     @Column
-    lastName!:string
+    brand!:string
 
     @Column
-    paswword!:string
+    patent!:string
+
+    @Column
+    model!:number
+
+    @Column
+    color!:string
+
+    @Column
+    capacity!:number
 
     @CreatedAt
     @Column

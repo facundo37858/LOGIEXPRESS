@@ -1,5 +1,5 @@
 
-import { IsUUID, Model, Column, Table, CreatedAt, UpdatedAt, IsEmail } from 'sequelize-typescript'
+import { IsUUID, Model, Column, Table, IsEmail } from 'sequelize-typescript'
 
 @Table
 export class Carrier extends Model<Carrier>{
@@ -25,15 +25,7 @@ export class Carrier extends Model<Carrier>{
     location!: string
 
     @Column
-    CBU!: string
-
-    @CreatedAt
-    @Column
-    createdAt!: Date
-
-    @UpdatedAt
-    @Column
-    updatedAt!: Date
+    Cuenta!: string
 
 
 }

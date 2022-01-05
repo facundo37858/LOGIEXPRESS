@@ -31,6 +31,5 @@ export class User_Reg extends Model {
 
 
 
-
 }
 

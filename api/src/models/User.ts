@@ -1,11 +1,10 @@
-import { Model, Column, Table, CreatedAt, UpdatedAt, IsUUID, BelongsTo } from 'sequelize-typescript'
+import { Model, Column, Table, CreatedAt, UpdatedAt, IsUUID, BelongsTo, PrimaryKey } from 'sequelize-typescript'
 import { User_Reg } from './User_Reg'
 
 @Table
 export class User extends Model<User>{
-
-    @IsUUID(4)
-    @Column({ primaryKey: true })
+    @PrimaryKey
+    @Column
     id!: string
 
     @BelongsTo(() => User_Reg)

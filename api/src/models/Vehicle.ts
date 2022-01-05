@@ -1,8 +1,10 @@
 
-import {Model,Column,Table,CreatedAt,UpdatedAt} from 'sequelize-typescript'
+import {Model,Column,Table,CreatedAt,UpdatedAt, PrimaryKey} from 'sequelize-typescript'
 
 @Table
 export class Vehicle extends Model<Vehicle>{
+
+    @PrimaryKey
     @Column
     id!:number
 

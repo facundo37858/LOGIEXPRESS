@@ -7,7 +7,8 @@ import {v4 as uuid} from 'uuid'
 
 
 @Table
-export class User extends Model<User>{
+export class User extends Model{
+    
 
     // @Column(DataType.UUIDV4)
     // @PrimaryKey                //no se si es correcto pq en realidad en una FK q proviene de User_Reg al determinar la realacion

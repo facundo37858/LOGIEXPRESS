@@ -1,6 +1,7 @@
 
 
-import {Model,Column,Table, PrimaryKey, AutoIncrement, DataType} from 'sequelize-typescript'
+import {Model,Column,Table, PrimaryKey} from 'sequelize-typescript'
+
 
 import {v4 as uuid} from 'uuid'
 
@@ -15,6 +16,7 @@ export class User extends Model<User>{
     @Column
     id:string=uuid()
 
+    
     @Column
     ducumentoIdentidad!:number
 

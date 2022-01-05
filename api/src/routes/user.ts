@@ -1,13 +1,52 @@
-import {Response, Request, Router} from 'express';
+import {Response, Request, Router, NextFunction} from 'express';
+import { uuid } from 'uuidv4';
+
+import { User } from '../models/User';
+
 
 const router=Router()
 
-router.get('/', (req: Request, res: Response) => {
-	res.send('soy user get!');
+router.get('/user', async(req: Request, res: Response, next:NextFunction) => {
+
+	
+	try{
+		let user=await User.findAll()
+
+		if(user.length>0){
+			return res.send(user)
+		}
+		res.send('data not found')
+		//por consola me aparece:"Executing (default): SELECT "id", "ducumentoIdentidad", "eMail", "ubicacion", "cel", "tel", "fotoPerfil", "medioPago", "name", "lastName", "paswword", "terminosCondiciones", "createdAt", "updatedAt" FROM "Users" AS "User";"
+		//no pude corregirlo!!
+		
+
+	}
+	catch(err){
+		next(err)
+
+	}
+
+	
+	
+	
 });
 
-router.post('/', (req: Request, res: Response) => {
-	res.send('soy user post!');
+router.post('/user', (req: Request, res: Response,next:NextFunction) => {
+	const{name,password,terminosCondiciones}=req.body
+
+	let newUser={
+		id:uuid(),
+		name:name,
+		password:password,
+		terminosCondiciones:terminosCondiciones
+	}
+
+	User.create(newUser)
+	.then(newUser => {
+	  res.send(newUser);
+	})
+	.catch(error => next(error))
+
 });
 
 export default router;

@@ -1,7 +1,7 @@
 import {Response, Request, Router, NextFunction} from 'express';
 import { uuid } from 'uuidv4';
 
-import { User } from '../models/User';
+import { User_Reg } from '../models/User_Reg';
 
 
 const router=Router()
@@ -10,7 +10,7 @@ router.get('/user', async(req: Request, res: Response, next:NextFunction) => {
 
 	
 	try{
-		let user=await User.findAll()
+		let user=await User_Reg.findAll()
 
 		if(user.length>0){
 			return res.send(user)
@@ -41,7 +41,7 @@ router.post('/user', (req: Request, res: Response,next:NextFunction) => {
 		terminosCondiciones:terminosCondiciones
 	}
 
-	User.create(newUser)
+	User_Reg.create(newUser)
 	.then(newUser => {
 	  res.send(newUser);
 	})

@@ -1,59 +1,26 @@
-
-
-import {Model,Column,Table, PrimaryKey} from 'sequelize-typescript'
-
-
-import {v4 as uuid} from 'uuid'
-
+import {Model,Column,Table,CreatedAt,UpdatedAt,IsUUID} from 'sequelize-typescript'
 
 @Table
-export class User extends Model{
-    
+export class User extends Model<User>{
 
-    // @Column(DataType.UUIDV4)
-    // @PrimaryKey                //no se si es correcto pq en realidad en una FK q proviene de User_Reg al determinar la realacion
-    // id:string=uuid()
-    @PrimaryKey
-    @Column
-    id:string=uuid()
-
-    
-    @Column
-    ducumentoIdentidad!:number
+    @IsUUID(4)
+    @Column({ primaryKey: true })
+    id!: string
 
     @Column
-    eMail!:string
-
-    
-    @Column
-    ubicacion!:string
+    identification!:number
 
     @Column
-    cel!:number
+    zone!:string
 
     @Column
-    tel!:number
+    phone!:number
 
     @Column
-    fotoPerfil!:string
+    photo!:string
 
     @Column
-    medioPago!:string
-
-    @Column
-    name!:string
-
-    @Column
-    lastName!:string
-
-    @Column
-    paswword!:string
-
-    @Column
-    terminosCondiciones!:boolean
-
-   
+    account!:string
 
 
 }
-

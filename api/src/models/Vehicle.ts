@@ -21,13 +21,5 @@ export class Vehicle extends Model<Vehicle>{
     @Column
     capacity!:number
 
-    @CreatedAt
-    @Column
-    createdAt!:Date
-    
-    @UpdatedAt
-    @Column
-    updatedAt!:Date
-
 
 }

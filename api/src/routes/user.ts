@@ -32,12 +32,12 @@ router.get('/user', async(req: Request, res: Response, next:NextFunction) => {
 });
 
 router.post('/user', (req: Request, res: Response,next:NextFunction) => {
-	const{name,password,terminosCondiciones}=req.body
+	const{name,paswword,terminosCondiciones}=req.body
 
 	let newUser={
 		id:uuid(),
 		name:name,
-		password:password,
+		paswword:paswword,
 		terminosCondiciones:terminosCondiciones
 	}
 

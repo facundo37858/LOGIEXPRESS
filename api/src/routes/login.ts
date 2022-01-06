@@ -30,6 +30,8 @@ router.post('/Authentication', async (req: Request, res: Response) => {
 		res.status(300).json({ mensaje: "Usuario o contraseña incorrectos" })
 	}
 });
-router.post('/googleAuthentication', async (req: Request, res: Response) => {
+
+
+router.get('/googleAuthentication', async (req: Request, res: Response) => {
 })
 export default router;

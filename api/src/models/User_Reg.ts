@@ -24,12 +24,12 @@ export class User_Reg extends Model {
     phone!: number
 
     @Column
-    paswword!: string
+    mail!: string
+
+    @Column
+    password!: string
 
     @Column
     rol!: boolean
-
-
-
 }
 

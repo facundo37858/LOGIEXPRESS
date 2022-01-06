@@ -3,12 +3,13 @@ import { User_Reg } from './User_Reg'
 
 @Table
 export class User extends Model<User>{
-    @PrimaryKey
-    @Column
+
+    @IsUUID(4)
+    @Column({ primaryKey: true })
     id!: string
 
-    @BelongsTo(() => User_Reg)
-    id_user!: User_Reg
+    // @BelongsTo(() => User_Reg)
+    // id_user!: User_Reg
 
 
     @Column

@@ -27,7 +27,7 @@ export class User_Reg extends Model {
     password!: string
 
     @Column
-    eMail!:string
+    eMail!: string
 
     @Column
     rol!: string //lo cambiamos a string para q sea mas facil 

@@ -76,7 +76,9 @@ const SignUp = ()=>{
 
                        
                     </View>
+                    <Button
                     
+                    />
         </ScrollView>
     )
 }

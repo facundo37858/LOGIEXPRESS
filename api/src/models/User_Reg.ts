@@ -24,12 +24,16 @@ export class User_Reg extends Model {
     phone!: number
 
     @Column
-    mail!: string
-
-    @Column
     password!: string
 
     @Column
-    rol!: boolean
+    eMail!: string
+
+    @Column
+    terminosCondiciones!: boolean
+
+    @Column
+    rol!: boolean //lo cambiamos a string para q sea mas facil 
+
 }
 

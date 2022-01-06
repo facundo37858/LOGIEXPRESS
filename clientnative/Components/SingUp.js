@@ -44,33 +44,12 @@ const SignUp = () => {
       name: reg.nombre,
       lastName: reg.apellido,
       phone: reg.telefono,
-      mail: reg.mail,
-      paswword: reg.contraseña,
+      eMail: reg.mail,
+      password: reg.contraseña,
+      terminosCondiciones: true,
       rol: true,
     };
-
-    //     // 30) Validaciones
-    //     // if (!obj.nombre) {
-    //     //     alert("Please write the name of the videogame!")
-    //     //     return
-    //     // }
-    //     // if (!obj.description) {
-    //     //     alert("Please write the description of the videogame!")
-    //     //     return
-    //     // }if (!obj.released) {
-    //     //     alert("Please enter a release date!")
-    //     //     return
-    //     // }if (obj.rating > 5 || obj.rating < 0) {
-    //     //     alert("The rating must be between 0 and 5!")
-    //     //     return
-    //     // }
-
-    //acá despacho la accion pasandole el obj como payload
     dispatch(registrarUsuario(obj));
-    // e.target.reset(); // reseteo todo los target
-    // alert("Videogame created!"); //aviso con una alerta que se creó el videojuego
-
-    // limpio todo el estado j, para una nueva creación
     setReg({
       nombre: "",
       apellido: "",

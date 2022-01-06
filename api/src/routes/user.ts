@@ -3,6 +3,9 @@ import { uuid } from 'uuidv4';
 
 import { User_Reg } from '../models/User_Reg';
 
+import bcrypt from 'bcryptjs'
+
+
 
 const router=Router()
 
@@ -37,10 +40,12 @@ router.post('/user', async(req: Request, res: Response,next:NextFunction) => {
 
 	// if(!emal){TODO LO QUE YA HICISTE}else{res.json('el email ya existe')}
 
+	let passwordHash= await bcrypt.hash(password,8)
+
 	let newUser={
 		id:uuid(),
 		name,
-		password,
+		password:passwordHash,
 		terminosCondiciones,
 		eMail,
 		rol

@@ -24,11 +24,21 @@ export class User_Reg extends Model {
     phone!: number
 
     @Column
+<<<<<<< HEAD
     paswword!: string
 
     @Column
     rol!: boolean
 
+=======
+    eMail!:string
+
+    @Column
+    password!:string
+
+    @Column
+    role!:boolean
+>>>>>>> dbc0fbd3ca9a83c724d4cfad8a61852719b38e7e
 
 
 }

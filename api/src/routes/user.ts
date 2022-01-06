@@ -30,22 +30,48 @@ router.get('/user', async(req: Request, res: Response, next:NextFunction) => {
 	
 	
 });
+//para registrar user
+router.post('/user', async(req: Request, res: Response,next:NextFunction) => {
 
-router.post('/user', (req: Request, res: Response,next:NextFunction) => {
-	const{name,paswword,terminosCondiciones}=req.body
+	const{name,password,eMail,terminosCondiciones,rol}=req.body
+
+	// if(!emal){TODO LO QUE YA HICISTE}else{res.json('el email ya existe')}
 
 	let newUser={
 		id:uuid(),
-		name:name,
-		paswword:paswword,
-		terminosCondiciones:terminosCondiciones
+		name,
+		password,
+		terminosCondiciones,
+		eMail,
+		rol
+
+	
+	}
+	try{
+		
+		const[user/*usuario creado o excistente */, created/*boolean true->lo creo false->no lo creo pq exciste */]=await User_Reg.findOrCreate({//crea un usuario si no excisiste 
+			where: { eMail: eMail },
+			defaults: newUser
+		})
+		if(!created){
+			return res.send('eMail usado')//podria ser un boolean 
+
+		}
+	
+		// console.log('User:',user,'Bool: ',created)
+	
+
+		res.send('Usuario creado')//podria ser un boolean 
+
 	}
 
-	User_Reg.create(newUser)
-	.then(newUser => {
-	  res.send(newUser);
-	})
-	.catch(error => next(error))
+	
+	catch(err){
+		next(err)
+
+	}
+
+
 
 });
 

@@ -80,4 +80,19 @@ router.post('/user', async(req: Request, res: Response,next:NextFunction) => {
 
 });
 
+router.post('/user/autetic',async(req:Request,res:Response,next:NextFunction)=>{
+
+	const[email,password]=req.body
+
+	let user=await User_Reg.findAll({
+		where:{
+			eMail:email
+		}
+	})
+	res.send(user)
+
+	// let veficaPassword= await bcrypt.compareSync(password,)
+
+})
+
 export default router;

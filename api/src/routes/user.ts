@@ -26,11 +26,12 @@ router.options('/user', async (res: Response) => {
 	res.send('Options send')
 })
 router.post('/user', async (req: Request, res: Response, next: NextFunction) => {
-
+	// const data1 = JSON.parse(req.body)
+	console.log("Estes es el body", req.body);
 	const { name, lastName, phone, password, eMail, terminosCondiciones, rol } = req.body
-	console.log(req.method);
 
 	// if(!emal){TODO LO QUE YA HICISTE}else{res.json('el email ya existe')}
+
 
 	let newUser = {
 		id: uuid(),

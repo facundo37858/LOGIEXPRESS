@@ -50,6 +50,7 @@ const SignUp = () => {
       rol: true,
     };
     dispatch(registrarUsuario(obj));
+    console.log("Estoy enviado", obj);
     setReg({
       nombre: "",
       apellido: "",
@@ -107,14 +108,14 @@ const SignUp = () => {
           <TextInput
             name="nombre"
             value={reg.nombre}
-            onChangeText={(text) => setReg({ nombre: text })}
+            onChangeText={(text) => setReg({ ...reg, nombre: text })}
             placeholder="Nombre*"
             style={styles.TextInput}
           ></TextInput>
 
           <TextInput
             value={reg.apellido}
-            onChangeText={(text) => setReg({ apellido: text })}
+            onChangeText={(text) => setReg({ ...reg, apellido: text })}
             name="apellido"
             placeholder="Apellido*"
             style={styles.TextInput}
@@ -123,7 +124,7 @@ const SignUp = () => {
           <TextInput
             icon="mail"
             value={reg.mail}
-            onChangeText={(text) => setReg({ mail: text })}
+            onChangeText={(text) => setReg({ ...reg, mail: text })}
             name="mail"
             placeholder="Dirección de Mail*"
             style={styles.TextInput}
@@ -131,7 +132,7 @@ const SignUp = () => {
 
           <TextInput
             value={reg.contraseña}
-            onChangeText={(text) => setReg({ contraseña: text })}
+            onChangeText={(text) => setReg({ ...reg, contraseña: text })}
             name="contraseña"
             placeholder="Contraseña*"
             secureTextEntry={true}
@@ -140,7 +141,7 @@ const SignUp = () => {
 
           <TextInput
             value={reg.telefono}
-            onChangeText={(text) => setReg({ telefono: text })}
+            onChangeText={(text) => setReg({ ...reg, telefono: text })}
             name="telefono"
             placeholder="Telefono*"
             style={styles.TextInput}

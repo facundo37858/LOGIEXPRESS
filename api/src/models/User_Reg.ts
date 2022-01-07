@@ -21,7 +21,7 @@ export class User_Reg extends Model {
     lastName!: string
 
     @Column
-    phone!: number
+    phone!: string
 
     @Column
     password!: string

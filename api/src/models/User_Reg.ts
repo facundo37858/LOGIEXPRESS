@@ -21,15 +21,19 @@ export class User_Reg extends Model {
     lastName!: string
 
     @Column
-    phone!: number
+    phone!: string
 
     @Column
-    paswword!: string
+    password!: string
 
     @Column
-    rol!: boolean
+    eMail!: string
 
+    @Column
+    terminosCondiciones!: boolean
 
+    @Column
+    rol!: boolean //lo cambiamos a string para q sea mas facil 
 
 }
 

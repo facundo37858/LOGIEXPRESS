@@ -1,4 +1,5 @@
 import { Model, Column, Table, IsUUID } from 'sequelize-typescript'
+import { User } from './User'
 
 @Table
 export class User_Reg extends Model {
@@ -24,16 +25,17 @@ export class User_Reg extends Model {
     phone!: string
 
     @Column
-    password!: string
+    eMail!:string
 
     @Column
-    eMail!: string
+    password!:string
 
     @Column
     terminosCondiciones!: boolean
 
     @Column
-    rol!: boolean //lo cambiamos a string para q sea mas facil 
+    role!:boolean
+
 
 }
 

@@ -1,26 +1,27 @@
 
-import {Model,Column,Table,CreatedAt,UpdatedAt, PrimaryKey} from 'sequelize-typescript'
+import { Model, Column, Table, CreatedAt, UpdatedAt, PrimaryKey, IsUUID } from 'sequelize-typescript'
 
 @Table
 export class Review extends Model<Review>{
-    @PrimaryKey
-    @Column
-    id!:number
+
+    @IsUUID(4)
+    @Column({ primaryKey: true })
+    id!: string;
 
     @Column
-    id_viaje!:number
+    id_viaje!: number
 
     @Column
-    User_raiting!:number
+    User_raiting!: number
 
     @Column
-    User_comment!:string
+    User_comment!: string
 
     @Column
-    Carrrier_raiting!:number
+    Carrrier_raiting!: number
 
     @Column
-    Carrier_comment!:string
+    Carrier_comment!: string
 
 
 }

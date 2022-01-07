@@ -1,27 +1,27 @@
 
-import {Model,Column,Table,CreatedAt,UpdatedAt, PrimaryKey} from 'sequelize-typescript'
+import { Model, Column, Table, CreatedAt, UpdatedAt, PrimaryKey, IsUUID } from 'sequelize-typescript'
 
 @Table
 export class Vehicle extends Model<Vehicle>{
 
-    @PrimaryKey
-    @Column
-    id!:number
+    @IsUUID(4)
+    @Column({ primaryKey: true })
+    id!: string
 
     @Column
-    brand!:string
+    brand!: string
 
     @Column
-    patent!:string
+    patent!: string
 
     @Column
-    model!:number
+    model!: number
 
     @Column
-    color!:string
+    color!: string
 
     @Column
-    capacity!:number
+    capacity!: number
 
 
 }

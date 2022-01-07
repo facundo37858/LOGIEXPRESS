@@ -1,6 +1,7 @@
 import {Response, Request, Router} from 'express';
 import { User_Reg } from '../models/User_Reg';
-const { OAuth2Client } = require("google-auth-library");
+const bcryptjs = require("bcryptjs");
+
 
 const router=Router()
 
@@ -16,7 +17,7 @@ router.post('/Authentication', async (req: Request, res: Response) => {
 	let user = await User_Reg.findOne({where:{email:email}} )
 
 	if ( user && user.password === password){
-
+	
 		const payload = {
 		email,
 		id: user.id,
@@ -31,6 +32,9 @@ router.post('/Authentication', async (req: Request, res: Response) => {
 	  }
 	
 });
+
+// me surje la duda si yo tengo que encriptar el password en el login o solo compararla 
+// el login deberia ser un get o un post?
 
 router.post('/googleAuthentication', async (req: Request, res: Response) => {
 

@@ -1,7 +1,7 @@
 import {Model,Column,Table,CreatedAt,UpdatedAt,IsUUID, PrimaryKey} from 'sequelize-typescript'
 
 @Table
-export class User extends Model<User>{
+export class User extends Model{
     @PrimaryKey
     @Column
     id!:string

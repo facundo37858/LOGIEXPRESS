@@ -82,7 +82,7 @@ const SignUp = ()=>{
                     </View>
                     <Button
                         title='Perfil usuario'
-                        onPress={() => navigation.navigate('EditFormUser')}                 
+                        onPress={() => navigation.navigate('EditProfile')}                 
                     />
         </ScrollView>
     )

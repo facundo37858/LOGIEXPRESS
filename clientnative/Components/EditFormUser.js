@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Text, TextInput, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Button, Text, TextInput, View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 //iconos
 import Icon from "react-native-vector-icons/Ionicons";
 //Formik
@@ -45,7 +45,7 @@ const EditFormUser = () => {
               <View style={styles.viewsInputs} >
                 <Icon name="earth-outline" size={25} />
                 <TextInput
-                  placeholder="Ciudad donde vives"
+                  placeholder="Ciudad donde vivis"
                   onChangeText={handleChange("locacion")}
                   onBlur={handleBlur("locacion")}
                   value={values.locacion}
@@ -82,24 +82,25 @@ export default EditFormUser;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: "white",
     alignItems: "center",
-    justifyContent: "center",
+    // justifyContent: "center",
   },
   viewsInputs: {
-      margin: 5,
+      margin: 2,
       borderColor: '#511281',
       borderBottomWidth: 4,
       flexDirection: 'row',
       justifyContent: 'flex-start',
       width: 300,
       alignItems: "flex-start",
-      marginBottom: 20
+      marginBottom: 17
   },
   textInputs: {
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+
   },
   textPlaceholder: {
     marginLeft: 15,

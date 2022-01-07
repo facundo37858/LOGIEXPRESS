@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SingIn from "./Components/SingIn";
 import SingUp from "./Components/SingUp";
-import EditFormUser from './Components/EditFormUser';
+import EditProfile from './Components/EditProfile';
 
 const Stack = createStackNavigator();
 
@@ -18,8 +18,8 @@ const App = () => {
         />
         <Stack.Screen name="singUp" component={SingUp} />
         <Stack.Screen 
-        name='EditFormUser' 
-        component={EditFormUser}
+        name='EditProfile' 
+        component={EditProfile}
         options={{ headerShown: false}}/>      
       </Stack.Navigator>
     </NavigationContainer>

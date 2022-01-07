@@ -38,7 +38,7 @@ export function logiarUsuario(payload) {
   return async function () {
     try {
       const response = await axios.post(
-        "http://localhost:3001/api/Authentication",
+        "http://localhost:3001/api/login",
         payload
       );
       console.log(response);

@@ -1,12 +1,16 @@
 import React, {useState} from "react";
 import { Ionicons } from '@expo/vector-icons';
-import {Text, StyleSheet, View, Image, TextInput, TouchableOpacity, ScrollView, ImageBackground, Dimensions, SafeAreaView, Modal} from 'react-native';
+import {Text, StyleSheet, View, Image, TextInput, TouchableOpacity, ScrollView, ImageBackground, Dimensions, SafeAreaView, Modal, Button} from 'react-native';
 import {ModalPicker} from "./ModalPicker"
+import { useNavigation } from "@react-navigation/core";
 
 
 
 
 const SignUp = ()=>{
+
+    const navigation = useNavigation();
+
     const [chooseData, setchooseData] = useState('Seleccionar Perfil...');
     const [isModalVisible, setisModalVisible] = useState(false);
 
@@ -77,7 +81,8 @@ const SignUp = ()=>{
                        
                     </View>
                     <Button
-                    
+                        title='Perfil usuario'
+                        onPress={() => navigation.navigate('EditFormUser')}                 
                     />
         </ScrollView>
     )

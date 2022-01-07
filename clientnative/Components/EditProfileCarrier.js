@@ -11,11 +11,11 @@ import {
 } from "react-native";
 //iconos
 import Icon from "react-native-vector-icons/Ionicons";
-import EditFormUser from "./EditFormUser";
+import EditFormCarrier from './EditFormCarrier';
 
 import { useNavigation } from "@react-navigation/core";
 
-const EditProfile = () => {
+const EditProfileCarrier = () => {
   const navigation = useNavigation();
 
   return (
@@ -28,11 +28,11 @@ const EditProfile = () => {
           <TouchableOpacity
           //no esta conectado a ningun lugar
           // onPress={() => navigation.navigate()}
-          > 
+          >
             <Icon name="chevron-back-outline" size={30} />
           </TouchableOpacity>
         </View>
-        <Text style={{ fontWeight: 'bold', marginLeft: 15, fontSize: 25}}>Completar perfil</Text>
+        <Text style={{ fontWeight: 'bold', marginLeft: 15, fontSize: 25}}> Perfil</Text>
         <View style={{ alignItems: "center" }}>
           <Image
             source={require("./ruta.png")}
@@ -40,7 +40,7 @@ const EditProfile = () => {
               width: 170,
               height: 170,
               borderRadius: 100,
-              marginTop: 45,
+              marginTop: 30,
             }}
           />
 
@@ -55,7 +55,7 @@ const EditProfile = () => {
                   marginLeft: 135,
                   marginTop: -70,
                   borderWidth: 3,
-                  borderColor: "#511281",
+                  borderColor: "#FFD523",
                   borderRadius: 50,
                 }}
               />
@@ -64,7 +64,7 @@ const EditProfile = () => {
         </View>
 
         <View style={styles.containerComp}>
-          <EditFormUser />
+          <EditFormCarrier />
         </View>
       </ScrollView>
     </View>
@@ -73,13 +73,13 @@ const EditProfile = () => {
 
 const styles = StyleSheet.create({
   containerComp: {
-    marginTop: 55,
+    marginTop: 50,
     backgroundColor: "white",
   },
   iconBar: {
     flexDirection: "row",
     marginTop: 30,
-    marginBottom: 10,
+    marginBottom: 2,
     marginHorizontal: 10,
     justifyContent: "space-between",
     backgroundColor: "white",
@@ -99,4 +99,4 @@ const styles = StyleSheet.create({
   add: {},
 });
 
-export default EditProfile;
+export default EditProfileCarrier;

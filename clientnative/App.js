@@ -4,6 +4,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import SingIn from "./Components/SingIn";
 import SingUp from "./Components/SingUp";
 import EditProfile from './Components/EditProfile';
+import EditProfileCarrier from "./Components/EditProfileCarrier";
+import EditVehiculeCarrier from "./Components/EditVehiculeCarrier";
 
 const Stack = createStackNavigator();
 
@@ -20,8 +22,17 @@ const App = () => {
         <Stack.Screen 
         name='EditProfile' 
         component={EditProfile}
+        options={{ headerShown: false}}/> 
+        <Stack.Screen 
+        name='EditProfileCarrier' 
+        component={EditProfileCarrier}
         options={{ headerShown: false}}/>      
+        <Stack.Screen 
+        name='EditVehiculeCarrier' 
+        component={EditVehiculeCarrier}
+        options={{ headerShown: false}}/> 
       </Stack.Navigator>
+      
     </NavigationContainer>
   );
 };

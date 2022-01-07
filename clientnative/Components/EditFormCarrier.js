@@ -4,12 +4,15 @@ import { Button, Text, TextInput, View, StyleSheet, TouchableOpacity, ScrollView
 import Icon from "react-native-vector-icons/Ionicons";
 //Formik
 import { Formik } from "formik";
+import { useNavigation } from "@react-navigation/core";
 
-const EditFormUser = () => {
-  return (
+const EditFormCarrier = () => {
+  const navigation = useNavigation();
+
+  return (  
     <>
       <Formik
-        initialValues={{ name: "", cuentas: "", locacion: "", phone: "" }}
+        initialValues={{ name: "", cuentas: "", locacion: "", phone: "", license: "" }}
         onSubmit={(values) => console.log(values)}
       >
         {({ handleChange, handleBlur, handleSubmit, values }) => (
@@ -66,11 +69,24 @@ const EditFormUser = () => {
                 />
               </View>
             </View>
+            <View>
+              <Text style={styles.textInputs}>Licencia</Text>
+              <View style={styles.viewsInputs} >
+                <Icon name="car-outline" size={25} />
+                <TextInput
+                  placeholder="Número de licencia"
+                  onChangeText={handleChange("license")}
+                  onBlur={handleBlur("license")}
+                  value={values.license}
+                  style={styles.textPlaceholder}
+                />
+              </View>
+            </View>
             <TouchableOpacity
-            onPress={handleSubmit}
+            onPress={() => navigation.navigate('EditVehiculeCarrier')}
             style={styles.btnEditar}
             >
-              <Text style={styles.textBtn}>Guardar cambios</Text>
+              <Text style={styles.textBtn}>Siguiente</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -78,18 +94,18 @@ const EditFormUser = () => {
     </>
   );
 };
-export default EditFormUser;
+export default EditFormCarrier;
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+     flex: 1,
     backgroundColor: "white",
     alignItems: "center",
-    // justifyContent: "center",
+     justifyContent: "center",
   },
   viewsInputs: {
       margin: 2,
-      borderColor: '#511281',
+      borderColor: '#FFD523',
       borderBottomWidth: 4,
       flexDirection: 'row',
       justifyContent: 'flex-start',
@@ -108,19 +124,20 @@ const styles = StyleSheet.create({
     marginBottom: 3
   },
   btnEditar:{
-    backgroundColor: '#511281',
+    backgroundColor: '#FFD523',
     borderRadius: 10,
     width: 150,
     height: 50,
-    marginTop: 30
+    marginTop: 20
 
   },
   textBtn:{
-    color: '#EAEAEA',
+    color: 'black',
     fontSize: 15,
     alignContent: 'center',
     justifyContent: 'center',
-    marginLeft: 10,
+    marginLeft: 35,
     marginTop: 12
   }
 });
+

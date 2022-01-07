@@ -84,6 +84,10 @@ const SignUp = ()=>{
                         title='Perfil usuario'
                         onPress={() => navigation.navigate('EditProfile')}                 
                     />
+                     <Button
+                        title='Perfil Transportista'
+                        onPress={() => navigation.navigate('EditProfileCarrier')}                 
+                    />
         </ScrollView>
     )
 }

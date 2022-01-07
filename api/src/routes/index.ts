@@ -4,9 +4,9 @@ import LoginRoutes from './login';
 import ProfileRoutes from './profiles';
 const router = Router();
 
-router.use('/user', userRoutes);
-router.use('/login', LoginRoutes) 
-router.use('/profile', ProfileRoutes) 
+router.use('/', userRoutes);
+router.use('/', LoginRoutes) 
+router.use('/', ProfileRoutes) 
 
 
 export default router;

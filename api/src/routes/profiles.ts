@@ -7,8 +7,8 @@ import { Carrier } from '../models/Carrier';
 const router=Router()
 
 
-router.post('/User', async (req: Request, res: Response, next: NextFunction) => {
-	
+router.post('/userProfile', async (req: Request, res: Response, next: NextFunction) => {
+	// res.send('llega al user profile')
 	const {  id, identification, zone, phone, photo, account} = req.body
 	
 	let newProfile = { 
@@ -27,8 +27,8 @@ router.post('/User', async (req: Request, res: Response, next: NextFunction) => 
 	.catch(error => next(error))
 });
 
-router.post('/Carrier', async (req: Request, res: Response, next: NextFunction) => {
-	
+router.post('/carrierProfile', async (req: Request, res: Response, next: NextFunction) => {
+	// res.send('llega al carrier profile')
 	const {  id, documentID, license, email, phone, location, CBU} = req.body
 	
 	let newProfile = { 
@@ -49,6 +49,7 @@ router.post('/Carrier', async (req: Request, res: Response, next: NextFunction) 
 });
 
 router.get('/profile', async (req: Request, res: Response) => {
+	// res.send('llega al  profile')
 	const {id} = req.params;
 
 	const user = await User.findByPk(id)
@@ -59,8 +60,7 @@ router.get('/profile', async (req: Request, res: Response) => {
 		return carrier ? res.json(carrier) : res.status(404).send("ID Not Found")
 	}
 
-	return res.json(user)
-	
+	return user ? res.json(user) : res.status(404).send("ID Not Found")
 });
 
 router.put('/edit', async (req: Request, res: Response, next: NextFunction)=>{

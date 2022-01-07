@@ -12,18 +12,17 @@ router.get('/', (req: Request, res: Response) => {
 	res.send('OK');
 });
 
-router.post('/Authentication', async (req: Request, res: Response) => {
+router.post('/login', async (req: Request, res: Response) => {
+	const { eMail, password} = req.body
 
-	const { email, password} = req.params
-
-	const user = await User_Reg.findOne({where:{email:email}})
+	const user = await User_Reg.findOne({where:{eMail:eMail}})
 
 	if ( user && user.password === password){
 	
 		const payload = {
-			email,
-			id: User.id,
-			rol: User.rol,
+			eMail,
+			id: user.id,
+			role: user.role,
 		};
 
 		res.json({
@@ -34,13 +33,12 @@ router.post('/Authentication', async (req: Request, res: Response) => {
 	}
 });
 
-// me surje la duda si yo tengo que encriptar el password en el login o solo compararla 
-// el login deberia ser un get o un post?
-
-router.post('/googleAuthentication', async (req: Request, res: Response) => {
 
 
-})
+// router.post('/googleAuthentication', async (req: Request, res: Response) => {
+
+
+// })
 
 
 export default router;

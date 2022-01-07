@@ -1,6 +1,9 @@
 import { Response, Request, Router } from 'express';
+import { User } from '../models/User';
 import { User_Reg } from '../models/User_Reg';
-const { OAuth2Client } = require("google-auth-library");
+
+const bcryptjs = require("bcryptjs");
+
 
 const router = Router()
 
@@ -9,18 +12,17 @@ router.get('/', (req: Request, res: Response) => {
 	res.send('OK');
 });
 
-router.post('/Authentication', async (req: Request, res: Response) => {
+router.post('/login', async (req: Request, res: Response) => {
+	const { eMail, password} = req.body
 
-	const { email, password } = req.body
+	const user = await User_Reg.findOne({where:{eMail:eMail}})
 
-	let user = await User_Reg.findOne({ where: { email: email } })
-
-	if (user && user.password === password) {
-
+	if ( user && user.password === password){
+	
 		const payload = {
-			email,
+			eMail,
 			id: user.id,
-			rol: user.rol,
+			role: user.role,
 		};
 
 		res.json({
@@ -32,6 +34,11 @@ router.post('/Authentication', async (req: Request, res: Response) => {
 });
 
 
-router.get('/googleAuthentication', async (req: Request, res: Response) => {
-})
+
+// router.post('/googleAuthentication', async (req: Request, res: Response) => {
+
+
+// })
+
+
 export default router;

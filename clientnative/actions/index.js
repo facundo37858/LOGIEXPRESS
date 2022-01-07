@@ -34,6 +34,21 @@ export function registrarUsuario(payload) {
   };
 }
 
+export function logiarUsuario(payload) {
+  return async function () {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/api/login",
+        payload
+      );
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
 // import FormData from "FormData";
 
 // var formData = new FormData();

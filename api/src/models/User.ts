@@ -1,4 +1,5 @@
-import {Model,Column,Table,CreatedAt,UpdatedAt,IsUUID, PrimaryKey} from 'sequelize-typescript'
+import { Model, Column, Table, CreatedAt, UpdatedAt, IsUUID, BelongsTo, PrimaryKey } from 'sequelize-typescript'
+import { User_Reg } from './User_Reg'
 
 @Table
 export class User extends Model{
@@ -7,19 +8,19 @@ export class User extends Model{
     id!:string
 
     @Column
-    identification!:number
+    identification!: number
 
     @Column
-    zone!:string
+    zone!: string
 
     @Column
-    phone!:number
+    phone!: number
 
     @Column
-    photo!:string
+    photo!: string
 
     @Column
-    account!:string
+    account!: string
 
 
 }

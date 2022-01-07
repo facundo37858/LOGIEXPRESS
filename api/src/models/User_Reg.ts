@@ -1,8 +1,8 @@
-import {Model,Column,Table,IsUUID} from 'sequelize-typescript'
+import { Model, Column, Table, IsUUID } from 'sequelize-typescript'
 
 @Table
-export class User_Reg extends Model{
-    
+export class User_Reg extends Model {
+
 
     // @Column(DataType.UUIDV4)
     // @PrimaryKey                //no se si es correcto pq en realidad en una FK q proviene de User_Reg al determinar la realacion
@@ -15,13 +15,13 @@ export class User_Reg extends Model{
     id!: string
 
     @Column
-    name!:string
+    name!: string
 
     @Column
-    lastName!:string
+    lastName!: string
 
     @Column
-    phone!:number
+    phone!: number
 
     @Column
     eMail!:string

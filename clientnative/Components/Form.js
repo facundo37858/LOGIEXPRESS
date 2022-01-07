@@ -49,11 +49,31 @@ export default function FormApp(){
 
         }
 
-        const buttonPress=()=>{
+        const buttonPress=async ()=>{
             if(name && lastName && password && eMail){
                 Alert.alert(`${name} ${lastName} ${password} ${eMail}`)
-            }else{
-                Alert.alert('Error')
+            
+                try {
+                    const rep = await fetch('http://192.168.0.10:3001/api/user', {
+                        method: 'POST',
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name,
+                            lastName,
+                            password,
+                            eMail
+                        })
+                    }
+                    )
+                    const repJson = await rep.json()
+                    return Alert.alert(`${repJson}`)
+                } catch (err) {
+                    return console.log(err)
+                }
+               
             }
         }
     

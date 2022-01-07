@@ -11,13 +11,13 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen
+        <Stack.Screen
           name="singIn"
           component={SingIn}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="singUp" component={SingUp} /> */}
-        <Stack.Screen name='form' component={FormApp}/>
+        <Stack.Screen name="singUp" component={SingUp} />
+        {/* <Stack.Screen name='form' component={FormApp}/> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -48,11 +48,17 @@ router.post('/user', async (req: Request, res: Response, next: NextFunction) => 
 			where: { eMail: eMail },
 			defaults: newUser
 		})
+
 		if (!created) {
 			return res.send('eMail usado')//podria ser un boolean 
 		}
-		// console.log('User:',user,'Bool: ',created)
+			// console.log('User:',user,'Bool: ',created)
+			
+			
+          
 		res.send('Usuario creado')//podria ser un boolean 
+		
+		
 	}
 	catch (err) {
 		next(err)

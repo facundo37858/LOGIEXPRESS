@@ -21,6 +21,8 @@ export class User extends Model{
 
     @Column
     account!: string
+    
+	
 
 
 }

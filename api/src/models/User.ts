@@ -25,7 +25,7 @@ export class User extends Model<User>{
     photo!: string
 
     @Column
-    account!: string
+    account!: string //Cuenta bancaria 
 
 
 }

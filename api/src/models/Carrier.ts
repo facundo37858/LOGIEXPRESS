@@ -2,7 +2,7 @@
 import { IsUUID, Model, Column, Table, CreatedAt, UpdatedAt, IsEmail } from 'sequelize-typescript'
 
 @Table
-export class Carrier extends Model<Carrier>{
+export class Carrier extends Model{
 
     @IsUUID(4)
     @Column({ primaryKey: true })
@@ -16,7 +16,7 @@ export class Carrier extends Model<Carrier>{
 
     @IsEmail
     @Column
-    email!: string
+    eMail!: string
 
     @Column
     phone!: number

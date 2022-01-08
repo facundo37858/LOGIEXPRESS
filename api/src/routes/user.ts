@@ -1,6 +1,7 @@
 import { Response, Request, Router, NextFunction } from 'express';
 import { uuid } from 'uuidv4';
 import { User_Reg } from '../models/User_Reg';
+const bcrypt = require("bcryptjs");
 
 const router = Router()
 router.get('/', (req: Request, res: Response) => {
@@ -31,13 +32,13 @@ router.post('/user', async (req: Request, res: Response, next: NextFunction) => 
 	const { name, lastName, phone, password, eMail, terminosCondiciones, rol } = req.body
 
 	// if(!emal){TODO LO QUE YA HICISTE}else{res.json('el email ya existe')}
-
+	let passwordHash = await bcrypt.hash(password,8)
 
 	let newUser = {
 		id: uuid(),
 		name,
 		lastName,
-		password,
+		password: passwordHash,
 		phone,
 		terminosCondiciones,
 		eMail,

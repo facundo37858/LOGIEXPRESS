@@ -62,7 +62,7 @@ const EditProfileCarrier = () => {
             </TouchableWithoutFeedback>
           </View>
         </View>
-
+               
         <View style={styles.containerComp}>
           <EditFormCarrier />
         </View>

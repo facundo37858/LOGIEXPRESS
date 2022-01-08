@@ -19,95 +19,6 @@ import { ModalPicker } from "./ModalPicker";
 import { useDispatch } from "react-redux";
 import { registrarUsuario } from "../actions/index";
 
-
-
-const SignUp = ()=>{
-
-    const navigation = useNavigation();
-
-    const [chooseData, setchooseData] = useState('Seleccionar Perfil...');
-    const [isModalVisible, setisModalVisible] = useState(false);
-
-    const changeModalVisibility = (bool) =>{
-        setisModalVisible(bool)
-    }
-
-    const setData= (option) =>{
-        setchooseData(option)
-    }
-    return (
-        <ScrollView 
-        style={{flex: 1, backgroundColor: '#ffffffff'}} 
-        showsVerticalScrollIndicator={false}>
-            {/* Brand View */}
-            <ImageBackground 
-            source={require('./ruta.png')}
-                style={{
-                    height: Dimensions.get('window').height / 2.5,
-                    }}>
-                        <View style={styles.brandView}>
-                            <Ionicons name='location-sharp' style={{color:'#ffbe0b', fontSize:100}}/>
-                            <Text style={styles.brandViewText}>LOGIEXPRESS</Text>
-                        </View>
-                    </ImageBackground>
-                    {/* Botton View */}
-                    <View style={styles.bottonView}>
-                        {/* Welcome View */}
-                        <View style={{padding: 40, display:'flex', alignItems:'center'}}>
-                            <Text style={{color:'#4632a1', fontSize:24}}>Ingresa a LogiExpress</Text>
-                            
-                                                                                   
-                        </View>
-                        {/* inputs */}
-                        <View style={styles.FormView}>
-                        <TextInput placeholder="Nombre*" style={styles.TextInput}></TextInput>
-                        <TextInput placeholder="Apellido*" style={styles.TextInput}></TextInput>  
-                        <TextInput placeholder="Dirección de Mail*" style={styles.TextInput}></TextInput>                
-                        <TextInput placeholder="Contraseña*" secureTextEntry={true} style={styles.TextInput}></TextInput>
-                        <TextInput placeholder="Telefono*" style={styles.TextInput}></TextInput>
-                        <SafeAreaView style={styles.container}>
-                            <TouchableOpacity
-                            onPress={() => changeModalVisibility(true)}
-                            style={styles.TouchableOpacity}
-                            >
-                                <Text style={styles.text}>{chooseData}</Text>
-                            </TouchableOpacity>
-                            <Modal
-                                transparent={true}
-                                animationType='fade'
-                                visible={isModalVisible}
-                                nRequestClose={() => changeModalVisibility(false)}
-                                >
-                                <ModalPicker
-                                changeModalVisibility={changeModalVisibility}
-                                setData={setData}
-                                />
-                            </Modal>
-                        </SafeAreaView>
-                        
-                        <TouchableOpacity style={styles.Button}>
-                           <Text style={styles.ButtonText}>Registrarme!</Text>
-                            </TouchableOpacity>
-                        </View>
-                      
-                        
-
-                       
-                    </View>
-                    <Button
-                        title='Perfil usuario'
-                        onPress={() => navigation.navigate('EditProfile')}                 
-                    />
-                     <Button
-                        title='Perfil Transportista'
-                        onPress={() => navigation.navigate('EditProfileCarrier')}                 
-                    />
-        </ScrollView>
-    )
-}
-
-export default SignUp
-
 const SignUp = () => {
   const dispatch = useDispatch();
 
@@ -120,11 +31,11 @@ const SignUp = () => {
     rol: "Seleccionar Perfil...",
   });
 
-  const [check,setCheck] = useState(false)
+  const [check, setCheck] = useState(false);
 
-  const CheckboxChange = (e) =>{
-    setCheck(!check)
-  }
+  const CheckboxChange = (e) => {
+    setCheck(!check);
+  };
 
   const ChangeInput = (e) => {
     setReg({
@@ -157,7 +68,7 @@ const SignUp = () => {
       // rol: "",
     });
 
-    console.log(obj)
+    console.log(obj);
   };
 
   const [chooseData, setchooseData] = useState("Seleccionar Perfil...");
@@ -246,8 +157,10 @@ const SignUp = () => {
             style={styles.TextInput}
           ></TextInput>
           <View>
-            <Text>Al registrarme acepto los términos y condiciones del sitio.</Text>
-          <CheckBox value={check} onChange={CheckboxChange}></CheckBox>
+            <Text>
+              Al registrarme acepto los términos y condiciones del sitio.
+            </Text>
+            <CheckBox value={check} onChange={CheckboxChange}></CheckBox>
           </View>
 
           <SafeAreaView style={styles.container}>

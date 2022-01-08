@@ -1,9 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { Ionicons } from '@expo/vector-icons';
 import {Text,ScrollView, ImageBackground, Dimensions, View, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
+import { logiarUsuario } from './../actions/index';
+import { useDispatch } from "react-redux";
 
 
 const SingIn = ({navigation}) =>{
+
+    const dispatch = useDispatch();
+
+    const [log, setLog] = useState({
+        mail: "",
+        contraseña: "",
+      });
+
+      const ChangeInput = (e) => {
+        setLog({
+          // y sino es  generos y platforms, directamente pongo lo que escribo en el input
+          ...log,
+          [e.target.name]: e.target.value,
+        });
+      };
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        // en un objeto pongo lo que tengo en el estado inicial
+        const obj = {
+          eMail: log.mail,
+          password: log.contraseña,
+
+        };
+        dispatch(logiarUsuario(obj));
+        console.log("Estoy enviado", obj);
+        setLog({
+          mail: "",
+          contraseña: "",
+        });
+      };
 
     function navigate(){
         navigation.navigate('singUp');
@@ -35,11 +68,16 @@ const SingIn = ({navigation}) =>{
                                                                                    
                         </View>
                         {/* inputs */}
-                        <View style={styles.FormView}>
-                        <TextInput placeholder="Dirección de Mail*" style={styles.TextInput}></TextInput>                
-                        <TextInput placeholder="Contraseña*" secureTextEntry={true} style={styles.TextInput}></TextInput>                    
-                        <TouchableOpacity style={styles.Button}>
-                           <Text style={styles.ButtonText}>Iniciar Sesión</Text>
+                        <View style={styles.FormView} onChange={(e) => ChangeInput(e)}
+                         onSubmit={(e) => handleSubmit(e)}>
+                        <TextInput value={log.mail}
+                         onChangeText={(text) => setLog({ ...log, mail: text })}
+                        name="mail" placeholder="Dirección de Mail*" style={styles.TextInput}></TextInput>                
+                        <TextInput value={log.contraseña}
+                        onChangeText={(text) => setLog({ ...log, contraseña: text })}
+                        name="contraseña" placeholder="Contraseña*" secureTextEntry={true} style={styles.TextInput}></TextInput>                    
+                        <TouchableOpacity style={styles.Button} >
+                           <Text style={styles.ButtonText} onPress={handleSubmit}>Iniciar Sesión</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.preg}>

@@ -54,7 +54,7 @@ const SignUp = () => {
       eMail: reg.mail,
       password: reg.contraseña,
       terminosCondiciones: check,
-      rol: true,
+      role: true,
     };
     dispatch(registrarUsuario(obj));
     console.log("Estoy enviado", obj);

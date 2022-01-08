@@ -1,28 +1,11 @@
-<<<<<<< HEAD
-
-import { Model, Column, Table, CreatedAt, UpdatedAt } from 'sequelize-typescript'
-
-@Table
-export class User extends Model<User>{
-
-
-    @Column
-    name!: string
-
-    @Column
-    lastName!: string
-
-    @Column
-    paswword!: string
-=======
 import { Model, Column, Table, CreatedAt, UpdatedAt, IsUUID, BelongsTo, PrimaryKey } from 'sequelize-typescript'
 import { User_Reg } from './User_Reg'
 
 @Table
-export class User extends Model{
+export class User extends Model {
     @PrimaryKey
     @Column
-    id!:string
+    id!: string
 
     @Column
     identification!: number
@@ -32,21 +15,12 @@ export class User extends Model{
 
     @Column
     phone!: number
->>>>>>> master
 
     @Column
-<<<<<<< HEAD
-    createdAt!: Date
-
-    @UpdatedAt
-    @Column
-    updatedAt!: Date
-=======
     photo!: string
 
     @Column
     account!: string //Cuenta bancaria 
->>>>>>> master
 
 
 }

@@ -24,8 +24,8 @@ export class User extends Model<User>{
     @Column
     photo!: string
 
-    @Column
-    account!: string
+    @Column 
+    account!: string //Cuenta 
 
 
 }

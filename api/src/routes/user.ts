@@ -28,7 +28,7 @@ router.options('/user', async (res: Response) => {
 router.post('/user', async (req: Request, res: Response, next: NextFunction) => {
 	// const data1 = JSON.parse(req.body)
 	console.log("Estes es el body", req.body);
-	const { name, lastName, phone, password, eMail, terminosCondiciones, rol } = req.body
+	const { name, lastName, phone, password, eMail, terminosCondiciones, role } = req.body
 
 	// if(!emal){TODO LO QUE YA HICISTE}else{res.json('el email ya existe')}
 
@@ -41,7 +41,7 @@ router.post('/user', async (req: Request, res: Response, next: NextFunction) => 
 		phone,
 		terminosCondiciones,
 		eMail,
-		rol
+		role
 	}
 	try {
 		const [user/*usuario creado o excistente */, created/*boolean true->lo creo false->no lo creo pq exciste */] = await User_Reg.findOrCreate({//crea un usuario si no excisiste 

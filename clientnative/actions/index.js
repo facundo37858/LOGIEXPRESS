@@ -25,7 +25,26 @@ export function registrarUsuario(payload) {
       const response = await axios.post(
         "http://localhost:3001/api/user",
         payload
-      );
+      ).then((r) =>{
+        console.log('aqui ',r)
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export function logiarUsuario(payload) {
+  return async function () {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/api/login",
+        payload
+      ).then((r) =>{
+        console.log('aqui ',r.data.payload)
+      });
       console.log(response);
       return response;
     } catch (error) {

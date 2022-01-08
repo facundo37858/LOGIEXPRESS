@@ -12,8 +12,11 @@ import {
   Dimensions,
   SafeAreaView,
   Modal,
-  CheckBox,
 } from "react-native";
+
+import CheckBox from "expo-checkbox";
+
+// import CheckBox from "@react-native-community/checkbox";
 import { ModalPicker } from "./ModalPicker";
 import { useDispatch } from "react-redux";
 import { registrarUsuario } from "../actions/index";
@@ -30,11 +33,11 @@ const SignUp = () => {
     rol: "Seleccionar Perfil...",
   });
 
-  const [check,setCheck] = useState(false)
+  const [check, setCheck] = useState(false);
 
-  const CheckboxChange = (e) =>{
-    setCheck(!check)
-  }
+  const CheckboxChange = (e) => {
+    setCheck(!check);
+  };
 
   const ChangeInput = (e) => {
     setReg({
@@ -54,7 +57,7 @@ const SignUp = () => {
       eMail: reg.mail,
       password: reg.contraseña,
       terminosCondiciones: check,
-      rol: true,
+      role: true,
     };
     dispatch(registrarUsuario(obj));
     console.log("Estoy enviado", obj);
@@ -67,7 +70,7 @@ const SignUp = () => {
       // rol: "",
     });
 
-    console.log(obj)
+    console.log(obj);
   };
 
   const [chooseData, setchooseData] = useState("Seleccionar Perfil...");
@@ -156,8 +159,10 @@ const SignUp = () => {
             style={styles.TextInput}
           ></TextInput>
           <View>
-            <Text>Al registrarme acepto los términos y condiciones del sitio.</Text>
-          <CheckBox value={check} onChange={CheckboxChange}></CheckBox>
+            <Text>
+              Al registrarme acepto los términos y condiciones del sitio.
+            </Text>
+            <CheckBox value={check} onChange={CheckboxChange}></CheckBox>
           </View>
 
           <SafeAreaView style={styles.container}>

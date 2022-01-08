@@ -16,7 +16,7 @@ export class Carrier extends Model{
 
     @IsEmail
     @Column
-    email!: string
+    eMail!: string
 
     @Column
     phone!: number

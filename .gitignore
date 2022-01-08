@@ -108,5 +108,4 @@ dist
 package-lock.json
 
 # expo cli 
-
-clientnative/.expo
+.expo

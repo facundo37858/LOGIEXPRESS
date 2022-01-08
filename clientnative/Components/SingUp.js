@@ -12,6 +12,7 @@ import {
   Dimensions,
   SafeAreaView,
   Modal,
+  CheckBox,
 } from "react-native";
 import { ModalPicker } from "./ModalPicker";
 import { useDispatch } from "react-redux";
@@ -28,6 +29,12 @@ const SignUp = () => {
     telefono: "",
     rol: "Seleccionar Perfil...",
   });
+
+  const [check,setCheck] = useState(false)
+
+  const CheckboxChange = (e) =>{
+    setCheck(!check)
+  }
 
   const ChangeInput = (e) => {
     setReg({
@@ -46,7 +53,7 @@ const SignUp = () => {
       phone: reg.telefono,
       eMail: reg.mail,
       password: reg.contraseña,
-      terminosCondiciones: true,
+      terminosCondiciones: check,
       rol: true,
     };
     dispatch(registrarUsuario(obj));
@@ -59,6 +66,8 @@ const SignUp = () => {
       telefono: "",
       // rol: "",
     });
+
+    console.log(obj)
   };
 
   const [chooseData, setchooseData] = useState("Seleccionar Perfil...");
@@ -146,13 +155,17 @@ const SignUp = () => {
             placeholder="Telefono*"
             style={styles.TextInput}
           ></TextInput>
+          <View>
+            <Text>Al registrarme acepto los términos y condiciones del sitio.</Text>
+          <CheckBox value={check} onChange={CheckboxChange}></CheckBox>
+          </View>
 
           <SafeAreaView style={styles.container}>
             <TouchableOpacity
               onPress={() => changeModalVisibility(true)}
               style={styles.TouchableOpacity}
             >
-              <Text style={styles.text}>{reg.rol}</Text>
+              <Text style={styles.text}>{chooseData}</Text>
             </TouchableOpacity>
             <Modal
               transparent={true}

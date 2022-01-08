@@ -19,13 +19,8 @@ export class User extends Model{
     @Column
     photo!: string
 
-<<<<<<< HEAD
-    @Column 
-    account!: string //Cuenta 
-=======
     @Column
     account!: string //Cuenta bancaria 
->>>>>>> master
 
 
 }

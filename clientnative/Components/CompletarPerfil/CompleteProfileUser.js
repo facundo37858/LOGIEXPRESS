@@ -38,9 +38,6 @@ const CompleteProfileUser = () => {
    e.preventDefault();
    dispatch()
    setUser({
-    // name: '',
-    // lastname: '',
-    // eMail: '',
     identification: '',
     zone: '',
     phone: '',
@@ -73,8 +70,8 @@ const CompleteProfileUser = () => {
               width: 190,
               height: 190,
               borderRadius: 100,
-              borderWidth: 4,
-              borderColor: "#D5D5D5",
+              borderWidth: 5,
+              borderColor:  "#FFC107",
               marginTop: 40,
             }}
           />
@@ -89,8 +86,8 @@ const CompleteProfileUser = () => {
                   height: 60,
                   marginLeft: 220,
                   marginTop: -80,
-                  borderWidth: 3,
-                  borderColor: "#FFC107",
+                  borderWidth: 4,
+                  borderColor: "#D5D5D5",
                   borderRadius: 50,
                 }}
               />

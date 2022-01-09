@@ -37,8 +37,8 @@ const CompleteProfileUser = () => {
               width: 190,
               height: 190,
               borderRadius: 100,
-              borderWidth: 4,
-              borderColor: "#D5D5D5",
+              borderWidth: 5,
+              borderColor: "#7952B3",
               marginTop: 40,
             }}
           />
@@ -54,8 +54,8 @@ const CompleteProfileUser = () => {
                   height: 60,
                   marginLeft: 220,
                   marginTop: -80,
-                  borderWidth: 3,
-                  borderColor: "#7952B3",
+                  borderWidth: 4,
+                  borderColor: "#D5D5D5",
                   borderRadius: 50,
                 }}
               />
@@ -201,9 +201,9 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   textPlaceholder: {
-    marginLeft: 15,
-    fontSize: 18,
-    marginBottom: 4,
+    marginLeft: 20,
+    fontSize: 17,
+    marginBottom: 2,
   },
   btnEditar: {
     backgroundColor: "#7952B3",
@@ -221,7 +221,6 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   viewsInputs: {
-    margin: 5,
     borderColor: "#D5D5D5",
     borderBottomWidth: 2,
     flexDirection: "row",

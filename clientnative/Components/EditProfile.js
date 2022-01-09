@@ -135,7 +135,7 @@ const EditProfile = () => {
               <Text style={styles.textBtn}>Cancelar</Text>
             </TouchableOpacity>
             <TouchableOpacity
-            ///---> PONER A DONDE TIENE QUE VOLVER <--- ///
+              ///---> PONER A DONDE TIENE QUE VOLVER <--- ///
               //onPress={() => navigation.navigate()}
               style={styles.btnEditar}
             >
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "flex-start",
     marginTop: 40,
-    marginLeft: 20
+    marginLeft: 20,
   },
 
   imgPerfil: {
@@ -190,12 +190,12 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     width: 360,
     alignItems: "flex-start",
-    marginBottom: 17,
+    marginBottom: 15,
   },
   textPlaceholder: {
     marginLeft: 20,
-    fontSize: 16,
-    marginBottom: 3,
+    fontSize: 17,
+    marginBottom: 2
   },
   btnEditar: {
     backgroundColor: "#7952B3",
@@ -205,20 +205,17 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignSelf: "center",
     marginBottom: 20,
-    marginRight: 30
+    marginRight: 30,
   },
- 
+
   textBtn: {
     color: "white",
     fontSize: 17,
     alignSelf: "center",
     marginTop: 12,
   },
-  
-  btn2: 
-  { flexDirection: "row", 
-  marginLeft: 20
- }
+
+  btn2: { flexDirection: "row", marginLeft: 20 },
 });
 
 export default EditProfile;

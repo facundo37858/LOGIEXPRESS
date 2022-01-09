@@ -27,7 +27,7 @@ const CompleteProfileUser = () => {
             fontSize: 23,
           }}
         >
-          Completar perfil
+          Perfil
         </Text>
         {/* Foto e iconito de agregar imagen */}
         <View style={{ alignItems: "center" }}>
@@ -63,7 +63,11 @@ const CompleteProfileUser = () => {
 
             {/* Inicio de inputs formulario */}
             <View style={styles.containerInputs}>
-                <Text style={{fontSize: 19, fontWeight: 'bold', marginBottom: 10}}>Datos personales</Text>
+              <Text
+                style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}
+              >
+                Datos personales
+              </Text>
               <View style={styles.viewsInputs}>
                 <Icon name="person-circle-outline" size={26} />
                 <TextInput
@@ -121,9 +125,13 @@ const CompleteProfileUser = () => {
                 />
               </View>
               {/* Inicio de los input de completar vehiculo */}
-            
+
               <View style={{ marginTop: 30 }}>
-              <Text style={{fontSize: 19, fontWeight: 'bold', marginBottom: 10}}>Datos del vehiculo</Text>
+                <Text
+                  style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}
+                >
+                  Datos del vehiculo
+                </Text>
                 <View style={styles.viewsInputs}>
                   <Icon name="newspaper-outline" size={26} />
                   <TextInput

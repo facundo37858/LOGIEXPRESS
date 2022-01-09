@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,9 +11,45 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import { useDispatch } from "react-redux";
 
 const CompleteProfileUser = () => {
+ const dispatch = useDispatch();
+
+ const[ user, setUser] = useState({
+  //  name: '',
+  //  lastname: '',
+  //  eMail: '',
+   identification: '',
+   zone: '',
+   phone: '',
+   account: ''
+ });
+
+ //// --> HANDLERS <-- ////
+ function handleChange(e){
+   setUser({
+     ...user,
+     [e.target.name] : e.target.value
+   })
+ }
+
+ function handleSubmit(e) {
+   e.preventDefault();
+   dispatch()
+   setUser({
+    // name: '',
+    // lastname: '',
+    // eMail: '',
+    identification: '',
+    zone: '',
+    phone: '',
+    account: ''
+   })
+ }
+ 
   return (
+    //// --> INICIO DE PANTALLA <-- ////
     <View style={{ flex: 1, backgroundColor: "white" }}>
       <ScrollView
         style={{ backgroundColor: "white" }}
@@ -27,7 +63,7 @@ const CompleteProfileUser = () => {
             fontSize: 25,
           }}
         >
-          Completar perfil
+          Perfil
         </Text>
         {/* Foto e iconito de agregar imagen */}
         <View style={{ alignItems: "center" }}>
@@ -42,7 +78,6 @@ const CompleteProfileUser = () => {
               marginTop: 40,
             }}
           />
-
           <View style={styles.add}>
             <TouchableWithoutFeedback
               onPress={() => Alert.alert("Buenop, acá haria lo de la img")}
@@ -62,18 +97,21 @@ const CompleteProfileUser = () => {
             </TouchableWithoutFeedback>
 
             {/* Inicio de inputs formulario */}
-            <View style={styles.containerInputs}>
+            <View style={styles.containerInputs} onChange={(e) => handleChange(e)} onSubmit={(e) => handleSubmit(e)}>
               <View style={styles.viewsInputs}>
                 <Icon name="person-circle-outline" size={26} style={{paddingBottom: 2}}/>
                 <TextInput
+                  value={user.name}
                   placeholder="Nombre"
                   name="name"
                   style={styles.textPlaceholder}
+                  
                 />
               </View>
               <View style={styles.viewsInputs}>
                 <Icon name="person-circle-outline" size={26} style={{paddingBottom: 2}} />
                 <TextInput
+                  value={user.lastname}
                   placeholder="Apellido"
                   name="lastname"
                   style={styles.textPlaceholder}
@@ -82,6 +120,7 @@ const CompleteProfileUser = () => {
               <View style={styles.viewsInputs}>
                 <Icon name="mail-outline" size={26} style={{paddingBottom: 2}} />
                 <TextInput
+                 value={user.eMail}
                   placeholder="sprint1.jebusayudanos@gmail.com"
                   name="eMail"
                   style={styles.textPlaceholder}
@@ -90,7 +129,8 @@ const CompleteProfileUser = () => {
               <View style={styles.viewsInputs}>
                 <Icon name="reader-outline" size={26} style={{paddingBottom: 2}} />
                 <TextInput
-                  placeholder="Dni"
+                 value={user.identification}
+                  placeholder="Documento de identidad"
                   name="identification"
                   style={styles.textPlaceholder}
                 />
@@ -98,6 +138,7 @@ const CompleteProfileUser = () => {
               <View style={styles.viewsInputs}>
                 <Icon name="navigate-outline" size={26} style={{paddingBottom: 2}} />
                 <TextInput
+                 value={user.zone}
                   placeholder="Lugar de residencia actual"
                   name="zone"
                   style={styles.textPlaceholder}
@@ -106,6 +147,7 @@ const CompleteProfileUser = () => {
               <View style={styles.viewsInputs}>
                 <Icon name="phone-portrait-outline" size={26} style={{paddingBottom: 2}} />
                 <TextInput
+                 value={user.phone}
                   placeholder="Celular válido"
                   name="phone"
                   style={styles.textPlaceholder}
@@ -114,6 +156,7 @@ const CompleteProfileUser = () => {
               <View style={styles.viewsInputs}>
                 <Icon name="card-outline" size={26} style={{paddingBottom: 2}} />
                 <TextInput
+                 value={user.account}
                   placeholder="Medio de pago válido"
                   name="account"
                   style={styles.textPlaceholder}

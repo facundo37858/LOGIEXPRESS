@@ -18,12 +18,14 @@ import * as ImagePicker from "expo-image-picker";
 const CompleteProfileUser = () => {
   const dispatch = useDispatch();
 
+  //// --> ESTADO PARA INPUTS <-- //// 
   const [user, setUser] = useState({
     identification: "",
     zone: "",
     phone: "",
     account: "",
   });
+   console.log('soy el estado', user)
 
   ////--> IMAGE PICKER <-- ////
   const [selectedImage, setSelectedImage] = useState(null);
@@ -45,23 +47,32 @@ const CompleteProfileUser = () => {
   };
 
   //// --> HANDLERS <-- ////
-  function handleChange(e) {
+  // function handleChange(e) {
+  //   setUser({
+  //     ...user,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // }
+
+  const handleChange = (text) => {
     setUser({
-      ...user,
-      [e.target.name]: e.target.value,
-    });
+     identification : text,  
+     zone: text,
+     phone: text,
+     account: text,
+    })
   }
 
   function handleSubmit(e) {
     e.preventDefault();
     dispatch();
-    setUser({
-      identification: "",
-      zone: "",
-      phone: "",
-      account: "",
-    });
-    console.log(setUser)
+    const obj = {
+      identification: user.identification,
+      zone: user.zone,
+      phone: user.phone,
+      account: user.account,
+    }
+    console.log('Soy el console.log', obj)
   }
 
   return (
@@ -103,7 +114,7 @@ const CompleteProfileUser = () => {
             {/* Inicio de inputs formulario */}
             <View
               style={styles.containerInputs}
-              onChange={(e) => handleChange(e)}
+              // onChange={(e) => handleChange(e)}
               onSubmit={(e) => handleSubmit(e)}
             >
               <View style={styles.viewsInputs}>
@@ -117,6 +128,7 @@ const CompleteProfileUser = () => {
                   placeholder="Nombre"
                   name="name"
                   style={styles.textPlaceholder}
+              
                 />
               </View>
               <View style={styles.viewsInputs}>
@@ -156,6 +168,8 @@ const CompleteProfileUser = () => {
                   placeholder="Documento de identidad"
                   name="identification"
                   style={styles.textPlaceholder}
+                  onChangeText={(text) => handleChange(text)}
+                  keyboardType='decimal-pad'
                 />
               </View>
               <View style={styles.viewsInputs}>
@@ -163,6 +177,7 @@ const CompleteProfileUser = () => {
                   name="navigate-outline"
                   size={26}
                   style={{ paddingBottom: 2 }}
+                  onChangeText={(text) => setUser(text)}
                 />
                 <TextInput
                   value={user.zone}

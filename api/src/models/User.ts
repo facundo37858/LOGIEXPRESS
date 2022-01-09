@@ -2,10 +2,10 @@ import { Model, Column, Table, CreatedAt, UpdatedAt, IsUUID, BelongsTo, PrimaryK
 import { User_Reg } from './User_Reg'
 
 @Table
-export class User extends Model{
+export class User extends Model {
     @PrimaryKey
     @Column
-    id!:string
+    id!: string
 
     @Column
     identification!: number
@@ -20,9 +20,7 @@ export class User extends Model{
     photo!: string
 
     @Column
-    account!: string
-    
-	
+    account!: string //Cuenta bancaria 
 
 
 }

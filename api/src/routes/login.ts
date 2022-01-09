@@ -1,5 +1,6 @@
 import { Response, Request, Router } from 'express';
 import { User } from '../models/User';
+import { uuid } from 'uuidv4';
 import { User_Reg } from '../models/User_Reg';
 
 // const bcryptjs = require("bcryptjs");

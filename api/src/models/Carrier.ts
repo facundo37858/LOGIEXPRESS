@@ -4,6 +4,7 @@ import { User_Reg } from './User_Reg';
 
 @Table
 export class Carrier extends Model{
+	
 
     @IsUUID(4)
     @Column({ primaryKey: true })

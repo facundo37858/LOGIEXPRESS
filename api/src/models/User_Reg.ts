@@ -1,4 +1,5 @@
 import { Model, Column, Table, IsUUID, HasOne, ForeignKey } from 'sequelize-typescript'
+
 import { Carrier } from './Carrier'
 import { User } from './User'
 
@@ -26,6 +27,7 @@ import { User } from './User'
 
 @Table
 export class User_Reg extends Model {
+
 
 
     // @Column(DataType.UUIDV4)

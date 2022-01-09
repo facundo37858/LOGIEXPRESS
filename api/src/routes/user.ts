@@ -1,6 +1,8 @@
 import { Response, Request, Router, NextFunction } from 'express';
 import { uuid } from 'uuidv4';
+import { Carrier } from '../models/Carrier';
 import { User_Reg } from '../models/User_Reg';
+
 const bcrypt = require("bcryptjs");
 
 const router = Router()
@@ -49,6 +51,10 @@ router.post('/user', async (req: Request, res: Response, next: NextFunction) => 
 			where: { eMail: eMail },
 			defaults: newUser
 		})
+		
+		
+		
+		
 
 		if (!created) {
 			return res.send('eMail usado')//podria ser un boolean 

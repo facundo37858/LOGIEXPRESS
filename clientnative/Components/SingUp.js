@@ -13,6 +13,10 @@ import {
   SafeAreaView,
   Modal,
 } from "react-native";
+
+import CheckBox from "expo-checkbox";
+
+// import CheckBox from "@react-native-community/checkbox";
 import { ModalPicker } from "./ModalPicker";
 import { useDispatch } from "react-redux";
 import { registrarUsuario } from "../actions/index";
@@ -37,6 +41,12 @@ const SignUp = ({ navigation }) => {
     rol: "Seleccionar Perfil...",
   });
 
+  const [check, setCheck] = useState(false);
+
+  const CheckboxChange = (e) => {
+    setCheck(!check);
+  };
+
   const ChangeInput = (e) => {
     setReg({
       // y sino es  generos y platforms, directamente pongo lo que escribo en el input
@@ -54,8 +64,8 @@ const SignUp = ({ navigation }) => {
       phone: reg.telefono,
       eMail: reg.mail,
       password: reg.contraseña,
-      terminosCondiciones: true,
-      rol: true,
+      terminosCondiciones: check,
+      role: true,
     };
     dispatch(registrarUsuario(obj));
     console.log("Estoy enviado", obj);
@@ -67,6 +77,8 @@ const SignUp = ({ navigation }) => {
       telefono: "",
       // rol: "",
     });
+
+    console.log(obj);
   };
 
   const [chooseData, setchooseData] = useState("Seleccionar Perfil...");
@@ -154,13 +166,19 @@ const SignUp = ({ navigation }) => {
             placeholder="Telefono*"
             style={styles.TextInput}
           ></TextInput>
+          <View>
+            <Text>
+              Al registrarme acepto los términos y condiciones del sitio.
+            </Text>
+            <CheckBox value={check} onChange={CheckboxChange}></CheckBox>
+          </View>
 
           <SafeAreaView style={styles.container}>
             <TouchableOpacity
               onPress={() => changeModalVisibility(true)}
               style={styles.TouchableOpacity}
             >
-              <Text style={styles.text}>{reg.rol}</Text>
+              <Text style={styles.text}>{chooseData}</Text>
             </TouchableOpacity>
             <Modal
               transparent={true}

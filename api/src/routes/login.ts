@@ -20,10 +20,10 @@ router.get('/', (req: Request, res: Response) => {
 // 	const user = await User_Reg.findOne({where:{eMail:eMail}})
 
 // 	const compare = await bcryptjs.compare(password, user!.password)
-	
-	
+
+
 // 	if ( user && compare /*bcryptjs.compare(password, user.password, function(err:Error, result:boolean){}) */ ){
-	
+
 // 		const payload = {
 // 			eMail,
 // 			id: user.id,
@@ -41,57 +41,68 @@ router.get('/', (req: Request, res: Response) => {
 // 	}
 // });
 router.post('/login', async (req: Request, res: Response) => {
-	const { eMail, password} = req.body
+	const { eMail, password } = req.body
 
-	const user = await User_Reg.findAll({where:{eMail:eMail}})
+	const user = await User_Reg.findAll({ where: { eMail: eMail } })
 
-	if(user.length>0){
+	if (user.length > 0) {
 
 		const compare = await bcryptjs.compare(password, user[0].password)
 
-		if(compare){
+		if (compare) {
 			const payload = {
 				eMail,
 				id: user[0].id,
 				role: user[0].role,
 				name: user[0].name,
-				lastname:user[0].lastName,
-				phone:user[0].phone,
+				lastname: user[0].lastName,
+				phone: user[0].phone,
 			};
-	
+
 			return res.json({
 				mensaje: 'Autenticación correcta', payload
-			});
+			}).status(300);
 
+		} else {
+			const payload = {
+				eMail,
+				id: user[0].id,
+				role: user[0].role,
+				name: user[0].name,
+				lastname: user[0].lastName,
+				phone: user[0].phone,
+			};
+			return res.json({
+				payload, mensaje: "Contrasena no coincide"
+			}).status(300)
 		}
-		res.status(300).json({ mensaje: "Contraseña No coinside" })
-		
-		
+
+
 	} else {
-		res.status(300).json({ mensaje: "Usuario o contraseña incorrectos" })
+		return res.status(404).json({ mensaje: "Usuario o contraseña incorrectos" })
 	}
 
-// 	console.log('pass: ',password)
-	
+	// 	console.log('pass: ',password)
 
-// 	
-	
-// 	if ( user && compare /*bcryptjs.compare(password, user.password, function(err:Error, result:boolean){}) */ ){
-	
-		// const payload = {
-		// 	eMail,
-		// 	id: user.id,
-		// 	role: user.role,
-		// 	name: user.name,
-		// 	lastname:user.lastName,
-		// 	phone:user.phone,
-		// };
 
-		// res.json({
-		// 	mensaje: 'Autenticación correcta', payload
-		// });
-	
- });
+	// 	
+
+	// 	if ( user && compare /*bcryptjs.compare(password, user.password, function(err:Error, result:boolean){}) */ ){
+
+	// const payload = {
+	// 	eMail,
+	// 	id: user.id,
+	// 	role: user.role,
+	// 	name: user.name,
+	// 	lastname:user.lastName,
+	// 	phone:user.phone,
+	// };
+
+	// res.json({
+	// 	mensaje: 'Autenticación correcta', payload
+	// });
+
+});
 
 
 

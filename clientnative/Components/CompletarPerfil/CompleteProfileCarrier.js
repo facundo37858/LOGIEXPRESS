@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,8 +11,31 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+//Agarrar imagen del celu
+import * as ImagePicker from "expo-image-picker";
 
 const CompleteProfileUser = () => {
+  ////--> IMAGE PICKER <-- ////
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  let openImagePickerAsync = async () => {
+    let permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("Se requiere el permiso para acceder a la cámara");
+      return;
+    }
+
+    const pickerResult = await ImagePicker.launchImageLibraryAsync();
+    if (pickerResult.cancelled === true) {
+      return;
+    }
+    setSelectedImage({ localUri: pickerResult.uri });
+  };
+
+  //// --> Inicio de componente <-- ////
+
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
       <ScrollView
@@ -32,32 +55,22 @@ const CompleteProfileUser = () => {
         {/* Foto e iconito de agregar imagen */}
         <View style={{ alignItems: "center" }}>
           <Image
-            source={require("../conductor.png")}
-            style={{
-              width: 190,
-              height: 190,
-              borderRadius: 100,
-              borderWidth: 5,
-              borderColor: "#7952B3",
-              marginTop: 40,
-            }}
+           source={{
+            uri:
+              selectedImage !== null
+                ? selectedImage.localUri
+                : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
+          }}
+            style={styles.imgPerfil}
           />
 
           <View style={styles.add}>
             <TouchableWithoutFeedback
-              onPress={() => Alert.alert("Buenop, acá haria lo de la img")}
+              onPress={openImagePickerAsync}
             >
               <Image
                 source={require("../add-image.png")}
-                style={{
-                  width: 60,
-                  height: 60,
-                  marginLeft: 220,
-                  marginTop: -80,
-                  borderWidth: 4,
-                  borderColor: "#D5D5D5",
-                  borderRadius: 50,
-                }}
+                style={styles.imgAdd}
               />
             </TouchableWithoutFeedback>
 
@@ -205,6 +218,24 @@ const styles = StyleSheet.create({
     fontSize: 17,
     marginBottom: 2,
   },
+  imgPerfil: {
+    width: 170,
+    height: 170,
+    borderRadius: 100,
+    borderColor: "#511281",
+    borderWidth: 6,
+    marginTop: 30,
+  },
+  imgAdd: {
+    width: 55,
+    height: 55,
+    marginLeft: 222,
+    marginTop: -82,
+    borderWidth: 4,
+    borderColor: "#D5D5D5",
+    borderRadius: 50,
+  },
+  
   btnEditar: {
     backgroundColor: "#7952B3",
     borderRadius: 10,

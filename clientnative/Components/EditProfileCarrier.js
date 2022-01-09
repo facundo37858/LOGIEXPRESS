@@ -57,16 +57,16 @@ const EditProfileCarrier = () => {
           </TouchableOpacity>
         </View>
         <Text style={{ fontWeight: "bold", marginLeft: 15, fontSize: 25 }}>
-          {" "}
           Editar perfil
         </Text>
+        {/* Foto e iconito de agregar imagen */}
         <View style={{ alignItems: "center" }}>
           <Image
            source={{
             uri:
               selectedImage !== null
                 ? selectedImage.localUri
-                : "https://image.flaticon.com/icons/png/512/1464/1464628.png",
+                : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
           }}
             style={styles.imgPerfil}
           />

@@ -12,39 +12,58 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useDispatch } from "react-redux";
+//Agarrar imagen del celu
+import * as ImagePicker from "expo-image-picker";
 
 const CompleteProfileUser = () => {
- const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
- const[ user, setUser] = useState({
-  //  name: '',
-  //  lastname: '',
-  //  eMail: '',
-   identification: '',
-   zone: '',
-   phone: '',
-   account: ''
- });
+  const [user, setUser] = useState({
+    identification: "",
+    zone: "",
+    phone: "",
+    account: "",
+  });
 
- //// --> HANDLERS <-- ////
- function handleChange(e){
-   setUser({
-     ...user,
-     [e.target.name] : e.target.value
-   })
- }
+  ////--> IMAGE PICKER <-- ////
+  const [selectedImage, setSelectedImage] = useState(null);
 
- function handleSubmit(e) {
-   e.preventDefault();
-   dispatch()
-   setUser({
-    identification: '',
-    zone: '',
-    phone: '',
-    account: ''
-   })
- }
- 
+  let openImagePickerAsync = async () => {
+    let permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("Se requiere el permiso para acceder a la cámara");
+      return;
+    }
+
+    const pickerResult = await ImagePicker.launchImageLibraryAsync();
+    if (pickerResult.cancelled === true) {
+      return;
+    }
+    setSelectedImage({ localUri: pickerResult.uri });
+  };
+
+  //// --> HANDLERS <-- ////
+  function handleChange(e) {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch();
+    setUser({
+      identification: "",
+      zone: "",
+      phone: "",
+      account: "",
+    });
+    console.log(setUser)
+  }
+
   return (
     //// --> INICIO DE PANTALLA <-- ////
     <View style={{ flex: 1, backgroundColor: "white" }}>
@@ -65,48 +84,47 @@ const CompleteProfileUser = () => {
         {/* Foto e iconito de agregar imagen */}
         <View style={{ alignItems: "center" }}>
           <Image
-            source={require("../ruta.png")}
-            style={{
-              width: 190,
-              height: 190,
-              borderRadius: 100,
-              borderWidth: 5,
-              borderColor:  "#FFC107",
-              marginTop: 40,
+            source={{
+              uri:
+                selectedImage !== null
+                  ? selectedImage.localUri
+                  : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
             }}
+            style={styles.imgPerfil}
           />
           <View style={styles.add}>
-            <TouchableWithoutFeedback
-              onPress={() => Alert.alert("Buenop, acá haria lo de la img")}
-            >
+            <TouchableWithoutFeedback onPress={openImagePickerAsync}>
               <Image
                 source={require("../add-image.png")}
-                style={{
-                  width: 60,
-                  height: 60,
-                  marginLeft: 220,
-                  marginTop: -80,
-                  borderWidth: 4,
-                  borderColor: "#D5D5D5",
-                  borderRadius: 50,
-                }}
+                style={styles.imgAdd}
               />
             </TouchableWithoutFeedback>
 
             {/* Inicio de inputs formulario */}
-            <View style={styles.containerInputs} onChange={(e) => handleChange(e)} onSubmit={(e) => handleSubmit(e)}>
+            <View
+              style={styles.containerInputs}
+              onChange={(e) => handleChange(e)}
+              onSubmit={(e) => handleSubmit(e)}
+            >
               <View style={styles.viewsInputs}>
-                <Icon name="person-circle-outline" size={26} style={{paddingBottom: 2}}/>
+                <Icon
+                  name="person-circle-outline"
+                  size={26}
+                  style={{ paddingBottom: 2 }}
+                />
                 <TextInput
                   value={user.name}
                   placeholder="Nombre"
                   name="name"
                   style={styles.textPlaceholder}
-                  
                 />
               </View>
               <View style={styles.viewsInputs}>
-                <Icon name="person-circle-outline" size={26} style={{paddingBottom: 2}} />
+                <Icon
+                  name="person-circle-outline"
+                  size={26}
+                  style={{ paddingBottom: 2 }}
+                />
                 <TextInput
                   value={user.lastname}
                   placeholder="Apellido"
@@ -115,45 +133,65 @@ const CompleteProfileUser = () => {
                 />
               </View>
               <View style={styles.viewsInputs}>
-                <Icon name="mail-outline" size={26} style={{paddingBottom: 2}} />
+                <Icon
+                  name="mail-outline"
+                  size={26}
+                  style={{ paddingBottom: 2 }}
+                />
                 <TextInput
-                 value={user.eMail}
+                  value={user.eMail}
                   placeholder="sprint1.jebusayudanos@gmail.com"
                   name="eMail"
                   style={styles.textPlaceholder}
                 />
               </View>
               <View style={styles.viewsInputs}>
-                <Icon name="reader-outline" size={26} style={{paddingBottom: 2}} />
+                <Icon
+                  name="reader-outline"
+                  size={26}
+                  style={{ paddingBottom: 2 }}
+                />
                 <TextInput
-                 value={user.identification}
+                  value={user.identification}
                   placeholder="Documento de identidad"
                   name="identification"
                   style={styles.textPlaceholder}
                 />
               </View>
               <View style={styles.viewsInputs}>
-                <Icon name="navigate-outline" size={26} style={{paddingBottom: 2}} />
+                <Icon
+                  name="navigate-outline"
+                  size={26}
+                  style={{ paddingBottom: 2 }}
+                />
                 <TextInput
-                 value={user.zone}
+                  value={user.zone}
                   placeholder="Lugar de residencia actual"
                   name="zone"
                   style={styles.textPlaceholder}
                 />
               </View>
               <View style={styles.viewsInputs}>
-                <Icon name="phone-portrait-outline" size={26} style={{paddingBottom: 2}} />
+                <Icon
+                  name="phone-portrait-outline"
+                  size={26}
+                  style={{ paddingBottom: 2 }}
+                />
                 <TextInput
-                 value={user.phone}
+                  value={user.phone}
                   placeholder="Celular válido"
                   name="phone"
                   style={styles.textPlaceholder}
                 />
               </View>
               <View style={styles.viewsInputs}>
-                <Icon name="card-outline" size={26} style={{paddingBottom: 2}} />
+                <Icon
+                  name="card-outline"
+                  size={26}
+                  style={{ paddingBottom: 2 }}
+                />
                 <TextInput
-                 value={user.account}
+                  value={user.account}
                   placeholder="Medio de pago válido"
                   name="account"
                   style={styles.textPlaceholder}
@@ -189,12 +227,12 @@ const styles = StyleSheet.create({
     width: 150,
     height: 50,
     marginTop: 20,
-    alignSelf:'center'
+    alignSelf: "center",
   },
   textBtn: {
     color: "black",
     fontSize: 17,
-    alignSelf:'center',
+    alignSelf: "center",
     marginTop: 12,
   },
   viewsInputs: {
@@ -205,7 +243,22 @@ const styles = StyleSheet.create({
     width: 360,
     alignItems: "flex-start",
     marginBottom: 16,
-    
-    
+  },
+  imgPerfil: {
+    width: 190,
+    height: 190,
+    borderRadius: 100,
+    borderWidth: 5,
+    borderColor: "#FFC107",
+    marginTop: 40,
+  },
+  imgAdd: {
+    width: 60,
+    height: 60,
+    marginLeft: 220,
+    marginTop: -80,
+    borderWidth: 4,
+    borderColor: "#D5D5D5",
+    borderRadius: 50,
   },
 });

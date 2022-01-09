@@ -63,7 +63,7 @@ const EditProfile = () => {
               uri:
                 selectedImage !== null
                   ? selectedImage.localUri
-                  : "https://img.icons8.com/ios/452/user--v1.png",
+                  : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
             }}
             style={styles.imgPerfil}
           />

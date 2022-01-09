@@ -1,5 +1,6 @@
 
-import { IsUUID, Model, Column, Table, CreatedAt, UpdatedAt, IsEmail } from 'sequelize-typescript'
+import { IsUUID,ForeignKey, Model, Column, Table, CreatedAt, UpdatedAt, IsEmail, BelongsTo } from 'sequelize-typescript'
+import { User_Reg } from './User_Reg';
 
 @Table
 export class Carrier extends Model{
@@ -26,6 +27,13 @@ export class Carrier extends Model{
 
     @Column
     CBU!: string
+
+    @BelongsTo(()=>User_Reg)
+    user_Reg!: User_Reg
+
+    @ForeignKey(()=>User_Reg)
+    idUserReg!:string
+
 
     @CreatedAt
     @Column

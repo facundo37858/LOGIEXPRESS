@@ -22,8 +22,8 @@ export const sequelize = new Sequelize({
 User_Reg.hasOne(User)
 User.belongsTo(User_Reg)
 
-User_Reg.hasOne(Carrier)
-Carrier.belongsTo(User_Reg)
+// User_Reg.hasOne(Carrier)
+// Carrier.belongsTo(User_Reg)
 
 Carrier.hasOne(Vehicle)
 Vehicle.belongsTo(Carrier)

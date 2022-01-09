@@ -5,7 +5,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SingIn from "./Components/SingIn";
 import SingUp from "./Components/SingUp";
-import MainStack from "./navigation/MainStack";
 import ProfileCarrierScreen from './Components/ProfileScreen'
 import ScreenMap from "./Components/ScreenMap";
 

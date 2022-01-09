@@ -5,6 +5,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SingIn from "./Components/SingIn";
 import SingUp from "./Components/SingUp";
+import MainStack from "./navigation/MainStack";
+import ProfileScreen from "./Components/ProfileScreen";
+import ScreenMap from "./Components/ScreenMap";
 
 const Stack = createStackNavigator();
 
@@ -19,6 +22,8 @@ const App = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="singUp" component={SingUp} />
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+        <Stack.Screen name="ScreenMap" component={ScreenMap} />
       </Stack.Navigator>
     </NavigationContainer>
     </Provider>

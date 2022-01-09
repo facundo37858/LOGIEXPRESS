@@ -20,12 +20,16 @@ import axios from "axios";
 //       });
 // }
 export function registrarUsuario(payload) {
-  return async function () {
+  return async function (dispatch) {
     try {
       const response = await axios.post(
         "http://localhost:3001/api/user",
         payload
       ).then((r) =>{
+        dispatch({
+          type:"REGISTROO", payload:r
+        }
+        )
         console.log('aqui ',r)
       });
       console.log(response);
@@ -37,13 +41,17 @@ export function registrarUsuario(payload) {
 }
 
 export function logiarUsuario(payload) {
-  return async function () {
+  return async function (dispatch) {
     try {
       const response = await axios.post(
         "http://localhost:3001/api/login",
         payload
       ).then((r) =>{
-        console.log('aqui ',r.data.payload)
+        dispatch({
+          type:"LOGEOO", payload:r.data
+        }
+        )
+        console.log('aquilogin ',r.data.payload)
       });
       console.log(response);
       return response;

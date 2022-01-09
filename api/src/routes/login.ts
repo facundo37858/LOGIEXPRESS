@@ -17,12 +17,17 @@ router.post('/login', async (req: Request, res: Response) => {
 
 	const user = await User_Reg.findOne({where:{eMail:eMail}})
 
-	if ( user && user.password === password){
+	const compare = await bcryptjs.compare(password, user!.password)
+	
+	if ( user && compare /*bcryptjs.compare(password, user.password, function(err:Error, result:boolean){}) */ ){
 	
 		const payload = {
 			eMail,
 			id: user.id,
 			role: user.role,
+			name: user.name,
+			lastname:user.lastName,
+			phone:user.phone,
 		};
 
 		res.json({

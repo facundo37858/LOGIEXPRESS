@@ -1,6 +1,5 @@
 import { Response, Request, Router, NextFunction } from 'express';
 import { User } from '../models/User';
-
 import { uuid } from 'uuidv4';
 import { Carrier } from '../models/Carrier';
 import { Vehicle } from '../models/Vehicle';
@@ -144,13 +143,40 @@ router.get('/profile', async (req: Request, res: Response) => {
 	return user ? res.json(user) : res.status(404).send("ID Not Found")
 });
 
-router.put('/edit', async (req: Request, res: Response, next: NextFunction) => {
+router.put('/edit', async (req: Request, res: Response, next: NextFunction)=>{
+	
+
 
 
 })
 
-router.delete('/delete', async (req: Request, res: Response, next: NextFunction) => {
-
+router.delete('/delete', async (req: Request, res: Response, next: NextFunction)=>{
+	const { id } = req.params;
+    try {
+        const existsInDBUser = await User.findOne({
+            where: {
+                id,
+            },
+        });
+        if (existsInDBUser) {
+            User.destroy({
+                where: {
+                    id,
+                },
+            });
+            return res.status(200).send("User has been deleted from database successfully");
+        } else if (!existsInDBUser){
+			const existsInDBCarrier = await Carrier.findOne({
+				where: {
+					id,
+				},
+			})
+			existsInDBCarrier ? User.destroy({where:{id,}}) : new Error("ERROR 500: User with given name does not exist in database")
+			
+		};
+    } catch (err) {
+        next(err);
+    }
 
 })
 

@@ -67,7 +67,7 @@ export default function App() {
                     container: { flex: 0, position: "absolute", width: "100%", zIndex: 1 }
                 }}
             />
-            <MapView style={styles.map}
+            <MapView style={StyleSheet.absoluteFill}
                 initialRegion={{
                     latitude: pin.latitude,
                     longitude: pin.longitude,

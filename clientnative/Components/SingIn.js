@@ -127,6 +127,10 @@ const SingIn = ({ navigation }) => {
           title="Completar perfil carrier"
           onPress={() => navigation.navigate("CompleteProfileCarrier")}
         />
+         <Button
+          title="Componente de auxilio"
+          onPress={() => navigation.navigate('Componentedeauxilio')}
+        />
       </View>
     </ScrollView>
     // Container End

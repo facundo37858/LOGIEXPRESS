@@ -9,7 +9,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  Button
+  Button,
 } from "react-native";
 import { logiarUsuario } from "./../actions/index";
 import { useDispatch } from "react-redux";
@@ -65,7 +65,7 @@ const SingIn = ({ navigation }) => {
         <View style={styles.brandView}>
           <Ionicons
             name="location-sharp"
-            style={{ color: "#ffbe0b", fontSize: 100 }}
+            style={{ color: "#FFC107", fontSize: 100 }}
           />
           <Text style={styles.brandViewText}>LOGIEXPRESS</Text>
         </View>
@@ -74,7 +74,7 @@ const SingIn = ({ navigation }) => {
       <View style={styles.bottonView}>
         {/* Welcome View */}
         <View style={{ padding: 40, display: "flex", alignItems: "center" }}>
-          <Text style={{ color: "#4632a1", fontSize: 34 }}>Bienvenido</Text>
+          <Text style={{ color: "#7952B3", fontSize: 34 }}>Bienvenido</Text>
         </View>
         {/* inputs */}
         <View
@@ -123,7 +123,7 @@ const SingIn = ({ navigation }) => {
           title="Completar perfil usuario"
           onPress={() => navigation.navigate("CompleteProfileUser")}
         />
-         <Button
+        <Button
           title="Completar perfil carrier"
           onPress={() => navigation.navigate("CompleteProfileCarrier")}
         />
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   brandViewText: {
-    color: "#ffbe0b",
+    color: "#FFC107",
     fontSize: 45,
     fontWeight: "bold",
     textTransform: "uppercase",
@@ -152,8 +152,8 @@ const styles = StyleSheet.create({
     flex: 1.5,
     backgroundColor: "#ffffffff",
     bottom: 50,
-    borderTopStartRadius: 60,
-    borderTopEndRadius: 60,
+    borderTopStartRadius: 50,
+    borderTopEndRadius: 50,
   },
   FormView: {
     width: "100%",
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
   },
   Button: {
     width: "90%",
-    color: "yellow",
+    color: "#FFC107",
     height: 52,
     backgroundColor: "black",
     borderRadius: 10,
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   SingUpText: {
-    color: "#4632a1",
+    color: "#7952B3",
     fontSize: 20,
   },
   TextButton: {

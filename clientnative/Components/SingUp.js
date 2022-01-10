@@ -22,15 +22,7 @@ import { ModalPicker } from "./ModalPicker";
 import { useDispatch } from "react-redux";
 import { registrarUsuario } from "../actions/index";
 
-
-
-const SignUp = ({ navigation }) => {
-
-  function navigate() {
-    navigation.navigate('ProfileScreen');
-  }
-  
-
+const SignUp = () => {
   const dispatch = useDispatch();
 
   const [reg, setReg] = useState({
@@ -107,7 +99,7 @@ const SignUp = ({ navigation }) => {
         <View style={styles.brandView}>
           <Ionicons
             name="location-sharp"
-            style={{ color: "#ffbe0b", fontSize: 100 }}
+            style={{ color: "#FFC107", fontSize: 100 }}
           />
           <Text style={styles.brandViewText}>LOGIEXPRESS</Text>
         </View>
@@ -116,7 +108,7 @@ const SignUp = ({ navigation }) => {
       <View style={styles.bottonView}>
         {/* Welcome View */}
         <View style={{ padding: 40, display: "flex", alignItems: "center" }}>
-          <Text style={{ color: "#4632a1", fontSize: 24 }}>
+          <Text style={{ color: "#7952B3", fontSize: 24 }}>
             Ingresa a LogiExpress
           </Text>
         </View>
@@ -167,11 +159,15 @@ const SignUp = ({ navigation }) => {
             placeholder="Telefono*"
             style={styles.TextInput}
           ></TextInput>
-          <View>
-            <Text>
-              Al registrarme acepto los términos y condiciones del sitio.
+          <View style={styles.checkbox}>
+            <Text style={{ fontWeight: "bold" }}>
+              Al registrarme acepto ser mayor de 18 años.
             </Text>
-            <CheckBox value={check} onChange={CheckboxChange}></CheckBox>
+            <CheckBox
+              style={styles.checkboxx}
+              value={check}
+              onChange={CheckboxChange}
+            ></CheckBox>
           </View>
 
           <SafeAreaView style={styles.container}>
@@ -219,7 +215,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   brandViewText: {
-    color: "#ffbe0b",
+    color: "#FFC107",
     fontSize: 45,
     fontWeight: "bold",
     textTransform: "uppercase",
@@ -227,10 +223,10 @@ const styles = StyleSheet.create({
   },
   bottonView: {
     flex: 1.5,
-    backgroundColor: "#ffffffff",
+    backgroundColor: "white",
     bottom: 50,
-    borderTopStartRadius: 60,
-    borderTopEndRadius: 60,
+    borderTopStartRadius: 50,
+    borderTopEndRadius: 50,
   },
   FormView: {
     width: "100%",
@@ -251,7 +247,7 @@ const styles = StyleSheet.create({
   },
   Button: {
     width: "90%",
-    color: "yellow",
+    color: "black",
     height: 52,
     backgroundColor: "black",
     borderRadius: 10,
@@ -263,7 +259,7 @@ const styles = StyleSheet.create({
   ButtonText: {
     fontWeight: "bold",
     fontSize: 18,
-    color: "white",
+    color: "#E1E8EB",
   },
   SingUpText: {
     color: "#4632a1",
@@ -286,7 +282,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#E1E8EB",
     justifyContent: "center",
     alignItems: "center",
     padding: 50,
@@ -295,15 +291,24 @@ const styles = StyleSheet.create({
   },
   text: {
     // marginVertical: 20,
-    fontSize: 25,
+    fontSize: 22,
     color: "white",
     fontWeight: "bold",
   },
   TouchableOpacity: {
-    backgroundColor: "#ffbe0b",
+    backgroundColor: "#FFC107",
     alignSelf: "stretch",
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 10,
+  },
+  checkbox: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 15,
+  },
+  checkboxx: {
+    marginTop: 15,
   },
 });

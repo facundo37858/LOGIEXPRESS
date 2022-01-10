@@ -7,7 +7,7 @@ import SingIn from "./Components/SingIn";
 import SingUp from "./Components/SingUp";
 import EditProfile from "./Components/EditProfile";
 import EditProfileCarrier from "./Components/EditProfileCarrier";
-import EditVehiculeCarrier from "./Components/EditVehiculeCarrier";
+// import EditVehiculeCarrier from "./Components/EditVehiculeCarrier";
 import CompleteProfileUser from "./Components/CompletarPerfil/CompleteProfileUser";
 import CompleteProfileCarrier from "./Components/CompletarPerfil/CompleteProfileCarrier";
 import ProfileCarrierScreen from "./Components/ProfileScreen";
@@ -36,11 +36,11 @@ const App = () => {
             component={EditProfileCarrier}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
+          {/* <Stack.Screen
             name="EditVehiculeCarrier"
             component={EditVehiculeCarrier}
             options={{ headerShown: false }}
-          />
+          /> */}
           <Stack.Screen
             name="CompleteProfileUser"
             component={CompleteProfileUser}

@@ -109,5 +109,4 @@ dist
 package-lock.json
 
 # expo cli 
-
-.expo/*
+.expo

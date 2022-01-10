@@ -40,17 +40,23 @@ const SignUp = () => {
     setCheck(!check);
   };
 
-  const ChangeInput = (e) => {
-    setReg({
-      // y sino es  generos y platforms, directamente pongo lo que escribo en el input
-      ...reg,
-      [e.target.name]: e.target.value,
-    });
-  };
+  // const ChangeInput = (e) => {
+  //   setReg({
+  //     // y sino es  generos y platforms, directamente pongo lo que escribo en el input
+  //     ...reg,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // en un objeto pongo lo que tengo en el estado inicial
+    let rolex = undefined
+    if(chooseData==='◉ Usuario'){
+      rolex=false
+    }else{
+      rolex=true
+    }
     const obj = {
       name: reg.nombre,
       lastName: reg.apellido,
@@ -58,7 +64,7 @@ const SignUp = () => {
       eMail: reg.mail,
       password: reg.contraseña,
       terminosCondiciones: check,
-      role: true,
+      role: rolex,
     };
     dispatch(registrarUsuario(obj));
     console.log("Estoy enviado", obj);
@@ -73,6 +79,41 @@ const SignUp = () => {
 
     console.log(obj);
   };
+
+  //funciones para cambiar e.value de los inputs
+
+  const handelChangeName=(name)=>{
+    setReg({
+      ...reg,
+      nombre:name
+    })
+  }
+  const handelChangeLastName=(name)=>{
+    setReg({
+      ...reg,
+      apellido:name
+    })
+  }
+  const handelChangeMail=(name)=>{
+    setReg({
+      ...reg,
+      mail:name
+    })
+  }
+  const handelChangePass=(name)=>{
+    setReg({
+      ...reg,
+      contraseña:name
+    })
+  }
+  const handelChangeTel=(name)=>{
+    setReg({
+      ...reg,
+      telefono:name
+    })
+  }
+  
+
 
   const [chooseData, setchooseData] = useState("Seleccionar Perfil...");
   const [isModalVisible, setisModalVisible] = useState(false);
@@ -115,20 +156,19 @@ const SignUp = () => {
         {/* inputs */}
         <View
           style={styles.FormView}
-          onChange={(e) => ChangeInput(e)}
           onSubmit={(e) => handleSubmit(e)}
         >
           <TextInput
             name="nombre"
             value={reg.nombre}
-            onChangeText={(text) => setReg({ ...reg, nombre: text })}
+            onChangeText={(name) => handelChangeName(name)}
             placeholder="Nombre*"
             style={styles.TextInput}
           ></TextInput>
 
           <TextInput
             value={reg.apellido}
-            onChangeText={(text) => setReg({ ...reg, apellido: text })}
+            onChangeText={(name) => handelChangeLastName(name)}
             name="apellido"
             placeholder="Apellido*"
             style={styles.TextInput}
@@ -137,7 +177,7 @@ const SignUp = () => {
           <TextInput
             icon="mail"
             value={reg.mail}
-            onChangeText={(text) => setReg({ ...reg, mail: text })}
+            onChangeText={(name) => handelChangeMail(name)}
             name="mail"
             placeholder="Dirección de Mail*"
             style={styles.TextInput}
@@ -145,7 +185,7 @@ const SignUp = () => {
 
           <TextInput
             value={reg.contraseña}
-            onChangeText={(text) => setReg({ ...reg, contraseña: text })}
+            onChangeText={(name) => handelChangePass(name)}
             name="contraseña"
             placeholder="Contraseña*"
             secureTextEntry={true}
@@ -154,7 +194,7 @@ const SignUp = () => {
 
           <TextInput
             value={reg.telefono}
-            onChangeText={(text) => setReg({ ...reg, telefono: text })}
+            onChangeText={(name) => handelChangeTel(name)}
             name="telefono"
             placeholder="Telefono*"
             style={styles.TextInput}
@@ -163,7 +203,7 @@ const SignUp = () => {
             <Text style={{fontWeight: "bold"}}>
               Al registrarme acepto ser mayor de 18 años.
             </Text>
-            <CheckBox style={styles.checkboxx} value={check} onChange={CheckboxChange}></CheckBox>
+            <CheckBox style={styles.checkboxx} value={check} onValueChange={CheckboxChange}></CheckBox>
           </View>
 
           <SafeAreaView style={styles.container}>

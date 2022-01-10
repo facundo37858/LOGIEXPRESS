@@ -21,13 +21,25 @@ const SingIn = ({ navigation }) => {
     contraseña: "",
   });
 
-  const ChangeInput = (e) => {
+  // const ChangeInput = (e) => {
+  //   setLog({
+  //     // y sino es  generos y platforms, directamente pongo lo que escribo en el input
+  //     ...log,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+  const handelChangeMail=(email)=>{
     setLog({
-      // y sino es  generos y platforms, directamente pongo lo que escribo en el input
-      ...log,
-      [e.target.name]: e.target.value,
-    });
-  };
+        ...log,
+        mail:email
+    })
+}
+const handelChangePass=(pass)=>{
+    setLog({
+        ...log,
+        contraseña:pass
+    })
+}
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -78,19 +90,19 @@ const SingIn = ({ navigation }) => {
         {/* inputs */}
         <View
           style={styles.FormView}
-          onChange={(e) => ChangeInput(e)}
+          // onChange={(e) => ChangeInput(e)}
           onSubmit={(e) => handleSubmit(e)}
         >
           <TextInput
             value={log.mail}
-            onChangeText={(text) => setLog({ ...log, mail: text })}
+            onChangeText={(name) => handelChangeMail(name)}
             name="mail"
             placeholder="Dirección de Mail*"
             style={styles.TextInput}
           ></TextInput>
           <TextInput
             value={log.contraseña}
-            onChangeText={(text) => setLog({ ...log, contraseña: text })}
+            onChangeText={(name) => handelChangePass(name)}
             name="contraseña"
             placeholder="Contraseña*"
             secureTextEntry={true}

@@ -22,8 +22,7 @@ import axios from "axios";
 export function registrarUsuario(payload) {
   return async function (dispatch) {
     try {
-      const response = await axios
-        .post("http://localhost:3001/api/user", payload)
+      const response = await axios.post("http://localhost:3001/api/user", payload)
         .then((r) => {
           dispatch({
             type: "REGISTROO",

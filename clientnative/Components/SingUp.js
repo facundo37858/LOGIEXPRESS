@@ -13,6 +13,7 @@ import {
   Dimensions,
   SafeAreaView,
   Modal,
+  Button,
 } from "react-native";
 
 import CheckBox from "expo-checkbox";
@@ -24,7 +25,7 @@ import { registrarUsuario } from "../actions/index";
 
 const SignUp = () => {
   const dispatch = useDispatch();
-
+  const navigation = useNavigation();
   const [reg, setReg] = useState({
     nombre: "",
     apellido: "",
@@ -195,11 +196,23 @@ const SignUp = () => {
               Registrarme!
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.Button}>
+          {/* <TouchableOpacity style={styles.Button}>
             <Text style={styles.ButtonText} onPress={navigate}>
               Siguiente
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          <Button
+            title="Perfil usuario"
+            onPress={() => navigation.navigate("ProfileUserScreen")}
+          />
+          <Button
+            title="Perfil transportista"
+            onPress={() => navigation.navigate("ProfileScreen")}
+          />
+          <Button
+            title="Elegir perfil"
+            onPress={() => navigation.navigate("Componentedeauxilio")}
+          />
         </View>
       </View>
     </ScrollView>

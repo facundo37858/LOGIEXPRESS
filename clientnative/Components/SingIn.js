@@ -42,6 +42,19 @@ const SingIn = ({navigation}) =>{
         navigation.navigate('singUp');
     }
 
+    const handelChangeMail=(email)=>{
+        setLog({
+            ...log,
+            mail:email
+        })
+    }
+    const handelChangePass=(pass)=>{
+        setLog({
+            ...log,
+            contraseña:pass
+        })
+    }
+
 
     return (
         //Container Start
@@ -68,14 +81,21 @@ const SingIn = ({navigation}) =>{
                                                                                    
                         </View>
                         {/* inputs */}
-                        <View style={styles.FormView} onChange={(e) => ChangeInput(e)}
+                        {/* <View style={styles.FormView} onChange={(e) => ChangeInput(e)} */}
+                        <View style={styles.FormView} 
                          onSubmit={(e) => handleSubmit(e)}>
+
                         <TextInput value={log.mail}
-                         onChangeText={(text) => setLog({ ...log, mail: text })}
-                        name="mail" placeholder="Dirección de Mail*" style={styles.TextInput}></TextInput>                
+                        //  onChangeText={(text) => setLog({ ...log, mail: text })}
+                        onChangeText={(mail)=>handelChangeMail(mail)}
+                        name="mail" placeholder="Dirección de Mail*" style={styles.TextInput}>
+                            </TextInput>
+
                         <TextInput value={log.contraseña}
-                        onChangeText={(text) => setLog({ ...log, contraseña: text })}
-                        name="contraseña" placeholder="Contraseña*" secureTextEntry={true} style={styles.TextInput}></TextInput>                    
+                        // onChangeText={(text) => setLog({ ...log, contraseña: text })}
+                        onChangeText={(pass)=>handelChangePass(pass)}
+                        name="contraseña" placeholder="Contraseña*" secureTextEntry={true} style={styles.TextInput}>
+                            </TextInput>                    
                         <TouchableOpacity style={styles.Button} >
                            <Text style={styles.ButtonText} onPress={handleSubmit}>Iniciar Sesión</Text>
                             </TouchableOpacity>

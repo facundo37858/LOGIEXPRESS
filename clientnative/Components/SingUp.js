@@ -34,12 +34,14 @@ const SignUp = () => {
   });
 
   const [check, setCheck] = useState(false);
+  const [isSelected, setSelection] = useState(false)
 
   const CheckboxChange = (e) => {
     setCheck(!check);
   };
 
   const ChangeInput = (e) => {
+    
     setReg({
       // y sino es  generos y platforms, directamente pongo lo que escribo en el input
       ...reg,
@@ -83,6 +85,37 @@ const SignUp = () => {
   const setData = (option) => {
     setchooseData(option);
   };
+
+  const handelChangeName=(name)=>{
+    setReg({
+      ...reg,
+      nombre:name
+    })
+  }
+  const handelChangeLastName=(name)=>{
+    setReg({
+      ...reg,
+      apellido:name
+    })
+  }
+  const handelChangeMail=(name)=>{
+    setReg({
+      ...reg,
+      mail:name
+    })
+  }
+  const handelChangePass=(name)=>{
+    setReg({
+      ...reg,
+      contraseña:name
+    })
+  }
+  const handelChangeTel=(name)=>{
+    setReg({
+      ...reg,
+      telefono:name
+    })
+  }
   return (
     <ScrollView
       style={{ flex: 1, backgroundColor: "#ffffffff" }}
@@ -114,20 +147,21 @@ const SignUp = () => {
         {/* inputs */}
         <View
           style={styles.FormView}
-          onChange={(e) => ChangeInput(e)}
+          //onChange={(e) => ChangeInput(e)}
           onSubmit={(e) => handleSubmit(e)}
         >
           <TextInput
             name="nombre"
             value={reg.nombre}
-            onChangeText={(text) => setReg({ ...reg, nombre: text })}
+            // onChangeText={(text) => setReg({ ...reg, nombre: text })}
+            onChangeText={(name)=>handelChangeName(name)}
             placeholder="Nombre*"
             style={styles.TextInput}
           ></TextInput>
 
           <TextInput
             value={reg.apellido}
-            onChangeText={(text) => setReg({ ...reg, apellido: text })}
+            onChangeText={(text) => handelChangeLastName(text)}
             name="apellido"
             placeholder="Apellido*"
             style={styles.TextInput}
@@ -136,7 +170,7 @@ const SignUp = () => {
           <TextInput
             icon="mail"
             value={reg.mail}
-            onChangeText={(text) => setReg({ ...reg, mail: text })}
+            onChangeText={(text) => handelChangeMail(text)}
             name="mail"
             placeholder="Dirección de Mail*"
             style={styles.TextInput}
@@ -144,7 +178,7 @@ const SignUp = () => {
 
           <TextInput
             value={reg.contraseña}
-            onChangeText={(text) => setReg({ ...reg, contraseña: text })}
+            onChangeText={(text) =>handelChangePass(text)}
             name="contraseña"
             placeholder="Contraseña*"
             secureTextEntry={true}
@@ -153,17 +187,33 @@ const SignUp = () => {
 
           <TextInput
             value={reg.telefono}
-            onChangeText={(text) => setReg({ ...reg, telefono: text })}
+            onChangeText={(text) => handelChangeTel(text)}
             name="telefono"
             placeholder="Telefono*"
             style={styles.TextInput}
           ></TextInput>
-          <View>
+          {/* <View>
             <Text>
               Al registrarme acepto los términos y condiciones del sitio.
             </Text>
-            <CheckBox value={check} onChange={CheckboxChange}></CheckBox>
-          </View>
+             <CheckBox value={check} onChange={CheckboxChange}></CheckBox> 
+            <CheckBox
+          
+          onValueChange={CheckboxChange}
+          
+        />
+          </View> */}
+          <View style={styles.container}>
+      <View style={styles.checkboxContainer}>
+        <CheckBox
+          value={check}
+          onValueChange={CheckboxChange}
+          
+        />
+        <Text>Do you like React Native?</Text>
+      </View>
+      <Text>Is CheckBox selected: {check ? "👍" : "👎"}</Text>
+    </View>
 
           <SafeAreaView style={styles.container}>
             <TouchableOpacity
@@ -186,7 +236,7 @@ const SignUp = () => {
           </SafeAreaView>
 
           <TouchableOpacity style={styles.Button}>
-            <Text style={styles.ButtonText} onPress={handleSubmit}>
+            <Text style={styles.ButtonText} onPress={(e)=>handleSubmit(e)}>
               Registrarme!
             </Text>
           </TouchableOpacity>

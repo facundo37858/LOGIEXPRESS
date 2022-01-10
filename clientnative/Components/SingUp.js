@@ -22,7 +22,15 @@ import { ModalPicker } from "./ModalPicker";
 import { useDispatch } from "react-redux";
 import { registrarUsuario } from "../actions/index";
 
-const SignUp = () => {
+
+
+const SignUp = ({ navigation }) => {
+
+  function navigate() {
+    navigation.navigate('ProfileScreen');
+  }
+  
+
   const dispatch = useDispatch();
 
   const [reg, setReg] = useState({
@@ -189,6 +197,11 @@ const SignUp = () => {
           <TouchableOpacity style={styles.Button}>
             <Text style={styles.ButtonText} onPress={handleSubmit}>
               Registrarme!
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.Button}>
+            <Text style={styles.ButtonText} onPress={navigate}>
+              Siguiente
             </Text>
           </TouchableOpacity>
         </View>

@@ -31,10 +31,12 @@ router.options('/user', async (res: Response) => {
 router.post('/user', async (req: Request, res: Response, next: NextFunction) => {
 	// const data1 = JSON.parse(req.body)
 	console.log("Estes es el body", req.body);
-	const { name, lastName, phone, password, eMail, terminosCondiciones, role } = req.body
 
-	// if(!emal){TODO LO QUE YA HICISTE}else{res.json('el email ya existe')}
+	const { name, lastName, phone, password, eMail, terminosCondiciones, role } = req.body
+	
 	let passwordHash = await bcrypt.hash(password,8)
+
+	
 
 	let newUser = {
 		id: uuid(),
@@ -51,15 +53,13 @@ router.post('/user', async (req: Request, res: Response, next: NextFunction) => 
 			where: { eMail: eMail },
 			defaults: newUser
 		})
-		
-		
-		
-		
 
 		if (!created) {
 			return res.send('eMail usado')//podria ser un boolean 
 		}
 		// console.log('User:',user,'Bool: ',created)
+
+	
 
 
 

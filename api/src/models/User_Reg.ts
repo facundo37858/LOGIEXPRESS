@@ -44,6 +44,9 @@ export class User_Reg extends Model {
     @HasOne(()=>Carrier) 
     carrier!:Carrier
 
+    @HasOne(()=>User)
+    user!:User
+
     @Column
     name!: string
 

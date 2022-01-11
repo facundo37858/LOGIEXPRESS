@@ -15,7 +15,7 @@ export class Vehicle extends Model{
     patent!: string
 
     @Column
-    model!: number
+    model!: number 
 
     @Column
     color!: string

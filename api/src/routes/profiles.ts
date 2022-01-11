@@ -55,9 +55,9 @@ router.post('/userProfile', async (req: Request, res: Response, next: NextFuncti
 
 router.post('/carrierProfile', async (req: Request, res: Response, next: NextFunction) => {
 	// res.send('llega al carrier profile')
-	const { documentID, license, email, phone, location, CBU,
+	const { documentID, license, email, phone, location, Cuenta,
 		brand, patent, model, color, capacity } = req.body
-
+  
 	try {
 
 		let idCarrier = uuid()
@@ -69,7 +69,7 @@ router.post('/carrierProfile', async (req: Request, res: Response, next: NextFun
 			eMail: email,
 			phone: phone,
 			location: location,
-			CBU: CBU
+			Cuenta: Cuenta
 		}
 		var newTrack = {
 			id: uuid(),

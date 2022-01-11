@@ -15,7 +15,8 @@ import { useDispatch } from "react-redux";
 //Agarrar imagen del celu
 import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from "@react-navigation/core";
-
+import { completeProfileUser } from '../../actions/index.js'
+import { isObject } from "formik";
 const CompleteProfileUser = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -27,7 +28,7 @@ const CompleteProfileUser = () => {
     phone: "",
     account: "",
   });
-  console.log("soy el estado", user);
+
 
   ////--> IMAGE PICKER <-- ////
   const [selectedImage, setSelectedImage] = useState(null);
@@ -48,73 +49,51 @@ const CompleteProfileUser = () => {
     setSelectedImage({ localUri: pickerResult.uri });
   };
 
-  //// --> HANDLERS <-- ////
-  // function handleChange(e) {
-  //   setUser({
-  //     ...user,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // }
+  //// ---> HANDLERS INPUTS <--- ////
+  const handleChangeIdentification = (identification) => {
+    setUser({
+      ...user,
+      identification : identification 
+    })
+  };
 
-  // const handleChange = (text) => {
-  //   setUser({
-<<<<<<< HEAD
-  //     ...user,
-  //    [identification] : text,  
-  //    [zone] : text,
-  //    [phone] : text,
-  //    [account]: text,
-  //   })
-  // }
+  const handleChangeZone = (zone) => {
+    setUser({
+      ...user,
+      zone : zone
+    })
+  };
 
-  
-  const handleChangeIdentificacion = (text) => {
+  const handleChangePhone= (phone) => {
     setUser({
       ...user,
-     identification : text,  
+      phone : phone
     })
-  }
-  const handleChangeZone = (text) => {
+  };
+
+  const handleChangeAccount = (account) => {
     setUser({
       ...user,
-     zone : text,  
+      account : account
     })
-  }
-   const handleChangePhone = (text) => {
-    setUser({
-      ...user,
-     phone : text,  
-    })
-  }
-  const handleChangeAccount = (text) => {
-    setUser({
-      ...user,
-     account : text,  
-    })
-  }
-=======
-  //     identification: text,
-  //     zone: text,
-  //     phone: text,
-  //     account: text,
-  //   });
-  // };
->>>>>>> master
+  };
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch();
     const obj = {
       identification: user.identification,
       zone: user.zone,
       phone: user.phone,
       account: user.account,
-<<<<<<< HEAD
-    }
-=======
     };
-    console.log("Soy el console.log", obj);
->>>>>>> master
+    dispatch(completeProfileUser(obj));
+    console.log('soy lo que se envia', obj)
+    setUser({
+      identification: "",
+      zone: "",
+      phone: "",
+      account: "",
+    })
   }
 
   return (
@@ -164,7 +143,6 @@ const CompleteProfileUser = () => {
             {/* Inicio de inputs formulario */}
             <View
               style={styles.containerInputs}
-              // onChange={(e) => handleChange(e)}
               onSubmit={(e) => handleSubmit(e)}
             >
               <View style={styles.viewsInputs}>
@@ -213,17 +191,12 @@ const CompleteProfileUser = () => {
                   style={{ paddingBottom: 2 }}
                 />
                 <TextInput
-                  // value={user.identification}
+                  value={user.identification}
                   placeholder="Documento de identidad"
                   name="identification"
                   style={styles.textPlaceholder}
-<<<<<<< HEAD
-                  onChangeText={(text) => handleChangeIdentificacion(text)}
-                  keyboardType='decimal-pad'
-=======
-                  // onChangeText={(text) => handleChange(text)}
+                  onChangeText={(identification) => handleChangeIdentification(identification)}
                   keyboardType="decimal-pad"
->>>>>>> master
                 />
               </View>
               <View style={styles.viewsInputs}>
@@ -231,18 +204,10 @@ const CompleteProfileUser = () => {
                   name="navigate-outline"
                   size={26}
                   style={{ paddingBottom: 2 }}
-<<<<<<< HEAD
-                  
                 />
                 <TextInput
-                onChangeText={(text) => handleChangeZone(text)}
                   value={user.zone}
-=======
-                  // onChangeText={(text) => setUser(text)}
-                />
-                <TextInput
-                  // value={user.zone}
->>>>>>> master
+                  onChangeText={(zone) => handleChangeZone(zone)}
                   placeholder="Lugar de residencia actual"
                   name="zone"
                   style={styles.textPlaceholder}
@@ -255,12 +220,8 @@ const CompleteProfileUser = () => {
                   style={{ paddingBottom: 2 }}
                 />
                 <TextInput
-<<<<<<< HEAD
-                onChangeText={(text) => handleChangePhone(text)}
                   value={user.phone}
-=======
-                  // value={user.phone}
->>>>>>> master
+                  onChangeText={(phone) => handleChangePhone(phone)}
                   placeholder="Celular válido"
                   name="phone"
                   style={styles.textPlaceholder}
@@ -273,19 +234,15 @@ const CompleteProfileUser = () => {
                   style={{ paddingBottom: 2 }}
                 />
                 <TextInput
-<<<<<<< HEAD
-                onChangeText={(text) => handleChangeAccount(text)}
                   value={user.account}
-=======
-                  // value={user.account}
->>>>>>> master
+                  onChangeText={(account) => handleChangeAccount(account)}
                   placeholder="Medio de pago válido"
                   name="account"
                   style={styles.textPlaceholder}
                 />
               </View>
               <TouchableOpacity style={styles.btnEditar}>
-                <Text style={styles.textBtn}>Aceptar</Text>
+                <Text style={styles.textBtn} onPress={handleSubmit}>Aceptar</Text>
               </TouchableOpacity>
             </View>
           </View>

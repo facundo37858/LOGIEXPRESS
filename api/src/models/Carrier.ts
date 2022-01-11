@@ -12,7 +12,7 @@ export class Carrier extends Model{
     documentID!: string                     //Documento de identidad 
 
     @Column
-    license!: string
+    license!: string 
 
     @IsEmail
     @Column

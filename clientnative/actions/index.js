@@ -60,6 +60,22 @@ export function logiarUsuario(payload) {
   };
 }
 
+//// --> Ruta para completar perfil <-- ////
+export function completeProfileUser(payload){
+  return async function(dispatch){
+    try{
+     const response = await axios.post("http://localhost:3001/api/userProfile", payload)
+     console.log('Soy el console.log de response', response)
+     return dispatch({
+       type: 'COMPLETE_PROFILE_USER',
+       payload: response.data
+     }); 
+    } catch (error){
+      console.error(error.response)
+    }
+  }
+} 
+
 // import FormData from "FormData";
 
 // var formData = new FormData();

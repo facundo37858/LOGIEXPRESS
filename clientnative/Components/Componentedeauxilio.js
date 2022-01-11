@@ -65,7 +65,7 @@ const Componentedeauxilio = () => {
           </Text>
           <TouchableWithoutFeedback 
           //// --> DEBERIA DIRIGIR AL PROFILE DE USER <-- ////
-          // onPress={() => navigation.navigate()}
+          onPress={() => navigation.navigate('CompleteProfileUser')}
           >
             <Image
               source={require("./manager.png")}
@@ -95,7 +95,7 @@ const Componentedeauxilio = () => {
           </Text>
           <TouchableWithoutFeedback
           //// --> DEBERIA DIRIGIR AL PROFILE DE CARRIER <-- ////
-          // onPress={() => navigation.navigate()}
+          onPress={() => navigation.navigate('CompleteProfileCarrier')}
           >
             <Image
               source={require("./conductor.png")}

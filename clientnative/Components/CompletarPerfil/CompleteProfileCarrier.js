@@ -13,10 +13,13 @@ import {
 import Icon from "react-native-vector-icons/Ionicons";
 //Agarrar imagen del celu
 import * as ImagePicker from "expo-image-picker";
+import { useNavigation } from "@react-navigation/core";
 
 const CompleteProfileUser = () => {
   ////--> IMAGE PICKER <-- ////
   const [selectedImage, setSelectedImage] = useState(null);
+
+  const navigation = useNavigation();
 
   let openImagePickerAsync = async () => {
     let permissionResult =
@@ -42,6 +45,14 @@ const CompleteProfileUser = () => {
         style={{ backgroundColor: "white" }}
         showsVerticalScrollIndicator={false}
       >
+        <View style={styles.iconBar}>
+          <TouchableOpacity
+            //no esta conectado a ningun lugar
+            onPress={() => navigation.navigate("Componentedeauxilio")}
+          >
+            <Icon name="chevron-back-outline" size={30} />
+          </TouchableOpacity>
+        </View>
         <Text
           style={{
             fontWeight: "bold",
@@ -55,19 +66,17 @@ const CompleteProfileUser = () => {
         {/* Foto e iconito de agregar imagen */}
         <View style={{ alignItems: "center" }}>
           <Image
-           source={{
-            uri:
-              selectedImage !== null
-                ? selectedImage.localUri
-                : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
-          }}
+            source={{
+              uri:
+                selectedImage !== null
+                  ? selectedImage.localUri
+                  : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
+            }}
             style={styles.imgPerfil}
           />
 
           <View style={styles.add}>
-            <TouchableWithoutFeedback
-              onPress={openImagePickerAsync}
-            >
+            <TouchableWithoutFeedback onPress={openImagePickerAsync}>
               <Image
                 source={require("../add-image.png")}
                 style={styles.imgAdd}
@@ -208,6 +217,14 @@ const CompleteProfileUser = () => {
 export default CompleteProfileUser;
 
 const styles = StyleSheet.create({
+  iconBar: {
+    flexDirection: "row",
+    marginTop: 30,
+    marginBottom: 10,
+    marginHorizontal: 10,
+    justifyContent: "space-between",
+    backgroundColor: "white",
+  },
   containerInputs: {
     flex: 1,
     alignItems: "flex-start",
@@ -235,7 +252,7 @@ const styles = StyleSheet.create({
     borderColor: "#D5D5D5",
     borderRadius: 50,
   },
-  
+
   btnEditar: {
     backgroundColor: "#7952B3",
     borderRadius: 10,

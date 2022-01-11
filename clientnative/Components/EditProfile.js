@@ -48,8 +48,8 @@ const EditProfile = () => {
       >
         <View style={styles.iconBar}>
           <TouchableOpacity
-          //no esta conectado a ningun lugar
-          // onPress={() => navigation.navigate()}
+            //no esta conectado a ningun lugar
+            onPress={() => navigation.navigate("ProfileUserScreen")}
           >
             <Icon name="chevron-back-outline" size={30} />
           </TouchableOpacity>
@@ -131,14 +131,14 @@ const EditProfile = () => {
             />
           </View>
           <View style={styles.btn2}>
-            <TouchableOpacity style={styles.btnEditar}>
+            <TouchableOpacity
+              style={styles.btnEditar}
+              ///---> PONER A DONDE TIENE QUE VOLVER <--- ///
+              onPress={() => navigation.navigate("ProfileUserScreen")}
+            >
               <Text style={styles.textBtn}>Cancelar</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              ///---> PONER A DONDE TIENE QUE VOLVER <--- ///
-              //onPress={() => navigation.navigate()}
-              style={styles.btnEditar}
-            >
+            <TouchableOpacity style={styles.btnEditar}>
               <Text style={styles.textBtn}>Editar</Text>
             </TouchableOpacity>
           </View>
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   textPlaceholder: {
     marginLeft: 20,
     fontSize: 17,
-    marginBottom: 2
+    marginBottom: 2,
   },
   btnEditar: {
     backgroundColor: "#7952B3",

@@ -14,18 +14,20 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { useDispatch } from "react-redux";
 //Agarrar imagen del celu
 import * as ImagePicker from "expo-image-picker";
+import { useNavigation } from "@react-navigation/core";
 
 const CompleteProfileUser = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
-  //// --> ESTADO PARA INPUTS <-- //// 
+  //// --> ESTADO PARA INPUTS <-- ////
   const [user, setUser] = useState({
     identification: "",
     zone: "",
     phone: "",
     account: "",
   });
-   console.log('soy el estado', user)
+  console.log("soy el estado", user);
 
   ////--> IMAGE PICKER <-- ////
   const [selectedImage, setSelectedImage] = useState(null);
@@ -56,6 +58,7 @@ const CompleteProfileUser = () => {
 
   // const handleChange = (text) => {
   //   setUser({
+<<<<<<< HEAD
   //     ...user,
   //    [identification] : text,  
   //    [zone] : text,
@@ -89,6 +92,14 @@ const CompleteProfileUser = () => {
      account : text,  
     })
   }
+=======
+  //     identification: text,
+  //     zone: text,
+  //     phone: text,
+  //     account: text,
+  //   });
+  // };
+>>>>>>> master
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -98,7 +109,12 @@ const CompleteProfileUser = () => {
       zone: user.zone,
       phone: user.phone,
       account: user.account,
+<<<<<<< HEAD
     }
+=======
+    };
+    console.log("Soy el console.log", obj);
+>>>>>>> master
   }
 
   return (
@@ -108,6 +124,14 @@ const CompleteProfileUser = () => {
         style={{ backgroundColor: "white" }}
         showsVerticalScrollIndicator={false}
       >
+        <View style={styles.iconBar}>
+          <TouchableOpacity
+            //no esta conectado a ningun lugar
+            onPress={() => navigation.navigate("Componentedeauxilio")}
+          >
+            <Icon name="chevron-back-outline" size={30} />
+          </TouchableOpacity>
+        </View>
         <Text
           style={{
             fontWeight: "bold",
@@ -154,7 +178,6 @@ const CompleteProfileUser = () => {
                   placeholder="Nombre"
                   name="name"
                   style={styles.textPlaceholder}
-              
                 />
               </View>
               <View style={styles.viewsInputs}>
@@ -190,12 +213,17 @@ const CompleteProfileUser = () => {
                   style={{ paddingBottom: 2 }}
                 />
                 <TextInput
-                  value={user.identification}
+                  // value={user.identification}
                   placeholder="Documento de identidad"
                   name="identification"
                   style={styles.textPlaceholder}
+<<<<<<< HEAD
                   onChangeText={(text) => handleChangeIdentificacion(text)}
                   keyboardType='decimal-pad'
+=======
+                  // onChangeText={(text) => handleChange(text)}
+                  keyboardType="decimal-pad"
+>>>>>>> master
                 />
               </View>
               <View style={styles.viewsInputs}>
@@ -203,11 +231,18 @@ const CompleteProfileUser = () => {
                   name="navigate-outline"
                   size={26}
                   style={{ paddingBottom: 2 }}
+<<<<<<< HEAD
                   
                 />
                 <TextInput
                 onChangeText={(text) => handleChangeZone(text)}
                   value={user.zone}
+=======
+                  // onChangeText={(text) => setUser(text)}
+                />
+                <TextInput
+                  // value={user.zone}
+>>>>>>> master
                   placeholder="Lugar de residencia actual"
                   name="zone"
                   style={styles.textPlaceholder}
@@ -220,8 +255,12 @@ const CompleteProfileUser = () => {
                   style={{ paddingBottom: 2 }}
                 />
                 <TextInput
+<<<<<<< HEAD
                 onChangeText={(text) => handleChangePhone(text)}
                   value={user.phone}
+=======
+                  // value={user.phone}
+>>>>>>> master
                   placeholder="Celular válido"
                   name="phone"
                   style={styles.textPlaceholder}
@@ -234,8 +273,12 @@ const CompleteProfileUser = () => {
                   style={{ paddingBottom: 2 }}
                 />
                 <TextInput
+<<<<<<< HEAD
                 onChangeText={(text) => handleChangeAccount(text)}
                   value={user.account}
+=======
+                  // value={user.account}
+>>>>>>> master
                   placeholder="Medio de pago válido"
                   name="account"
                   style={styles.textPlaceholder}
@@ -255,6 +298,14 @@ const CompleteProfileUser = () => {
 export default CompleteProfileUser;
 
 const styles = StyleSheet.create({
+  iconBar: {
+    flexDirection: "row",
+    marginTop: 30,
+    marginBottom: 10,
+    marginHorizontal: 10,
+    justifyContent: "space-between",
+    backgroundColor: "white",
+  },
   containerInputs: {
     flex: 1,
     alignItems: "flex-start",

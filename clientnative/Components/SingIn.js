@@ -9,7 +9,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  Button
+  Button,
 } from "react-native";
 import { logiarUsuario } from "./../actions/index";
 import { useDispatch } from "react-redux";
@@ -22,13 +22,25 @@ const SingIn = ({ navigation }) => {
     contraseña: "",
   });
 
-  const ChangeInput = (e) => {
+  // const ChangeInput = (e) => {
+  //   setLog({
+  //     // y sino es  generos y platforms, directamente pongo lo que escribo en el input
+  //     ...log,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+  const handelChangeMail=(email)=>{
     setLog({
-      // y sino es  generos y platforms, directamente pongo lo que escribo en el input
-      ...log,
-      [e.target.name]: e.target.value,
-    });
-  };
+        ...log,
+        mail:email
+    })
+}
+const handelChangePass=(pass)=>{
+    setLog({
+        ...log,
+        contraseña:pass
+    })
+}
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -65,7 +77,7 @@ const SingIn = ({ navigation }) => {
         <View style={styles.brandView}>
           <Ionicons
             name="location-sharp"
-            style={{ color: "#ffbe0b", fontSize: 100 }}
+            style={{ color: "#FFC107", fontSize: 100 }}
           />
           <Text style={styles.brandViewText}>LOGIEXPRESS</Text>
         </View>
@@ -74,24 +86,24 @@ const SingIn = ({ navigation }) => {
       <View style={styles.bottonView}>
         {/* Welcome View */}
         <View style={{ padding: 40, display: "flex", alignItems: "center" }}>
-          <Text style={{ color: "#4632a1", fontSize: 34 }}>Bienvenido</Text>
+          <Text style={{ color: "#7952B3", fontSize: 34 }}>Bienvenido</Text>
         </View>
         {/* inputs */}
         <View
           style={styles.FormView}
-          onChange={(e) => ChangeInput(e)}
+          // onChange={(e) => ChangeInput(e)}
           onSubmit={(e) => handleSubmit(e)}
         >
           <TextInput
             value={log.mail}
-            onChangeText={(text) => setLog({ ...log, mail: text })}
+            onChangeText={(name) => handelChangeMail(name)}
             name="mail"
             placeholder="Dirección de Mail*"
             style={styles.TextInput}
           ></TextInput>
           <TextInput
             value={log.contraseña}
-            onChangeText={(text) => setLog({ ...log, contraseña: text })}
+            onChangeText={(name) => handelChangePass(name)}
             name="contraseña"
             placeholder="Contraseña*"
             secureTextEntry={true}
@@ -111,26 +123,14 @@ const SingIn = ({ navigation }) => {
           <Text style={styles.SingUpText}>Registrate Ahora</Text>
         </TouchableOpacity>
         {/* BOTONES QUE USO PARA DIRIGIRME A MI PANTALLA */}
-        <Button
+        {/* <Button
           title="Editar Perfil usuario"
           onPress={() => navigation.navigate("EditProfile")}
         />
         <Button
           title="Editar Perfil Transportista"
           onPress={() => navigation.navigate("EditProfileCarrier")}
-        />
-        <Button
-          title="Completar perfil usuario"
-          onPress={() => navigation.navigate("CompleteProfileUser")}
-        />
-         <Button
-          title="Completar perfil carrier"
-          onPress={() => navigation.navigate("CompleteProfileCarrier")}
-        />
-         <Button
-          title="Componente de auxilio"
-          onPress={() => navigation.navigate('Componentedeauxilio')}
-        />
+        /> */}
       </View>
     </ScrollView>
     // Container End
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   brandViewText: {
-    color: "#ffbe0b",
+    color: "#FFC107",
     fontSize: 45,
     fontWeight: "bold",
     textTransform: "uppercase",
@@ -156,8 +156,8 @@ const styles = StyleSheet.create({
     flex: 1.5,
     backgroundColor: "#ffffffff",
     bottom: 50,
-    borderTopStartRadius: 60,
-    borderTopEndRadius: 60,
+    borderTopStartRadius: 50,
+    borderTopEndRadius: 50,
   },
   FormView: {
     width: "100%",
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
   },
   Button: {
     width: "90%",
-    color: "yellow",
+    color: "#FFC107",
     height: 52,
     backgroundColor: "black",
     borderRadius: 10,
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   SingUpText: {
-    color: "#4632a1",
+    color: "#7952B3",
     fontSize: 20,
   },
   TextButton: {

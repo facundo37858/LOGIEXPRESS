@@ -5,18 +5,36 @@ import {
   View,
   Image,
   TouchableWithoutFeedback,
+  TouchableOpacity,
 } from "react-native";
 //import hook para la navegacion
 import { useNavigation } from "@react-navigation/core";
+import Icon from "react-native-vector-icons/Ionicons";
 
 const Componentedeauxilio = () => {
-
-    ////--> HOOK PARA LA NAVEGACION <-- ////
-const navigation = useNavigation();
+  ////--> HOOK PARA LA NAVEGACION <-- ////
+  const navigation = useNavigation();
 
   return (
-    <View style={{ flex: 1, alignContent: 'center'}}>
-      <Text style={{textAlign:'center', fontSize: 30, fontWeight: 'bold', marginTop: 300}}>Elige tu rol</Text>
+    <View style={{ flex: 1, alignContent: "center" }}>
+      <View style={styles.iconBar}>
+        <TouchableOpacity
+          //no esta conectado a ningun lugar
+          onPress={() => navigation.navigate("singUp")}
+        >
+          <Icon name="chevron-back-outline" size={30} />
+        </TouchableOpacity>
+      </View>
+      <Text
+        style={{
+          textAlign: "center",
+          fontSize: 30,
+          fontWeight: "bold",
+          marginTop: 300,
+        }}
+      >
+        Elige tu rol
+      </Text>
       <View
         style={{
           flex: 1,
@@ -24,7 +42,7 @@ const navigation = useNavigation();
           alignItems: "center",
           margin: 10,
           padding: 20,
-          marginBottom: 250
+          marginBottom: 250,
         }}
       >
         <View
@@ -92,4 +110,13 @@ const navigation = useNavigation();
 
 export default Componentedeauxilio;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  iconBar: {
+    flexDirection: "row",
+    marginTop: 30,
+    marginBottom: 10,
+    marginHorizontal: 10,
+    justifyContent: "space-between",
+    backgroundColor: "white",
+  },
+});

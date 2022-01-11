@@ -1,8 +1,12 @@
 
+<<<<<<< HEAD
 import { IsUUID,ForeignKey, Model, Column, Table, CreatedAt, UpdatedAt, IsEmail, BelongsTo, HasOne, HasMany } from 'sequelize-typescript'
 import { Travel } from './Travel';
 import { User_Reg } from './User_Reg';
 import { Vehicle } from './Vehicle';
+=======
+import { IsUUID, Model, Column, Table, IsEmail } from 'sequelize-typescript'
+>>>>>>> master
 
 @Table
 export class Carrier extends Model{
@@ -29,6 +33,7 @@ export class Carrier extends Model{
     location!: string
 
     @Column
+<<<<<<< HEAD
     CBU!: string
 
     @BelongsTo(()=>User_Reg)
@@ -53,6 +58,9 @@ export class Carrier extends Model{
     @UpdatedAt
     @Column
     updatedAt!: Date
+=======
+    Cuenta!: string
+>>>>>>> master
 
 
 }

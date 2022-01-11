@@ -7,8 +7,8 @@ import { uuid } from "uuidv4";
 import bcrypt from 'bcryptjs'
 import { v4 } from "uuid";
 
-interface error{
-	err:string
+interface error {
+	err: string
 }
 
 // .replace(/[()]/g, '').replace(/[-]/g, '')
@@ -55,18 +55,26 @@ const resApiUsers=async()=>{
   
   }
 sequelize
+<<<<<<< HEAD
 	.sync({force: true, logging: false})
 	.then(async()=>{
 		  let responce= await resApiUsers()
 		  return console.log(responce)
 	})
+=======
+	.sync({ force: false, logging: false })
+>>>>>>> master
 	.then(() => {
 		console.log('base de datos conectada! :D')
 		app.listen(3001, function () {
 			console.log('App is listening on port 3001!');
 		});
 	})
+<<<<<<< HEAD
 	.catch((err:error) => console.error(err));
 
 
 
+=======
+	.catch((err: error) => console.error(err));
+>>>>>>> master

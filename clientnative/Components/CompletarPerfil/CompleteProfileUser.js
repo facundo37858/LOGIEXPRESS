@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 //Agarrar imagen del celu
 import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from "@react-navigation/core";
+import { completeProfileUser } from '../../actions/index.js'
 
 const CompleteProfileUser = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,6 @@ const CompleteProfileUser = () => {
     phone: "",
     account: "",
   });
-  console.log("soy el estado", user);
 
   ////--> IMAGE PICKER <-- ////
   const [selectedImage, setSelectedImage] = useState(null);
@@ -48,33 +48,51 @@ const CompleteProfileUser = () => {
     setSelectedImage({ localUri: pickerResult.uri });
   };
 
-  //// --> HANDLERS <-- ////
-  // function handleChange(e) {
-  //   setUser({
-  //     ...user,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // }
+  //// ---> HANDLERS INPUTS <--- ////
+  const handleChangeIdentification = (identification) => {
+    setUser({
+      ...user,
+      identification : identification 
+    })
+  };
 
-  // const handleChange = (text) => {
-  //   setUser({
-  //     identification: text,
-  //     zone: text,
-  //     phone: text,
-  //     account: text,
-  //   });
-  // };
+  const handleChangeZone = (zone) => {
+    setUser({
+      ...user,
+      zone : zone
+    })
+  };
+
+  const handleChangePhone= (phone) => {
+    setUser({
+      ...user,
+      phone : phone
+    })
+  };
+
+  const handleChangeAccount = (account) => {
+    setUser({
+      ...user,
+      account : account
+    })
+  };
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch();
     const obj = {
       identification: user.identification,
       zone: user.zone,
       phone: user.phone,
       account: user.account,
     };
-    console.log("Soy el console.log", obj);
+    dispatch(completeProfileUser(obj));
+    console.log('soy lo que se envia', obj)
+    setUser({
+      identification: "",
+      zone: "",
+      phone: "",
+      account: "",
+    })
   }
 
   return (
@@ -124,7 +142,6 @@ const CompleteProfileUser = () => {
             {/* Inicio de inputs formulario */}
             <View
               style={styles.containerInputs}
-              // onChange={(e) => handleChange(e)}
               onSubmit={(e) => handleSubmit(e)}
             >
               <View style={styles.viewsInputs}>
@@ -173,11 +190,11 @@ const CompleteProfileUser = () => {
                   style={{ paddingBottom: 2 }}
                 />
                 <TextInput
-                  // value={user.identification}
-                  placeholder="Documento de identidad"
+                  value={user.identification}
+                  placeholder="Documento de identidad SIN PUNTOS"
                   name="identification"
                   style={styles.textPlaceholder}
-                  // onChangeText={(text) => handleChange(text)}
+                  onChangeText={(identification) => handleChangeIdentification(identification)}
                   keyboardType="decimal-pad"
                 />
               </View>
@@ -186,10 +203,10 @@ const CompleteProfileUser = () => {
                   name="navigate-outline"
                   size={26}
                   style={{ paddingBottom: 2 }}
-                  // onChangeText={(text) => setUser(text)}
                 />
                 <TextInput
-                  // value={user.zone}
+                  value={user.zone}
+                  onChangeText={(zone) => handleChangeZone(zone)}
                   placeholder="Lugar de residencia actual"
                   name="zone"
                   style={styles.textPlaceholder}
@@ -202,7 +219,8 @@ const CompleteProfileUser = () => {
                   style={{ paddingBottom: 2 }}
                 />
                 <TextInput
-                  // value={user.phone}
+                  value={user.phone}
+                  onChangeText={(phone) => handleChangePhone(phone)}
                   placeholder="Celular válido"
                   name="phone"
                   style={styles.textPlaceholder}
@@ -215,14 +233,15 @@ const CompleteProfileUser = () => {
                   style={{ paddingBottom: 2 }}
                 />
                 <TextInput
-                  // value={user.account}
-                  placeholder="Medio de pago válido"
+                  value={user.account}
+                  onChangeText={(account) => handleChangeAccount(account)}
+                  placeholder="Medio de pago: mercadoPago"
                   name="account"
                   style={styles.textPlaceholder}
                 />
               </View>
               <TouchableOpacity style={styles.btnEditar}>
-                <Text style={styles.textBtn}>Aceptar</Text>
+                <Text style={styles.textBtn} onPress={handleSubmit}>Aceptar</Text>
               </TouchableOpacity>
             </View>
           </View>

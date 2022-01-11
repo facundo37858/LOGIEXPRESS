@@ -6,7 +6,7 @@ import { User } from './User';
 
 @Table
 export class Travel extends Model<Travel>{
-
+ 
     @IsUUID(4)
     @Column({ primaryKey: true })
     id!: string;

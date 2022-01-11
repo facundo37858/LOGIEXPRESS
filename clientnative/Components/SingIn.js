@@ -122,15 +122,6 @@ const handelChangePass=(pass)=>{
         <TouchableOpacity style={styles.TextButton} onPress={navigate}>
           <Text style={styles.SingUpText}>Registrate Ahora</Text>
         </TouchableOpacity>
-        {/* BOTONES QUE USO PARA DIRIGIRME A MI PANTALLA */}
-        {/* <Button
-          title="Editar Perfil usuario"
-          onPress={() => navigation.navigate("EditProfile")}
-        />
-        <Button
-          title="Editar Perfil Transportista"
-          onPress={() => navigation.navigate("EditProfileCarrier")}
-        /> */}
       </View>
     </ScrollView>
     // Container End

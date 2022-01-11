@@ -11,7 +11,7 @@ export class User extends Model {
     @Column
     identification!: number
 
-    @Column
+    @Column 
     zone!: string
 
     @Column

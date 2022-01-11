@@ -14,18 +14,21 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { useDispatch } from "react-redux";
 //Agarrar imagen del celu
 import * as ImagePicker from "expo-image-picker";
-
+import { useNavigation } from "@react-navigation/core";
+import { completeProfileUser } from '../../actions/index.js'
+import { isObject } from "formik";
 const CompleteProfileUser = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
-  //// --> ESTADO PARA INPUTS <-- //// 
+  //// --> ESTADO PARA INPUTS <-- ////
   const [user, setUser] = useState({
     identification: "",
     zone: "",
     phone: "",
     account: "",
   });
-   console.log('soy el estado', user)
+
 
   ////--> IMAGE PICKER <-- ////
   const [selectedImage, setSelectedImage] = useState(null);
@@ -46,33 +49,51 @@ const CompleteProfileUser = () => {
     setSelectedImage({ localUri: pickerResult.uri });
   };
 
-  //// --> HANDLERS <-- ////
-  // function handleChange(e) {
-  //   setUser({
-  //     ...user,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // }
-
-  const handleChange = (text) => {
+  //// ---> HANDLERS INPUTS <--- ////
+  const handleChangeIdentification = (identification) => {
     setUser({
-     identification : text,  
-     zone: text,
-     phone: text,
-     account: text,
+      ...user,
+      identification : identification 
     })
-  }
+  };
+
+  const handleChangeZone = (zone) => {
+    setUser({
+      ...user,
+      zone : zone
+    })
+  };
+
+  const handleChangePhone= (phone) => {
+    setUser({
+      ...user,
+      phone : phone
+    })
+  };
+
+  const handleChangeAccount = (account) => {
+    setUser({
+      ...user,
+      account : account
+    })
+  };
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch();
     const obj = {
       identification: user.identification,
       zone: user.zone,
       phone: user.phone,
       account: user.account,
-    }
-    console.log('Soy el console.log', obj)
+    };
+    dispatch(completeProfileUser(obj));
+    console.log('soy lo que se envia', obj)
+    setUser({
+      identification: "",
+      zone: "",
+      phone: "",
+      account: "",
+    })
   }
 
   return (
@@ -82,6 +103,14 @@ const CompleteProfileUser = () => {
         style={{ backgroundColor: "white" }}
         showsVerticalScrollIndicator={false}
       >
+        <View style={styles.iconBar}>
+          <TouchableOpacity
+            //no esta conectado a ningun lugar
+            onPress={() => navigation.navigate("Componentedeauxilio")}
+          >
+            <Icon name="chevron-back-outline" size={30} />
+          </TouchableOpacity>
+        </View>
         <Text
           style={{
             fontWeight: "bold",
@@ -114,7 +143,6 @@ const CompleteProfileUser = () => {
             {/* Inicio de inputs formulario */}
             <View
               style={styles.containerInputs}
-              // onChange={(e) => handleChange(e)}
               onSubmit={(e) => handleSubmit(e)}
             >
               <View style={styles.viewsInputs}>
@@ -128,7 +156,6 @@ const CompleteProfileUser = () => {
                   placeholder="Nombre"
                   name="name"
                   style={styles.textPlaceholder}
-              
                 />
               </View>
               <View style={styles.viewsInputs}>
@@ -168,8 +195,8 @@ const CompleteProfileUser = () => {
                   placeholder="Documento de identidad"
                   name="identification"
                   style={styles.textPlaceholder}
-                  onChangeText={(text) => handleChange(text)}
-                  keyboardType='decimal-pad'
+                  onChangeText={(identification) => handleChangeIdentification(identification)}
+                  keyboardType="decimal-pad"
                 />
               </View>
               <View style={styles.viewsInputs}>
@@ -177,10 +204,10 @@ const CompleteProfileUser = () => {
                   name="navigate-outline"
                   size={26}
                   style={{ paddingBottom: 2 }}
-                  onChangeText={(text) => setUser(text)}
                 />
                 <TextInput
                   value={user.zone}
+                  onChangeText={(zone) => handleChangeZone(zone)}
                   placeholder="Lugar de residencia actual"
                   name="zone"
                   style={styles.textPlaceholder}
@@ -194,6 +221,7 @@ const CompleteProfileUser = () => {
                 />
                 <TextInput
                   value={user.phone}
+                  onChangeText={(phone) => handleChangePhone(phone)}
                   placeholder="Celular válido"
                   name="phone"
                   style={styles.textPlaceholder}
@@ -207,13 +235,14 @@ const CompleteProfileUser = () => {
                 />
                 <TextInput
                   value={user.account}
+                  onChangeText={(account) => handleChangeAccount(account)}
                   placeholder="Medio de pago válido"
                   name="account"
                   style={styles.textPlaceholder}
                 />
               </View>
               <TouchableOpacity style={styles.btnEditar}>
-                <Text style={styles.textBtn}>Aceptar</Text>
+                <Text style={styles.textBtn} onPress={handleSubmit}>Aceptar</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -226,6 +255,14 @@ const CompleteProfileUser = () => {
 export default CompleteProfileUser;
 
 const styles = StyleSheet.create({
+  iconBar: {
+    flexDirection: "row",
+    marginTop: 30,
+    marginBottom: 10,
+    marginHorizontal: 10,
+    justifyContent: "space-between",
+    backgroundColor: "white",
+  },
   containerInputs: {
     flex: 1,
     alignItems: "flex-start",

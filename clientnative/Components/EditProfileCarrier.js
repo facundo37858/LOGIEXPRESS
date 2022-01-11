@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -16,6 +16,8 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/core";
 //Agarrar imagen del celu
 import * as ImagePicker from "expo-image-picker";
+
+import ProfileScreen from "./ProfileScreen";
 
 const EditProfileCarrier = () => {
   ////--> HOOK PARA LA NAVEGACION <-- ////
@@ -50,8 +52,8 @@ const EditProfileCarrier = () => {
       >
         <View style={styles.iconBar}>
           <TouchableOpacity
-          //no esta conectado a ningun lugar
-          // onPress={() => navigation.navigate()}
+            //no esta conectado a ningun lugar
+            onPress={() => navigation.navigate("ProfileScreen")}
           >
             <Icon name="chevron-back-outline" size={30} />
           </TouchableOpacity>
@@ -62,19 +64,17 @@ const EditProfileCarrier = () => {
         {/* Foto e iconito de agregar imagen */}
         <View style={{ alignItems: "center" }}>
           <Image
-           source={{
-            uri:
-              selectedImage !== null
-                ? selectedImage.localUri
-                : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
-          }}
+            source={{
+              uri:
+                selectedImage !== null
+                  ? selectedImage.localUri
+                  : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
+            }}
             style={styles.imgPerfil}
           />
 
           <View>
-            <TouchableWithoutFeedback
-              onPress={openImagePickerAsync}
-            >
+            <TouchableWithoutFeedback onPress={openImagePickerAsync}>
               {/* <Icon name="add-circle-outline" size={40} style={{ marginLeft: 80, marginTop: -35}}/> */}
               <Image
                 source={require("./add-photo.png")}
@@ -193,17 +193,19 @@ const EditProfileCarrier = () => {
               />
             </View>
             <View style={styles.btn2}>
-            <TouchableOpacity style={styles.btnEditar}>
-              <Text style={styles.textBtn}>Cancelar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-            ///---> PONER A DONDE TIENE QUE VOLVER <--- ///
-              //onPress={() => navigation.navigate()}
-              style={styles.btnEditar}
-            >
-              <Text style={styles.textBtn}>Editar</Text>
-            </TouchableOpacity>
-          </View>
+              <TouchableOpacity
+                style={styles.btnEditar}
+                onPress={() => navigation.navigate("ProfileScreen")}
+              >
+                <Text style={styles.textBtn}>Cancelar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                ///---> PONER A DONDE TIENE QUE VOLVER <--- ///
+                style={styles.btnEditar}
+              >
+                <Text style={styles.textBtn}>Editar</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -212,7 +214,6 @@ const EditProfileCarrier = () => {
 };
 
 const styles = StyleSheet.create({
-
   iconBar: {
     flexDirection: "row",
     marginTop: 30,
@@ -248,7 +249,7 @@ const styles = StyleSheet.create({
   textPlaceholder: {
     marginLeft: 20,
     fontSize: 17,
-    marginBottom: 2
+    marginBottom: 2,
   },
   btnEditar: {
     backgroundColor: "#FFC107",
@@ -268,17 +269,14 @@ const styles = StyleSheet.create({
   },
   viewsInputs: {
     margin: 2,
-    borderColor:"#FFCC1D",
+    borderColor: "#FFCC1D",
     borderBottomWidth: 3,
     flexDirection: "row",
     width: 360,
     alignItems: "flex-start",
     marginBottom: 15,
   },
-  btn2: 
-  { flexDirection: "row", 
-  marginLeft: 20
- }
+  btn2: { flexDirection: "row", marginLeft: 20 },
 });
 
 export default EditProfileCarrier;

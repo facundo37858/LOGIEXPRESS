@@ -3,6 +3,7 @@ const initialState = { //hago un estado inicial
     logiarUsuario: null,
     responseReg:null,  
     responseLog:null,
+    completeprofile: []
   };
 
   export default function rootReducer(state = initialState, action) {
@@ -27,6 +28,11 @@ const initialState = { //hago un estado inicial
                       ...state,
                       responseLog: action.payload, //en registrarusuario meteme el action.payload
                     };   
+                  case  'COMPLETE_PROFILE_USER':
+                    return {
+                      ...state,
+                      completeprofile: action.payload
+                    }
         default:
         return state;
     }

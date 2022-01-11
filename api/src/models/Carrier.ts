@@ -1,5 +1,5 @@
 
-import { IsUUID, Model, Column, Table, CreatedAt, UpdatedAt, IsEmail } from 'sequelize-typescript'
+import { IsUUID, Model, Column, Table, IsEmail } from 'sequelize-typescript'
 
 @Table
 export class Carrier extends Model{
@@ -12,7 +12,7 @@ export class Carrier extends Model{
     documentID!: string                     //Documento de identidad 
 
     @Column
-    license!: string
+    license!: string 
 
     @IsEmail
     @Column
@@ -25,15 +25,7 @@ export class Carrier extends Model{
     location!: string
 
     @Column
-    CBU!: string
-
-    @CreatedAt
-    @Column
-    createdAt!: Date
-
-    @UpdatedAt
-    @Column
-    updatedAt!: Date
+    Cuenta!: string
 
 
 }

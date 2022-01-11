@@ -13,6 +13,7 @@ import {
   Dimensions,
   SafeAreaView,
   Modal,
+  Button,
 } from "react-native";
 
 import CheckBox from "expo-checkbox";
@@ -22,17 +23,9 @@ import { ModalPicker } from "./ModalPicker";
 import { useDispatch } from "react-redux";
 import { registrarUsuario } from "../actions/index";
 
-
-
-const SignUp = ({ navigation }) => {
-
-  function navigate() {
-    navigation.navigate('ProfileScreen');
-  }
-  
-
+const SignUp = () => {
   const dispatch = useDispatch();
-
+  const navigation = useNavigation();
   const [reg, setReg] = useState({
     nombre: "",
     apellido: "",
@@ -48,17 +41,23 @@ const SignUp = ({ navigation }) => {
     setCheck(!check);
   };
 
-  const ChangeInput = (e) => {
-    setReg({
-      // y sino es  generos y platforms, directamente pongo lo que escribo en el input
-      ...reg,
-      [e.target.name]: e.target.value,
-    });
-  };
+  // const ChangeInput = (e) => {
+  //   setReg({
+  //     // y sino es  generos y platforms, directamente pongo lo que escribo en el input
+  //     ...reg,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // en un objeto pongo lo que tengo en el estado inicial
+    let rolex = undefined;
+    if (chooseData === "◉ Usuario") {
+      rolex = false;
+    } else {
+      rolex = true;
+    }
     const obj = {
       name: reg.nombre,
       lastName: reg.apellido,
@@ -66,7 +65,7 @@ const SignUp = ({ navigation }) => {
       eMail: reg.mail,
       password: reg.contraseña,
       terminosCondiciones: check,
-      role: true,
+      role: rolex,
     };
     dispatch(registrarUsuario(obj));
     console.log("Estoy enviado", obj);
@@ -80,6 +79,39 @@ const SignUp = ({ navigation }) => {
     });
 
     console.log(obj);
+  };
+
+  //funciones para cambiar e.value de los inputs
+
+  const handelChangeName = (name) => {
+    setReg({
+      ...reg,
+      nombre: name,
+    });
+  };
+  const handelChangeLastName = (name) => {
+    setReg({
+      ...reg,
+      apellido: name,
+    });
+  };
+  const handelChangeMail = (name) => {
+    setReg({
+      ...reg,
+      mail: name,
+    });
+  };
+  const handelChangePass = (name) => {
+    setReg({
+      ...reg,
+      contraseña: name,
+    });
+  };
+  const handelChangeTel = (name) => {
+    setReg({
+      ...reg,
+      telefono: name,
+    });
   };
 
   const [chooseData, setchooseData] = useState("Seleccionar Perfil...");
@@ -107,7 +139,7 @@ const SignUp = ({ navigation }) => {
         <View style={styles.brandView}>
           <Ionicons
             name="location-sharp"
-            style={{ color: "#ffbe0b", fontSize: 100 }}
+            style={{ color: "#FFC107", fontSize: 100 }}
           />
           <Text style={styles.brandViewText}>LOGIEXPRESS</Text>
         </View>
@@ -116,27 +148,23 @@ const SignUp = ({ navigation }) => {
       <View style={styles.bottonView}>
         {/* Welcome View */}
         <View style={{ padding: 40, display: "flex", alignItems: "center" }}>
-          <Text style={{ color: "#4632a1", fontSize: 24 }}>
+          <Text style={{ color: "#7952B3", fontSize: 24 }}>
             Ingresa a LogiExpress
           </Text>
         </View>
         {/* inputs */}
-        <View
-          style={styles.FormView}
-          onChange={(e) => ChangeInput(e)}
-          onSubmit={(e) => handleSubmit(e)}
-        >
+        <View style={styles.FormView} onSubmit={(e) => handleSubmit(e)}>
           <TextInput
             name="nombre"
             value={reg.nombre}
-            onChangeText={(text) => setReg({ ...reg, nombre: text })}
+            onChangeText={(name) => handelChangeName(name)}
             placeholder="Nombre*"
             style={styles.TextInput}
           ></TextInput>
 
           <TextInput
             value={reg.apellido}
-            onChangeText={(text) => setReg({ ...reg, apellido: text })}
+            onChangeText={(name) => handelChangeLastName(name)}
             name="apellido"
             placeholder="Apellido*"
             style={styles.TextInput}
@@ -145,7 +173,7 @@ const SignUp = ({ navigation }) => {
           <TextInput
             icon="mail"
             value={reg.mail}
-            onChangeText={(text) => setReg({ ...reg, mail: text })}
+            onChangeText={(name) => handelChangeMail(name)}
             name="mail"
             placeholder="Dirección de Mail*"
             style={styles.TextInput}
@@ -153,7 +181,7 @@ const SignUp = ({ navigation }) => {
 
           <TextInput
             value={reg.contraseña}
-            onChangeText={(text) => setReg({ ...reg, contraseña: text })}
+            onChangeText={(name) => handelChangePass(name)}
             name="contraseña"
             placeholder="Contraseña*"
             secureTextEntry={true}
@@ -162,16 +190,20 @@ const SignUp = ({ navigation }) => {
 
           <TextInput
             value={reg.telefono}
-            onChangeText={(text) => setReg({ ...reg, telefono: text })}
+            onChangeText={(name) => handelChangeTel(name)}
             name="telefono"
             placeholder="Telefono*"
             style={styles.TextInput}
           ></TextInput>
-          <View>
-            <Text>
-              Al registrarme acepto los términos y condiciones del sitio.
+          <View style={styles.checkbox}>
+            <Text style={{ fontWeight: "bold" }}>
+              Al registrarme acepto ser mayor de 18 años.
             </Text>
-            <CheckBox value={check} onChange={CheckboxChange}></CheckBox>
+            <CheckBox
+              style={styles.checkboxx}
+              value={check}
+              onValueChange={CheckboxChange}
+            ></CheckBox>
           </View>
 
           <SafeAreaView style={styles.container}>
@@ -199,11 +231,23 @@ const SignUp = ({ navigation }) => {
               Registrarme!
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.Button}>
+          {/* <TouchableOpacity style={styles.Button}>
             <Text style={styles.ButtonText} onPress={navigate}>
               Siguiente
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          <Button
+            title="Perfil usuario"
+            onPress={() => navigation.navigate("ProfileUserScreen")}
+          />
+          <Button
+            title="Perfil transportista"
+            onPress={() => navigation.navigate("ProfileScreen")}
+          />
+          <Button
+            title="Elegir perfil"
+            onPress={() => navigation.navigate("Componentedeauxilio")}
+          />
         </View>
       </View>
     </ScrollView>
@@ -219,7 +263,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   brandViewText: {
-    color: "#ffbe0b",
+    color: "#FFC107",
     fontSize: 45,
     fontWeight: "bold",
     textTransform: "uppercase",
@@ -227,10 +271,10 @@ const styles = StyleSheet.create({
   },
   bottonView: {
     flex: 1.5,
-    backgroundColor: "#ffffffff",
+    backgroundColor: "white",
     bottom: 50,
-    borderTopStartRadius: 60,
-    borderTopEndRadius: 60,
+    borderTopStartRadius: 50,
+    borderTopEndRadius: 50,
   },
   FormView: {
     width: "100%",
@@ -251,7 +295,7 @@ const styles = StyleSheet.create({
   },
   Button: {
     width: "90%",
-    color: "yellow",
+    color: "black",
     height: 52,
     backgroundColor: "black",
     borderRadius: 10,
@@ -263,7 +307,7 @@ const styles = StyleSheet.create({
   ButtonText: {
     fontWeight: "bold",
     fontSize: 18,
-    color: "white",
+    color: "#E1E8EB",
   },
   SingUpText: {
     color: "#4632a1",
@@ -286,7 +330,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#E1E8EB",
     justifyContent: "center",
     alignItems: "center",
     padding: 50,
@@ -295,15 +339,24 @@ const styles = StyleSheet.create({
   },
   text: {
     // marginVertical: 20,
-    fontSize: 25,
+    fontSize: 22,
     color: "white",
     fontWeight: "bold",
   },
   TouchableOpacity: {
-    backgroundColor: "#ffbe0b",
+    backgroundColor: "#FFC107",
     alignSelf: "stretch",
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 10,
+  },
+  checkbox: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 15,
+  },
+  checkboxx: {
+    marginTop: 15,
   },
 });

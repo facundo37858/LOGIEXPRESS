@@ -6,18 +6,16 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  SafeAreaView
-} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons'
+  SafeAreaView,
+} from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/core";
 
-
-
-const ProfileUserScreen = ({ navigation }) => {
-
-  function navigate () {
-    navigation.navigate('ScreenMap')
-  };
-
+const ProfileUserScreen = (/*{ navigation }*/) => {
+  //   function navigate() {
+  //     navigation.navigate("ScreenMap");
+  //   }
+  const navigation = useNavigation();
 
   return (
     /*  <SafeAreaView style={{flex:1, backgroundColor:'#fff'}}>
@@ -82,12 +80,10 @@ const ProfileUserScreen = ({ navigation }) => {
         </View>
       </ScrollView>
     </SafeAreaView>
+  );
+};
 
-  )
-}
-
-
-export default ProfileScreen;
+export default ProfileUserScreen;
 
 const styles = StyleSheet.create({
   container: {

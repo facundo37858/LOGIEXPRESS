@@ -10,8 +10,10 @@ import EditProfileCarrier from "./Components/EditProfileCarrier";
 // import EditVehiculeCarrier from "./Components/EditVehiculeCarrier";
 import CompleteProfileUser from "./Components/CompletarPerfil/CompleteProfileUser";
 import CompleteProfileCarrier from "./Components/CompletarPerfil/CompleteProfileCarrier";
+import ProfileUserScreen from "./Components/ProfileUserScreen";
 import ProfileCarrierScreen from "./Components/ProfileScreen";
 import ScreenMap from "./Components/ScreenMap";
+import Componentedeauxilio from "./Components/Componentedeauxilio";
 
 const Stack = createStackNavigator();
 
@@ -53,6 +55,15 @@ const App = () => {
           />
           <Stack.Screen name="ProfileScreen" component={ProfileCarrierScreen} />
           <Stack.Screen name="ScreenMap" component={ScreenMap} />
+          <Stack.Screen
+            name="ProfileUserScreen"
+            component={ProfileUserScreen}
+          />
+          <Stack.Screen
+            name="Componentedeauxilio"
+            component={Componentedeauxilio}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

@@ -3,7 +3,8 @@ const initialState = { //hago un estado inicial
     logiarUsuario: null,
     responseReg:null,  
     responseLog:null,
-    completeprofile: []
+    completeprofile: [],
+    completeCarrier: []
   };
 
   export default function rootReducer(state = initialState, action) {
@@ -32,6 +33,11 @@ const initialState = { //hago un estado inicial
                     return {
                       ...state,
                       completeprofile: action.payload
+                    }
+                  case 'COMPLETE_PROFILE_CARRIER':
+                    return {
+                      ...state,
+                      completeCarrier: action.payload
                     }
         default:
         return state;

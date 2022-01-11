@@ -16,7 +16,7 @@ import { useDispatch } from "react-redux";
 import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from "@react-navigation/core";
 import { completeProfileUser } from '../../actions/index.js'
-import { isObject } from "formik";
+
 const CompleteProfileUser = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -28,7 +28,6 @@ const CompleteProfileUser = () => {
     phone: "",
     account: "",
   });
-
 
   ////--> IMAGE PICKER <-- ////
   const [selectedImage, setSelectedImage] = useState(null);
@@ -192,7 +191,7 @@ const CompleteProfileUser = () => {
                 />
                 <TextInput
                   value={user.identification}
-                  placeholder="Documento de identidad"
+                  placeholder="Documento de identidad SIN PUNTOS"
                   name="identification"
                   style={styles.textPlaceholder}
                   onChangeText={(identification) => handleChangeIdentification(identification)}
@@ -236,7 +235,7 @@ const CompleteProfileUser = () => {
                 <TextInput
                   value={user.account}
                   onChangeText={(account) => handleChangeAccount(account)}
-                  placeholder="Medio de pago válido"
+                  placeholder="Medio de pago: mercadoPago"
                   name="account"
                   style={styles.textPlaceholder}
                 />

@@ -71,10 +71,26 @@ export function completeProfileUser(payload){
        payload: response.data
      }); 
     } catch (error){
-      console.error(error.response)
+      console.log(error.response)
     }
   }
 } 
+
+//// --> Ruta para completar perfil carrier <-- ////
+export function completeProfileCarrier(payload){
+  return async function (dispatch){
+    try {
+      const response = await axios.post("http://localhost:3001/api/carrierProfile", payload)
+      console.log('Soy el console.log de response', response)
+      return dispatch({
+        type: 'COMPLETE_PROFILE_CARRIER',
+        payload: response.data
+      })
+    } catch (error) {
+       console.log(error.response)
+    }
+  }
+}
 
 // import FormData from "FormData";
 

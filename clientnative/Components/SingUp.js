@@ -242,12 +242,15 @@ const SignUp = () => {
           />
           <Button
             title="Perfil transportista"
-            onPress={() => navigation.navigate("ProfileScreen")}
+            onPress={() => navigation.navigate("ProfileScreenCarrier")}
           />
           <Button
             title="Elegir perfil"
             onPress={() => navigation.navigate("Componentedeauxilio")}
           />
+          <Button
+          title="RequestTravel"
+          onPress={() => navigation.navigate("RequestTravel")}/>
         </View>
       </View>
     </ScrollView>

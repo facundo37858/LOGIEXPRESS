@@ -17,7 +17,7 @@ import { useNavigation } from "@react-navigation/core";
 //Agarrar imagen del celu
 import * as ImagePicker from "expo-image-picker";
 
-import ProfileScreen from "./ProfileScreen";
+import ProfileScreen from "./ProfileScreenCarrier";
 
 const EditProfileCarrier = () => {
   ////--> HOOK PARA LA NAVEGACION <-- ////

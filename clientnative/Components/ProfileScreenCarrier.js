@@ -11,12 +11,9 @@ import {
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/core";
 
-const ProfileScreen = (/*{ navigation }*/) => {
-  // function navigate () {
-  //   navigation.navigate('ScreenMap')
-  // };
-  const navigation = useNavigation();
+const ProfileScreen = () => {
 
+  const navigation = useNavigation();
   return (
     /*  <SafeAreaView style={{flex:1, backgroundColor:'#fff'}}>
          <ScrollView 

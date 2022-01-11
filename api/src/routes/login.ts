@@ -3,9 +3,9 @@ import { User } from '../models/User';
 import { uuid } from 'uuidv4';
 import { User_Reg } from '../models/User_Reg';
 
-// const bcryptjs = require("bcryptjs");
+const bcryptjs = require("bcryptjs");
 
-import bcryptjs from 'bcryptjs'
+// import bcryptjs from 'bcryptjs'
 
 
 const router = Router()

@@ -55,7 +55,7 @@ const SignUp = () => {
     let rolex = undefined;
     if (chooseData === "◉ Usuario") {
       rolex = false;
-    } else {
+    } if(chooseData === "◉ Transportista") {
       rolex = true;
     }
     const obj = {
@@ -65,8 +65,38 @@ const SignUp = () => {
       eMail: reg.mail,
       password: reg.contraseña,
       terminosCondiciones: check,
-      role: rolex,
+      role: rolex, 
     };
+
+    //validaciones 
+    if (!obj.name ) {
+      alert("Por favor escribe el Nombre correctamente!")
+      return
+  }
+  if (!obj.lastName) {
+      alert("Por favor escribe el Apellido correctamente!")
+      return
+  }
+  if (!obj.eMail.includes('.com') || !obj.eMail.includes('@')  ) {
+    alert("Por favor escribe un correo electrónico válido!")
+    return
+} if (!obj.password) {
+  alert("Por favor escribe una Contraseña válida!")
+  return
+}
+if (!obj.phone) {
+      alert("Por favor escribe un número de telefono válido!")
+      return
+  }if (obj.terminosCondiciones === false) {
+    alert("Debes aceptar los términos para poder registrarte!")
+    return
+  }if (obj.role === undefined) {
+  alert("Por favor elije un Rol!")
+  return
+}
+
+
+
     dispatch(registrarUsuario(obj));
     console.log("Estoy enviado", obj);
     setReg({
@@ -189,6 +219,7 @@ const SignUp = () => {
           ></TextInput>
 
           <TextInput
+            keyboardType={'phone-pad'}
             value={reg.telefono}
             onChangeText={(name) => handelChangeTel(name)}
             name="telefono"
@@ -330,7 +361,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: "#E1E8EB",
+    backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
     padding: 50,

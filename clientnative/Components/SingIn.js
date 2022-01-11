@@ -49,6 +49,17 @@ const handelChangePass=(pass)=>{
       eMail: log.mail,
       password: log.contraseña,
     };
+
+    //Validaciones:
+
+    if (!obj.eMail.includes('.com') || !obj.eMail.includes('@')  ) {
+      alert("Por favor escribe un correo electrónico válido!")
+      return
+  } if (!obj.password) {
+    alert("Por favor escribe una Contraseña válida!")
+    return
+  }
+
     dispatch(logiarUsuario(obj));
     console.log("Estoy enviado", obj);
     setLog({

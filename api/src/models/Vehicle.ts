@@ -10,7 +10,7 @@ export class Vehicle extends Model{
     id!: string
 
     @Column
-    brand!: string
+    brand!: string //marca
 
     @Column
     patent!: string

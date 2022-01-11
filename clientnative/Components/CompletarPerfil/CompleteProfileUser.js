@@ -54,12 +54,39 @@ const CompleteProfileUser = () => {
   //   });
   // }
 
-  const handleChange = (text) => {
+  // const handleChange = (text) => {
+  //   setUser({
+  //     ...user,
+  //    [identification] : text,  
+  //    [zone] : text,
+  //    [phone] : text,
+  //    [account]: text,
+  //   })
+  // }
+
+  
+  const handleChangeIdentificacion = (text) => {
     setUser({
+      ...user,
      identification : text,  
-     zone: text,
-     phone: text,
-     account: text,
+    })
+  }
+  const handleChangeZone = (text) => {
+    setUser({
+      ...user,
+     zone : text,  
+    })
+  }
+   const handleChangePhone = (text) => {
+    setUser({
+      ...user,
+     phone : text,  
+    })
+  }
+  const handleChangeAccount = (text) => {
+    setUser({
+      ...user,
+     account : text,  
     })
   }
 
@@ -72,7 +99,6 @@ const CompleteProfileUser = () => {
       phone: user.phone,
       account: user.account,
     }
-    console.log('Soy el console.log', obj)
   }
 
   return (
@@ -168,7 +194,7 @@ const CompleteProfileUser = () => {
                   placeholder="Documento de identidad"
                   name="identification"
                   style={styles.textPlaceholder}
-                  onChangeText={(text) => handleChange(text)}
+                  onChangeText={(text) => handleChangeIdentificacion(text)}
                   keyboardType='decimal-pad'
                 />
               </View>
@@ -177,9 +203,10 @@ const CompleteProfileUser = () => {
                   name="navigate-outline"
                   size={26}
                   style={{ paddingBottom: 2 }}
-                  onChangeText={(text) => setUser(text)}
+                  
                 />
                 <TextInput
+                onChangeText={(text) => handleChangeZone(text)}
                   value={user.zone}
                   placeholder="Lugar de residencia actual"
                   name="zone"
@@ -193,6 +220,7 @@ const CompleteProfileUser = () => {
                   style={{ paddingBottom: 2 }}
                 />
                 <TextInput
+                onChangeText={(text) => handleChangePhone(text)}
                   value={user.phone}
                   placeholder="Celular válido"
                   name="phone"
@@ -206,6 +234,7 @@ const CompleteProfileUser = () => {
                   style={{ paddingBottom: 2 }}
                 />
                 <TextInput
+                onChangeText={(text) => handleChangeAccount(text)}
                   value={user.account}
                   placeholder="Medio de pago válido"
                   name="account"

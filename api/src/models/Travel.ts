@@ -52,6 +52,9 @@ export class Travel extends Model<Travel>{
     @ForeignKey(()=>Carrier)
     carrierId!:string
 
+    
+
+
 
 
 }

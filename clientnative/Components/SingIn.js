@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import { Ionicons } from "@expo/vector-icons";
 import {
   Text,
@@ -12,16 +13,43 @@ import {
   Button,
 } from "react-native";
 import { logiarUsuario } from "./../actions/index";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector,  } from "react-redux";
 
 const SingIn = ({ navigation }) => {
+  
   const dispatch = useDispatch();
+  
+  const respuesta = useSelector((store) => store.responseLog)
+
+  // useEffect(()=>{
+  //   // token === localstorage.token
+  //   if(token===true){
+  //     dispatch(action) // llamar a la ruta del back, si el token es valido, el back devuelve respuesta con la info del user
+  //     //si existe la sesion:
+  //     //cargamos la info del perfil en redux
+  //     // se pisa el estado responseLog, al modificarse el estado de redux:
+  //     //se activa el useEffect de abajo
+  //   }
+  // })
+
+  useEffect(()=>{
+    console.log('aqui esta la respuestaaaa:',respuesta);
+    if(respuesta?.role === true){
+      navigation.navigate("ProfileUserScreen");
+    }if(respuesta?.role === false){
+      navigation.navigate("ProfileScreen");
+    }if(respuesta?.role === 1){
+      alert('La dirección de correo electrónico o la contraseña que ingresaste no son válidas!')
+    }
+  },[respuesta]);
+
 
   const [log, setLog] = useState({
     mail: "",
     contraseña: "",
   });
 
+  // const name = respuesta.name
   // const ChangeInput = (e) => {
   //   setLog({
   //     // y sino es  generos y platforms, directamente pongo lo que escribo en el input
@@ -66,7 +94,17 @@ const handelChangePass=(pass)=>{
       mail: "",
       contraseña: "",
     });
-  };
+
+
+  
+
+
+
+      //cuando se cumpla que respuesta != null
+      //haga un console.log(respuesta)
+
+
+  }
 
   function navigate() {
     navigation.navigate("singUp");

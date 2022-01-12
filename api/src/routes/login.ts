@@ -80,7 +80,12 @@ router.post('/login', async (req: Request, res: Response) => {
 
 
 	} else {
-		return res.status(404).json({ mensaje: "Usuario o contraseña incorrectos" })
+		// return res.status(404).json({ mensaje: "Usuario o contraseña incorrectos" })
+
+		const payload = {
+			role: 1,
+		};
+		return res.json({payload, mensaje:"usuario y mail ingresados son invalidos"}).status(301)
 	}
 
 	// 	console.log('pass: ',password)

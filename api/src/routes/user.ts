@@ -54,16 +54,31 @@ router.post('/user', async (req: Request, res: Response, next: NextFunction) => 
 			defaults: newUser
 		})
 
+		// if (!created) {
+		// 	return res.send('eMail usado')//podria ser un boolean
 		if (!created) {
-			return res.send('eMail usado')//podria ser un boolean 
+			const payload = {
+				role: 1,
+			};
+			return res.json({payload,mensaje:'eMail usado'})//podria ser un boolean 
 		}
 		// console.log('User:',user,'Bool: ',created)
 
 	
+		const payload = {
+			eMail,
+			// id: id,
+			role: role,
+			name: name,
+			lastname: lastName,
+			phone: phone,
+		};
 
 
-
-		res.send('Usuario creado')//podria ser un boolean 
+		// res.send('Usuario creado')//podria ser un boolean 
+		return res.json({
+			mensaje: 'Usuario Creado', payload
+		}).status(300);
 
 
 	}

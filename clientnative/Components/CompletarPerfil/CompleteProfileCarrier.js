@@ -171,14 +171,6 @@ const CompleteProfileUser = () => {
         style={{ backgroundColor: "white" }}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.iconBar}>
-          <TouchableOpacity
-            //no esta conectado a ningun lugar
-            onPress={() => navigation.navigate("Componentedeauxilio")}
-          >
-            <Icon name="chevron-back-outline" size={30} />
-          </TouchableOpacity>
-        </View>
         <Text
           style={{
             fontWeight: "bold",

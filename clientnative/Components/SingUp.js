@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/core";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import {
   Text,
@@ -20,11 +20,29 @@ import CheckBox from "expo-checkbox";
 
 // import CheckBox from "@react-native-community/checkbox";
 import { ModalPicker } from "./ModalPicker";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registrarUsuario } from "../actions/index";
 
 const SignUp = () => {
   const dispatch = useDispatch();
+
+  const respuesta = useSelector((store) => store.responseReg)
+
+  useEffect(()=>{
+    console.log('aqui esta la respuestaaaa:',respuesta);
+    if(respuesta?.role === true){
+      alert('Te has registrado exitosamente!')
+      navigation.navigate("CompleteProfileUser");
+    }if(respuesta?.role === false){
+      alert('Te has registrado exitosamente!')
+      navigation.navigate("CompleteProfileCarrier");
+    }if(respuesta?.role === 1){
+      alert('El mail ingresado ya se encuentra en uso!')
+    }
+  },[respuesta]);
+
+
+
   const navigation = useNavigation();
   const [reg, setReg] = useState({
     nombre: "",
@@ -54,9 +72,9 @@ const SignUp = () => {
     // en un objeto pongo lo que tengo en el estado inicial
     let rolex = undefined;
     if (chooseData === "◉ Usuario") {
-      rolex = false;
-    } if(chooseData === "◉ Transportista") {
       rolex = true;
+    } if(chooseData === "◉ Transportista") {
+      rolex = false;
     }
     const obj = {
       name: reg.nombre,

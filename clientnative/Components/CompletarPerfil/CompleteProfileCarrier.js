@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -14,13 +14,20 @@ import Icon from "react-native-vector-icons/Ionicons";
 //Agarrar imagen del celu
 import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from "@react-navigation/core";
-import { useDispatch } from "react-redux";
-import { completeProfileCarrier } from '../../actions/index.js'
+import { useDispatch, useSelector } from "react-redux";
+import { completeProfileCarrier } from "../../actions/index.js";
 
 const CompleteProfileUser = () => {
   const dispatch = useDispatch();
 
+  const datosCarrier = useSelector((store) => store.responseReg);
+
+  useEffect(() => {
+    console.log("SOY DATOS DEL CARRIER", datosCarrier);
+  }, [datosUser]);
+
   //// --> ESTADO PARA LOS INPUTS <-- ////
+
   const [carrier, setCarrier] = useState({
     //Datos del carrier//
     documentID: "",
@@ -54,35 +61,36 @@ const CompleteProfileUser = () => {
     const pickerResult = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect : [4, 3],
-      quality: 1
+      aspect: [4, 3],
+      quality: 1,
     });
-    
+
     if (pickerResult.cancelled !== true) {
-      let newFile = { 
-      uri:pickerResult.uri, 
-      type: `logi/${pickerResult.uri.split('.')[1]}`, 
-      name: `logi.${pickerResult.uri.split('.')[1]}` 
-    }
-       handleUpload(newFile)
+      let newFile = {
+        uri: pickerResult.uri,
+        type: `logi/${pickerResult.uri.split(".")[1]}`,
+        name: `logi.${pickerResult.uri.split(".")[1]}`,
+      };
+      handleUpload(newFile);
     }
   };
 
   const handleUpload = (image) => {
-    const data = new FormData()
-    data.append('file', image)
-    data.append('upload_preset', 'logiexpress')
-    data.append('cloud_name', 'elialvarez')
-    
-    fetch('https://api.cloudinary.com/v1_1/elialvarez/image/upload', {
-      method:'post',
-      body: data
-    }).then(res => res.json())
-    .then(data => {
-      //console.log(data)
-      setSelectedImage(data.url)
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "logiexpress");
+    data.append("cloud_name", "elialvarez");
+
+    fetch("https://api.cloudinary.com/v1_1/elialvarez/image/upload", {
+      method: "post",
+      body: data,
     })
-  }
+      .then((res) => res.json())
+      .then((data) => {
+        //console.log(data)
+        setSelectedImage(data.url);
+      });
+  };
 
   //// ---> HANDLERS INPUTS <--- ////
   //Carrier//
@@ -174,7 +182,7 @@ const CompleteProfileUser = () => {
       capacity: carrier.capacity,
     };
     dispatch(completeProfileCarrier(obj));
-    console.log('soy lo que se envia', obj)
+    console.log("soy lo que se envia", obj);
     setCarrier({
       //Datos del carrier//
       documentID: "",
@@ -230,7 +238,10 @@ const CompleteProfileUser = () => {
             </TouchableWithoutFeedback>
 
             {/* Inicio de inputs formulario */}
-            <View style={styles.containerInputs}  onSubmit={(e) => handleSubmit(e)} >
+            <View
+              style={styles.containerInputs}
+              onSubmit={(e) => handleSubmit(e)}
+            >
               <Text
                 style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}
               >
@@ -238,55 +249,48 @@ const CompleteProfileUser = () => {
               </Text>
               <View style={styles.viewsInputs}>
                 <Icon name="person-circle-outline" size={26} />
-                <TextInput
-                  value = {carrier.name}
-                  placeholder="Nombre"
-                  name="name"
-                  style={styles.textPlaceholder}
-                />
+                <Text style={{ fontSize: 18, marginLeft: 15 }}>
+                  {datosCarrier.name}
+                </Text>
+                <TextInput style={styles.textPlaceholder} />
               </View>
               <View style={styles.viewsInputs}>
                 <Icon name="person-circle-outline" size={26} />
-                <TextInput
-                  value = {carrier.lastname}
-                  placeholder="Apellido"
-                  name="lastname"
-                  style={styles.textPlaceholder}
-                />
+                <Text style={{ fontSize: 18, marginLeft: 15 }}>
+                  {datosCarrier.lastname}
+                </Text>
+                <TextInput style={styles.textPlaceholder} />
               </View>
               <View style={styles.viewsInputs}>
-                <Icon name="mail-outline" size={26} />
-                <TextInput
-                  value= {carrier.eMail}
-                  placeholder="sprint1.jebusayudanos@gmail.com"
-                  name="eMail"
-                  style={styles.textPlaceholder}
-                />
+                <Icon name="mail-outline" size={25} />
+                <Text style={{ fontSize: 18, marginLeft: 15 }}>
+                  {datosCarrier.eMail}
+                </Text>
+                <TextInput style={styles.textPlaceholder} />
               </View>
               <View style={styles.viewsInputs}>
                 <Icon name="reader-outline" size={26} />
                 <TextInput
-                  value= {carrier.documentID}
+                  value={carrier.documentID}
                   placeholder="Documento de identidad SIN PUNTOS"
                   name="documentID"
                   style={styles.textPlaceholder}
-                  onChangeText={(documentID) =>  handleChangeDocumentID(documentID) }
+                  onChangeText={(documentID) =>
+                    handleChangeDocumentID(documentID)
+                  }
                 />
               </View>
               <View style={styles.viewsInputs}>
                 <Icon name="phone-portrait-outline" size={26} />
-                <TextInput
-                  value = {carrier.phone}
-                  onChangeText={(phone) => handleChangePhone(phone)}
-                  placeholder="Celular válido"
-                  name="phone"
-                  style={styles.textPlaceholder}
-                />
+                <Text style={{ fontSize: 18, marginLeft: 15 }}>
+                  {datosCarrier.phone}
+                </Text>
+                <TextInput style={styles.textPlaceholder} />
               </View>
               <View style={styles.viewsInputs}>
                 <Icon name="map-outline" size={26} />
                 <TextInput
-                  value = {carrier.location}
+                  value={carrier.location}
                   onChangeText={(location) => handleChangeLocation(location)}
                   placeholder="Lugar de residencia actual"
                   name="location"
@@ -296,7 +300,7 @@ const CompleteProfileUser = () => {
               <View style={styles.viewsInputs}>
                 <Icon name="card-outline" size={26} />
                 <TextInput
-                  value = {carrier.Cuenta}
+                  value={carrier.Cuenta}
                   onChangeText={(Cuenta) => handleChangeCuenta(Cuenta)}
                   placeholder="Medio de pago: mercadoPago"
                   name="Cuenta"
@@ -314,7 +318,7 @@ const CompleteProfileUser = () => {
                 <View style={styles.viewsInputs}>
                   <Icon name="newspaper-outline" size={26} />
                   <TextInput
-                    value = {carrier.license}
+                    value={carrier.license}
                     onChangeText={(license) => handleChangeLicense(license)}
                     placeholder="Licencia actualizada"
                     name="license"
@@ -324,8 +328,8 @@ const CompleteProfileUser = () => {
                 <View style={styles.viewsInputs}>
                   <Icon name="car-outline" size={26} />
                   <TextInput
-                   value = {carrier.brand}
-                   onChangeText={(brand) => handleChangeBrand(brand)}
+                    value={carrier.brand}
+                    onChangeText={(brand) => handleChangeBrand(brand)}
                     placeholder="Scania, Mercedes-Benz, etc."
                     name="brand"
                     style={styles.textPlaceholder}
@@ -334,7 +338,7 @@ const CompleteProfileUser = () => {
                 <View style={styles.viewsInputs}>
                   <Icon name="document-outline" size={26} />
                   <TextInput
-                    value = {carrier.patent}
+                    value={carrier.patent}
                     onChangeText={(patent) => handleChangePatent(patent)}
                     placeholder="Patente del vehiculo"
                     name="patent"
@@ -344,8 +348,8 @@ const CompleteProfileUser = () => {
                 <View style={styles.viewsInputs}>
                   <Icon name="car-sport-outline" size={26} />
                   <TextInput
-                  value = {carrier.model}
-                  onChangeText={(model) => handleChangeModel(model)}
+                    value={carrier.model}
+                    onChangeText={(model) => handleChangeModel(model)}
                     placeholder="Modelo, año de salida al mercado"
                     name="model"
                     keyboardType="decimal-pad"
@@ -355,7 +359,7 @@ const CompleteProfileUser = () => {
                 <View style={styles.viewsInputs}>
                   <Icon name="color-palette-outline" size={26} />
                   <TextInput
-                    value = {carrier.color}
+                    value={carrier.color}
                     onChangeText={(color) => handleChangeColor(color)}
                     placeholder="Rojo, gris, negro, óxido"
                     name="color"
@@ -365,8 +369,8 @@ const CompleteProfileUser = () => {
                 <View style={styles.viewsInputs}>
                   <Icon name="construct-outline" size={26} />
                   <TextInput
-                  value = {carrier.capacity}
-                  onChangeText={(capacity) => handleChangeCapacity(capacity)}
+                    value={carrier.capacity}
+                    onChangeText={(capacity) => handleChangeCapacity(capacity)}
                     placeholder="Capacidad de carga vehiculo"
                     name="capacity"
                     style={styles.textPlaceholder}
@@ -374,7 +378,9 @@ const CompleteProfileUser = () => {
                 </View>
               </View>
               <TouchableOpacity style={styles.btnEditar}>
-                <Text style={styles.textBtn} onPress={handleSubmit} >Enviar</Text>
+                <Text style={styles.textBtn} onPress={handleSubmit}>
+                  Enviar
+                </Text>
               </TouchableOpacity>
             </View>
           </View>

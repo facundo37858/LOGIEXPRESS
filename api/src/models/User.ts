@@ -6,16 +6,13 @@ import { User_Reg } from './User_Reg'
 export class User extends Model {
     @PrimaryKey
     @Column
-    id!: string
+    id!: string 
 
     @Column
     identification!: number
 
     @Column 
     zone!: string
-
-    @Column
-    phone!: number
  
     @Column
     photo!: string

@@ -66,7 +66,7 @@ export function completeProfileUser(payload){
   return async function(dispatch){
     try{
      const response = await axios.post("http://192.168.0.105:3001/api/userProfile", payload)
-     console.log('Soy el console.log de response', response)
+     //console.log('Soy el console.log de response', response)
      return dispatch({
        type: 'COMPLETE_PROFILE_USER',
        payload: response.data
@@ -82,7 +82,7 @@ export function completeProfileCarrier(payload){
   return async function (dispatch){
     try {
       const response = await axios.post("http://192.168.0.105:3001/api/carrierProfile", payload)
-      console.log('Soy el console.log de response', response)
+     // console.log('Soy el console.log de response', response)
       return dispatch({
         type: 'COMPLETE_PROFILE_CARRIER',
         payload: response.data

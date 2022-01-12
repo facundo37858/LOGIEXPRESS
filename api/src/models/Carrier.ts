@@ -18,13 +18,6 @@ export class Carrier extends Model {
     @Column
     license!: string 
 
-    @IsEmail
-    @Column
-    eMail!: string
-
-    @Column
-    phone!: number
-
     @Column
     location!: string
 
@@ -34,6 +27,8 @@ export class Carrier extends Model {
     @Column
     photo!: string
 
+    @Column
+    Active!:boolean
 
     @BelongsTo(() => User_Reg)
     user_Reg!: User_Reg

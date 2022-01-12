@@ -29,7 +29,7 @@ const SignUp = () => {
   const respuesta = useSelector((store) => store.responseReg)
 
   useEffect(()=>{
-    console.log('aqui esta la respuestaaaa:',respuesta);
+    //console.log('aqui esta la respuestaaaa:',respuesta);
     if(respuesta?.role === true){
       alert('Te has registrado exitosamente!')
       navigation.navigate("CompleteProfileUser");
@@ -280,11 +280,6 @@ if (!obj.phone) {
               Registrarme!
             </Text>
           </TouchableOpacity>
-          {/* <TouchableOpacity style={styles.Button}>
-            <Text style={styles.ButtonText} onPress={navigate}>
-              Siguiente
-            </Text>
-          </TouchableOpacity> */}
           <Button
             title="Perfil usuario"
             onPress={() => navigation.navigate("ProfileUserScreen")}

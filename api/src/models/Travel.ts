@@ -5,7 +5,7 @@ import { Review } from './Review';
 import { User } from './User';
 
 @Table
-export class Travel extends Model<Travel>{
+export class Travel extends Model{
 
     @IsUUID(4)
     @Column({ primaryKey: true })
@@ -18,16 +18,13 @@ export class Travel extends Model<Travel>{
     destination!: string
 
     @Column
+    weigth!: number
+
+    @Column
     price!: string
 
     @Column
     description!: string
-
-    @Column
-    comments!: string
-
-    @Column
-    score!: number
 
     @HasOne(()=>Review)
     rewiew!:Review

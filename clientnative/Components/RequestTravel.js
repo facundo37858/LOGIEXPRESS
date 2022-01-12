@@ -17,7 +17,8 @@ import * as Location from 'expo-location';
 import { useNavigation } from "@react-navigation/core";
 import { SafeAreaView } from "react-native";
 import { Input } from "react-native-elements"
-
+import { useSelector, useDispatch } from "react-redux";
+import { cotizarViaje, requestTravel } from "../actions/index.js"
 
 
 // funcion para calcular la distancia en km
@@ -43,6 +44,8 @@ function getDistanciaMetros(origen, destino) {
 const RequestTravel = () => {
     ////--> HOOK PARA LA NAVEGACION <-- ////
     const navigation = useNavigation();
+    const dispatch = useDispatch();
+
 
     useEffect(() => {
         (async () => {
@@ -54,12 +57,10 @@ const RequestTravel = () => {
 
             let location = await Location.getCurrentPositionAsync({});
             console.log(location.coords);
-            setPin({
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
-            })
         })();
-    }, []);
+    }, [price]);
+
+    const price = useSelector((state) => state.price)
 
     const [origen, setOrigen] = useState({
         latitude: 37.78825,
@@ -71,118 +72,172 @@ const RequestTravel = () => {
         longitude: -122.4324,
     })
 
+    const [weight, setWeight] = useState("");
+    const [description, setDescription ] = useState("");
+    
+    
 
+    const handleQuote = () => {
+        // en un objeto pongo lo que tengo en el estado inicial
+        const quote = {
+            origen: `${origen.latitude},${origen.longitude}`,
+            destino: `${destino.latitude},${destino.longitude}`,
+            weight: parseFloat(weight),
+        };
+        dispatch(cotizarViaje(quote));
+        console.log("Estoy enviado", quote);
+    };
+
+    const handleSubmit = () => {
+        const travel = {
+            origen: `${origen.latitude},${origen.longitude}`,
+            destino: `${destino.latitude},${destino.longitude}`,
+            weight: parseFloat(weight),
+            price: price,
+            description: description,
+        };
+        dispatch(requestTravel(travel))
+        console.log("Estoy enviando:", travel)
+    }
 
     //// --> Inicio de componente <-- ////
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
-            <View style={{ alignItems: "center", marginTop: "30%"}}>
-            <Text style={{ fontWeight: "bold", fontSize: 40 }}>
-                Solicitar Carga
-            </Text>
-            <View>
-                <Text style={{ fontWeight: "bold", fontSize: 25, marginTop: 20 }}>
-                    Origen
-                </Text>
-                <GooglePlacesAutocomplete
-                    placeholder='Buscar'
-                    fetchDetails={true}
-                    GooglePlacesSearchQuery={{
-                        rankby: "distance"
-                    }}
-                    onPress={(data, details = null) => {
-                        // 'details' is provided when fetchDetails = true
-                        console.log(details.geometry.location.lat, details.geometry.location.lng);
-                        setOrigen({
-                            latitude: details.geometry.location.lat,
-                            longitude: details.geometry.location.lng,
-                            latitudeDelta: 0.0922,
-                            longitudeDelta: 0.0421,
-                        })
+            <ScrollView keyboardShouldPersistTaps={'handled'}>
+                <View style={{ alignItems: "center", marginTop: "20%", marginLeft: 10, marginRight: 10 }}>
+                    <Text style={{ fontWeight: "bold", fontSize: 40, marginBottom: 30 }}>
+                        Solicitar Carga
+                    </Text>
+                    <View style={styles.containerInputs} >
+                        <Text style={{ fontWeight: "bold", fontSize: 25, marginTop: 0, textAlign: "center" }}>
+                            Origen
+                        </Text>
+                        <ScrollView keyboardShouldPersistTaps={'handled'} style={{ flex: 1 }}>
+                            <GooglePlacesAutocomplete
+                                placeholder='Buscar'
+                                fetchDetails={true}
+                                GooglePlacesSearchQuery={{
+                                    rankby: "distance"
+                                }}
+                                onPress={(data, details = null) => {
+                                    // 'details' is provided when fetchDetails = true
+                                    console.log(details.geometry.location.lat, details.geometry.location.lng);
+                                    setOrigen({
+                                        latitude: details.geometry.location.lat,
+                                        longitude: details.geometry.location.lng,
+                                        latitudeDelta: 0.0922,
+                                        longitudeDelta: 0.0421,
+                                    })
+                                }}
+                                query={{
+                                    key: 'AIzaSyCctmpoWkqc4Te99YNkI0hgsyVfpbEci5M',
+                                    language: 'en',
+                                    components: "country:arg",
+                                    types: "geocode",
+                                    radius: 30000,
+                                    location: `${origen.latitude}, ${origen.longitude}`
+                                }}
+                                textInputProps={{
+                                    InputComp: Input,
+                                    leftIcon: { type: 'font-awesome', name: 'chevron-right' },
+                                    errorStyle: { color: 'red' },
+                                }}
+                                
+                            />
+                        </ScrollView>
+                        <Text style={{ fontWeight: "bold", fontSize: 25, marginTop: 0, textAlign: "center" }}>
+                            Destino
+                        </Text>
+                        <ScrollView keyboardShouldPersistTaps={'handled'} style={{ flex: 1 }}>
+                            <GooglePlacesAutocomplete
+                                placeholder='Search'
+                                fetchDetails={true}
+                                GooglePlacesSearchQuery={{
+                                    rankby: "distance"
+                                }}
+                                onPress={(data, details = null) => {
+                                    // 'details' is provided when fetchDetails = true
+                                    console.log(details.geometry.location.lat, details.geometry.location.lng);
+                                    setDestino({
+                                        latitude: details.geometry.location.lat,
+                                        longitude: details.geometry.location.lng,
+                                        latitudeDelta: 0.0922,
+                                        longitudeDelta: 0.0421,
+                                    })
+                                }}
+                                query={{
+                                    key: 'AIzaSyCctmpoWkqc4Te99YNkI0hgsyVfpbEci5M',
+                                    language: 'en',
+                                    components: "country:arg",
+                                    types: "geocode",
+                                    radius: 30000,
+                                    location: `${origen.latitude}, ${origen.longitude}`
+                                }}
+                                textInputProps={{
+                                    InputComp: Input,
+                                    leftIcon: { type: 'font-awesome', name: 'chevron-right' },
+                                    errorStyle: { color: 'red' },
+                                }}
 
-                    }}
 
-                    query={{
-                        key: 'AIzaSyCctmpoWkqc4Te99YNkI0hgsyVfpbEci5M',
-                        language: 'en',
-                        components: "country:arg",
-                        types: "geocode",
-                        radius: 30000,
-                        location: `${origen.latitude}, ${origen.longitude}`
-                    }}
-                    textInputProps={{
-                        InputComp: Input,
-                        leftIcon: { type: 'font-awesome', name: 'chevron-right' },
-                        errorStyle: { color: 'red' },
-                      }}
-                    style={{
-                        container: {
-                          flex: 1,
-                        },
-                        textInputContainer: {
-                          flexDirection: 'row',
-                        },
-                        textInput: {
-                          backgroundColor: '#FFFFFF',
-                          height: 44,
-                          borderRadius: 5,
-                          paddingVertical: 5,
-                          paddingHorizontal: 10,
-                          fontSize: 15,
-                          flex: 1,
-                        }
-                    }}
-                    />
-            </View>
+                            />
+                        </ScrollView>
+                        <Text style={{ fontWeight: "bold", fontSize: 25, marginTop: 0, textAlign: "center" }}>
+                            Peso
+                        </Text>
+                        <View style={styles.viewsInputs}>
+                            <Icon name="push-outline" size={26} />
+                            <TextInput
+                                placeholder="Ingrese peso de la cargas..."
+                                name="weight"
+                                style={styles.textPlaceholder}
+                                onChangeText={(text) => setWeight(text)}
+                            />
+                        </View>
+                        <Text style={{ fontWeight: "bold", fontSize: 25, marginTop: 0, textAlign: "center" }}>
+                            Precio
+                        </Text>
+                        <View style={styles.viewsInputs}>
+                            <Icon name="cash-outline" size={26} />
+                            <Text
+                                style={styles.textPlaceholder}
+                            >${price}</Text>
+                        </View>
+                        <Text style={{ fontWeight: "bold", fontSize: 25, marginTop: 0, textAlign: "center" }}>
+                            Descripcion
+                        </Text>
+                        <View style={styles.viewsInputs}>
+                            <Icon name="reader-outline" size={26} />
+                            <TextInput
+                                style={styles.textPlaceholder}
+                                multiline={true}
+                                numberOfLines={3}
+                                onChangeText={(text) => setDescription(text)}
+                            />
+                        </View>
+                        <View style={styles.btn2}>
+                            <TouchableOpacity style={styles.btnEditar} onPress={handleQuote}>
+                                <Text style={styles.textBtn}>Cotizar</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.btnEditar} onPress={handleSubmit}>
+                                <Text style={styles.textBtn}>Solicitar</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
+                            Origen {`${origen.latitude}, ${origen.longitude}`}
 
-            <View>
-                <Text style={{ fontWeight: "bold", marginLeft: 15, fontSize: 25 }}>
-                    Destino
-                </Text>
-                <GooglePlacesAutocomplete
-                    placeholder='Search'
-                    fetchDetails={true}
-                    GooglePlacesSearchQuery={{
-                        rankby: "distance"
-                    }}
-                    onPress={(data, details = null) => {
-                        // 'details' is provided when fetchDetails = true
-                        console.log(details.geometry.location.lat, details.geometry.location.lng);
-                        setDestino({
-                            latitude: details.geometry.location.lat,
-                            longitude: details.geometry.location.lng,
-                            latitudeDelta: 0.0922,
-                            longitudeDelta: 0.0421,
-                        })
-                    }}
-                    query={{
-                        key: 'AIzaSyCctmpoWkqc4Te99YNkI0hgsyVfpbEci5M',
-                        language: 'en',
-                        components: "country:arg",
-                        types: "geocode",
-                        radius: 30000,
-                        location: `${origen.latitude}, ${origen.longitude}`
-                    }}
-                    textInputProps={{
-                        InputComp: Input,
-                        leftIcon: { type: 'font-awesome', name: 'chevron-right' },
-                        errorStyle: { color: 'red' },
-                      }}
-                />
-                <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
-                    Origen {`${origen.latitude}, ${origen.longitude}`}
-
-                </Text>
-                <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
-                    Destino {`${destino.latitude}, ${destino.longitude}`}
-                </Text>
-                <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
-                    Kilometros = {getDistanciaMetros(origen, destino)}
-                </Text>
-            </View>
-        </View>
+                        </Text>
+                        <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
+                            Destino {`${destino.latitude}, ${destino.longitude}`}
+                        </Text>
+                        <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
+                            Kilometros = {getDistanciaMetros(origen, destino)}
+                        </Text>
+                    </View>
+                </View>
+            </ScrollView>
         </SafeAreaView>
-      
+
     );
 };
 
@@ -221,13 +276,15 @@ const styles = StyleSheet.create({
     },
     viewsInputs: {
         margin: 2,
-        borderColor: "#511281",
-        borderBottomWidth: 3,
+        borderColor: "#000",
+        borderWidth: 1,
+        borderBottomWidth: 1,
         flexDirection: "row",
         justifyContent: "flex-start",
-        width: 360,
+        width: 400,
         alignItems: "flex-start",
         marginBottom: 15,
+        padding: 8,
     },
     textPlaceholder: {
         marginLeft: 20,
@@ -235,7 +292,7 @@ const styles = StyleSheet.create({
         marginBottom: 2,
     },
     btnEditar: {
-        backgroundColor: "#7952B3",
+        backgroundColor: "#FFC107",
         borderRadius: 10,
         width: 150,
         height: 50,
@@ -252,7 +309,7 @@ const styles = StyleSheet.create({
         marginTop: 12,
     },
 
-    btn2: { flexDirection: "row", marginLeft: 20 },
+    btn2: { flexDirection: "row", marginLeft: 30 }
 });
 
 export default RequestTravel;

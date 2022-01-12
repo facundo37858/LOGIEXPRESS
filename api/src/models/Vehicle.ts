@@ -1,5 +1,6 @@
 
-import { Model, Column, Table, CreatedAt, UpdatedAt, PrimaryKey, IsUUID } from 'sequelize-typescript'
+import { Model, Column, Table, CreatedAt, UpdatedAt, PrimaryKey, IsUUID, BelongsTo, ForeignKey } from 'sequelize-typescript'
+import { Carrier } from './Carrier'
 
 @Table
 export class Vehicle extends Model{
@@ -22,6 +23,12 @@ export class Vehicle extends Model{
 
     @Column
     capacity!: number
+
+    @BelongsTo(()=>Carrier)
+    carrier!:Carrier
+
+    @ForeignKey(()=>Carrier)
+    CarrierId!:string
 
 
 }

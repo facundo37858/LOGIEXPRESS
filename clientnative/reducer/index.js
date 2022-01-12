@@ -1,8 +1,16 @@
+import {
+  GET_PRICE_QUOTE,
+  POST_REQUEST_TRAVE,
+} from '../actions/index.js'
+
+
 const initialState = { //hago un estado inicial
     registrarUsuario: null,
     logiarUsuario: null,
     responseReg:null,  
     responseLog:null,
+    price:null,
+    responseTravel:null,
   };
 
   export default function rootReducer(state = initialState, action) {
@@ -26,7 +34,17 @@ const initialState = { //hago un estado inicial
                     return {
                       ...state,
                       responseLog: action.payload, //en registrarusuario meteme el action.payload
-                    };   
+                    }; 
+                  case GET_PRICE_QUOTE:
+                    return {
+                      ...state,
+                      price: action.payload,
+                    };
+                  case POST_REQUEST_TRAVE: 
+                  return {
+                    ...state,
+                    responseTravel: action.payload,
+                  } 
         default:
         return state;
     }

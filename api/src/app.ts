@@ -7,6 +7,7 @@ import cors from 'cors'
 // import routesUser from './routes/user';
 import routesUser from './routes/index';
 
+
 const app: Application = express();
 app.use(express.urlencoded({ extended: true, limit: '50mb' })); //middleware
 app.use(express.json({ limit: '50mb' }));
@@ -35,6 +36,7 @@ app.use((err: error, req: Request, res: Response, next: NextFunction) => {
 	console.error(err);
 	res.status(status).send(message);
 });
+
 
 app.use('/api', routesUser)
 

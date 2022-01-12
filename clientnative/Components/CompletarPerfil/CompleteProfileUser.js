@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,27 +11,31 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 //Agarrar imagen del celu
 import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from "@react-navigation/core";
-import { completeProfileUser } from '../../actions/index.js'
+import { completeProfileUser } from "../../actions/index.js";
 
 const CompleteProfileUser = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
+  const datosUser = useSelector((store) => store.responseReg);
+  useEffect(() => {
+    console.log("SOY DATOS DEL USER", datosUser);
+  }, [datosUser]);
+
   //// --> ESTADO PARA INPUTS <-- ////
   const [user, setUser] = useState({
     identification: "",
     zone: "",
-    phone: "",
     account: "",
   });
 
   ////--> IMAGE PICKER <-- ////
   const [selectedImage, setSelectedImage] = useState(null);
-
+  //console.log(selectedImage) --> la imagen esta en el estado
   let openImagePickerAsync = async () => {
     let permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -41,40 +45,61 @@ const CompleteProfileUser = () => {
       return;
     }
 
-    const pickerResult = await ImagePicker.launchImageLibraryAsync();
-    if (pickerResult.cancelled === true) {
-      return;
+    //Si es true va a venir a pickerResult
+    const pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (pickerResult.cancelled !== true) {
+      let newFile = {
+        uri: pickerResult.uri,
+        type: `logi/${pickerResult.uri.split(".")[1]}`,
+        name: `logi.${pickerResult.uri.split(".")[1]}`,
+      };
+      handleUpload(newFile);
     }
-    setSelectedImage({ localUri: pickerResult.uri });
+  };
+
+  const handleUpload = (image) => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "logiexpress");
+    data.append("cloud_name", "elialvarez");
+
+    fetch("https://api.cloudinary.com/v1_1/elialvarez/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        //console.log(data)
+        setSelectedImage(data.url);
+      });
   };
 
   //// ---> HANDLERS INPUTS <--- ////
   const handleChangeIdentification = (identification) => {
     setUser({
       ...user,
-      identification : identification 
-    })
+      identification: identification,
+    });
   };
 
   const handleChangeZone = (zone) => {
     setUser({
       ...user,
-      zone : zone
-    })
-  };
-
-  const handleChangePhone= (phone) => {
-    setUser({
-      ...user,
-      phone : phone
-    })
+      zone: zone,
+    });
   };
 
   const handleChangeAccount = (account) => {
     setUser({
       ...user,
-      account : account
-    })
+      account: account,
+    });
   };
 
   function handleSubmit(e) {
@@ -82,17 +107,16 @@ const CompleteProfileUser = () => {
     const obj = {
       identification: user.identification,
       zone: user.zone,
-      phone: user.phone,
       account: user.account,
+      photo: selectedImage,
     };
     dispatch(completeProfileUser(obj));
-    console.log('soy lo que se envia', obj)
+    console.log("soy lo que se envia", obj);
     setUser({
       identification: "",
       zone: "",
-      phone: "",
       account: "",
-    })
+    });
   }
 
   return (
@@ -102,14 +126,6 @@ const CompleteProfileUser = () => {
         style={{ backgroundColor: "white" }}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.iconBar}>
-          <TouchableOpacity
-            //no esta conectado a ningun lugar
-            onPress={() => navigation.navigate("Componentedeauxilio")}
-          >
-            <Icon name="chevron-back-outline" size={30} />
-          </TouchableOpacity>
-        </View>
         <Text
           style={{
             fontWeight: "bold",
@@ -126,7 +142,7 @@ const CompleteProfileUser = () => {
             source={{
               uri:
                 selectedImage !== null
-                  ? selectedImage.localUri
+                  ? selectedImage
                   : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
             }}
             style={styles.imgPerfil}
@@ -145,43 +161,25 @@ const CompleteProfileUser = () => {
               onSubmit={(e) => handleSubmit(e)}
             >
               <View style={styles.viewsInputs}>
-                <Icon
-                  name="person-circle-outline"
-                  size={26}
-                  style={{ paddingBottom: 2 }}
-                />
-                <TextInput
-                  value={user.name}
-                  placeholder="Nombre"
-                  name="name"
-                  style={styles.textPlaceholder}
-                />
+                <Icon name="person-circle-outline" size={26} />
+                <Text style={{ fontSize: 18, marginLeft: 15 }}>
+                  {datosUser.name}
+                </Text>
+                <TextInput style={styles.textPlaceholder} />
               </View>
               <View style={styles.viewsInputs}>
-                <Icon
-                  name="person-circle-outline"
-                  size={26}
-                  style={{ paddingBottom: 2 }}
-                />
-                <TextInput
-                  value={user.lastname}
-                  placeholder="Apellido"
-                  name="lastname"
-                  style={styles.textPlaceholder}
-                />
+                <Icon name="person-circle-outline" size={26} />
+                <Text style={{ fontSize: 18, marginLeft: 15 }}>
+                  {datosUser.lastname}
+                </Text>
+                <TextInput style={styles.textPlaceholder} />
               </View>
               <View style={styles.viewsInputs}>
-                <Icon
-                  name="mail-outline"
-                  size={26}
-                  style={{ paddingBottom: 2 }}
-                />
-                <TextInput
-                  value={user.eMail}
-                  placeholder="sprint1.jebusayudanos@gmail.com"
-                  name="eMail"
-                  style={styles.textPlaceholder}
-                />
+                <Icon name="mail-outline" size={26} />
+                <Text style={{ fontSize: 18, marginLeft: 15 }}>
+                  {datosUser.eMail}
+                </Text>
+                <TextInput style={styles.textPlaceholder} />
               </View>
               <View style={styles.viewsInputs}>
                 <Icon
@@ -194,7 +192,9 @@ const CompleteProfileUser = () => {
                   placeholder="Documento de identidad SIN PUNTOS"
                   name="identification"
                   style={styles.textPlaceholder}
-                  onChangeText={(identification) => handleChangeIdentification(identification)}
+                  onChangeText={(identification) =>
+                    handleChangeIdentification(identification)
+                  }
                   keyboardType="decimal-pad"
                 />
               </View>
@@ -218,13 +218,10 @@ const CompleteProfileUser = () => {
                   size={26}
                   style={{ paddingBottom: 2 }}
                 />
-                <TextInput
-                  value={user.phone}
-                  onChangeText={(phone) => handleChangePhone(phone)}
-                  placeholder="Celular válido"
-                  name="phone"
-                  style={styles.textPlaceholder}
-                />
+                <Text style={{ fontSize: 18, marginLeft: 15 }}>
+                  {datosUser.phone}
+                </Text>
+                <TextInput style={styles.textPlaceholder} />
               </View>
               <View style={styles.viewsInputs}>
                 <Icon
@@ -241,7 +238,9 @@ const CompleteProfileUser = () => {
                 />
               </View>
               <TouchableOpacity style={styles.btnEditar}>
-                <Text style={styles.textBtn} onPress={handleSubmit}>Aceptar</Text>
+                <Text style={styles.textBtn} onPress={handleSubmit}>
+                  Aceptar
+                </Text>
               </TouchableOpacity>
             </View>
           </View>

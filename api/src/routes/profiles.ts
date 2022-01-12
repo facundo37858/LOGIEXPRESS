@@ -14,6 +14,9 @@ router.post('/userProfile', async (req: Request, res: Response, next: NextFuncti
 	const { id, identification, zone, phone, photo, account } = req.body
 
 	try {
+		
+
+
 		let newProfile = {
 			id: uuid(),
 			identification: identification,
@@ -53,23 +56,23 @@ router.post('/userProfile', async (req: Request, res: Response, next: NextFuncti
 
 });
 
+//Eli saco email y phone
 router.post('/carrierProfile', async (req: Request, res: Response, next: NextFunction) => {
 	// res.send('llega al carrier profile')
-	const { documentID, license, email, phone, location, Cuenta,
-		brand, patent, model, color, capacity } = req.body
-  
+	const { documentID, license, location, Cuenta,
+		brand, patent, model, color, capacity, photo } = req.body
+    
 	try {
 
 		let idCarrier = uuid()
 
 		let newProfileCarrier = {
-			id: idCarrier,
+			id: idCarrier, 
 			documentID: documentID,
 			license: license,
-			eMail: email,
-			phone: phone,
 			location: location,
-			Cuenta: Cuenta
+			Cuenta: Cuenta,
+			photo: photo 
 		}
 		var newTrack = {
 			id: uuid(),

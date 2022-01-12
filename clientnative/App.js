@@ -46,18 +46,19 @@ const App = () => {
           <Stack.Screen
             name="CompleteProfileUser"
             component={CompleteProfileUser}
-            options={{ headerShown: false }}
+            options={{ headerShown: false} }
           />
           <Stack.Screen
             name="CompleteProfileCarrier"
             component={CompleteProfileCarrier}
-            options={{ headerShown: false }}
+            options={{ headerShown: false}}
           />
-          <Stack.Screen name="ProfileScreen" component={ProfileCarrierScreen} />
+          <Stack.Screen name="ProfileScreen" component={ProfileCarrierScreen} options={{ headerShown: false}}/>
           <Stack.Screen name="ScreenMap" component={ScreenMap} />
           <Stack.Screen
             name="ProfileUserScreen"
             component={ProfileUserScreen}
+            options={{ headerShown: false}}
           />
           <Stack.Screen
             name="Componentedeauxilio"

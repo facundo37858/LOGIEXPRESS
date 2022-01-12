@@ -15,30 +15,32 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import * as Location from 'expo-location';
 //Hook para la navegacion
 import { useNavigation } from "@react-navigation/core";
+import { SafeAreaView } from "react-native";
+import { Input } from "react-native-elements"
 
 
 
 // funcion para calcular la distancia en km
 function getDistanciaMetros(origen, destino) {
-  var lat1 = origen.latitude;
-  var lon1 = origen.longitude;
-  var lat2 = destino.latitude;
-  var lon2 = destino.longitude;
-  rad = function(x) {return x*Math.PI/180;}
-  var R = 6378.137; //Radio de la tierra en km 
-  var dLat = rad( lat2 - lat1 );
-  var dLong = rad( lon2 - lon1 );
-  var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(rad(lat1)) * 
-  Math.cos(rad(lat2)) * Math.sin(dLong/2) * Math.sin(dLong/2);
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var lat1 = origen.latitude;
+    var lon1 = origen.longitude;
+    var lat2 = destino.latitude;
+    var lon2 = destino.longitude;
+    rad = function (x) { return x * Math.PI / 180; }
+    var R = 6378.137; //Radio de la tierra en km 
+    var dLat = rad(lat2 - lat1);
+    var dLong = rad(lon2 - lon1);
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(rad(lat1)) *
+        Math.cos(rad(lat2)) * Math.sin(dLong / 2) * Math.sin(dLong / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-  //aquí obtienes la distancia en metros por la conversion 1Km =1000m
-  var d = R * c * 1000; 
-  return d/1000 ; 
+    //aquí obtienes la distancia en metros por la conversion 1Km =1000m
+    var d = R * c * 1000;
+    return d / 1000;
 }
 
 
-const EditProfile = () => {
+const RequestTravel = () => {
     ////--> HOOK PARA LA NAVEGACION <-- ////
     const navigation = useNavigation();
 
@@ -69,28 +71,21 @@ const EditProfile = () => {
         longitude: -122.4324,
     })
 
-   
-    
+
+
     //// --> Inicio de componente <-- ////
     return (
-        <View style={{ flex: 1, backgroundColor: "white" }}>
-            <View style={styles.iconBar}>
-                <TouchableOpacity
-                    //no esta conectado a ningun lugar
-                    onPress={() => navigation.navigate("ProfileUserScreen")}
-                >
-                    <Icon name="chevron-back-outline" size={30} />
-                </TouchableOpacity>
-            </View>
-            <Text style={{ fontWeight: "bold", marginLeft: 15, fontSize: 25 }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+            <View style={{ alignItems: "center", marginTop: "30%"}}>
+            <Text style={{ fontWeight: "bold", fontSize: 40 }}>
                 Solicitar Carga
             </Text>
             <View>
-                <Text style={{ fontWeight: "bold", marginLeft: 15, fontSize: 25 }}>
+                <Text style={{ fontWeight: "bold", fontSize: 25, marginTop: 20 }}>
                     Origen
                 </Text>
                 <GooglePlacesAutocomplete
-                    placeholder='Search'
+                    placeholder='Buscar'
                     fetchDetails={true}
                     GooglePlacesSearchQuery={{
                         rankby: "distance"
@@ -104,9 +99,9 @@ const EditProfile = () => {
                             latitudeDelta: 0.0922,
                             longitudeDelta: 0.0421,
                         })
-                        
+
                     }}
-                    
+
                     query={{
                         key: 'AIzaSyCctmpoWkqc4Te99YNkI0hgsyVfpbEci5M',
                         language: 'en',
@@ -115,12 +110,29 @@ const EditProfile = () => {
                         radius: 30000,
                         location: `${origen.latitude}, ${origen.longitude}`
                     }}
-                    styles={{
-
-                        textInputContainer: { backgroundColor: 'grey' },
-                        container: { flex: 0, width: "80%" }
+                    textInputProps={{
+                        InputComp: Input,
+                        leftIcon: { type: 'font-awesome', name: 'chevron-right' },
+                        errorStyle: { color: 'red' },
+                      }}
+                    style={{
+                        container: {
+                          flex: 1,
+                        },
+                        textInputContainer: {
+                          flexDirection: 'row',
+                        },
+                        textInput: {
+                          backgroundColor: '#FFFFFF',
+                          height: 44,
+                          borderRadius: 5,
+                          paddingVertical: 5,
+                          paddingHorizontal: 10,
+                          fontSize: 15,
+                          flex: 1,
+                        }
                     }}
-                />
+                    />
             </View>
 
             <View>
@@ -151,16 +163,12 @@ const EditProfile = () => {
                         radius: 30000,
                         location: `${origen.latitude}, ${origen.longitude}`
                     }}
-                    styles={{
-
-                        textInputContainer: { backgroundColor: 'grey' },
-                        container: { flex: 0, width: "80%" }
-                    }}
+                    textInputProps={{
+                        InputComp: Input,
+                        leftIcon: { type: 'font-awesome', name: 'chevron-right' },
+                        errorStyle: { color: 'red' },
+                      }}
                 />
-            </View>
-
-            {/* INICIO DEL FORMULARIO */}
-            <View style={styles.containerInputs}>
                 <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
                     Origen {`${origen.latitude}, ${origen.longitude}`}
 
@@ -169,70 +177,12 @@ const EditProfile = () => {
                     Destino {`${destino.latitude}, ${destino.longitude}`}
                 </Text>
                 <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
-                    Kilometros = { getDistanciaMetros(origen,destino) }
+                    Kilometros = {getDistanciaMetros(origen, destino)}
                 </Text>
-                <View style={styles.viewsInputs}>
-                    <Icon name="person-outline" size={26} />
-                    <TextInput
-                        placeholder="Nombre"
-                        name="name"
-                        style={styles.textPlaceholder}
-                    />
-                </View>
-                <View style={styles.viewsInputs}>
-                    <Icon name="person-outline" size={26} />
-                    <TextInput
-                        placeholder="Apellido"
-                        name="lastname"
-                        style={styles.textPlaceholder}
-                    />
-                </View>
-                <View style={styles.viewsInputs}>
-                    <Icon name="reader-outline" size={26} />
-                    <TextInput
-                        placeholder="Documento de identidad"
-                        name="documentID"
-                        style={styles.textPlaceholder}
-                    />
-                </View>
-                <View style={styles.viewsInputs}>
-                    <Icon name="phone-portrait-outline" size={26} />
-                    <TextInput
-                        placeholder="Celular válido"
-                        name="phone"
-                        style={styles.textPlaceholder}
-                    />
-                </View>
-                <View style={styles.viewsInputs}>
-                    <Icon name="map-outline" size={26} />
-                    <TextInput
-                        placeholder="Lugar de residencia actual"
-                        name="location"
-                        style={styles.textPlaceholder}
-                    />
-                </View>
-                <View style={styles.viewsInputs}>
-                    <Icon name="card-outline" size={26} />
-                    <TextInput
-                        placeholder="Medio de pago válido"
-                        name="CBU"
-                        style={styles.textPlaceholder}
-                    />
-                </View>
-                <View style={styles.btn2}>
-                    <TouchableOpacity
-                        style={styles.btnEditar}
-                        ///---> PONER A DONDE TIENE QUE VOLVER <--- ///
-                        onPress={() => navigation.navigate("ProfileUserScreen")}
-                    >
-                        <Text style={styles.textBtn}>Cancelar</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.btnEditar}>
-                        <Text style={styles.textBtn}>Editar</Text>
-                    </TouchableOpacity>
-                </View>
             </View>
         </View>
+        </SafeAreaView>
+      
     );
 };
 
@@ -248,9 +198,8 @@ const styles = StyleSheet.create({
 
     containerInputs: {
         flex: 1,
-        alignItems: "flex-start",
-        marginTop: 40,
-        marginLeft: 20,
+        textAlign: "center",
+
     },
 
     imgPerfil: {
@@ -306,4 +255,4 @@ const styles = StyleSheet.create({
     btn2: { flexDirection: "row", marginLeft: 20 },
 });
 
-export default EditProfile;
+export default RequestTravel;

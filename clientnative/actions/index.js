@@ -23,7 +23,7 @@ export function registrarUsuario(payload) {
   return async function (dispatch) {
     try {
       const response = await axios
-        .post("http://localhost:3001/api/user", payload) //aca cada uno pone su ip
+        .post("http://192.168.0.105:3001/api/user", payload) //aca cada uno pone su ip
         .then((r) => {
           dispatch({
             type: "REGISTROO",
@@ -43,7 +43,7 @@ export function logiarUsuario(payload) {
   return async function (dispatch) {
     try {
       const response = await axios
-        .post("http://localhost:3001/api/login", payload) //aca cada uno pone su ip
+        .post("http://192.168.0.105:3001/api/login", payload) //aca cada uno pone su ip
         .then((r) => {
           console.log("hace el dispatch");
           dispatch({
@@ -64,7 +64,7 @@ export function logiarUsuario(payload) {
 export function completeProfileUser(payload){
   return async function(dispatch){
     try{
-     const response = await axios.post("http://localhost:3001/api/userProfile", payload)
+     const response = await axios.post("http://192.168.0.105:3001/api/userProfile", payload)
      console.log('Soy el console.log de response', response)
      return dispatch({
        type: 'COMPLETE_PROFILE_USER',
@@ -80,7 +80,7 @@ export function completeProfileUser(payload){
 export function completeProfileCarrier(payload){
   return async function (dispatch){
     try {
-      const response = await axios.post("http://localhost:3001/api/carrierProfile", payload)
+      const response = await axios.post("http://192.168.0.105:3001/api/carrierProfile", payload)
       console.log('Soy el console.log de response', response)
       return dispatch({
         type: 'COMPLETE_PROFILE_CARRIER',

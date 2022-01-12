@@ -15,7 +15,7 @@ export class User extends Model {
 
     @Column
     phone!: number
-
+ 
     @Column
     photo!: string
 

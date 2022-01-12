@@ -26,6 +26,8 @@ export class Carrier extends Model{
 
     @Column
     Cuenta!: string
-
+ 
+    @Column
+    photo!: string
 
 }

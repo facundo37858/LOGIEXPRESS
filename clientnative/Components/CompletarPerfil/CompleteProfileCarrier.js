@@ -50,12 +50,39 @@ const CompleteProfileUser = () => {
       return;
     }
 
-    const pickerResult = await ImagePicker.launchImageLibraryAsync();
-    if (pickerResult.cancelled === true) {
-      return;
+    //Si es true va a venir a pickerResult
+    const pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect : [4, 3],
+      quality: 1
+    });
+    
+    if (pickerResult.cancelled !== true) {
+      let newFile = { 
+      uri:pickerResult.uri, 
+      type: `logi/${pickerResult.uri.split('.')[1]}`, 
+      name: `logi.${pickerResult.uri.split('.')[1]}` 
     }
-    setSelectedImage({ localUri: pickerResult.uri });
+       handleUpload(newFile)
+    }
   };
+
+  const handleUpload = (image) => {
+    const data = new FormData()
+    data.append('file', image)
+    data.append('upload_preset', 'logiexpress')
+    data.append('cloud_name', 'elialvarez')
+    
+    fetch('https://api.cloudinary.com/v1_1/elialvarez/image/upload', {
+      method:'post',
+      body: data
+    }).then(res => res.json())
+    .then(data => {
+      //console.log(data)
+      setSelectedImage(data.url)
+    })
+  }
 
   //// ---> HANDLERS INPUTS <--- ////
   //Carrier//
@@ -138,6 +165,7 @@ const CompleteProfileUser = () => {
       phone: carrier.phone,
       location: carrier.location,
       Cuenta: carrier.Cuenta,
+      photo: selectedImage,
       // Vehicule //
       brand: carrier.brand,
       patent: carrier.patent,
@@ -195,7 +223,7 @@ const CompleteProfileUser = () => {
             source={{
               uri:
                 selectedImage !== null
-                  ? selectedImage.localUri
+                  ? selectedImage
                   : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
             }}
             style={styles.imgPerfil}

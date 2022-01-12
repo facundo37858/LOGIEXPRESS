@@ -13,9 +13,9 @@ import {
 import Icon from "react-native-vector-icons/Ionicons";
 import { useDispatch } from "react-redux";
 //Agarrar imagen del celu
-import * as ImagePicker from "expo-image-picker";
+import * as ImagePicker from "expo-image-picker"; 
 import { useNavigation } from "@react-navigation/core";
-import { completeProfileUser } from '../../actions/index.js'
+import { completeProfileUser } from '../../actions/index.js';
 
 const CompleteProfileUser = () => {
   const dispatch = useDispatch();
@@ -28,10 +28,10 @@ const CompleteProfileUser = () => {
     phone: "",
     account: "",
   });
-
+  
   ////--> IMAGE PICKER <-- ////
   const [selectedImage, setSelectedImage] = useState(null);
-
+  //console.log(selectedImage) --> la imagen esta en el estado 
   let openImagePickerAsync = async () => {
     let permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -41,12 +41,39 @@ const CompleteProfileUser = () => {
       return;
     }
 
-    const pickerResult = await ImagePicker.launchImageLibraryAsync();
-    if (pickerResult.cancelled === true) {
-      return;
+    //Si es true va a venir a pickerResult
+    const pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect : [4, 3],
+      quality: 1
+    });
+    
+    if (pickerResult.cancelled !== true) {
+      let newFile = { 
+      uri:pickerResult.uri, 
+      type: `logi/${pickerResult.uri.split('.')[1]}`, 
+      name: `logi.${pickerResult.uri.split('.')[1]}` 
     }
-    setSelectedImage({ localUri: pickerResult.uri });
+       handleUpload(newFile)
+    }
   };
+
+  const handleUpload = (image) => {
+    const data = new FormData()
+    data.append('file', image)
+    data.append('upload_preset', 'logiexpress')
+    data.append('cloud_name', 'elialvarez')
+    
+    fetch('https://api.cloudinary.com/v1_1/elialvarez/image/upload', {
+      method:'post',
+      body: data
+    }).then(res => res.json())
+    .then(data => {
+      //console.log(data)
+      setSelectedImage(data.url)
+    })
+  }
 
   //// ---> HANDLERS INPUTS <--- ////
   const handleChangeIdentification = (identification) => {
@@ -84,6 +111,7 @@ const CompleteProfileUser = () => {
       zone: user.zone,
       phone: user.phone,
       account: user.account,
+      photo: selectedImage
     };
     dispatch(completeProfileUser(obj));
     console.log('soy lo que se envia', obj)
@@ -126,9 +154,9 @@ const CompleteProfileUser = () => {
             source={{
               uri:
                 selectedImage !== null
-                  ? selectedImage.localUri
+                  ? selectedImage
                   : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
-            }}
+            }}  
             style={styles.imgPerfil}
           />
           <View style={styles.add}>

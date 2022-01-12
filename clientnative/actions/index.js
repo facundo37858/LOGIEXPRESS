@@ -1,9 +1,8 @@
 import axios from "axios";
 export const GET_PRICE_QUOTE = "GET_PRICE_QUOTE";
 export const POST_REQUEST_TRAVE = "POST_REQUEST_TRAVE";
-export const URL_PRICE_QUOTE = "http://192.168.2.104:3001/api/calculatePrice";
-export const URL_REQUEST_TRAVEL =
-  "http://192.168.2.104:3001/api//requestTravel";
+export const URL_PRICE_QUOTE = "http://192.168.1.6:3001/api/calculatePrice";
+export const URL_REQUEST_TRAVEL = "http://192.168.1.6:3001/api//requestTravel";
 // import { registrarUsuario } from './index';
 
 // export function registrarUsuario(obj) {
@@ -57,7 +56,7 @@ export function registrarUsuario(payload) {
   return async function (dispatch) {
     try {
       const response = await axios
-        .post("http://192.168.0.105:3001/api/user", payload) //aca cada uno pone su ip
+        .post("http://192.168.1.6:3001/api/user", payload) //aca cada uno pone su ip
         .then((r) => {
           dispatch({
             type: "REGISTROO",
@@ -77,7 +76,7 @@ export function logiarUsuario(payload) {
   return async function (dispatch) {
     try {
       const response = await axios
-        .post("http://192.168.0.105:3001/api/login", payload) //aca cada uno pone su ip
+        .post("http://192.168.1.6:3001/api/login", payload) //aca cada uno pone su ip
         .then((r) => {
           dispatch({
             type: "LOGEOO",
@@ -99,7 +98,7 @@ export function completeProfileUser(payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        "http://192.168.0.105:3001/api/userProfile",
+        "http://192.168.1.6:3001/api/userProfile",
         payload
       );
       //console.log('Soy el console.log de response', response)
@@ -118,7 +117,7 @@ export function completeProfileCarrier(payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        "http://192.168.0.105:3001/api/carrierProfile",
+        "http://192.168.1.6:3001/api/carrierProfile",
         payload
       );
       // console.log('Soy el console.log de response', response)

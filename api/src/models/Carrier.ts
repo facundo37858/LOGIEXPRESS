@@ -1,16 +1,16 @@
 
-<<<<<<< HEAD
+
 import { IsUUID,ForeignKey, Model, Column, Table, CreatedAt, UpdatedAt, IsEmail, BelongsTo, HasOne, HasMany } from 'sequelize-typescript'
 import { Travel } from './Travel';
 import { User_Reg } from './User_Reg';
 import { Vehicle } from './Vehicle';
-=======
-import { IsUUID, Model, Column, Table, IsEmail } from 'sequelize-typescript'
->>>>>>> master
+
+
+
 
 @Table
-export class Carrier extends Model{
-	
+export class Carrier extends Model {
+
 
     @IsUUID(4)
     @Column({ primaryKey: true })
@@ -20,35 +20,32 @@ export class Carrier extends Model{
     documentID!: string                     //Documento de identidad 
 
     @Column
-    license!: string
-
-    @IsEmail
-    @Column
-    eMail!: string
-
-    @Column
-    phone!: number
+    license!: string 
 
     @Column
     location!: string
 
     @Column
-<<<<<<< HEAD
-    CBU!: string
-
-    @BelongsTo(()=>User_Reg)
-    user_Reg!: User_Reg
-
-    @ForeignKey(()=>User_Reg)
-    idUserReg!:string
-
-    @HasOne(()=>Vehicle)
-    vehicle!:Vehicle
-
-    @HasMany(()=>Travel)
-    travel!:Travel
+    Cuenta!: string
+ 
+    @Column
+    photo!: string
 
     
+
+    @BelongsTo(() => User_Reg)
+    user_Reg!: User_Reg
+
+    @ForeignKey(() => User_Reg)
+    idUserReg!: string
+
+    @HasOne(() => Vehicle)
+    vehicle!: Vehicle
+
+    @HasMany(() => Travel)
+    travel!: Travel
+
+
 
 
     @CreatedAt
@@ -58,9 +55,8 @@ export class Carrier extends Model{
     @UpdatedAt
     @Column
     updatedAt!: Date
-=======
-    Cuenta!: string
->>>>>>> master
+    
+
 
 
 }

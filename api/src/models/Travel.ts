@@ -1,11 +1,11 @@
 
-import { Model, Column, Table, CreatedAt, UpdatedAt, IsUUID, HasOne, BelongsTo, ForeignKey} from 'sequelize-typescript'
+import { Model, Column, Table, CreatedAt, UpdatedAt, IsUUID, HasOne, BelongsTo, ForeignKey } from 'sequelize-typescript'
 import { Carrier } from './Carrier';
 import { Review } from './Review';
 import { User } from './User';
 
 @Table
-export class Travel extends Model<Travel>{
+export class Travel extends Model {
 
     @IsUUID(4)
     @Column({ primaryKey: true })
@@ -18,19 +18,16 @@ export class Travel extends Model<Travel>{
     destination!: string
 
     @Column
+    weigth!: number
+
+    @Column
     price!: string
 
     @Column
     description!: string
 
-    @Column
-    comments!: string
-
-    @Column
-    score!: number
-
-    @HasOne(()=>Review)
-    rewiew!:Review
+    @HasOne(() => Review)
+    rewiew!: Review
 
     @CreatedAt
     @Column
@@ -40,17 +37,17 @@ export class Travel extends Model<Travel>{
     @Column
     updatedAt!: Date
 
-    @BelongsTo(()=>User)
-    user!:User
+    @BelongsTo(() => User)
+    user!: User
 
-    @ForeignKey(()=>User)
-    userId!:User
+    @ForeignKey(() => User)
+    userId!: User
 
-    @BelongsTo(()=>Carrier)
-    carrier!:Carrier
+    @BelongsTo(() => Carrier)
+    carrier!: Carrier
 
-    @ForeignKey(()=>Carrier)
-    carrierId!:string
+    @ForeignKey(() => Carrier)
+    carrierId!: string
 
     
 

@@ -58,34 +58,22 @@ const resApiUsers=async()=>{
   
 	  console.log(`error ${e}`)
 	}
-  
-  }
-sequelize
-<<<<<<< HEAD
-<<<<<<< HEAD
-	.sync({force: true, logging: false})
-=======
-	.sync({force: false, logging: false})
->>>>>>> Facu/REVIEW
+
+}
+sequelize.sync({force: false, logging: false})
+
 	.then(async()=>{
 		//   let responce= 
 		  await resApiUsers()
 		//   return console.log(responce)
 	})
-=======
-	.sync({ force: false, logging: false })
->>>>>>> master
 	.then(() => {
 		console.log('base de datos conectada! :D')
 		app.listen(3001, function () {
 			console.log('App is listening on port 3001!');
 		});
 	})
-<<<<<<< HEAD
 	.catch((err:error) => console.error(err));
 
 
 
-=======
-	.catch((err: error) => console.error(err));
->>>>>>> master

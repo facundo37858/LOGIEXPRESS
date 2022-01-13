@@ -24,7 +24,7 @@ const CompleteProfileUser = () => {
 
   useEffect(() => {
     console.log("SOY DATOS DEL CARRIER", datosCarrier);
-  }, [datosUser]);
+  }, [datosCarrier]);
 
   //// --> ESTADO PARA LOS INPUTS <-- ////
 

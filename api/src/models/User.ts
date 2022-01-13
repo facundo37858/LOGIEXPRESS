@@ -14,9 +14,6 @@ export class User extends Model {
     zone!: string
 
     @Column
-    phone!: number
-
-    @Column
     photo!: string
 
     @Column

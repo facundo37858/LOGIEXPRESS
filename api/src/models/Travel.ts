@@ -24,6 +24,9 @@ export class Travel extends Model<Travel>{
     comments!: string
 
     @Column
+    weight!: string
+
+    @Column
     score!: number
 
     @CreatedAt

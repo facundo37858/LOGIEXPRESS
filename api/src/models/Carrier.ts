@@ -14,15 +14,14 @@ export class Carrier extends Model{
     @Column
     license!: string
 
-    @IsEmail
     @Column
-    eMail!: string
-
-    @Column
-    phone!: number
+    Active!:boolean
 
     @Column
     location!: string
+
+    @Column
+    photo!: string
 
     @Column
     Cuenta!: string

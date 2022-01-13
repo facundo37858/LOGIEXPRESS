@@ -11,14 +11,13 @@ const router = Router()
 
 router.post('/userProfile', async (req: Request, res: Response, next: NextFunction) => {
 	// res.send('llega al user profile')
-	const { id, identification, zone, phone, photo, account } = req.body
+	const { id, identification, zone, photo, account } = req.body
 
 	try {
 		let newProfile = {
 			id: uuid(),
 			identification: identification,
 			zone: zone,
-			phone: phone,
 			photo: photo,
 			account: account
 		}
@@ -55,7 +54,7 @@ router.post('/userProfile', async (req: Request, res: Response, next: NextFuncti
 
 router.post('/carrierProfile', async (req: Request, res: Response, next: NextFunction) => {
 	// res.send('llega al carrier profile')
-	const { documentID, license, email, phone, location, CBU,
+	const { documentID, license, location, photo, Cuenta,
 		brand, patent, model, color, capacity } = req.body
 
 	try {
@@ -66,10 +65,9 @@ router.post('/carrierProfile', async (req: Request, res: Response, next: NextFun
 			id: idCarrier,
 			documentID: documentID,
 			license: license,
-			eMail: email,
-			phone: phone,
 			location: location,
-			CBU: CBU
+			photo: photo,
+			Cuenta: Cuenta
 		}
 		var newTrack = {
 			id: uuid(),
@@ -143,53 +141,77 @@ router.get('/profile', async (req: Request, res: Response) => {
 	return user ? res.json(user) : res.status(404).send("ID Not Found")
 });
 
-// router.put('/edit', async (req: Request, res: Response, next: NextFunction)=>{
+router.put('/edit', async (req: Request, res: Response, next: NextFunction)=>{
 
-// 	const {eMail, name, lastName, phone, photo, account, CBU, brand, patent, model, color} = req.body;
+	const {id, name, lastName, phone, photo, account, Cuenta, brand, patent, model, color} = req.body;
 
 	
-// 	if (name || lastName || phone ){
+	if (name || lastName || phone ){
 		
-// 		const user = await User_Reg.findOne({where:{eMail}})
+		const user = await User_Reg.findOne({where:{id}})
 
-// 		user ? user.update(User_Reg, {where:{
-// 			name: name,
-// 			lastName: lastName,
-// 			phone: phone,
-// 		}}) :
+		user ? user.update(User_Reg, {where:{
+			name: name,
+			lastName: lastName,
+			phone: phone,
+		}}) :
 		
-// 		res.status(404).json({msg: "Usuario no encontrado"})
+		res.status(404).json({msg: "Usuario no encontrado"})
 		
 
-// 	}else if (brand || patent|| model || color){
+	}else if (brand || patent|| model || color){
 
-// 	}
+		const carrier =  await Carrier.findOne({where:{
+			userRegId: id,
+		}})
+
+		if(carrier){
+			const vehicle = await Vehicle.findOne({where:{
+				CarrierId: carrier.id,
+			}})
+
+			await vehicle?.update(Vehicle, {where:{
+				brand: brand,
+				patent: patent,
+				model: model,
+				color: color,
+			}})
+
+			return res.status(200).json(vehicle)
+
+		}else{
+			res.status(404).json({msg: "transportista no encontrado"})
+		}
+
+
+
+	}
 	
-// 	if(account || photo){
-// 		const userUser = await User.findOne({where:{account}})
+	if(account || photo){
+		const userUser = await User.findOne({where:{account}})
 
-// 		userUser ? userUser.update(User, {where:{
-// 			account: account,
-// 			photo: photo,
-// 		}}):
-// 		res.status(404).json({msg: "Usuario no encontrado"})
+		userUser ? userUser.update(User, {where:{
+			account: account,
+			photo: photo,
+		}}):
+		res.status(404).json({msg: "Usuario no encontrado"})
 
 
 
-// 	}else if (CBU){
-// 		const userCarrier = await User_Reg.findOne({where:{eMail}})
+	}else if (Cuenta){
+		const userCarrier = await User_Reg.findOne({where:{id}})
 
-// 		userCarrier ? userCarrier.update(Carrier, {where:{
-// 			CBU : CBU,
-// 		}})
+		userCarrier ? userCarrier.update(Carrier, {where:{
+			Cuenta : Cuenta,
+		}})
 
-// 		:
+		:
 		
-// 		res.status(404).json({msg: "Conductor no encontrado"})
+		res.status(404).json({msg: "Conductor no encontrado"})
 
-// 	}
+	}
 
-// })
+})
 
 router.put('/changepassword', async (req: Request, res: Response, next: NextFunction)=>{
 
@@ -216,24 +238,24 @@ router.put('/changepassword', async (req: Request, res: Response, next: NextFunc
 
 router.put('/capacity', async (req: Request, res: Response, next: NextFunction)=>{
 
-	const { eMail, capacity } = req.body
+	// const { eMail, capacity } = req.body
 
-	try{
-		const carrier = await Carrier.findOne({where:{eMail}})
+	// try{
+	// 	const carrier = await Carrier.findOne({where:{eMail}})
 
-		if(carrier && capacity){
-			const updateCapacity = await carrier.update(Carrier, {where:{capacity:capacity}});
+	// 	if(carrier && capacity){
+	// 		const updateCapacity = await carrier.update(Carrier, {where:{capacity:capacity}});
 
-			return res.status(200).json(updateCapacity)
+	// 		return res.status(200).json(updateCapacity)
 
-		}
+	// 	}
 
-		return res.status(404).json({msg: "No se pudo actualizar la base de datos"})
+	// 	return res.status(404).json({msg: "No se pudo actualizar la base de datos"})
 
 
-	}catch(err){
-		next(err)
-	}
+	// }catch(err){
+	// 	next(err)
+	// }
 
 })
 

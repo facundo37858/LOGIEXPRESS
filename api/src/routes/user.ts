@@ -1,6 +1,8 @@
 import { Response, Request, Router, NextFunction } from 'express';
 import { uuid } from 'uuidv4';
+import { Carrier } from '../models/Carrier';
 import { User_Reg } from '../models/User_Reg';
+
 const bcrypt = require("bcryptjs");
 
 const router = Router()
@@ -29,12 +31,12 @@ router.options('/user', async (res: Response) => {
 router.post('/user', async (req: Request, res: Response, next: NextFunction) => {
 	// const data1 = JSON.parse(req.body)
 	console.log("Estes es el body", req.body);
-	const { name, lastName, phone, password, eMail, terminosCondiciones, role } = req.body
 
-	// if(!emal){TODO LO QUE YA HICISTE}else{res.json('el email ya existe')}
+	const { name, lastName, phone, password, eMail, terminosCondiciones, role } = req.body
+	
 	let passwordHash = await bcrypt.hash(password,8)
 
-	let payload = {
+	let newUser = {
 		id: uuid(),
 		name,
 		lastName,
@@ -47,14 +49,28 @@ router.post('/user', async (req: Request, res: Response, next: NextFunction) => 
 	try {
 		const [user/*usuario creado o excistente */, created/*boolean true->lo creo false->no lo creo pq exciste */] = await User_Reg.findOrCreate({//crea un usuario si no excisiste 
 			where: { eMail: eMail },
-			defaults: payload
+			defaults: newUser,
 		})
 
+		// if (!created) {
+		// 	return res.send('eMail usado')//podria ser un boolean
 		if (!created) {
-			return res.send('eMail usado')//podria ser un boolean 
+			const payload = {
+				role: 1,
+			};
+			return res.json({payload,mensaje:'eMail usado'})//podria ser un boolean 
 		}
 		// console.log('User:',user,'Bool: ',created)
 
+	
+		const payload = {
+			eMail,
+			// id: id,
+			role: role,
+			name: name,
+			lastname: lastName,
+			phone: phone,
+		};
 
 		return res.json({
 			mensaje: 'Usuario creado', payload

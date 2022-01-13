@@ -78,7 +78,7 @@ const EditProfileCarrier = () => {
         <View style={styles.iconBar}>
           <TouchableOpacity
             //no esta conectado a ningun lugar
-            onPress={() => navigation.navigate("ProfileScreen")}
+            onPress={() => navigation.navigate("ProfileScreenCarrier")}
           >
             <Icon name="chevron-back-outline" size={30} />
           </TouchableOpacity>
@@ -219,7 +219,7 @@ const EditProfileCarrier = () => {
             <View style={styles.btn2}>
               <TouchableOpacity
                 style={styles.btnEditar}
-                onPress={() => navigation.navigate("ProfileScreen")}
+                onPress={() => navigation.navigate("ProfileScreenCarrier")}
               >
                 <Text style={styles.textBtn}>Cancelar</Text>
               </TouchableOpacity>
@@ -294,7 +294,7 @@ const styles = StyleSheet.create({
   viewsInputs: {
     margin: 2,
     borderColor: "#FFCC1D",
-    borderBottomWidth: 3,
+    borderBottomWidth: 2,
     flexDirection: "row",
     width: 360,
     alignItems: "flex-start",

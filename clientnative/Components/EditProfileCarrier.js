@@ -17,8 +17,6 @@ import { useNavigation } from "@react-navigation/core";
 //Agarrar imagen del celu
 import * as ImagePicker from "expo-image-picker";
 
-import ProfileScreen from "./ProfileScreen";
-
 const EditProfileCarrier = () => {
   ////--> HOOK PARA LA NAVEGACION <-- ////
   const navigation = useNavigation();
@@ -35,13 +33,40 @@ const EditProfileCarrier = () => {
       return;
     }
 
-    const pickerResult = await ImagePicker.launchImageLibraryAsync();
-    if (pickerResult.cancelled === true) {
-      return;
+    //Si es true va a venir a pickerResult
+    const pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (pickerResult.cancelled !== true) {
+      let newFile = {
+        uri: pickerResult.uri,
+        type: `logi/${pickerResult.uri.split(".")[1]}`,
+        name: `logi.${pickerResult.uri.split(".")[1]}`,
+      };
+      handleUpload(newFile);
     }
-    setSelectedImage({ localUri: pickerResult.uri });
   };
 
+  const handleUpload = (image) => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "logiexpress");
+    data.append("cloud_name", "elialvarez");
+
+    fetch("https://api.cloudinary.com/v1_1/elialvarez/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        //console.log(data)
+        setSelectedImage(data.url);
+      });
+  };
   //// --> Inicio de componente <-- ////
 
   return (
@@ -67,12 +92,11 @@ const EditProfileCarrier = () => {
             source={{
               uri:
                 selectedImage !== null
-                  ? selectedImage.localUri
+                  ? selectedImage
                   : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
             }}
             style={styles.imgPerfil}
           />
-
           <View>
             <TouchableWithoutFeedback onPress={openImagePickerAsync}>
               {/* <Icon name="add-circle-outline" size={40} style={{ marginLeft: 80, marginTop: -35}}/> */}

@@ -63,12 +63,12 @@ const Componentedeauxilio = () => {
           >
             Usuario
           </Text>
-          <TouchableWithoutFeedback
-            //// --> DEBERIA DIRIGIR AL PROFILE DE USER <-- ////
-            onPress={() => navigation.navigate("CompleteProfileUser")}
+          <TouchableWithoutFeedback 
+          //// --> DEBERIA DIRIGIR AL PROFILE DE USER <-- ////
+          onPress={() => navigation.navigate('CompleteProfileUser')}
           >
             <Image
-              source={require("./manager.jpeg")}
+              source={require("./manager.png")}
               style={{ width: 150, height: 100, alignItems: "center" }}
             />
           </TouchableWithoutFeedback>
@@ -94,11 +94,11 @@ const Componentedeauxilio = () => {
             Transportista
           </Text>
           <TouchableWithoutFeedback
-            //// --> DEBERIA DIRIGIR AL PROFILE DE CARRIER <-- ////
-            onPress={() => navigation.navigate("CompleteProfileCarrier")}
+          //// --> DEBERIA DIRIGIR AL PROFILE DE CARRIER <-- ////
+          onPress={() => navigation.navigate('CompleteProfileCarrier')}
           >
             <Image
-              source={require("./conductor.jpeg")}
+              source={require("./conductor.png")}
               style={{ width: 150, height: 100, alignItems: "center" }}
             />
           </TouchableWithoutFeedback>

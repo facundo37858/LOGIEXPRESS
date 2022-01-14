@@ -9,6 +9,7 @@ import {
   Alert,
   TextInput,
   TouchableOpacity,
+  Modal
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,9 +17,10 @@ import { useDispatch, useSelector } from "react-redux";
 import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from "@react-navigation/core";
 import { completeProfileUser } from "../../actions/index.js";
+import SimpleModal from "./SimpleModal.js";
 
 const CompleteProfileUser = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
   const navigation = useNavigation();
 
   const datosUser = useSelector((store) => store.responseReg);
@@ -26,6 +28,17 @@ const CompleteProfileUser = () => {
     console.log("SOY DATOS DEL USER", datosUser);
   }, [datosUser]);
 
+  /// --> ESTADO PARA EL MODAL <-- ///
+  const [isModalVisible, setisModalVisible] = useState(false)
+  const [chooseData, setchooseData] = useState();
+
+  const changeModalVisible = (bool) => {
+    setisModalVisible(bool)
+  }
+
+  const setData = (data) => {
+    setchooseData(data)
+  }
   //// --> ESTADO PARA INPUTS <-- ////
   const [user, setUser] = useState({
     identification: "",
@@ -112,11 +125,6 @@ const CompleteProfileUser = () => {
     };
     dispatch(completeProfileUser(obj));
     console.log("soy lo que se envia", obj);
-    setUser({
-      identification: "",
-      zone: "",
-      account: "",
-    });
   }
 
   return (
@@ -160,6 +168,7 @@ const CompleteProfileUser = () => {
               style={styles.containerInputs}
               onSubmit={(e) => handleSubmit(e)}
             >
+              
               <View style={styles.viewsInputs}>
                 <Icon name="person-circle-outline" size={26} />
                 <Text style={{ fontSize: 18, marginLeft: 15 }}>
@@ -167,6 +176,7 @@ const CompleteProfileUser = () => {
                 </Text>
                 <TextInput style={styles.textPlaceholder} />
               </View>
+
               <View style={styles.viewsInputs}>
                 <Icon name="person-circle-outline" size={26} />
                 <Text style={{ fontSize: 18, marginLeft: 15 }}>
@@ -174,6 +184,7 @@ const CompleteProfileUser = () => {
                 </Text>
                 <TextInput style={styles.textPlaceholder} />
               </View>
+
               <View style={styles.viewsInputs}>
                 <Icon name="mail-outline" size={26} />
                 <Text style={{ fontSize: 18, marginLeft: 15 }}>
@@ -181,6 +192,7 @@ const CompleteProfileUser = () => {
                 </Text>
                 <TextInput style={styles.textPlaceholder} />
               </View>
+
               <View style={styles.viewsInputs}>
                 <Icon
                   name="reader-outline"
@@ -198,6 +210,7 @@ const CompleteProfileUser = () => {
                   keyboardType="decimal-pad"
                 />
               </View>
+
               <View style={styles.viewsInputs}>
                 <Icon
                   name="navigate-outline"
@@ -212,6 +225,7 @@ const CompleteProfileUser = () => {
                   style={styles.textPlaceholder}
                 />
               </View>
+
               <View style={styles.viewsInputs}>
                 <Icon
                   name="phone-portrait-outline"
@@ -223,6 +237,7 @@ const CompleteProfileUser = () => {
                 </Text>
                 <TextInput style={styles.textPlaceholder} />
               </View>
+
               <View style={styles.viewsInputs}>
                 <Icon
                   name="card-outline"
@@ -237,10 +252,23 @@ const CompleteProfileUser = () => {
                   style={styles.textPlaceholder}
                 />
               </View>
-              <TouchableOpacity style={styles.btnEditar}>
-                <Text style={styles.textBtn} onPress={handleSubmit}>
+              
+              <TouchableOpacity style={styles.btnEditar} onPress={handleSubmit} onPressIn={() => changeModalVisible(true)}>
+                <Text style={styles.textBtn}>
                   Aceptar
                 </Text>
+                  {/* MODAL */}
+                  <Modal
+                   transparent={true}
+                   animationType="fade"
+                   visible={isModalVisible}
+                   nRequestClose={()=> changeModalVisible(false)}
+                   >
+                      <SimpleModal 
+                      changeModalVisible={changeModalVisible}
+                      setData={setData}
+                      />
+                   </Modal>
               </TouchableOpacity>
             </View>
           </View>

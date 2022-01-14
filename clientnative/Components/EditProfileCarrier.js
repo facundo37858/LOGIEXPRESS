@@ -17,7 +17,6 @@ import { useNavigation } from "@react-navigation/core";
 //Agarrar imagen del celu
 import * as ImagePicker from "expo-image-picker";
 
-
 const EditProfileCarrier = () => {
   ////--> HOOK PARA LA NAVEGACION <-- ////
   const navigation = useNavigation();
@@ -34,40 +33,40 @@ const EditProfileCarrier = () => {
       return;
     }
 
-   //Si es true va a venir a pickerResult
-   const pickerResult = await ImagePicker.launchImageLibraryAsync({
-    mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    allowsEditing: true,
-    aspect : [4, 3],
-    quality: 1
-  });
-  
-  if (pickerResult.cancelled !== true) {
-    let newFile = { 
-    uri:pickerResult.uri, 
-    type: `logi/${pickerResult.uri.split('.')[1]}`, 
-    name: `logi.${pickerResult.uri.split('.')[1]}` 
-  }
-     handleUpload(newFile)
-  }
-};
+    //Si es true va a venir a pickerResult
+    const pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
 
-const handleUpload = (image) => {
-  const data = new FormData()
-  data.append('file', image)
-  data.append('upload_preset', 'logiexpress')
-  data.append('cloud_name', 'elialvarez')
-  
-  fetch('https://api.cloudinary.com/v1_1/elialvarez/image/upload', {
-    method:'post',
-    body: data
-  }).then(res => res.json())
-  .then(data => {
-    //console.log(data)
-    setSelectedImage(data.url)
-  })
+    if (pickerResult.cancelled !== true) {
+      let newFile = {
+        uri: pickerResult.uri,
+        type: `logi/${pickerResult.uri.split(".")[1]}`,
+        name: `logi.${pickerResult.uri.split(".")[1]}`,
+      };
+      handleUpload(newFile);
+    }
+  };
 
- }
+  const handleUpload = (image) => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "logiexpress");
+    data.append("cloud_name", "elialvarez");
+
+    fetch("https://api.cloudinary.com/v1_1/elialvarez/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        //console.log(data)
+        setSelectedImage(data.url);
+      });
+  };
   //// --> Inicio de componente <-- ////
 
   return (
@@ -79,7 +78,7 @@ const handleUpload = (image) => {
         <View style={styles.iconBar}>
           <TouchableOpacity
             //no esta conectado a ningun lugar
-            onPress={() => navigation.navigate("ProfileScreen")}
+            onPress={() => navigation.navigate("ProfileScreenCarrier")}
           >
             <Icon name="chevron-back-outline" size={30} />
           </TouchableOpacity>
@@ -220,7 +219,7 @@ const handleUpload = (image) => {
             <View style={styles.btn2}>
               <TouchableOpacity
                 style={styles.btnEditar}
-                onPress={() => navigation.navigate("ProfileScreen")}
+                onPress={() => navigation.navigate("ProfileScreenCarrier")}
               >
                 <Text style={styles.textBtn}>Cancelar</Text>
               </TouchableOpacity>
@@ -295,7 +294,7 @@ const styles = StyleSheet.create({
   viewsInputs: {
     margin: 2,
     borderColor: "#FFCC1D",
-    borderBottomWidth: 3,
+    borderBottomWidth: 2,
     flexDirection: "row",
     width: 360,
     alignItems: "flex-start",

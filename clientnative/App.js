@@ -7,13 +7,12 @@ import SingIn from "./Components/SingIn";
 import SingUp from "./Components/SingUp";
 import EditProfile from "./Components/EditProfile";
 import EditProfileCarrier from "./Components/EditProfileCarrier";
-// import EditVehiculeCarrier from "./Components/EditVehiculeCarrier";
 import CompleteProfileUser from "./Components/CompletarPerfil/CompleteProfileUser";
 import CompleteProfileCarrier from "./Components/CompletarPerfil/CompleteProfileCarrier";
 import ProfileUserScreen from "./Components/ProfileUserScreen";
-import ProfileCarrierScreen from "./Components/ProfileScreen";
+import ProfileScreenCarrier from "./Components/ProfileScreenCarrier";
 import ScreenMap from "./Components/ScreenMap";
-import Componentedeauxilio from "./Components/Componentedeauxilio";
+import RequestTravel from "./Components/RequestTravel";
 
 const Stack = createStackNavigator();
 
@@ -38,31 +37,34 @@ const App = () => {
             component={EditProfileCarrier}
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen
-            name="EditVehiculeCarrier"
-            component={EditVehiculeCarrier}
-            options={{ headerShown: false }}
-          /> */}
+         
           <Stack.Screen
             name="CompleteProfileUser"
             component={CompleteProfileUser}
-            options={{ headerShown: false} }
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="CompleteProfileCarrier"
             component={CompleteProfileCarrier}
-            options={{ headerShown: false}}
+            options={{ headerShown: false }}
           />
-          <Stack.Screen name="ProfileScreen" component={ProfileCarrierScreen} options={{ headerShown: false}}/>
-          <Stack.Screen name="ScreenMap" component={ScreenMap} />
+          <Stack.Screen
+            name="ProfileScreenCarrier"
+            component={ProfileScreenCarrier}
+          />
+          <Stack.Screen
+            name="ScreenMap"
+            component={ScreenMap}
+            options={{ headerShown: false }}
+          />
           <Stack.Screen
             name="ProfileUserScreen"
             component={ProfileUserScreen}
-            options={{ headerShown: false}}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="Componentedeauxilio"
-            component={Componentedeauxilio}
+            name="RequestTravel"
+            component={RequestTravel}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

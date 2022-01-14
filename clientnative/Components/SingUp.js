@@ -281,17 +281,8 @@ if (!obj.phone) {
             </Text>
           </TouchableOpacity>
           <Button
-            title="Perfil usuario"
-            onPress={() => navigation.navigate("ProfileUserScreen")}
-          />
-          <Button
-            title="Perfil transportista"
-            onPress={() => navigation.navigate("ProfileScreen")}
-          />
-          <Button
-            title="Elegir perfil"
-            onPress={() => navigation.navigate("Componentedeauxilio")}
-          />
+          title="RequestTravel"
+          onPress={() => navigation.navigate("RequestTravel")}/>
         </View>
       </View>
     </ScrollView>

@@ -7,7 +7,7 @@ const opts: StrategyOptions = {
     secretOrKey: config.jwtSecret
 }
 
-export default new Strategy(opts, async (payload, done) => {
+export default new Strategy(opts, async (payload: any, done: any) => {
 
     try {
         const user = await User_Reg.findByPk(payload.id)

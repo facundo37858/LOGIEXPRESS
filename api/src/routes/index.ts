@@ -9,7 +9,7 @@ router.use('/', userRoutes);
 router.use('/', LoginRoutes);
 router.use('/', ProfileRoutes);
 router.use('/', TravelRoutes);
-router.use('/', UploadDataFake) 
+//router.use('/', UploadDataFake) 
 
 
 

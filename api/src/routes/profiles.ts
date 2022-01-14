@@ -68,19 +68,19 @@ router.post('/carrierProfile', async (req: Request, res: Response, next: NextFun
 
 		let newProfileCarrier = {
 			id: idCarrier, 
-			documentID: documentID,
-			license: license,
-			location: location,
-			Cuenta: Cuenta,
-			photo: photo 
+			documentID: documentID ||null,
+			license: license ||null,
+			location: location ||null,
+			Cuenta: Cuenta ||null,
+			photo: photo ||null 
 		}
 		var newTrack = {
 			id: uuid(),
-			brand,
-			patent,
-			model,
-			color,
-			capacity,
+			brand:brand ||null,
+			patent: patent||null,
+			model :model||null,
+			color :color||null,
+			capacity: capacity||null,
 			CarrierId: idCarrier
 		}
 

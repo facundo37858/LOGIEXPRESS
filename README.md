@@ -1,4 +1,5 @@
 # LOGIEXPRESS
+La aplicación está destinada a brindar un servicio de logística interprovincial aprovechando el 'tiempo muerto' que enfrentan los transportistas independientes. En otras palabras, el objetivo final de nuestra plataforma es permitir a los camioneros gestionar, de forma eficiente, sencilla y centralizada, tanto su tiempo como el espacio vacío en sus camiones. También le permitirá al usuario cotizar y la posibilidad de rastrear su carga en vivo. Se aceptarán pagos a través de la aplicación y una vez finalizados los viajes, ambas partes podrán clasificar y/o dejar comentarios sobre el servicio prestado.
+
 The application is intended to provide an interprovincial logistics service taking advantage of the ‘downtime’ faced by carriers independent. In other words, the ultimate goal of our platform is to allow truckers manage, efficiently, simply and centrally, both their time like empty space in their trucks. It will also allow the user to quote and the ability to track your cargo live. Payments will be accepted through the application and once the trips are completed, both parties will be able to rank and / or leave comments about the service provided.
-Fredy Alejandro!
-Modified by Luis!
+

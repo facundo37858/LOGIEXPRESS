@@ -37,7 +37,7 @@ const SingIn = ({ navigation }) => {
     if(respuesta?.role === true){
       navigation.navigate("ProfileUserScreen");
     }if(respuesta?.role === false){
-      navigation.navigate("ProfileScreen");
+      navigation.navigate("ProfileScreenCarrier");
     }if(respuesta?.role === 1){
       alert('La dirección de correo electrónico o la contraseña que ingresaste no son válidas!')
     }

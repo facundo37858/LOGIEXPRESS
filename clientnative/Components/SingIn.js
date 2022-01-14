@@ -13,13 +13,12 @@ import {
   Button,
 } from "react-native";
 import { logiarUsuario } from "./../actions/index";
-import { useDispatch, useSelector,  } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const SingIn = ({ navigation }) => {
-  
   const dispatch = useDispatch();
-  
-  const respuesta = useSelector((store) => store.responseLog)
+
+  const respuesta = useSelector((store) => store.responseLog);
 
   // useEffect(()=>{
   //   // token === localstorage.token
@@ -32,17 +31,20 @@ const SingIn = ({ navigation }) => {
   //   }
   // })
 
-  useEffect(()=>{
-    console.log('aqui esta la respuestaaaa:',respuesta);
-    if(respuesta?.role === true){
-      navigation.navigate("ProfileUserScreen");
-    }if(respuesta?.role === false){
-      navigation.navigate("ProfileScreen");
-    }if(respuesta?.role === 1){
-      alert('La dirección de correo electrónico o la contraseña que ingresaste no son válidas!')
+  useEffect(() => {
+    console.log("aqui esta la respuestaaaa:", respuesta);
+    if (respuesta?.role === true) {
+      navigation.navigate("ProfileScreenCarrier");
     }
-  },[respuesta]);
-
+    if (respuesta?.role === false) {
+      navigation.navigate("ProfileScreenCarrier");
+    }
+    if (respuesta?.role === 1) {
+      alert(
+        "La dirección de correo electrónico o la contraseña que ingresaste no son válidas!"
+      );
+    }
+  }, [respuesta]);
 
   const [log, setLog] = useState({
     mail: "",
@@ -57,18 +59,18 @@ const SingIn = ({ navigation }) => {
   //     [e.target.name]: e.target.value,
   //   });
   // };
-  const handelChangeMail=(email)=>{
+  const handelChangeMail = (email) => {
     setLog({
-        ...log,
-        mail:email
-    })
-}
-const handelChangePass=(pass)=>{
+      ...log,
+      mail: email,
+    });
+  };
+  const handelChangePass = (pass) => {
     setLog({
-        ...log,
-        contraseña:pass
-    })
-}
+      ...log,
+      contraseña: pass,
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -80,13 +82,14 @@ const handelChangePass=(pass)=>{
 
     //Validaciones:
 
-    if (!obj.eMail.includes('.com') || !obj.eMail.includes('@')  ) {
-      alert("Por favor escribe un correo electrónico válido!")
-      return
-  } if (!obj.password) {
-    alert("Por favor escribe una Contraseña válida!")
-    return
-  }
+    if (!obj.eMail.includes(".com") || !obj.eMail.includes("@")) {
+      alert("Por favor escribe un correo electrónico válido!");
+      return;
+    }
+    if (!obj.password) {
+      alert("Por favor escribe una Contraseña válida!");
+      return;
+    }
 
     dispatch(logiarUsuario(obj));
     console.log("Estoy enviado", obj);
@@ -95,16 +98,9 @@ const handelChangePass=(pass)=>{
       contraseña: "",
     });
 
-
-  
-
-
-
-      //cuando se cumpla que respuesta != null
-      //haga un console.log(respuesta)
-
-
-  }
+    //cuando se cumpla que respuesta != null
+    //haga un console.log(respuesta)
+  };
 
   function navigate() {
     navigation.navigate("singUp");

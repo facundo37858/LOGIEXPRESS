@@ -1,8 +1,9 @@
 import axios from "axios";
 export const GET_PRICE_QUOTE = "GET_PRICE_QUOTE";
 export const POST_REQUEST_TRAVE = "POST_REQUEST_TRAVE";
-export const URL_PRICE_QUOTE = "http://192.168.1.6:3001/api/calculatePrice";
-export const URL_REQUEST_TRAVEL = "http://192.168.1.6:3001/api//requestTravel";
+export const URL_PRICE_QUOTE = "http://192.168.0.105:3001/api/calculatePrice";
+export const URL_REQUEST_TRAVEL =
+  "http://192.168.0.105:3001/api//requestTravel";
 // import { registrarUsuario } from './index';
 
 // export function registrarUsuario(obj) {

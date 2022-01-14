@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   viewsInputs: {
     margin: 2,
     borderColor: "#511281",
-    borderBottomWidth: 3,
+    borderBottomWidth: 2,
     flexDirection: "row",
     justifyContent: "flex-start",
     width: 360,

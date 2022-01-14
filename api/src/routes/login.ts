@@ -18,7 +18,7 @@ function createToken(payload: any) {
 	})
 }
 
-router.post('/login',/* passport.authenticate("jwt", { session: false }) */ async (req: Request, res: Response) => {
+router.post('/login', async (req: Request, res: Response) => {
 	const { eMail, password } = req.body
 
 	const user = await User_Reg.findAll({ where: { eMail: eMail } })

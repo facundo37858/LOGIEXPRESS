@@ -1,8 +1,14 @@
 import axios from "axios";
 export const GET_PRICE_QUOTE = "GET_PRICE_QUOTE"
+export const GET_TRAVELS = "GET_TRAVELS"
 export const POST_REQUEST_TRAVE = "POST_REQUEST_TRAVE"
 export const URL_PRICE_QUOTE = "http://192.168.2.104:3001/api/calculatePrice"
-export const URL_REQUEST_TRAVEL = "http://192.168.2.104:3001/api//requestTravel"
+export const URL_REQUEST_TRAVEL = "http://192.168.2.104:3001/api/requestTravel"
+export const URL_TRAVEL = "http://192.168.2.104:3001/api/Travel"
+
+
+
+
 // import { registrarUsuario } from './index';
 
 // export function registrarUsuario(obj) {
@@ -23,6 +29,22 @@ export const URL_REQUEST_TRAVEL = "http://192.168.2.104:3001/api//requestTravel"
 //         });
 //       });
 // }
+
+
+export function getTravels() {
+  return async function(dispatch) {
+    try {
+      const request = await axios.get(URL_TRAVEL)
+      return dispatch({
+        type: GET_TRAVELS,
+        payload: request.data
+      })
+    } catch (error) {
+      console.log("Error", error)
+    }
+  }
+}
+
 
 
 export function requestTravel(payload) {

@@ -1,6 +1,8 @@
+import axios from 'axios';
 import {
   GET_PRICE_QUOTE,
   POST_REQUEST_TRAVE,
+  GET_TRAVELS,
 } from '../actions/index.js'
 
 
@@ -11,6 +13,7 @@ const initialState = { //hago un estado inicial
     responseLog:null,
     price:null,
     responseTravel:null,
+    travels: null,
   };
 
   export default function rootReducer(state = initialState, action) {
@@ -44,7 +47,12 @@ const initialState = { //hago un estado inicial
                   return {
                     ...state,
                     responseTravel: action.payload,
-                  } 
+                  };
+                  case GET_TRAVELS:
+                    return {
+                      ...state,
+                      travels: action.payload
+                    }
         default:
         return state;
     }

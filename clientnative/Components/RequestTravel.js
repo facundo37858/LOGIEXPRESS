@@ -63,13 +63,15 @@ const RequestTravel = () => {
     const price = useSelector((state) => state.price)
 
     const [origen, setOrigen] = useState({
-        latitude: 37.78825,
-        longitude: -122.4324,
+        latitude: 0,
+        longitude: 0,
+        name:null,
     })
 
     const [destino, setDestino] = useState({
-        latitude: 37.78825,
-        longitude: -122.4324,
+        latitude: 0,
+        longitude: 0,
+        name:null,
     })
 
     const [weight, setWeight] = useState("");
@@ -80,8 +82,8 @@ const RequestTravel = () => {
     const handleQuote = () => {
         // en un objeto pongo lo que tengo en el estado inicial
         const quote = {
-            origen: `${origen.latitude},${origen.longitude}`,
-            destino: `${destino.latitude},${destino.longitude}`,
+            origen: `${origen.latitude}/${origen.longitude}`,
+            destino: `${destino.latitude}/${destino.longitude}`,
             weight: parseFloat(weight),
         };
         dispatch(cotizarViaje(quote));
@@ -90,11 +92,12 @@ const RequestTravel = () => {
 
     const handleSubmit = () => {
         const travel = {
-            origen: `${origen.latitude},${origen.longitude}`,
-            destino: `${destino.latitude},${destino.longitude}`,
+            orig: `${origen.latitude}/${origen.longitude}/${origen.name}`,
+            destination: `${destino.latitude}/${destino.longitude}/${destino.name}`,
             weight: parseFloat(weight),
             price: price,
             description: description,
+            id: "973ee39e-40ad-4b8f-aa71-70ea7d99ac33",
         };
         dispatch(requestTravel(travel))
         console.log("Estoy enviando:", travel)
@@ -121,12 +124,11 @@ const RequestTravel = () => {
                                 }}
                                 onPress={(data, details = null) => {
                                     // 'details' is provided when fetchDetails = true
-                                    console.log(details.geometry.location.lat, details.geometry.location.lng);
+                                    console.log(details.formatted_address);
                                     setOrigen({
                                         latitude: details.geometry.location.lat,
                                         longitude: details.geometry.location.lng,
-                                        latitudeDelta: 0.0922,
-                                        longitudeDelta: 0.0421,
+                                        name: details.formatted_address,
                                     })
                                 }}
                                 query={{
@@ -161,8 +163,7 @@ const RequestTravel = () => {
                                     setDestino({
                                         latitude: details.geometry.location.lat,
                                         longitude: details.geometry.location.lng,
-                                        latitudeDelta: 0.0922,
-                                        longitudeDelta: 0.0421,
+                                        name: details.formatted_address,
                                     })
                                 }}
                                 query={{

@@ -4,98 +4,14 @@ import { Response, Request, Router, NextFunction } from 'express';
  
 import { Travel } from '../models/Travel';
 import { User } from '../models/User';
+import { User_Reg } from '../models/User_Reg';
 import { Carrier } from '../models/Carrier';
 import { Vehicle } from '../models/Vehicle';
+import { ServiceAlert } from '../models/ServiceAlert';
 
- var userFake=[{
-		
-		"name":"Allan",
-		"lastName":"Torres",
-		"password": "passwordHash",
-		"phone":"+584121222392",
-		"terminosCondiciones":true,
-		"eMail":"allaneduardot@gmail.com",
-		"role":false
-	},{
-		
-		"name":"Eliana",
-		"lastName":"Henry",
-		"password": "passwordHash",
-		"phone":"+584121222392",
-		"terminosCondiciones":true,
-		"eMail":"elianahenry@gmail.com",
-		"role":false
-	},{
-		
-		"name":"Facu",
-		"lastName":"Henry",
-		"password": "passwordHash",
-		"phone":"+584234234",
-		"terminosCondiciones":true,
-		"eMail":"Facuhenry@gmail.com",
-		"role":false
-	},{
-		
-		"name":"Luis",
-		"lastName":"Henry",
-		"password": "passwordHash",
-		"phone":"+5354534554",
-		"terminosCondiciones":true,
-		"eMail":"Luishenry@gmail.com",
-		"role":false
-	},{
-		"name":"Gonza",
-		"lastName":"Henry",
-		"password": "passwordHash",
-		"phone":"+34522323422",
-		"terminosCondiciones":true,
-		"eMail":"Gonzahenry@gmail.com",
-		"role":false
-	},{
-		"name":"Maca",
-		"lastName":"Henry",
-		"password": "passwordHash",
-		"phone":"+234234234",
-		"terminosCondiciones":true,
-		"eMail":"Macahenry@gmail.com",
-		"role":false
-	},{
-		"name":"Fredy",
-		"lastName":"Henry",
-		"password": "passwordHash",
-		"phone":"+6534534534",
-		"terminosCondiciones":true,
-		"eMail":"Fredyhenry@gmail.com",
-		"role":false
-	},{
-		"name":"Matias",
-		"lastName":"HenryHero",
-		"password": "passwordHash",
-		"phone":"+6534534534",
-		"terminosCondiciones":true,
-		"eMail":"MatiashenryHero@gmail.com",
-		"role":false
-	},{
-		"name":"Franco",
-		"lastName":"Teacher",
-		"password": "passwordHash",
-		"phone":"+6534534534",
-		"terminosCondiciones":true,
-		"eMail":"FrancoTeacherHenry@gmail.com",
-		"role":false
-	},{
-		"name":"Martina",
-		"lastName":"Teacher",
-		"password": "passwordHash",
-		"phone":"+24242334534",
-		"terminosCondiciones":true,
-		"eMail":"MartinaTeacherHenry@gmail.com",
-		"role":false
-	}
-];
-const router = Router()
-router.get('/', (req: Request, res: Response) => {
-	res.send('Allan Torres');
+ const router = Router()
+router.get('/', async(req: Request, res: Response) => {
+      res.send('Allan Torres');
 });
 
 
@@ -146,8 +62,9 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
 
 
   try {
+  	   let TravelId= uuid()
 		var newViaje = {
-			id: uuid(),
+			id: TravelId,
 			orig,
 			destination,
 			weight,
@@ -155,30 +72,129 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
 			description,
 			UserId: id
 		}
-		
+
+		//const userTrue = await User_Reg.findAll({where:{role:true},attributes:[['id','UserRegId']]})
 		 // let travel = await User.create({id: 'd8c21800-db1e-4a11-802b-4728efc47ef3'})
 		 // let travel = await User.create({id: 'd8c21800-db1e-4a11-802b-4728efc47exc'})
-		
-        let user = await Travel.create(newViaje)
-		
-        const carriers = await Carrier.findAll()
-             let tam= carriers.length
-             for(let i=0; i < tam; i++){
-             	console.log(carriers[i].id)
-              	      var vehicles = await Vehicle.findAll({where:{
-                    	CarrierId:carriers[i].id,
-          	            capacity:{[Op.or]:{[Op.eq]: weight,[Op.gt]: weight}}
-         }
-        }) 
-        console.log(vehicles) 
-        return res.send(vehicles);
-    }
+		//return res.send('linea 79');
+         let traveles = await Travel.create(newViaje)
+	  //let conteinerVehicles: any[];
+        //const carriers = await Carrier.findAll()
+       // const vehicles = await Vehicle.findAll()
+           //  let tam= carriers.length
+            
+           let vehicles = await Vehicle.findAll({where:{
+                    capacity:{[Op.or]:{[Op.eq]: weight,[Op.gt]: weight}}
+         } }) 
+           let obj = [];
+           let tam = vehicles.length;
+           for(let i=0; i<tam; i++){
+                       obj[i]=
+                           {TravelId: TravelId, CarrierId:vehicles[1].CarrierId}
+                   } 
+                  let alertServices = await ServiceAlert.bulkCreate(obj);
+    	    res.send('Viaje Solicitado');	
+      
+ //let ServiceAlerts = await ServiceAlert.create({id:uuid(),travelId: TravelId, carrierId:vehicles[0].carrierId})
+       ///}
+
     	
-		res.send("");
+		
 
 	} catch (err) {
 		next(err)
 	}
+
+});
+router.get('/Travel', async (req: Request, res: Response, next: NextFunction) => {
+	try {
+		let travel = await Travel.findAll()
+
+		if (travel.length > 0) {
+			return res.send(travel)
+		}
+		res.send('data not found')
+		//por consola me aparece:"Executing (default): SELECT "id", "ducumentoIdentidad", "eMail", "ubicacion", "cel", "tel", "fotoPerfil", "medioPago", "name", "lastName", "paswword", "terminosCondiciones", "createdAt", "updatedAt" FROM "Users" AS "User";"
+		//no pude corregirlo!!
+	}
+	catch (err) {
+		next(err)
+	}
+});
+
+router.post('/requestAlert', async (req: Request, res: Response, next: NextFunction) => {
+	 
+	 const { id} = req.body
+
+
+  try {
+  	    
+           let alert = await ServiceAlert.findAll({where:{CarrierId:id}}) 
+           let tamAlert=alert.length;
+           let notification: boolean;
+           
+              if(tamAlert>0){notification=true}
+              	else {notification=false}
+    	         res.send({notification});	
+
+	} catch (err) {
+		next(err)
+	}
+
+});
+router.post('/waitTravel', async (req: Request, res: Response, next: NextFunction) => {
+   
+   const { id} = req.body
+   let getTravel = await Travel.findAll({where:{UserId:id}})
+      
+   res.send(getTravel);
+
+  // try {
+        
+  //          let alert = await ServiceAlert.findAll({where:{CarrierId:id}}) 
+  //          let tamAlert=alert.length;
+  //          let notification: boolean;
+           
+  //             if(tamAlert>0){notification=true}
+  //               else {notification=false}
+  //              res.send({notification});  
+
+  // } catch (err) {
+  //   next(err)
+  // }
+
+});
+router.put('/acceptTravel', async (req: Request, res: Response, next: NextFunction) => {
+	 
+	 const {UserId, CarrierId, id} = req.body
+
+
+ //  try {
+     const upTravel= await Travel.update({ CarrierId: CarrierId }, {where: {id: id}});
+     if(upTravel[0]===1){
+     	let getUser = await User.findAll({where:{id:UserId}})
+         let getUserReg = await User_Reg.findAll({where:{id:getUser[0].idUserReg}})
+      // getUser[0].UserRegId
+    let dataFull={
+      User:getUser,
+      User_Reg:getUserReg
+    }
+
+     	  res.send(dataFull);
+     	}
+     else res.send('id travel incorrecto');
+     
+ //           let alert = await ServiceAlert.findAll({where:{CarrierId:id}}) 
+ //           let tamAlert=alert.length;
+ //           let notification: boolean;
+           
+ //              if(tamAlert>0){notification=true}
+ //              	else {notification=false}
+ //    	         res.send({notification});	
+
+	// } catch (err) {
+	// 	next(err)
+	// }
 
 });
 

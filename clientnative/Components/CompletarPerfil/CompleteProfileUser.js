@@ -238,7 +238,10 @@ const CompleteProfileUser = () => {
                 />
               </View>
               <TouchableOpacity style={styles.btnEditar}>
-                <Text style={styles.textBtn} onPress={handleSubmit}>
+                <Text
+                  style={styles.textBtn}
+                  onPress={navigation.navigate("SingIn")}
+                >
                   Aceptar
                 </Text>
               </TouchableOpacity>

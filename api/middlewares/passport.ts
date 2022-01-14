@@ -3,7 +3,7 @@ import config from "../config/config"
 import { User_Reg } from "../src/models/User_Reg"
 
 const opts: StrategyOptions = {
-    jwtFromRequest: ExtractJwt.fromHeader('Authorization'),
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: config.jwtSecret
 }
 

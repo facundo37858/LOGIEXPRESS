@@ -6,17 +6,10 @@ import { User_Reg } from '../models/User_Reg';
 const bcrypt = require("bcryptjs");
 
 const router = Router()
-<<<<<<< HEAD
-router.get('/', (req: Request, res: Response) => { 
-	res.send('OK');
-});
-router.get('/user', async (req: Request, res: Response, next: NextFunction) => {
-=======
 
 router.get('/user', passport.authenticate("jwt", { session: false }), async (req: Request, res: Response, next: NextFunction) => {
->>>>>>> b3039e28915b54cee5f8c0d40ff30f8f0d55066e
 	try {
-		let user = await User_Reg.findAll()
+		let user = await User_Reg.findAll();
 		console.log("AQUI", req.user)
 		if (user.length > 0) {
 			return res.send(user)

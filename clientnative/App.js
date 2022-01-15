@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Provider } from "react-redux";
+import { StripeProvider } from "@stripe/stripe-react-native";
 import { store } from "./store/index";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -14,32 +15,31 @@ import ProfileScreenCarrier from "./Components/ProfileScreenCarrier";
 import ScreenMap from "./Components/ScreenMap";
 import RequestTravel from "./Components/RequestTravel";
 import Pago from "./Components/Pago";
-import { StripeProvider } from "@stripe/stripe-react-native";
-import { fetchPublishableKey } from "./Components/helpers";
+
 
 const Stack = createStackNavigator();
 
 const App = () => {
-  const [publishableKey, setPublishableKey] = useState('');
+  // const [publishableKey, setPublishableKey] = useState('');
   
-  useEffect(() => {
-    async function init() {
-      const publishableKey = await fetchPublishableKey()
-      if (publishableKey) {
-        setPublishableKey(publishableKey)
-      }
-    }
-    init();
-  }, []);
+  // useEffect(() => {
+  //   async function init() {
+  //     const publishableKey = await fetchPublishableKey()
+  //     if (publishableKey) {
+  //       setPublishableKey(publishableKey)
+  //     }
+  //   }
+  //   init();
+  // }, []);
 
+  //publishableKey={publishableKey}
 
   return (
-   
+    <StripeProvider
+    publishableKey= "pk_test_51KHwMJH58Ljah9wGjMPQ9Os5fhEj5awCKf7ARtjrqcwUFGAVniXX5CTP3fP492gqrJv3MerKLDbnAByXzpPkYWsC00P8X1yX8l"
+  >
     <Provider store={store}>
-        <StripeProvider
-            publishableKey={publishableKey}
-            merchantIdentifier="merchant.identifier"
-          >
+        
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
@@ -98,8 +98,9 @@ const App = () => {
         
         </Stack.Navigator>
       </NavigationContainer>
-      </StripeProvider>
+    
     </Provider>
+    </StripeProvider>
   );
 };
 export default App;

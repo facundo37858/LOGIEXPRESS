@@ -1,40 +1,43 @@
-import React, {useState} from "react";
-import { View, Text, StyleSheet, TextInput, Button, Alert } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TextInput, Button, Alert, SafeAreaView } from "react-native";
 import { CardField, useConfirmPayment } from "@stripe/stripe-react-native";
 import { API_URL } from "./Config";
 
 const Pago = () => {
-    const [name, setName] = useState('');
-    const {confirmPayment, loading} = useConfirmPayment();
+  const [name, setName] = useState("");
+  const { confirmPayment, loading } = useConfirmPayment();
 
-    const handlePayPress = async () => {
-        const response = await fetch(`${API_URL}/create-payment-intent` ,{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                paymentMethodType: 'card',
-                currency: 'usd',
-              }),
-        })
-        
-        const {clientSecret} = await response.json();
+  const handlePayPress = async () => {
+    const response = await fetch(`${API_URL}/create-payment-intent`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        paymentMethodType: "card",
+        currency: "usd",
+        amount: "200"
+      }),
+    });
+    console.log('Response', response)
 
-        const {error, paymentIntent} = await confirmPayment(clientSecret, {
-            type: 'Card',
-            billingDetails: {name}
-        })
-        
-        if(error) {
-            Alert.alert(`Error code: ${error.code}`, error.message)
-        } else if (paymentIntent) {
-            Alert.alert('Success', `Payment successful: ${paymentIntent.id}` )
-        }
+    const { clientSecret } = await response.json();
+
+    const { error, paymentIntent } = await confirmPayment(clientSecret, {
+      type: "Card",
+      billingDetails: { name },
+    });
+
+    if (error) {
+      Alert.alert(`Error code: ${error.code}`, error.message);
+    } else if (paymentIntent) {
+      Alert.alert("Success", `Payment successful: ${paymentIntent.id}`);
     }
+  };
 
   return (
     <View style={styles.container}>
+     <View >
       <Text style={{ fontSize: 20 }}>Metodo de pago</Text>
       <TextInput
         autoCapitalize="none"
@@ -44,25 +47,27 @@ const Pago = () => {
         style={styles.input}
       />
       <CardField
-      postalCodeEnabled={false}
-       placeholder={{
-        number: '4242 4242 4242 4242',
-      }}
-      onCardChange={(cardDetails) => {
-        console.log('cardDetails', cardDetails);
-      }}
-      onFocus={(focusedField) => {
-        console.log('focusField', focusedField);
-      }}
-      style={styles.cardField}
-      cardStyle={{
-          borderColor: 'black',
+        postalCodeEnabled={false}
+        placeholder={{
+          number: "4242 4242 4242 4242",
+        }}
+        // onCardChange={(cardDetails) => {
+        //   console.log("cardDetails", cardDetails);
+        // }}
+        // onFocus={(focusedField) => {
+        //   console.log("focusField", focusedField);
+        // }}
+        style={styles.cardField}
+        cardStyle={{
+          borderColor: "black",
           borderWidth: 1,
-          borderRadius: 10
-      }}
+          borderRadius: 10,
+        }}
       />
-      <Button title='Pagar' onPress={handlePayPress} disabled={loading}/>
+      <Button title="Pagar" onPress={handlePayPress} disabled={loading} />
     </View>
+    </View>
+   
   );
 };
 
@@ -71,16 +76,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     paddingTop: 50,
-    // paddingHorizontal: 16,
+
+    
+     paddingHorizontal: 16,
   },
   input: {
+    
     height: 40,
-    borderBottomColor: "pink",
-    borderBottomWidth: 1.5,
+    width: '100%', 
+    borderBottomColor: "black",
+    borderBottomWidth: 2,
   },
   cardField: {
-    width: '90%',
-    height: 40,
+    width: "100%",
+    height: 50,
     marginVertical: 30,
   },
 });

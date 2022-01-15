@@ -26,8 +26,11 @@ export class Travel extends Model {
     @Column
     description!: string
 
-    @HasOne(() => Review)
-    rewiew!: Review
+    @Column
+    weight!: string
+
+    @Column
+    score!: number
 
     @CreatedAt
     @Column
@@ -48,6 +51,9 @@ export class Travel extends Model {
 
     @ForeignKey(() => Carrier)
     carrierId!: string
+
+    
+
 
 
 

@@ -9,6 +9,7 @@ import {
   Alert,
   TextInput,
   TouchableOpacity,
+  Modal
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 //Agarrar imagen del celu
@@ -16,6 +17,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
 import { completeProfileCarrier } from "../../actions/index.js";
+import SimpleModal from "./SimpleModal.js";
 
 const CompleteProfileUser = () => {
   const dispatch = useDispatch();
@@ -24,8 +26,20 @@ const CompleteProfileUser = () => {
 
   useEffect(() => {
     console.log("SOY DATOS DEL CARRIER", datosCarrier);
-  }, [datosUser]);
+  }, [datosCarrier]);
 
+   /// --> ESTADO PARA EL MODAL <-- ///
+   const [isModalVisible, setisModalVisible] = useState(false)
+   const [chooseData, setchooseData] = useState();
+ 
+   const changeModalVisible = (bool) => {
+     setisModalVisible(bool)
+   }
+ 
+   const setData = (data) => {
+     setchooseData(data)
+   }
+   
   //// --> ESTADO PARA LOS INPUTS <-- ////
 
   const [carrier, setCarrier] = useState({
@@ -45,8 +59,6 @@ const CompleteProfileUser = () => {
 
   ////--> IMAGE PICKER <-- ////
   const [selectedImage, setSelectedImage] = useState(null);
-
-  const navigation = useNavigation();
 
   let openImagePickerAsync = async () => {
     let permissionResult =
@@ -108,12 +120,6 @@ const CompleteProfileUser = () => {
     });
   };
 
-  const handleChangePhone = (phone) => {
-    setCarrier({
-      ...carrier,
-      phone: phone,
-    });
-  };
 
   const handleChangeLocation = (location) => {
     setCarrier({
@@ -170,7 +176,6 @@ const CompleteProfileUser = () => {
     const obj = {
       documentID: carrier.documentID,
       license: carrier.license,
-      phone: carrier.phone,
       location: carrier.location,
       Cuenta: carrier.Cuenta,
       photo: selectedImage,
@@ -187,7 +192,6 @@ const CompleteProfileUser = () => {
       //Datos del carrier//
       documentID: "",
       license: "",
-      phone: "",
       location: "",
       Cuenta: "",
       //Datos del vehiculo//
@@ -278,6 +282,7 @@ const CompleteProfileUser = () => {
                   onChangeText={(documentID) =>
                     handleChangeDocumentID(documentID)
                   }
+                  keyboardType="decimal-pad"
                 />
               </View>
               <View style={styles.viewsInputs}>
@@ -374,13 +379,26 @@ const CompleteProfileUser = () => {
                     placeholder="Capacidad de carga vehiculo"
                     name="capacity"
                     style={styles.textPlaceholder}
+                    keyboardType="decimal-pad"
                   />
                 </View>
               </View>
-              <TouchableOpacity style={styles.btnEditar}>
-                <Text style={styles.textBtn} onPress={handleSubmit}>
+              <TouchableOpacity style={styles.btnEditar}  onPress={handleSubmit} onPressIn={() => changeModalVisible(true)}>
+                <Text style={styles.textBtn}>
                   Enviar
                 </Text>
+                 {/* MODAL */}
+                 <Modal
+                   transparent={true}
+                   animationType="fade"
+                   visible={isModalVisible}
+                   nRequestClose={()=> changeModalVisible(false)}
+                   >
+                      <SimpleModal 
+                      changeModalVisible={changeModalVisible}
+                      setData={setData}
+                      />
+                   </Modal>
               </TouchableOpacity>
             </View>
           </View>

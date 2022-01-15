@@ -1,18 +1,16 @@
 import { Response, Request, Router, NextFunction } from 'express';
 import { uuid } from 'uuidv4';
-import { Carrier } from '../models/Carrier';
+import passport from 'passport';
 import { User_Reg } from '../models/User_Reg';
 
 const bcrypt = require("bcryptjs");
 
 const router = Router()
-router.get('/', (req: Request, res: Response) => {
-	res.send('OK');
-});
-router.get('/user', async (req: Request, res: Response, next: NextFunction) => {
+
+router.get('/user', passport.authenticate("jwt", { session: false }), async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		let user = await User_Reg.findAll()
-
+		console.log("AQUI", req.user)
 		if (user.length > 0) {
 			return res.send(user)
 		}
@@ -24,17 +22,14 @@ router.get('/user', async (req: Request, res: Response, next: NextFunction) => {
 		next(err)
 	}
 });
-//para registrar user
-router.options('/user', async (res: Response) => {
-	res.send('Options send')
-})
+
 router.post('/user', async (req: Request, res: Response, next: NextFunction) => {
 	// const data1 = JSON.parse(req.body)
 	console.log("Estes es el body", req.body);
 
 	const { name, lastName, phone, password, eMail, terminosCondiciones, role } = req.body
-	
-	let passwordHash = await bcrypt.hash(password,8)
+
+	let passwordHash = await bcrypt.hash(password, 8)
 
 	let newUser = {
 		id: uuid(),
@@ -58,11 +53,11 @@ router.post('/user', async (req: Request, res: Response, next: NextFunction) => 
 			const payload = {
 				role: 1,
 			};
-			return res.json({payload,mensaje:'eMail usado'})//podria ser un boolean 
+			return res.json({ payload, mensaje: 'eMail usado' })//podria ser un boolean 
 		}
 		// console.log('User:',user,'Bool: ',created)
 
-	
+
 		const payload = {
 			eMail,
 			// id: id,

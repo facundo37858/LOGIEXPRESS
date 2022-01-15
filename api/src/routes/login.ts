@@ -1,46 +1,23 @@
 import { Response, Request, Router } from 'express';
-import { User } from '../models/User';
-import { uuid } from 'uuidv4';
+
 import { User_Reg } from '../models/User_Reg';
 
-const bcryptjs = require("bcryptjs");
-
-// import bcryptjs from 'bcryptjs'
+// const bcryptjs = require("bcryptjs");
+import config from '../../config/config';
+import bcryptjs from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+// import passport from 'passport';
 
 
 const router = Router()
 
+function createToken(payload: any) {
 
-router.get('/', (req: Request, res: Response) => {
-	res.send('OK');
-});
+	return jwt.sign({ id: payload.id, email: payload.eMail }, config.jwtSecret, {
+		expiresIn: 86400
+	})
+}
 
-// router.post('/login', async (req: Request, res: Response) => {
-// 	const { eMail, password} = req.body
-
-// 	const user = await User_Reg.findOne({where:{eMail:eMail}})
-
-// 	const compare = await bcryptjs.compare(password, user!.password)
-
-
-// 	if ( user && compare /*bcryptjs.compare(password, user.password, function(err:Error, result:boolean){}) */ ){
-
-// 		const payload = {
-// 			eMail,
-// 			id: user.id,
-// 			role: user.role,
-// 			name: user.name,
-// 			lastname:user.lastName,
-// 			phone:user.phone,
-// 		};
-
-// 		res.json({
-// 			mensaje: 'Autenticación correcta', payload
-// 		});
-// 	} else {
-// 		res.status(300).json({ mensaje: "Usuario o contraseña incorrectos" })
-// 	}
-// });
 router.post('/login', async (req: Request, res: Response) => {
 	const { eMail, password } = req.body
 
@@ -61,6 +38,7 @@ router.post('/login', async (req: Request, res: Response) => {
 			};
 
 			return res.json({
+				token: createToken(payload),
 				mensaje: 'Autenticación correcta', payload
 			}).status(300);
 
@@ -74,7 +52,7 @@ router.post('/login', async (req: Request, res: Response) => {
 				phone: user[0].phone,
 			};
 			return res.json({
-				payload, mensaje: "Contrasena no coincide"
+				mensaje: "Contrasena no coincide", payload
 			}).status(300)
 		}
 
@@ -85,7 +63,7 @@ router.post('/login', async (req: Request, res: Response) => {
 		const payload = {
 			role: 1,
 		};
-		return res.json({payload, mensaje:"usuario y mail ingresados son invalidos"}).status(301)
+		return res.json({ payload, mensaje: "usuario y mail ingresados son invalidos" }).status(301)
 	}
 
 	// 	console.log('pass: ',password)

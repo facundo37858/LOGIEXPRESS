@@ -2,6 +2,7 @@ import {Router} from 'express';
 import userRoutes from './user';
 import LoginRoutes from './login';
 import ProfileRoutes from './profiles';
+import review from './review'
 import TravelRoutes from './travel';
 import paymentCheckOut from './Stripe';
 

@@ -7,13 +7,11 @@ import SingIn from "./Components/SingIn";
 import SingUp from "./Components/SingUp";
 import EditProfile from "./Components/EditProfile";
 import EditProfileCarrier from "./Components/EditProfileCarrier";
-// import EditVehiculeCarrier from "./Components/EditVehiculeCarrier";
 import CompleteProfileUser from "./Components/CompletarPerfil/CompleteProfileUser";
 import CompleteProfileCarrier from "./Components/CompletarPerfil/CompleteProfileCarrier";
 import ProfileUserScreen from "./Components/ProfileUserScreen";
 import ProfileScreenCarrier from "./Components/ProfileScreenCarrier";
 import ScreenMap from "./Components/ScreenMap";
-import Componentedeauxilio from "./Components/Componentedeauxilio";
 import RequestTravel from "./Components/RequestTravel";
 
 const Stack = createStackNavigator();
@@ -39,11 +37,7 @@ const App = () => {
             component={EditProfileCarrier}
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen
-            name="EditVehiculeCarrier"
-            component={EditVehiculeCarrier}
-            options={{ headerShown: false }}
-          /> */}
+         
           <Stack.Screen
             name="CompleteProfileUser"
             component={CompleteProfileUser}
@@ -66,11 +60,6 @@ const App = () => {
           <Stack.Screen
             name="ProfileUserScreen"
             component={ProfileUserScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Componentedeauxilio"
-            component={Componentedeauxilio}
             options={{ headerShown: false }}
           />
           <Stack.Screen

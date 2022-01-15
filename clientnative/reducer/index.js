@@ -15,17 +15,8 @@ const initialState = {
   completeCarrier: [],
   price: null,
   responseTravel: null,
+  travels: null,
 };
-
-const initialState = { //hago un estado inicial
-    registrarUsuario: null,
-    logiarUsuario: null,
-    responseReg:null,  
-    responseLog:null,
-    price:null,
-    responseTravel:null,
-    travels: null,
-  };
 
   export default function rootReducer(state = initialState, action) {
     switch (action.type) {

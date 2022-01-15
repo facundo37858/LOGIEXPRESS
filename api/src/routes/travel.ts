@@ -16,8 +16,8 @@ router.get('/', async(req: Request, res: Response) => {
 
 
 function getDistanciaMetros(origen:string, destino:string) {
-    var newOrigen = origen.split(",")
-    var newDestino = destino.split(",")
+    var newOrigen = origen.split("/")
+    var newDestino = destino.split("/")
     var lat1 = newOrigen[0];
     var lon1 = newOrigen[1];
     var lat2 = newDestino[0];
@@ -70,7 +70,7 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
 			weight,
 			price,
 			description,
-			UserId: id
+			userId: id
 		}
 
 		//const userTrue = await User_Reg.findAll({where:{role:true},attributes:[['id','UserRegId']]})

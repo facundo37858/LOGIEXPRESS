@@ -10,8 +10,14 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/core";
+import StarRating from "./StarRating";
 
 const ProfileScreen = () => {
+
+
+  const rating = 4;
+
+
 
   const navigation = useNavigation();
   return (
@@ -44,43 +50,7 @@ const ProfileScreen = () => {
           <Image style={styles.userImg} source={require("./Utils/foto1.jpg")} />
           <Text style={styles.userName}>Bill Gate</Text>
           <Text style={styles.aboutUser}>Calificacion</Text>
-          <View style={styles.useStars}>
-            {
-              <Icon
-                name="star-outline"
-                size={20}
-                style={{ margin: 3, color: "#FFC107" }}
-              />
-            }
-            {
-              <Icon
-                name="star-outline"
-                size={20}
-                style={{ margin: 3, color: "#FFC107" }}
-              />
-            }
-            {
-              <Icon
-                name="star-outline"
-                size={20}
-                style={{ margin: 3, color: "#FFC107" }}
-              />
-            }
-            {
-              <Icon
-                name="star-outline"
-                size={20}
-                style={{ margin: 3, color: "#FFC107" }}
-              />
-            }
-            {
-              <Icon
-                name="star-outline"
-                size={20}
-                style={{ margin: 3, color: "#000" }}
-              />
-            }
-          </View>
+          <StarRating ratings={rating} reviews={rating}/>
         </View>
         <View>
           <TouchableOpacity style={styles.btnText}>

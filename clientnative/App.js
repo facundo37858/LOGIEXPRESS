@@ -13,6 +13,7 @@ import ProfileUserScreen from "./Components/ProfileUserScreen";
 import ProfileScreenCarrier from "./Components/ProfileScreenCarrier";
 import ScreenMap from "./Components/ScreenMap";
 import RequestTravel from "./Components/RequestTravel";
+import StartCarrier from "./Components/ComenzarViaje/StartCarrier"
 
 const Stack = createStackNavigator();
 
@@ -66,6 +67,11 @@ const App = () => {
             name="RequestTravel"
             component={RequestTravel}
             options={{ headerShown: false }}
+          />
+          <Stack.Screen 
+          name="StartCarrier"
+          component={StartCarrier}
+          options={{ headerShown: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>

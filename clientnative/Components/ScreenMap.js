@@ -1,16 +1,22 @@
 import * as React from 'react';
 import MapView from 'react-native-maps';
 import { Marker, Callout } from 'react-native-maps';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Image, Animated } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { getTravels } from '../actions/index.js'
 import * as Location from 'expo-location';
+import { useNavigation } from "@react-navigation/core";
+import StarRating from './StarRating.js';
 
-export default function App() {
 
-    const dispatch = useDispatch()
+
+const ScreenMap = () => {
+
+
+    const navigation = useNavigation();
+    const dispatch = useDispatch();
 
 
     useEffect(() => {
@@ -47,32 +53,8 @@ export default function App() {
         longitude: -122.4324,
     })
 
-    const marker = [
-        {
-            coordinate: {
-                latitude: -24.8385129,
-                longitude: -65.4435753,
-            }
-        },
-        {
-            coordinate: {
-                latitude: -24.83556925963872,
-                longitude: -65.44308632612228,
-            }
-        },
-        {
-            coordinate: {
-                latitude: -24.820108703392673,
-                longitude: -65.42832378298044,
-            }
-        },
-        {
-            coordinate: {
-                latitude: -24.82664443116755,
-                longitude: -65.41857663542032,
-            }
-        }
-    ]
+    const rating = 3;
+
     return (
         <View style={styles.container}>
             <GooglePlacesAutocomplete
@@ -153,14 +135,6 @@ export default function App() {
                                     <Text>ID: {point.id}</Text>
                                     <Text>DESCRIPCION: {point.description}</Text>
                                     <Text>ORIGEN:{orig[2]}</Text>
-                                    <Text>DESTINO:{dest[2]}</Text>
-                                    <Text>PESO:{point.weight}</Text>
-                                    <Text>PRECIO:{point.price}</Text>
-                                    <View style={styles.btn2}>
-                                        <TouchableOpacity style={styles.btnEditar}>
-                                            <Text style={styles.textBtn}>Ver mas!</Text>
-                                        </TouchableOpacity>
-                                    </View>
                                 </Callout>
                             </MapView.Marker>
                         )
@@ -168,9 +142,47 @@ export default function App() {
                     )
                 }
             </MapView>
+            <Animated.ScrollView
+                horizontal
+                scrollEventThrottle={1}
+                showHorizontalScrollIndicator={false}
+                style={styles.scrollView}
+            >
+                {travels?.map((travel, index) => {
+                    const orig = travel.orig.split("/")
+                    const dest = travel.destination.split("/")
+                    return (
+                        <View style={styles.card} key={index}>
+                            <View style={{alignItems: "center", flexDirection: "column"} }>
+                                <Image source={require('./Utils/foto1.jpg')} style={styles.cardImage} />
+                                <StarRating ratings={rating} reviews={rating} />
+                            </View>
+                            <View style={styles.textContent}>
+                                <Text>ID: {travel.id}</Text>
+                                <Text>DESCRIPCION: {travel.description}</Text>
+                                <Text>ORIGEN:{orig[2]}</Text>
+                                <Text>DESTINO:{dest[2]}</Text>
+                                <Text>PESO:{travel.weight}</Text>
+                                <Text>PRECIO:{travel.price}</Text>
+                                <View style={styles.btn2}>
+                                    <TouchableOpacity style={styles.btnEditar} onPress={() => navigation.navigate("StartCarrier", travel)} >
+                                        <Text style={styles.textBtn}> Ofrecer Servicio</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                    )
+                })}
+
+            </Animated.ScrollView>
+
         </View >
     );
 }
+
+
+export default ScreenMap;
+
 
 const styles = StyleSheet.create({
     container: {
@@ -195,6 +207,46 @@ const styles = StyleSheet.create({
         fontSize: 17,
         alignSelf: "center",
         marginTop: 12,
+    },
+    scrollView: {
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        paddingVertical: 10,
+    },
+    cardImage: {
+        height: 150,
+        width: 150,
+        borderRadius: 100,
+    },
+    cardtitle: {
+        fontSize: 12,
+        // marginTop: 5,
+        fontWeight: "bold",
+    },
+    cardDescription: {
+        fontSize: 12,
+        color: "#444",
+    },
+    textContent: {
+        flex: 2,
+        padding: 10,
+    },
+    card: {
+        // padding: 10,
+        elevation: 2,
+        backgroundColor: "#FFF",
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        marginHorizontal: 10,
+        shadowColor: "#000",
+        shadowRadius: 5,
+        shadowOpacity: 0.3,
+        shadowOffset: { x: 2, y: -2 },
+        height: 400,
+        width: 250,
+        overflow: "hidden",
     },
 
 });

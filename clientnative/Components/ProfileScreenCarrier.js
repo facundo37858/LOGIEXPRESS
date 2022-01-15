@@ -12,36 +12,19 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/core";
 
 const ProfileScreen = () => {
-
   const navigation = useNavigation();
   return (
-    /*  <SafeAreaView style={{flex:1, backgroundColor:'#fff'}}>
-         <ScrollView 
-         style={styles.container}
-         contentContainerStyle={{justifyContent:'center', alignItems:'center'}}
-         showsVerticalScrollIndicator={false}>
-             <Image style={styles.userImg} source={require('./Utils/foto1.jpg')}/>
-             <Text style={styles.userName}>Bill Gate</Text>
-             <View style={styles.userBtnWrapper}>
-               <TouchableOpacity style={styles.userBtn}>
-                 <Text style={styles.userBtnTxt}>Datos Personales</Text>
-               </TouchableOpacity>
-               <TouchableOpacity style={styles.userBtn}>
-                 <Text style={styles.userBtnTxt}>Historial de Viaje</Text>
-               </TouchableOpacity>
-               <TouchableOpacity style={styles.userBtn}>
-                 <Text style={styles.userBtnTxt}>Datos Personales</Text>
-               </TouchableOpacity>
-             </View>
-         </ScrollView>
-     </SafeAreaView> */
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+    <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ backgroundColor: "#000", height: 120 }}>
-          <TouchableOpacity></TouchableOpacity>
-        </View>
-        <View style={{ alignItems: "center" }}>
-          <Image style={styles.userImg} source={require("./Utils/foto1.jpg")} />
+        <View
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+        >
+          <View style={{ marginTop: 50 }}>
+            <Image
+              style={styles.userImg}
+              source={require("./Utils/foto1.jpg")}
+            />
+          </View>
           <Text style={styles.userName}>Bill Gate</Text>
           <Text style={styles.aboutUser}>Calificacion</Text>
           <View style={styles.useStars}>
@@ -97,7 +80,7 @@ const ProfileScreen = () => {
               size={23}
               style={{ marginRight: 10, marginTop: 2 }}
             />
-            <Text style={styles.userBtnTxt}>Historial de Viajes</Text>
+            <Text style={styles.userBtnTxt}>Datos del vehiculo</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.btnText}
@@ -108,7 +91,7 @@ const ProfileScreen = () => {
               size={23}
               style={{ marginRight: 10, marginTop: 2 }}
             />
-            <Text style={styles.userBtnTxt}>Editar Perfil</Text>
+            <Text style={styles.userBtnTxt}>Transacciones</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.btnText}>
             <Icon
@@ -132,7 +115,7 @@ const ProfileScreen = () => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -174,10 +157,10 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   userImg: {
-    height: 200,
-    width: 200,
-    borderRadius: 100,
-    marginTop: -100,
+    height: 180,
+    width: 180,
+    borderRadius: 90,
+ 
   },
   userName: {
     fontSize: 25,

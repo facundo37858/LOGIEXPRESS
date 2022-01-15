@@ -1,7 +1,38 @@
-import { Model, Column, Table, IsUUID } from 'sequelize-typescript'
+import { Model, Column, Table, IsUUID, HasOne, ForeignKey } from 'sequelize-typescript'
+
+import { Carrier } from './Carrier'
+import { User } from './User'
+
+
+export interface IUser extends User_Reg {
+    eMail: string,
+    password: string
+}
+
+
+// @Table
+// export class User extends Model {
+
+//   @Column name!: string;
+//   @HasMany(() => Post) posts: Post[];
+
+// }
+
+
+// @Table
+// export class Post extends Model {
+
+//   @Column text!: string;
+//   @ForeignKey(() => User) @Column userId!: number;
+//   @BelongsTo(() => User) user: User;
+// }
+
+// User_Reg.hasOne(Carrier)
+// Carrier.belongsTo(User_Reg)
 
 @Table
 export class User_Reg extends Model {
+
 
 
     // @Column(DataType.UUIDV4)
@@ -10,9 +41,16 @@ export class User_Reg extends Model {
     // @PrimaryKey
     // @Column
     // id!:string
+    // @ForeignKey(()=>Carrier)
     @IsUUID(4)
     @Column({ primaryKey: true })
     id!: string
+
+    @HasOne(() => Carrier)
+    carrier!: Carrier
+
+    @HasOne(() => User)
+    user!: User
 
     @Column
     name!: string
@@ -21,24 +59,20 @@ export class User_Reg extends Model {
     lastName!: string
 
     @Column
-    phone!: number
+    phone!: string
 
     @Column
-<<<<<<< HEAD
-    paswword!: string
+    eMail!: string
 
     @Column
-    rol!: boolean
-
-=======
-    eMail!:string
+    password!: string
 
     @Column
-    password!:string
+    terminosCondiciones!: boolean
 
     @Column
-    role!:boolean
->>>>>>> dbc0fbd3ca9a83c724d4cfad8a61852719b38e7e
+    role!: boolean
+
 
 
 }

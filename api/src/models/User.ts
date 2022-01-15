@@ -1,31 +1,33 @@
-import { Model, Column, Table, CreatedAt, UpdatedAt, IsUUID, BelongsTo, PrimaryKey } from 'sequelize-typescript'
+import { Model, Column, Table, CreatedAt, UpdatedAt, IsUUID, BelongsTo, PrimaryKey, ForeignKey, HasMany } from 'sequelize-typescript'
+import { Travel } from './Travel'
 import { User_Reg } from './User_Reg'
 
 @Table
-export class User extends Model<User>{
-
-    @IsUUID(4)
-    @Column({ primaryKey: true })
-    id!: string
-
-    // @BelongsTo(() => User_Reg)
-    // id_user!: User_Reg
-
+export class User extends Model {
+    @PrimaryKey
+    @Column
+    id!: string 
 
     @Column
     identification!: number
 
-    @Column
+    @Column 
     zone!: string
-
-    @Column
-    phone!: number
-
+    
     @Column
     photo!: string
 
     @Column
-    account!: string
+    account!: string //Cuenta bancaria 
+
+    @BelongsTo(()=>User_Reg)
+    user_Reg!:User_Reg
+
+    @ForeignKey(()=>User_Reg)
+    idUserReg!:string
+
+    @HasMany(()=>Travel)
+    travel!:Travel
 
 
 }

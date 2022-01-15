@@ -6,7 +6,7 @@ import { User_Reg } from '../models/User_Reg';
 const bcrypt = require("bcryptjs");
 
 const router = Router()
-router.get('/', (req: Request, res: Response) => {
+router.get('/', (req: Request, res: Response) => { 
 	res.send('OK');
 });
 router.get('/user', async (req: Request, res: Response, next: NextFunction) => {

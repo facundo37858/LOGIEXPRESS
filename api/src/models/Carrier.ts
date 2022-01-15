@@ -25,21 +25,20 @@ export class Carrier extends Model {
     location!: string
 
     @Column
+    Cuenta!: string
+
+    @Column
     photo!: string
 
-    @HasMany(() => Travel)
-    travel!: Travel
+    @BelongsTo(() => User_Reg)
+    user_Reg!: User_Reg
 
+    @ForeignKey(() => User_Reg)
+    idUserReg!: string
 
+    @HasOne(() => Vehicle)
+    vehicle!: Vehicle
 
-
-    @CreatedAt
-    @Column
-    createdAt!: Date
-
-    @UpdatedAt
-    @Column
-    updatedAt!: Date
 
 
 }

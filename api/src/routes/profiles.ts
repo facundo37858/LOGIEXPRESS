@@ -130,6 +130,8 @@ router.post('/carrierProfile', async (req: Request, res: Response, next: NextFun
 	// .catch(error => next(error))
 });
 
+
+//DEBUG
 router.get('/profile', async (req: Request, res: Response) => {
 	// res.send('llega al  profile')
 	const { id } = req.params;
@@ -139,12 +141,33 @@ router.get('/profile', async (req: Request, res: Response) => {
 	if (user === null) {
 		const carrier = await Carrier.findByPk(id);
 
-		return carrier ? res.json(carrier) : res.status(404).send("ID Not Found")
+		const carrierData =  {
+			documentID: carrier?.documentID,
+			license: carrier?.license,
+			Active: carrier?.Active,
+			location: carrier?.location,
+			cuenta: carrier?.Cuenta,
+			photo: carrier?.photo,
+			// travel: carrier?.travel
+		}
+		
+		return carrierData? res.json(carrierData) : res.status(404).send("Carrier Not Found")
 	}
 
-	return user ? res.json(user) : res.status(404).send("ID Not Found")
+
+	const userData ={
+		identification: user.identification,
+		zone: user.zone,
+		photo: user.photo,
+		account: user.account,
+	}
+
+	return userData? res.json(userData) : res.status(404).send("User Not Found")
+
 });
 
+
+//DEBUG
 router.put('/edit', async (req: Request, res: Response, next: NextFunction)=>{
 
 	const {id, name, lastName, phone, photo, account, Cuenta, brand, patent, model, color} = req.body;
@@ -293,5 +316,8 @@ router.delete('/delete', async (req: Request, res: Response, next: NextFunction)
     }
 
 })
+
+
+
 
 export default router;

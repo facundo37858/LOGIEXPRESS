@@ -41,7 +41,7 @@ export class Travel extends Model {
     user!: User
 
     @ForeignKey(() => User)
-    userId!: User
+    userId!: string
 
     @BelongsTo(() => Carrier)
     carrier!: Carrier

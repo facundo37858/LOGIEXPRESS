@@ -40,7 +40,7 @@ const ScreenMap = () => {
 
 
 
-    /*  console.log("Esto es Travel", travels) */
+     console.log("Esto es Travel", travels)
 
 
     const [pin, setPin] = useState({
@@ -118,8 +118,8 @@ const ScreenMap = () => {
                 </Marker>} */}
                 {
                     travels?.map((point, index) => {
-                        const orig = point.orig.split("/")
-                        const dest = point.destination.split("/")
+                        const orig = point.travel.orig.split("/")
+                        const dest = point.travel.destination.split("/")
                         const lat = Number(orig[0])
                         const lon = Number(orig[1])
                         return (
@@ -148,24 +148,25 @@ const ScreenMap = () => {
                 showHorizontalScrollIndicator={false}
                 style={styles.scrollView}
             >
-                {travels?.map((travel, index) => {
-                    const orig = travel.orig.split("/")
-                    const dest = travel.destination.split("/")
+                {travels?.map((resp, index) => {
+                    const orig = resp.travel.orig.split("/")
+                    const dest = resp.travel.destination.split("/")
                     return (
                         <View style={styles.card} key={index}>
                             <View style={{alignItems: "center", flexDirection: "column"} }>
                                 <Image source={require('./Utils/foto1.jpg')} style={styles.cardImage} />
                                 <StarRating ratings={rating} reviews={rating} />
+                                <Text>User: {resp.user.identification}</Text>
                             </View>
                             <View style={styles.textContent}>
-                                <Text>ID: {travel.id}</Text>
-                                <Text>DESCRIPCION: {travel.description}</Text>
+                                <Text>ID: {resp.travel.id}</Text>
+                                <Text>DESCRIPCION: {resp.travel.description}</Text>
                                 <Text>ORIGEN:{orig[2]}</Text>
                                 <Text>DESTINO:{dest[2]}</Text>
-                                <Text>PESO:{travel.weight}</Text>
-                                <Text>PRECIO:{travel.price}</Text>
+                                <Text>PESO:{resp.travel.weight}</Text>
+                                <Text>PRECIO:{resp.travel.price}</Text>
                                 <View style={styles.btn2}>
-                                    <TouchableOpacity style={styles.btnEditar} onPress={() => navigation.navigate("StartCarrier", travel)} >
+                                    <TouchableOpacity style={styles.btnEditar} onPress={() => navigation.navigate("StartCarrier", resp.travel)} >
                                         <Text style={styles.textBtn}> Ofrecer Servicio</Text>
                                     </TouchableOpacity>
                                 </View>

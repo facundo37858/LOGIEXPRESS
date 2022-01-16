@@ -10,6 +10,7 @@ const initialState = {
   completeCarrier: [],
   price: null,
   responseTravel: null,
+  token: null,
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -33,6 +34,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         responseLog: action.payload, //en registrarusuario meteme el action.payload
+        token: action.token,
       };
     case "COMPLETE_PROFILE_USER":
       return {

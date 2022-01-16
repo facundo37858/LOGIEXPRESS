@@ -16,24 +16,20 @@ const ProfileUserScreen = () => {
   
   const navigation = useNavigation();
 
-  const datosProfile = useSelector((store) => store.responseReg);
-  const datosComplete = useSelector((store) => store.completeprofile);
-
-  useEffect(()=> { console.log("SOY DATOS DEL PROFILE", datosProfile);}, [datosProfile]);
-  useEffect(()=> { console.log("SOY DATOS DEL COMPLETE", datosComplete);}, [datosComplete]);
-
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{flex: 1, alignItems: "center", justifyContent: 'center' }}>
           <View style={{ marginTop: 50}}>
-          <Image style={styles.userImg}  source={{ uri:
-                datosComplete.photo !== null 
-                  ? datosComplete.photo
-                  : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",}} />
+          <View style={{ marginTop: 25 }}>
+            <Image
+              style={styles.userImg}
+              source={require("./Utils/foto1.jpg")}
+            />
+          </View>
           </View>
           
-          <Text style={styles.userName}>{datosProfile.name} {datosProfile.lastname}</Text>
+          <Text style={styles.userName}>El Usuario</Text>
           <Text style={styles.aboutUser}>Calificacion</Text>
           <View style={styles.useStars}>
             {
@@ -135,6 +131,14 @@ const styles = StyleSheet.create({
     padding: 25,
     width: "100%",
     height: 10,
+  },
+  userImg: {
+    marginTop: 10,
+    height: 170,
+    width: 170,
+    borderRadius: 85,
+    borderWidth: 5,
+    borderColor: "#7952B3",
   },
   btnText: {
     alignSelf: "center",

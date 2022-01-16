@@ -15,24 +15,12 @@ import ProfileScreenCarrier from "./Components/ProfileScreenCarrier";
 import ScreenMap from "./Components/ScreenMap";
 import RequestTravel from "./Components/RequestTravel";
 import Pago from "./Components/Pago";
-
+import DatosPersonalesCarrier from "./Components/Datos/DatosPersonalesCarrier";
+import DatosPersonalesUser from './Components/Datos/DatosPersonalesUser'
 
 const Stack = createStackNavigator();
 
 const App = () => {
-  // const [publishableKey, setPublishableKey] = useState('');
-  
-  // useEffect(() => {
-  //   async function init() {
-  //     const publishableKey = await fetchPublishableKey()
-  //     if (publishableKey) {
-  //       setPublishableKey(publishableKey)
-  //     }
-  //   }
-  //   init();
-  // }, []);
-
-  //publishableKey={publishableKey}
 
   return (
     <StripeProvider
@@ -89,10 +77,19 @@ const App = () => {
             component={RequestTravel}
             options={{ headerShown: false }}
           />
-        
             <Stack.Screen
               name="Pago"
               component={Pago}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="DatosPersonalesCarrier"
+              component={ DatosPersonalesCarrier }
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="DatosPersonalesUser"
+              component={ DatosPersonalesUser }
               options={{ headerShown: false }}
             />
         

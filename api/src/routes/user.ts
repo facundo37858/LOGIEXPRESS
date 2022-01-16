@@ -71,10 +71,7 @@ router.post('/user', async (req: Request, res: Response, next: NextFunction) => 
 			mensaje: 'Usuario creado', payload
 		}).status(300);
 
-
 		// res.send('Usuario creado')//podria ser un boolean 
-
-
 	}
 	catch (err) {
 		next(err)

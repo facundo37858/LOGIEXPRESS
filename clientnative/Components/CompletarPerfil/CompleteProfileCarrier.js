@@ -48,7 +48,6 @@ const CompleteProfileUser = () => {
     license: "",
     phone: "",
     location: "",
-    Cuenta: "",
     //Datos del vehiculo//
     brand: "",
     patent: "",
@@ -128,13 +127,6 @@ const CompleteProfileUser = () => {
     });
   };
 
-  const handleChangeCuenta = (Cuenta) => {
-    setCarrier({
-      ...carrier,
-      Cuenta: Cuenta,
-    });
-  };
-
   //Vehicule//
   const handleChangeBrand = (brand) => {
     setCarrier({
@@ -177,7 +169,6 @@ const CompleteProfileUser = () => {
       documentID: carrier.documentID,
       license: carrier.license,
       location: carrier.location,
-      Cuenta: carrier.Cuenta,
       photo: selectedImage,
       // Vehicule //
       brand: carrier.brand,
@@ -188,19 +179,19 @@ const CompleteProfileUser = () => {
     };
     dispatch(completeProfileCarrier(obj));
     console.log("soy lo que se envia", obj);
-    setCarrier({
-      //Datos del carrier//
-      documentID: "",
-      license: "",
-      location: "",
-      Cuenta: "",
-      //Datos del vehiculo//
-      brand: "",
-      patent: "",
-      model: "",
-      color: "",
-      capacity: "",
-    });
+    // setCarrier({
+    //   //Datos del carrier//
+    //   documentID: "",
+    //   license: "",
+    //   location: "",
+    //   Cuenta: "",
+    //   //Datos del vehiculo//
+    //   brand: "",
+    //   patent: "",
+    //   model: "",
+    //   color: "",
+    //   capacity: "",
+    // });
   }
 
   //// --> Inicio de componente <-- ////
@@ -302,16 +293,7 @@ const CompleteProfileUser = () => {
                   style={styles.textPlaceholder}
                 />
               </View>
-              <View style={styles.viewsInputs}>
-                <Icon name="card-outline" size={26} />
-                <TextInput
-                  value={carrier.Cuenta}
-                  onChangeText={(Cuenta) => handleChangeCuenta(Cuenta)}
-                  placeholder="Medio de pago: mercadoPago"
-                  name="Cuenta"
-                  style={styles.textPlaceholder}
-                />
-              </View>
+              
               {/* Inicio de los input de completar vehiculo */}
 
               <View style={{ marginTop: 30 }}>

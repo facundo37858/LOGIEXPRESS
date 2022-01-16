@@ -3,7 +3,7 @@ import axios from 'axios';
 import Stripe from 'stripe'
 //const Stripe = require("stripe")
 //const { conn, Shoe, Color, Brand, AvailableSizes, Role, Price } = require("./src/db.js");
-
+// const app = express();
 
 const router = Router();
 
@@ -20,31 +20,57 @@ const stripe = new Stripe('sk_test_51KHp41KDcJ8UiNxjhZPL9vNckvDi98mXuAEZAntgDhRS
     typescript: true,
   })
 
-router.post('/paymentIntet',async(req:Request,res:Response,next:NextFunction)=>{
 
-    const {amount, id}=req.body
-
-    try{  
-        const paymentIntent: Stripe.PaymentIntent= await stripe.paymentIntents.create({
-            amount,
-            currency:'usd',
-            description:'logiexpress',
-            payment_method:id,
-            confirm: true,
-            // automatic_payment_methods: {
-            //     enabled: true,
-            //   }
-        })
-
-    // res.json({clientScret:paymentIntent.client_secret,id:paymentIntent.id,method:paymentIntent.payment_method})
-    
-    res.json({massage: 'succesfull payment', paymentIntent})
-
-    }catch(e){
-        res.status(400).send({error: e})
+  router.post("/paymentIntet", async(req:Request,res:Response,next:NextFunction)=>{
+    try {
+      const { name, amount, id } = req.body;
+      if (!name) return res.status(400).json({ message: "Please enter a name" });
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount,
+        currency: "USD",
+        description:'Logiexpress',
+        payment_method_types: ["card"],
+        metadata: { name },
+        // payment_method: id[2],
+        // confirm: true,
+      });
+      console.log(paymentIntent)
+      const clientSecret = paymentIntent.client_secret;
+      res.json({ message: "Payment initiated", clientSecret });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Internal server error" });
     }
+  });
+
+// router.post('/paymentIntet',async(req:Request,res:Response,next:NextFunction)=>{
+
+//     const {amount, id}=req.body
+
+//     console.log(req.body)
+
+//     try{  
+//         const paymentIntent: Stripe.PaymentIntent= await stripe.paymentIntents.create({
+//             amount,
+//             currency:'usd',
+//             description:'logiexpress',
+//             payment_method_types:['card'],
+//             payment_method:id[0],
+//             confirm: true,
+//             // automatic_payment_methods: {
+//             //     enabled: true,
+//             //   }
+//         })
+
+//     // res.json({clientScret:paymentIntent.client_secret,id:paymentIntent.id,method:paymentIntent.payment_method})
+    
+//     res.json({massage: 'succesfull payment', paymentIntent})
+
+//     }catch(e){
+//         res.status(400).send({error: e})
+//     }
   
-})
+// })
 
 export default router;
 

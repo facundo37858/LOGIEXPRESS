@@ -14,7 +14,6 @@ router.post('/userProfile', async (req: Request, res: Response, next: NextFuncti
 	const { id, identification, zone, photo, account } = req.body
 
 	try {
-		
 
 
 		let newProfile = {

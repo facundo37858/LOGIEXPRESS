@@ -31,7 +31,7 @@ router.post('/user', async (req: Request, res: Response, next: NextFunction) => 
 
 	let passwordHash = await bcrypt.hash(password, 8)
 
-	let newUser = {
+	let payload = {
 		id: uuid(),
 		name,
 		lastName,
@@ -44,7 +44,7 @@ router.post('/user', async (req: Request, res: Response, next: NextFunction) => 
 	try {
 		const [user/*usuario creado o excistente */, created/*boolean true->lo creo false->no lo creo pq exciste */] = await User_Reg.findOrCreate({//crea un usuario si no excisiste 
 			where: { eMail: eMail },
-			defaults: newUser,
+			defaults: payload,
 		})
 
 		// if (!created) {
@@ -58,14 +58,14 @@ router.post('/user', async (req: Request, res: Response, next: NextFunction) => 
 		// console.log('User:',user,'Bool: ',created)
 
 
-		const payload = {
-			eMail,
-			// id: id,
-			role: role,
-			name: name,
-			lastname: lastName,
-			phone: phone,
-		};
+		// const payload = {
+		// 	eMail,
+		// 	// id: id,
+		// 	role: role,
+		// 	name: name,
+		// 	lastname: lastName,
+		// 	phone: phone,
+		// };
 
 		return res.json({
 			mensaje: 'Usuario creado', payload

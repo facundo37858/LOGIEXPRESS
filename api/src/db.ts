@@ -13,7 +13,7 @@ config;
 export const sequelize = new Sequelize({
 	dialect: 'postgres',
 	database: config.dbName,
-	password: config.dbPassword,
+	password: '123456',
 	username: config.dbUser,
 	storage: ':memory:',
 	models: [__dirname + '/models'],

@@ -18,13 +18,16 @@ export class Travel extends Model {
     destination!: string
 
     @Column
-    weight!: number 
-
-    @Column
     price!: string
 
     @Column
+    weight!: string
+
+    @Column
     description!: string
+    
+    @Column
+    finishedTravel!: string
 
     @HasOne(() => Review)
     rewiew!: Review

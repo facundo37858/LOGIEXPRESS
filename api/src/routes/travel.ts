@@ -59,9 +59,11 @@ try {
 router.post('/requestTravel', async (req: Request, res: Response, next: NextFunction) => {
 	 
 	 const { id, orig, destination, weight, price, description } = req.body
-
-
+ 
   try {
+  //   let distance= getDistanciaMetros(orig,destination);
+  //  const valor = 10; /// valor de tonelada por km recorrido
+  //  let price = valor * (weight * distance);
   	   let TravelId= uuid()
 		var newViaje = {
 			id: TravelId,
@@ -147,7 +149,6 @@ router.get('/Travel', async (req: Request, res: Response, next: NextFunction) =>
 	}
 });
 
-
 router.post('/requestAlert', async (req: Request, res: Response, next: NextFunction) => {
 	 
 	 const { id} = req.body
@@ -171,9 +172,9 @@ router.post('/requestAlert', async (req: Request, res: Response, next: NextFunct
 router.post('/waitTravel', async (req: Request, res: Response, next: NextFunction) => {
    
    const { id} = req.body
-   let getTravel = await Travel.findAll({where:{UserId:id}})
-      
-   res.send(getTravel);
+   let getTravel = await Travel.findAll({where:{userId:id, carrierId:{[Op.not]: null}, finishedTravel:{[Op.is]: null}}})
+      if(getTravel.length===0) res.send({data:0});
+       else res.send(getTravel);
 
   // try {
         
@@ -191,16 +192,16 @@ router.post('/waitTravel', async (req: Request, res: Response, next: NextFunctio
 
 });
 router.put('/acceptTravel', async (req: Request, res: Response, next: NextFunction) => {
-	 
-	 const {UserId, CarrierId, id} = req.body
+	 //id=es el Id de travel que viene desde el front
+	 const {userId, carrierId, id} = req.body
 
 
- //  try {
-     const upTravel= await Travel.update({ CarrierId: CarrierId }, {where: {id: id}});
+ 
+     const upTravel= await Travel.update({ carrierId: carrierId }, {where: {id: id}});
      if(upTravel[0]===1){
-     	let getUser = await User.findAll({where:{id:UserId}})
+     	let getUser = await User.findAll({where:{id:userId}})
          let getUserReg = await User_Reg.findAll({where:{id:getUser[0].idUserReg}})
-      // getUser[0].UserRegId
+    
     let dataFull={
       User:getUser,
       User_Reg:getUserReg
@@ -209,19 +210,7 @@ router.put('/acceptTravel', async (req: Request, res: Response, next: NextFuncti
      	  res.send(dataFull);
      	}
      else res.send('id travel incorrecto');
-     
- //           let alert = await ServiceAlert.findAll({where:{CarrierId:id}}) 
- //           let tamAlert=alert.length;
- //           let notification: boolean;
-           
- //              if(tamAlert>0){notification=true}
- //              	else {notification=false}
- //    	         res.send({notification});	
-
-	// } catch (err) {
-	// 	next(err)
-	// }
-
+ 
 });
 
 

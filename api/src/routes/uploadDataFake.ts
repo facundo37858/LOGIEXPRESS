@@ -317,7 +317,7 @@ var carrierFake = [{
        phone:9898999,
        photo: 'fotostring1',
        account: 'accountstring1',
-    UserRegId: '360208c5-551c-4825-afc5-b05a0e4c9a62'
+	   idUserReg: '360208c5-551c-4825-afc5-b05a0e4c9a62'
 	},
 	{
       id: 'cdcd30ba-6ab1-41bc-a5d0-b010439aa223',
@@ -326,7 +326,7 @@ var carrierFake = [{
      phone:121312,
      photo: 'fotostring2',
      account: 'accountstring2',
-    UserRegId: "7d06a399-d1a0-4050-a388-eca747b5f762"
+	 idUserReg: "7d06a399-d1a0-4050-a388-eca747b5f762"
 	},
 	{
       id: 'd4053632-8539-46d6-be65-066212006b99',
@@ -335,12 +335,9 @@ var carrierFake = [{
     phone:4653442,
     photo: 'fotostring3',
     account: 'accountstring3',
-    UserRegId: "90fd0c76-8459-4eda-972a-8be589f8f694"
+    idUserReg: "90fd0c76-8459-4eda-972a-8be589f8f694"
 	}
 	]	
-
-
-	
 const router = Router()
  router.get('/uploadDataFake', async(req: Request, res: Response) => {
              const user_regs= await User_Reg.bulkCreate(userFake);

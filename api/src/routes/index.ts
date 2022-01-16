@@ -12,6 +12,7 @@ router.use('/', LoginRoutes);
 router.use('/', ProfileRoutes);
 router.use('/', TravelRoutes);
 router.use('/', UploadDataFake);
+router.use('/', review )
 
 
 export default router;

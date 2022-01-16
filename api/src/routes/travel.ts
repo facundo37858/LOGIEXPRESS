@@ -108,7 +108,7 @@ router.get('/Travel', async (req: Request, res: Response, next: NextFunction) =>
               var travelFullData=[];
                for(let i=0;i<tam;i++){
          
-                       let varUser= await User.findAll({where:{id:travel[i].userId}})
+                       let varUser= await User.findAll({where:{id:'travel[i].userId'}})
                        let varUserReg = await User_Reg.findOne({where:{id:varUser[0].idUserReg}});
                        travelFullData[i]={travel:travel[i],user:varUser[0],userReg:varUserReg}
                }

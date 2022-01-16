@@ -9,8 +9,8 @@ export class Review extends Model{
     @Column({ primaryKey: true })
     id!: string;
 
-    @Column
-    id_viaje!: number
+    // @Column
+    // id_viaje!: number
 
     @Column
     User_raiting!: number
@@ -24,11 +24,11 @@ export class Review extends Model{
     @Column
     Carrier_comment!: string
 
-    @BelongsTo(()=>Travel)
-    travel!:Travel
+    @BelongsTo(() => Travel)
+    travel!: Travel
 
-    @ForeignKey(()=>Travel)
-    tavelId!:string
+    @ForeignKey(() => Travel)
+    travelId!: string
 
 
 }

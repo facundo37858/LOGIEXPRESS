@@ -8,8 +8,8 @@ import { Travel } from './models/Travel';
 import { User } from './models/User';
 import { User_Reg } from './models/User_Reg';
 import { Vehicle } from './models/Vehicle';
-
-config;
+   
+config; 
 export const sequelize = new Sequelize({
 	dialect: 'postgres',
 	database: config.dbName,

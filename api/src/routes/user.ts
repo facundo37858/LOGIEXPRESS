@@ -1,18 +1,16 @@
 import { Response, Request, Router, NextFunction } from 'express';
 import { uuid } from 'uuidv4';
-import { Carrier } from '../models/Carrier';
+import passport from 'passport';
 import { User_Reg } from '../models/User_Reg';
 
 const bcrypt = require("bcryptjs");
 
 const router = Router()
-router.get('/', (req: Request, res: Response) => {
-	res.send('OK');
-});
-router.get('/user', async (req: Request, res: Response, next: NextFunction) => {
+
+router.get('/user', passport.authenticate("jwt", { session: false }), async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		let user = await User_Reg.findAll()
-
+		// console.log("AQUI", req.user)
 		if (user.length > 0) {
 			return res.send(user)
 		}
@@ -36,7 +34,7 @@ router.options('/user', async (res: Response) => {
 	
 // 	let passwordHash = await bcrypt.hash(password,8)
 
-	
+	// let passwordHash = await bcrypt.hash(password, 8)
 
 // 	let newUser = {
 // 		id: uuid(),
@@ -59,11 +57,21 @@ router.options('/user', async (res: Response) => {
 // 		}
 // 		// console.log('User:',user,'Bool: ',created)
 
-	
+
+		// const payload = {
+		// 	eMail,
+		// 	// id: id,
+		// 	role: role,
+		// 	name: name,
+		// 	lastname: lastName,
+		// 	phone: phone,
+		// };
 
 
-
-// 		res.send('Usuario creado')//podria ser un boolean 
+		// // res.send('Usuario creado')//podria ser un boolean 
+		// return res.json({
+		// 	mensaje: 'Usuario Creado', payload
+		// }).status(300);
 
 
 // 	}

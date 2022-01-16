@@ -1,5 +1,5 @@
 
-import { Model, Column, Table, CreatedAt, UpdatedAt, IsUUID, HasOne, BelongsTo, ForeignKey} from 'sequelize-typescript'
+import { Model, Column, Table, CreatedAt, UpdatedAt, IsUUID, HasOne, BelongsTo, ForeignKey } from 'sequelize-typescript'
 import { Carrier } from './Carrier';
 import { Review } from './Review';
 import { User } from './User';
@@ -29,8 +29,8 @@ export class Travel extends Model{
     @Column
     finishedTravel!: string
 
-    @HasOne(()=>Review)
-    rewiew!:Review
+    @HasOne(() => Review)
+    rewiew!: Review
 
     @CreatedAt
     @Column
@@ -40,17 +40,20 @@ export class Travel extends Model{
     @Column
     updatedAt!: Date
 
-    @BelongsTo(()=>User)
-    user!:User
+    @BelongsTo(() => User)
+    user!: User
 
-    @ForeignKey(()=>User)
-    userId!:string
+    @ForeignKey(() => User)
+    userId!: String
 
-    @BelongsTo(()=>Carrier)
-    carrier!:Carrier
+    @BelongsTo(() => Carrier)
+    carrier!: Carrier
 
-    @ForeignKey(()=>Carrier)
-    carrierId!:string
+    @ForeignKey(() => Carrier)
+    carrierId!: string
+
+    
+
 
 
 

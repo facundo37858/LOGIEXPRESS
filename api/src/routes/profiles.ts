@@ -11,18 +11,21 @@ const router = Router()
 
 router.post('/userProfile', async (req: Request, res: Response, next: NextFunction) => {
 	// res.send('llega al user profile')
-	const { id, identification, zone, photo, account } = req.body
+	const { id, identification, zone, photo, account, phone } = req.body
 
 	try {
+
+		
 		
 
 
 		let newProfile = {
 			id: uuid(),
-			identification: identification,
-			zone: zone,
-			photo: photo,
-			account: account
+			identification: identification||0,
+			zone: zone||null,
+			phone: phone||null,
+			photo: photo||null,
+			account: account||null
 		}
 		User.create(newProfile)
 			.then((newProfile) => {
@@ -67,19 +70,19 @@ router.post('/carrierProfile', async (req: Request, res: Response, next: NextFun
 
 		let newProfileCarrier = {
 			id: idCarrier, 
-			documentID: documentID,
-			license: license,
-			location: location,
-			photo: photo,
-			Cuenta: Cuenta
+			documentID: documentID ||null,
+			license: license ||null,
+			location: location ||null,
+			Cuenta: Cuenta ||null,
+			photo: photo ||null 
 		}
 		var newTrack = {
 			id: uuid(),
-			brand,
-			patent,
-			model,
-			color,
-			capacity,
+			brand:brand ||null,
+			patent: patent||null,
+			model :model||null,
+			color :color||null,
+			capacity: capacity||null,
 			CarrierId: idCarrier
 		}
 

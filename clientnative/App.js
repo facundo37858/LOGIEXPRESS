@@ -17,6 +17,7 @@ import RequestTravel from "./Components/RequestTravel";
 import Pago from "./Components/Pago";
 import DatosPersonalesCarrier from "./Components/Datos/DatosPersonalesCarrier";
 import DatosPersonalesUser from './Components/Datos/DatosPersonalesUser'
+import PaymentApp from "./Components/Payment/PaymentApp";
 
 const Stack = createStackNavigator();
 
@@ -76,6 +77,11 @@ const App = () => {
             name="RequestTravel"
             component={RequestTravel}
             options={{ headerShown: false }}
+          /> 
+          <Stack.Screen
+            name='PaymentApp'
+            component={PaymentApp}
+            options={{hederShown:false}}
           />
             <Stack.Screen
               name="Pago"

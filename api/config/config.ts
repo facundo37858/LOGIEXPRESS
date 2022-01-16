@@ -1,3 +1,3 @@
 export default {
-    jwtSecret: process.env.JWT || 'somesecrettoken',
+    jwtSecret: process.env.JWT_SECRET || 'secret'
 }

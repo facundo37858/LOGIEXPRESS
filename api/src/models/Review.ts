@@ -3,7 +3,7 @@ import { Model, Column, Table, CreatedAt, UpdatedAt, PrimaryKey, IsUUID, Belongs
 import { Travel } from './Travel';
 
 @Table
-export class Review extends Model<Review>{
+export class Review extends Model{
 
     @IsUUID(4)
     @Column({ primaryKey: true })

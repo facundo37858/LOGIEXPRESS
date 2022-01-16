@@ -23,7 +23,8 @@ router.post('/userProfile', async (req: Request, res: Response, next: NextFuncti
 			zone: zone,
 			phone: phone,
 			photo: photo,
-			account: account
+			account: account,
+			idUserReg:id
 		}
 		User.create(newProfile)
 			.then((newProfile) => {
@@ -58,7 +59,7 @@ router.post('/userProfile', async (req: Request, res: Response, next: NextFuncti
 
 router.post('/carrierProfile', async (req: Request, res: Response, next: NextFunction) => {
 	// res.send('llega al carrier profile')
-	const { documentID, license, email, phone, location, Cuenta,
+	const {id, documentID, license, email, phone, location, Cuenta,
 		brand, patent, model, color, capacity } = req.body
   
 	try {
@@ -72,7 +73,8 @@ router.post('/carrierProfile', async (req: Request, res: Response, next: NextFun
 			eMail: email,
 			phone: phone,
 			location: location,
-			Cuenta: Cuenta
+			Cuenta: Cuenta,
+			idUserReg:id
 		}
 		var newTrack = {
 			id: uuid(),

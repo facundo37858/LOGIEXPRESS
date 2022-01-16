@@ -5,7 +5,7 @@ import { Review } from './Review';
 import { User } from './User';
 
 @Table
-export class Travel extends Model<Travel>{
+export class Travel extends Model{
  
     @IsUUID(4)
     @Column({ primaryKey: true })
@@ -21,13 +21,13 @@ export class Travel extends Model<Travel>{
     price!: string
 
     @Column
+    weight!: string
+
+    @Column
     description!: string
-
+    
     @Column
-    comments!: string
-
-    @Column
-    score!: number
+    finishedTravel!: string
 
     @HasOne(()=>Review)
     rewiew!:Review
@@ -44,7 +44,7 @@ export class Travel extends Model<Travel>{
     user!:User
 
     @ForeignKey(()=>User)
-    userId!:User
+    userId!:string
 
     @BelongsTo(()=>Carrier)
     carrier!:Carrier

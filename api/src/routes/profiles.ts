@@ -14,16 +14,18 @@ router.post('/userProfile', async (req: Request, res: Response, next: NextFuncti
 	const { id, identification, zone, phone, photo, account } = req.body
 
 	try {
+
+		
 		
 
 
 		let newProfile = {
 			id: uuid(),
-			identification: identification,
-			zone: zone,
-			phone: phone,
-			photo: photo,
-			account: account
+			identification: identification||0,
+			zone: zone||null,
+			phone: phone||null,
+			photo: photo||null,
+			account: account||null
 		}
 		User.create(newProfile)
 			.then((newProfile) => {

@@ -14,7 +14,12 @@ import {
   YellowBox,
 } from "react-native";
 import StarRating from 'react-native-star-rating';
-const StartUser = ({ navigation }) => {
+
+import { useNavigation } from "@react-navigation/core";
+
+const StartUser = (/*{ navigation }*/) => {
+
+  const navigation = useNavigation();
 
     return (
         //Container Start
@@ -98,7 +103,7 @@ const StartUser = ({ navigation }) => {
               <View  >
 
                   <View style={{display:'flex',flexDirection:'row', justifyContent:'space-around'}}>
-                  <TouchableOpacity style={{ display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:13, height:'140%',width:'40%',backgroundColor:'orange', borderRadius:10 }}>
+                  <TouchableOpacity onPress={()=>{navigation.navigate('PaymentApp')}} style={{ display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:13, height:'140%',width:'40%',backgroundColor:'orange', borderRadius:10 }}>
                   
                   <Text style={styles.aceptar}>Realizar Pago</Text>
               

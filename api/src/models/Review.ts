@@ -3,7 +3,7 @@ import { Model, Column, Table, CreatedAt, UpdatedAt, PrimaryKey, IsUUID, Belongs
 import { Travel } from './Travel';
 
 @Table
-export class Review extends Model{
+export class Review extends Model {
 
     @IsUUID(4)
     @Column({ primaryKey: true })
@@ -24,11 +24,11 @@ export class Review extends Model{
     @Column
     Carrier_comment!: string
 
-    @BelongsTo(()=>Travel)
-    travel!:Travel
+    @BelongsTo(() => Travel)
+    travel!: Travel
 
-    @ForeignKey(()=>Travel)
-    travelId!:string
+    @ForeignKey(() => Travel)
+    travelId!: string
 
 
 }

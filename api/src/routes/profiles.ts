@@ -14,6 +14,8 @@ router.post('/userProfile', async (req: Request, res: Response, next: NextFuncti
 	const { id, identification, zone, phone, photo, account } = req.body
 
 	try {
+
+		
 		
 
 
@@ -78,11 +80,11 @@ router.post('/carrierProfile', async (req: Request, res: Response, next: NextFun
 		}
 		var newTrack = {
 			id: uuid(),
-			brand,
-			patent,
-			model,
-			color,
-			capacity,
+			brand:brand ||null,
+			patent: patent||null,
+			model :model||null,
+			color :color||null,
+			capacity: capacity||null,
 			CarrierId: idCarrier
 		}
 

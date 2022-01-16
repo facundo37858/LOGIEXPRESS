@@ -1,35 +1,34 @@
 
-import { RandomUUIDOptions } from 'crypto'
-import {Model,Column,Table,CreatedAt,UpdatedAt} from 'sequelize-typescript'
+import { Model, Column, Table, CreatedAt, UpdatedAt, PrimaryKey, IsUUID, BelongsTo, ForeignKey } from 'sequelize-typescript'
+import { Carrier } from './Carrier'
 
 @Table
-export class Vehicle extends Model<Vehicle>{
-    
-    @Column
-    brand !:string //Marca
+export class Vehicle extends Model{
+
+    @IsUUID(4)
+    @Column({ primaryKey: true })
+    id!: string
 
     @Column
-     patent!:string
+    brand!: string //marca
 
     @Column
-    model!:string
-    
-    @Column
-    color!:string
+    patent!: string
 
     @Column
-    capacity!:string
+    model!: number 
 
     @Column
-    safety!:number
+    color!: string
 
-    @CreatedAt
     @Column
-    createdAt!:Date
-    
-    @UpdatedAt
-    @Column
-    updatedAt!:Date
+    capacity!: number
+
+    @BelongsTo(()=>Carrier)
+    carrier!:Carrier
+
+    @ForeignKey(()=>Carrier)
+    CarrierId!:string
 
 
 }

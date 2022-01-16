@@ -1,34 +1,57 @@
 
-import {Model,Column,Table,CreatedAt,UpdatedAt} from 'sequelize-typescript'
+import { Model, Column, Table, CreatedAt, UpdatedAt, IsUUID, HasOne, BelongsTo, ForeignKey} from 'sequelize-typescript'
+import { Carrier } from './Carrier';
+import { Review } from './Review';
+import { User } from './User';
 
 @Table
-export class Travel extends Model<Travel>{
+export class Travel extends Model{
+ 
+    @IsUUID(4)
+    @Column({ primaryKey: true })
+    id!: string;
+
+    @Column
+    orig !: string
+
+    @Column
+    destination!: string
+
+    @Column
+    price!: string
+
+    @Column
+    weight!: string
+
+    @Column
+    description!: string
     
     @Column
-    orig !:string
+    finishedTravel!: string
 
-    @Column
-     destination!:string
-
-    @Column
-    price!:string
-    
-    @Column
-    description!:string
-
-    @Column
-    comments!:string
-
-    @Column
-    score!:number
+    @HasOne(()=>Review)
+    rewiew!:Review
 
     @CreatedAt
     @Column
-    createdAt!:Date
-    
+    createdAt!: Date
+
     @UpdatedAt
     @Column
-    updatedAt!:Date
+    updatedAt!: Date
+
+    @BelongsTo(()=>User)
+    user!:User
+
+    @ForeignKey(()=>User)
+    userId!:string
+
+    @BelongsTo(()=>Carrier)
+    carrier!:Carrier
+
+    @ForeignKey(()=>Carrier)
+    carrierId!:string
+
 
 
 }

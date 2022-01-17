@@ -23,15 +23,16 @@ export class Carrier extends Model {
     license!: string 
 
     @Column
+    Active!:boolean
+
+    @Column
     location!: string
 
     @Column
     Cuenta!: string
- 
+
     @Column
     photo!: string
-
-    
 
     @BelongsTo(() => User_Reg)
     user_Reg!: User_Reg
@@ -41,21 +42,6 @@ export class Carrier extends Model {
 
     @HasOne(() => Vehicle)
     vehicle!: Vehicle
-
-    @HasMany(() => Travel)
-    travel!: Travel
-
-
-
-
-    @CreatedAt
-    @Column
-    createdAt!: Date
-
-    @UpdatedAt
-    @Column
-    updatedAt!: Date
-    
 
 
 

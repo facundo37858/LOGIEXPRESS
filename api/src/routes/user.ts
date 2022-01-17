@@ -9,7 +9,7 @@ const router = Router()
 
 router.get('/user', passport.authenticate("jwt", { session: false }), async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		let user = await User_Reg.findAll()
+		let user = await User_Reg.findAll();
 		console.log("AQUI", req.user)
 		if (user.length > 0) {
 			return res.send(user)

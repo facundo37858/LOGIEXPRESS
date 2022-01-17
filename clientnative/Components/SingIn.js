@@ -168,11 +168,6 @@ const SingIn = ({ navigation }) => {
           <Text style={styles.SingUpText}>Registrate Ahora</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.Button}>
-            <Text style={styles.ButtonText} onPress={handleSubmit} onPress={()=>{navigation.navigate('Pago')}}>
-              Pago
-            </Text>
-          </TouchableOpacity>
       </View>
     </ScrollView>
     // Container End

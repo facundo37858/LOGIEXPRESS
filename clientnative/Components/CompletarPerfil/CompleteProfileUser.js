@@ -46,7 +46,7 @@ const CompleteProfileUser = () => {
   const [user, setUser] = useState({
     identification: "",
     zone: "",
-    account: "",
+  
   });
 
   ////--> IMAGE PICKER <-- ////
@@ -108,13 +108,6 @@ const CompleteProfileUser = () => {
     setUser({
       ...user,
       zone: zone,
-    });
-  };
-
-  const handleChangeAccount = (account) => {
-    setUser({
-      ...user,
-      account: account,
     });
   };
 
@@ -239,21 +232,6 @@ const CompleteProfileUser = () => {
                   {datosUser.phone}
                 </Text>
                 <TextInput style={styles.textPlaceholder} />
-              </View>
-
-              <View style={styles.viewsInputs}>
-                <Icon
-                  name="card-outline"
-                  size={26}
-                  style={{ paddingBottom: 2 }}
-                />
-                <TextInput
-                  value={user.account}
-                  onChangeText={(account) => handleChangeAccount(account)}
-                  placeholder="Medio de pago: mercadoPago"
-                  name="account"
-                  style={styles.textPlaceholder}
-                />
               </View>
 
               <TouchableOpacity

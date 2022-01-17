@@ -16,8 +16,9 @@ import {
 } from "react-native";
 import StarRating from "react-native-star-rating";
 import SimpleModalCarrier from './SimpleModalCarrier';
+import { useNavigation } from "@react-navigation/core";
 
-const StartCarrier = () => {
+const StartCarrier = (props) => {
 
   /// --> ESTADO PARA EL MODAL <-- ///
   const [isModalVisible, setisModalVisible] = useState(false);

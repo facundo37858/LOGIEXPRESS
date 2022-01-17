@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -10,175 +10,187 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/core";
+import { logiarUsuario } from "./../actions/index";
+import { useSelector } from "react-redux";
+
 import StarRating from './StarRating'
 
 const ProfileUserScreen = () => {
- 
   const rating = 4;
 
   const navigation = useNavigation();
+  // const data = useSelector((store) => store.responseLog);
 
+  // useEffect(() => {
+  //   //console.log("data", data);
+  // }, [data]);
+  
   return (
-    /*  <SafeAreaView style={{flex:1, backgroundColor:'#fff'}}>
-         <ScrollView 
-         style={styles.container}
-         contentContainerStyle={{justifyContent:'center', alignItems:'center'}}
-         showsVerticalScrollIndicator={false}>
-             <Image style={styles.userImg} source={require('./Utils/foto1.jpg')}/>
-             <Text style={styles.userName}>Bill Gate</Text>
-             <View style={styles.userBtnWrapper}>
-               <TouchableOpacity style={styles.userBtn}>
-                 <Text style={styles.userBtnTxt}>Datos Personales</Text>
-               </TouchableOpacity>
-               <TouchableOpacity style={styles.userBtn}>
-                 <Text style={styles.userBtnTxt}>Historial de Viaje</Text>
-               </TouchableOpacity>
-               <TouchableOpacity style={styles.userBtn}>
-                 <Text style={styles.userBtnTxt}>Datos Personales</Text>
-               </TouchableOpacity>
-             </View>
-         </ScrollView>
-     </SafeAreaView> */
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
-      <ScrollView  showsVerticalScrollIndicator={false}>
-        <View style={{ backgroundColor: '#000', height: 120, }}>
-          <TouchableOpacity>
-          </TouchableOpacity>
+    <View style={{ flex: 1 }}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Text style={styles.perfilTex}>¡Bienvenid@s!</Text>
+        <View
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+        >
+          <View style={{ marginTop: 25 }}>
+            <Image
+              style={styles.userImg}
+              source={require("./Utils/foto1.jpg")}
+            />
+          </View>
+          <Text style={styles.userName}>Nombre Apellido</Text>
         </View>
-        <View style={{ alignItems: 'center' }} >
-          <Image style={styles.userImg} source={require('./Utils/foto1.jpg')} />
-          <Text style={styles.userName}>Bill Gate</Text>
-          <Text style={styles.aboutUser}>Calificacion</Text>
-          <StarRating ratings={rating} reviews={rating}/>
-        </View>
-        <View>
-          <TouchableOpacity style={styles.btnText}>
-            <Icon name="person-circle-outline" size={23} style={{ marginRight: 10, marginTop: 2 }} />
+        <View style={{ flex: 1, marginBottom: 90, }}>
+          <TouchableOpacity style={styles.btnText} onPress={()=>{navigation.navigate('DatosPersonalesCarrier')}}>
+            <Icon name="person-circle-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Datos Personales</Text>
+            <View style={{marginLeft: 103}}>
+            <Icon name="chevron-forward-outline" style={styles.icons3} />
+            </View>
           </TouchableOpacity>
+
           <TouchableOpacity style={styles.btnText}>
-            <Icon name="receipt-outline" size={23} style={{ marginRight: 10, marginTop: 2 }} />
-            <Text style={styles.userBtnTxt}>Historial de Viajes</Text>
+            <Icon name="bus-outline" style={styles.icons} />
+            <Text style={styles.userBtnTxt}>Historial de viaje</Text>
+            <View style={{marginLeft: 110}}>
+            <Icon name="chevron-forward-outline" style={styles.icons3} />
+            </View>
           </TouchableOpacity>
+
           <TouchableOpacity style={styles.btnText}>
-            <Icon name="construct-outline" size={23} style={{ marginRight: 10, marginTop: 2 }} />
-            <Text style={styles.userBtnTxt}>Editar Perfil</Text>
+            <Icon name="cash-outline" style={styles.icons} />
+            <Text style={styles.userBtnTxt}>Transacciones</Text>
+            <View style={{marginLeft: 128}}>
+            <Icon name="chevron-forward-outline" style={styles.icons3} />
+            </View>        
           </TouchableOpacity>
+
           <TouchableOpacity style={styles.btnText}>
-            <Icon name="calculator-outline" size={23} style={{ marginRight: 10, marginTop: 2 }} />
+            <Icon name="calculator-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Cotizar viaje</Text>
+            <Icon name="chevron-forward-outline" style={styles.icons2} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.btnText2} onPress={() => navigation.navigate("RequestTravel")}>
-            <Icon name="hand-right-outline" size={23} style={{ marginRight: 10, marginTop: 2 }} color={'#fff'} />
-            <Text style={styles.userBtnTxt2}>Solicitar Viaje</Text>
+
+          <TouchableOpacity
+            style={styles.btn2}
+            onPress={() => navigation.navigate("RequestTravel")}
+         >
+              <Image
+              style={{width: 70, height: 55, marginLeft: -4}}
+              source={require("./Utils/UserProfile.png")}
+            />  
+              <Text style={styles.userBtnTxt2}>Solicitar Viaje</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
 export default ProfileUserScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000',
-    padding: 25,
-    width: '100%',
-    height: 10,
+  icons: {
+    marginRight: 10,
+    marginTop: 4,
+    fontSize: 22,
+  },
+  icons2: {
+    fontSize: 22,
+    marginLeft: '45%',
+    marginTop: 4
+  },
+  icons3:{
+    fontSize: 22,
+    alignSelf: 'stretch',
+    marginTop: 4
+  },
+  perfilTex: {
+    fontSize: 19,
+    fontWeight: "bold",
+    alignItems: "flex-start",
+    marginTop: 40,
+    marginLeft: 20,
   },
   btnText: {
-    alignSelf: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    backgroundColor: '#fff',
-    width: '90%',
-    padding: 20,
-    paddingBottom: 22,
-    borderRadius: 10,
+    alignSelf: "center",
+    flexDirection: "row",
+    justifyContent: 'flex-start',
+    backgroundColor: "#fff",
+    width: "85%",
+    height: "13%",
+    padding: 10,
+    paddingBottom: 10,
+    borderRadius: 15,
     shadowOpacity: 80,
     elevation: 15,
-    marginTop: 20,
+    marginTop: 27,
+    borderColor: '#E1E8EB',
+    borderWidth: 1.5
   },
-  btnText2: {
-    alignSelf: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    backgroundColor: '#828',
-    width: '90%',
-    padding: 20,
-    paddingBottom: 22,
-    borderRadius: 10,
+  btn2: {
+    alignContent: 'center',
+    alignSelf: "center",
+    flexDirection: "row",
+    justifyContent: "center",
+    backgroundColor: "#FFC107",
+    width: "85%",
+    height: "17%",
+    padding: 10,
+    paddingBottom: 10,
+    borderRadius: 15,
     shadowOpacity: 80,
     elevation: 15,
-    marginTop: 20,
-    marginBottom: 30,
+    marginTop: 25,
   },
+
   userImg: {
-    height: 200,
-    width: 200,
-    borderRadius: 100,
-    marginTop: -100,
+    marginTop: 10,
+    height: 170,
+    width: 170,
+    borderRadius: 85,
+    borderWidth: 5,
+    borderColor: "#FFC107",
   },
   userName: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    marginTop: 10,
-    marginBottom: 10,
-  },
-  aboutUser: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#666',
-    textAlign: 'center',
-    marginBottom: 3,
-
-  },
-  useStars: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  userBtn: {
-    borderColor: '#2e64e5',
-    borderWidth: 2,
-    borderRadius: 3,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    marginHorizontal: 5,
-    width: '45%',
-    justifyContent: 'center',
-    flex: 1,
-
+    fontSize: 24,
+    fontWeight: "bold",
+    marginTop: 7,
+    marginBottom: 20,
   },
   userBtnTxt: {
-    color: '#000',
-    textAlign: 'center',
-    fontSize: 23,
+    marginTop: 2,
+    color: "black",
+    textAlign: "center",
+    fontSize: 18,
+    marginTop: 3
   },
   userBtnTxt2: {
-    color: '#fff',
-    textAlign: 'center',
-    fontSize: 23,
+    color: "black",
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 9,
+    marginRight: 15
   },
   userInfoWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
     marginVertical: 20,
   },
   userInfoItem: {
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   userInfoTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 5,
-    textAlign: 'center',
+    textAlign: "center",
   },
   userInfoSubTitle: {
     fontSize: 12,
-    color: '#666',
-    textAlign: 'center',
+    color: "#666",
+    textAlign: "center",
   },
 });

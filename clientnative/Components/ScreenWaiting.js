@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import HeaderBar from './Utils/HeaderBar'
 import { useNavigation } from "@react-navigation/core";
@@ -17,18 +17,18 @@ const ScreenWaiting = (payload) => {
     const travel = useSelector((store) => store.travel)
     console.log("Esto es data", data)
 
-
-
+    
+    
     useEffect(() => {
         dispatch(getTravelID(data))
     }, [])
 
 
-
-    /* console.log("Esto es lo que llegan en ScreenWaiting", travel[0].id)*/
-    console.log("Esto es lo que llega de un viaje", travel[0].id) 
-    const orig = travel[0]?.orig.split("/")
-    const dest = travel[0]?.destination.split("/")    
+    console.log("ESTO ES LA RESPUESTA",travel.travel)
+/* 
+    console.log("Esto es lo que llegan en ScreenWaiting", travel[0].id) */
+    /* const orig = travel[0]?.orig.split("/")
+    const dest = travel[0]?.destination.split("/") */
 
     function renderComponent() {
         return (
@@ -39,13 +39,13 @@ const ScreenWaiting = (payload) => {
                 borderRadius: 12,
                 backgroundColor: '#FFC107'
             }}>
-                <Text>ID del Viaje:{travel[0]?.id}</Text>
-                <Text>Descripcion: {travel[0]?.description}</Text>
-                <Text>Origen:{orig[2]} </Text>
-                <Text>Destino: {dest[2]}</Text>
-                <Text>Precio: ${travel[0]?.price}</Text>
-                <Text>Peso: {travel[0]?.weigth} toneladas</Text>
-                <Text>Solicitud creada: </Text>
+                <Text>ID del Viaje:{travel.travel?.id}</Text>
+                <Text>Descripcion: {travel.travel?.description}</Text>
+                <Text>Origen:{} </Text>
+                <Text>Destino: {}</Text>
+                <Text>Precio: ${travel.travel?.price}</Text>
+                <Text>Peso: {travel.travel?.weight} toneladas</Text>
+                <Text>Solicitud creada: {travel.travel?.createdAt} </Text>
             </View>
         )
     }
@@ -57,7 +57,8 @@ const ScreenWaiting = (payload) => {
         <SafeAreaView
             style={{
                 flex: 1,
-                backgroundColor: "#fff"
+                backgroundColor: "#fff",
+                marginTop: 30
             }}
         >
             <HeaderBar />
@@ -66,10 +67,20 @@ const ScreenWaiting = (payload) => {
                     <View style={{ alignItems: 'center' }}>
                         <Text style={{ fontWeight: "bold", fontSize: 25 }}>VIAJE SOLICITADO</Text>
                     </View>
-                    {renderComponent()}
+                    <View>
+                        {
+                            renderComponent()
+                        }
+                    </View>
+                    <View style={{ alignItems: 'center', marginTop: 40 }}>
+                        <Text style={{ fontWeight: "bold", fontSize: 25 }}>ESPERANDO ACEPTACION</Text>
+                    </View>
+                    <View style={styles.container, styles.horizontal}>
+                        <ActivityIndicator size="large" color="#0000ff" />
+                    </View>
                     <View style={styles.btn2}>
                         <TouchableOpacity style={styles.btnEditar}
-                            onPress={() => navigation.navigate('StartUser', travel[0])}
+                            onPress={() => navigation.navigate('StartUser', travel)}
                         >
                             <Text style={styles.textBtn}>Aceptar</Text>
                         </TouchableOpacity>
@@ -106,6 +117,10 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         marginTop: 12,
     },
-
-    btn2: { flexDirection: "row", marginLeft: 30 }
+    btn2: { flexDirection: "row", marginLeft: 30 },
+    horizontal: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        padding: 10,
+      },
 })

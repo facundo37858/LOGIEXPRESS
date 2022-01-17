@@ -193,7 +193,7 @@ const RequestTravel = () => {
                         <View style={styles.viewsInputs}>
                             <Icon name="push-outline" size={26} />
                             <TextInput
-                                placeholder="Ingrese peso de la cargas..."
+                                placeholder="Ingrese peso de la carga..."
                                 name="weight"
                                 style={styles.textPlaceholder}
                                 onChangeText={(text) => setWeight(text)}
@@ -209,7 +209,7 @@ const RequestTravel = () => {
                             >${price}</Text>
                         </View>
                         <Text style={{ fontWeight: "bold", fontSize: 25, marginTop: 0, textAlign: "center" }}>
-                            Descripcion
+                            Descripción
                         </Text>
                         <View style={styles.viewsInputs}>
                             <Icon name="reader-outline" size={26} />
@@ -280,13 +280,13 @@ const styles = StyleSheet.create({
         borderRadius: 50,
     },
     viewsInputs: {
-        margin: 2,
+        marginTop: 2,
         borderColor: "#000",
         borderWidth: 1,
         borderBottomWidth: 1,
         flexDirection: "row",
         justifyContent: "flex-start",
-        width: 400,
+        width: 380,
         alignItems: "flex-start",
         marginBottom: 15,
         padding: 8,

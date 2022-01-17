@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Provider } from "react-redux";
 import { store } from "./store/index";
 import { NavigationContainer } from "@react-navigation/native";
@@ -13,13 +13,33 @@ import ProfileUserScreen from "./Components/ProfileUserScreen";
 import ProfileScreenCarrier from "./Components/ProfileScreenCarrier";
 import ScreenMap from "./Components/ScreenMap";
 import RequestTravel from "./Components/RequestTravel";
-import PaymentApp from "./Components/Payment/PaymentApp";
+import Pago from "./Components/Pago";
+import { StripeProvider } from "@stripe/stripe-react-native";
+import { fetchPublishableKey } from "./Components/helpers";
 
 const Stack = createStackNavigator();
 
 const App = () => {
+  const [publishableKey, setPublishableKey] = useState('');
+  
+  useEffect(() => {
+    async function init() {
+      const publishableKey = await fetchPublishableKey()
+      if (publishableKey) {
+        setPublishableKey(publishableKey)
+      }
+    }
+    init();
+  }, []);
+
+
   return (
+   
     <Provider store={store}>
+        <StripeProvider
+            publishableKey={publishableKey}
+            merchantIdentifier="merchant.identifier"
+          >
       <NavigationContainer>
         <Stack.Navigator>
           {/* <Stack.Screen
@@ -38,7 +58,7 @@ const App = () => {
             component={EditProfileCarrier}
             options={{ headerShown: false }}
           />
-         
+
           <Stack.Screen
             name="CompleteProfileUser"
             component={CompleteProfileUser}
@@ -52,6 +72,7 @@ const App = () => {
           <Stack.Screen
             name="ProfileScreenCarrier"
             component={ProfileScreenCarrier}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="ScreenMap"
@@ -73,17 +94,16 @@ const App = () => {
             component={PaymentApp}
             options={{hederShown:false}}
           />
-            
-           
-
-          
-
-
-
-
-
+        
+            <Stack.Screen
+              name="Pago"
+              component={Pago}
+              options={{ headerShown: false }}
+            />
+        
         </Stack.Navigator>
       </NavigationContainer>
+      </StripeProvider>
     </Provider>
   );
 };

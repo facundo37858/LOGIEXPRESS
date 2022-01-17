@@ -18,7 +18,7 @@ export class Travel extends Model {
     destination!: string
 
     @Column
-    weigth!: number
+    weight!: number 
 
     @Column
     price!: string

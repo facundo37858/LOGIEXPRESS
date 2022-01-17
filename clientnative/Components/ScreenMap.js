@@ -1,7 +1,11 @@
 import * as React from 'react';
 import MapView from 'react-native-maps';
 import { Marker, Callout } from 'react-native-maps';
+<<<<<<< HEAD
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
+=======
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Image, Animated } from 'react-native';
+>>>>>>> 4d4497c3e84196390cfb5fdfdf6c6d5203875412
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,6 +21,9 @@ const ScreenMap = () => {
 
     const navigation = useNavigation();
     const dispatch = useDispatch();
+
+
+    const dispatch = useDispatch()
 
 
     useEffect(() => {
@@ -40,7 +47,11 @@ const ScreenMap = () => {
 
 
 
+<<<<<<< HEAD
+    /*  console.log("Esto es Travel", travels) */
+=======
      console.log("Esto es Travel", travels)
+>>>>>>> 4d4497c3e84196390cfb5fdfdf6c6d5203875412
 
 
     const [pin, setPin] = useState({
@@ -53,8 +64,37 @@ const ScreenMap = () => {
         longitude: -122.4324,
     })
 
+<<<<<<< HEAD
+    const marker = [
+        {
+            coordinate: {
+                latitude: -24.8385129,
+                longitude: -65.4435753,
+            }
+        },
+        {
+            coordinate: {
+                latitude: -24.83556925963872,
+                longitude: -65.44308632612228,
+            }
+        },
+        {
+            coordinate: {
+                latitude: -24.820108703392673,
+                longitude: -65.42832378298044,
+            }
+        },
+        {
+            coordinate: {
+                latitude: -24.82664443116755,
+                longitude: -65.41857663542032,
+            }
+        }
+    ]
+=======
     const rating = 3;
 
+>>>>>>> 4d4497c3e84196390cfb5fdfdf6c6d5203875412
     return (
         <View style={styles.container}>
             <GooglePlacesAutocomplete
@@ -118,8 +158,13 @@ const ScreenMap = () => {
                 </Marker>} */}
                 {
                     travels?.map((point, index) => {
+<<<<<<< HEAD
+                        const orig = point.orig.split("/")
+                        const dest = point.destination.split("/")
+=======
                         const orig = point.travel.orig.split("/")
                         const dest = point.travel.destination.split("/")
+>>>>>>> 4d4497c3e84196390cfb5fdfdf6c6d5203875412
                         const lat = Number(orig[0])
                         const lon = Number(orig[1])
                         return (
@@ -135,6 +180,17 @@ const ScreenMap = () => {
                                     <Text>ID: {point.id}</Text>
                                     <Text>DESCRIPCION: {point.description}</Text>
                                     <Text>ORIGEN:{orig[2]}</Text>
+<<<<<<< HEAD
+                                    <Text>DESTINO:{dest[2]}</Text>
+                                    <Text>PESO:{point.weight}</Text>
+                                    <Text>PRECIO:{point.price}</Text>
+                                    <View style={styles.btn2}>
+                                        <TouchableOpacity style={styles.btnEditar}>
+                                            <Text style={styles.textBtn}>Ver mas!</Text>
+                                        </TouchableOpacity>
+                                    </View>
+=======
+>>>>>>> 4d4497c3e84196390cfb5fdfdf6c6d5203875412
                                 </Callout>
                             </MapView.Marker>
                         )
@@ -142,6 +198,8 @@ const ScreenMap = () => {
                     )
                 }
             </MapView>
+<<<<<<< HEAD
+=======
             <Animated.ScrollView
                 horizontal
                 scrollEventThrottle={1}
@@ -177,6 +235,7 @@ const ScreenMap = () => {
 
             </Animated.ScrollView>
 
+>>>>>>> 4d4497c3e84196390cfb5fdfdf6c6d5203875412
         </View >
     );
 }
@@ -209,6 +268,8 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         marginTop: 12,
     },
+<<<<<<< HEAD
+=======
     scrollView: {
         position: "absolute",
         bottom: 0,
@@ -249,5 +310,6 @@ const styles = StyleSheet.create({
         width: 250,
         overflow: "hidden",
     },
+>>>>>>> 4d4497c3e84196390cfb5fdfdf6c6d5203875412
 
 });

@@ -108,7 +108,7 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
 	}
 
 });
-/* router.get('/Travel', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/Travel', async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		let travel = await Travel.findAll()
 
@@ -122,7 +122,7 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
 	catch (err) {
 		next(err)
 	}
-}); */
+});
 
 router.post('/oneTravel', async (req: Request, res: Response, next: NextFunction) => {
    

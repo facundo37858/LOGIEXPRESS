@@ -13,6 +13,11 @@ import { useNavigation } from "@react-navigation/core";
 import StarRating from "./StarRating";
 
 const ProfileScreen = () => {
+<<<<<<< HEAD
+  const navigation = useNavigation();
+  return (
+    <View style={{ flex: 1, backgroundColor: "#fff" }}>
+=======
 
 
   const rating = 4;
@@ -22,6 +27,7 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+>>>>>>> 4d4497c3e84196390cfb5fdfdf6c6d5203875412
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
@@ -86,7 +92,7 @@ const ProfileScreen = () => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

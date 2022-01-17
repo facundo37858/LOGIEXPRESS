@@ -14,14 +14,15 @@ import ProfileUserScreen from "./Components/ProfileUserScreen";
 import ProfileScreenCarrier from "./Components/ProfileScreenCarrier";
 import ScreenMap from "./Components/ScreenMap";
 import RequestTravel from "./Components/RequestTravel";
-import Pago from "./Components/Pago";
 import DatosPersonalesCarrier from "./Components/Datos/DatosPersonalesCarrier";
 import DatosPersonalesUser from './Components/Datos/DatosPersonalesUser'
 import PaymentApp from "./Components/Payment/PaymentApp";
+import StartCarrier from './Components/ComenzarViaje/StartCarrier'
+
 
 const Stack = createStackNavigator();
 
-const App = () => {
+const App = () => { 
 
   return (
     <StripeProvider
@@ -84,11 +85,6 @@ const App = () => {
             options={{hederShown:false}}
           />
             <Stack.Screen
-              name="Pago"
-              component={Pago}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
               name="DatosPersonalesCarrier"
               component={ DatosPersonalesCarrier }
               options={{ headerShown: false }}
@@ -96,6 +92,11 @@ const App = () => {
             <Stack.Screen
               name="DatosPersonalesUser"
               component={ DatosPersonalesUser }
+              options={{ headerShown: false }}
+            />
+             <Stack.Screen
+              name="StartCarrier"
+              component={ StartCarrier }
               options={{ headerShown: false }}
             />
         

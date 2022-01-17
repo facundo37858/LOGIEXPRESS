@@ -10,14 +10,23 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/core";
+import { logiarUsuario } from "./../actions/index";
+import { useSelector } from "react-redux";
+
 
 const ProfileScreen = () => {
+
   const navigation = useNavigation();
+  const data = useSelector((store) => store.responseLog);
+
+  useEffect(() => {
+    //console.log("data", data);
+  }, [data]);
   
   return (
     <View style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={styles.perfilTex}>¡Bienvenido!</Text>
+        <Text style={styles.perfilTex}>¡Bienvenid@s!</Text>
         <View
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >
@@ -27,7 +36,7 @@ const ProfileScreen = () => {
               source={require("./Utils/foto1.jpg")}
             />
           </View>
-          <Text style={styles.userName}>Eliana Alvarez</Text>
+          <Text style={styles.userName}>{data.name} {data.lastname}</Text>
         </View>
         <View style={{ flex: 1, marginBottom: 90, }}>
           <TouchableOpacity style={styles.btnText} onPress={()=>{navigation.navigate('DatosPersonalesCarrier')}}>

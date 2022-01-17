@@ -18,6 +18,8 @@ const ScreenMap = () => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
+    const rating = 3
+
 
     useEffect(() => {
         (async () => {

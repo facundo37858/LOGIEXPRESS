@@ -21,25 +21,22 @@ import ScreenWaiting from "./Components/ScreenWaiting";
 import PaymentApp from "./Components/Payment/PaymentApp";
 import StartUser from "./Components/ComenzarViaje/StartUser";
 
-
 import { StripeProvider } from "@stripe/stripe-react-native";
-
 
 const Stack = createStackNavigator();
 
 const App = () => {
-  const [publishableKey, setPublishableKey] = useState('');
-  
+  const [publishableKey, setPublishableKey] = useState("");
+
   useEffect(() => {
     async function init() {
-      const publishableKey = await fetchPublishableKey()
+      const publishableKey = await fetchPublishableKey();
       if (publishableKey) {
-        setPublishableKey(publishableKey)
+        setPublishableKey(publishableKey);
       }
     }
     init();
   }, []);
-
 
   return (
     <StripeProvider publishableKey="pk_test_51KHwMJH58Ljah9wGjMPQ9Os5fhEj5awCKf7ARtjrqcwUFGAVniXX5CTP3fP492gqrJv3MerKLDbnAByXzpPkYWsC00P8X1yX8l">
@@ -119,9 +116,6 @@ const App = () => {
         </NavigationContainer>
       </Provider>
     </StripeProvider>
-
-   
-
   );
 };
 export default App;

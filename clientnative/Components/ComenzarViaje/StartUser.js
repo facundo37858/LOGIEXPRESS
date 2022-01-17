@@ -22,15 +22,15 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const StartUser = (props) => {
 
 
-  const data = props
+  const data = props.route.params
   const navigation = useNavigation();
 
-  console.log("ESTO ES LO QUE LLEGA", data.route.params)
+  console.log("ESTO ES LO QUE LLEGA", data)
 
   return (
     //Container Start
     <SafeAreaView
-      style={{ backgroundColor: "#f3f3f3" }}
+      style={{ backgroundColor: "#f3f3f3"}}
 
     >
       {/* Brand View */}
@@ -77,12 +77,12 @@ const StartUser = (props) => {
         {/* NOMBRE */}
         <View style={{ height: 35, backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 20, paddingRight: 20, alignItems: 'center' }}>
           <Text style={{ fontSize: 18, fontWeight: '500', }}>Nombre: </Text>
-          <Text style={{ fontSize: 17, fontWeight: '300' }}>Gonzalo Lucero</Text>
+          <Text style={{ fontSize: 17, fontWeight: '300' }}>Juan Carlos</Text>
         </View>
         {/* TELEFONO */}
         <View style={{ height: 35, marginTop: 3, backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 20, paddingRight: 20, alignItems: 'center' }}>
           <Text style={{ fontSize: 18, fontWeight: '500' }}>Teléfono: </Text>
-          <Text style={{ fontSize: 17, fontWeight: '300' }}>1534490811</Text>
+          <Text style={{ fontSize: 17, fontWeight: '300' }}>+54113947212</Text>
         </View>
         {/* VEHICULO */}
         <View style={{ height: 35, marginTop: 3, backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 20, paddingRight: 20, alignItems: 'center' }}>
@@ -97,8 +97,16 @@ const StartUser = (props) => {
           </View>
           {/* MERCADOPAGO */}
           <View style={{ height: 35, marginTop: 3, backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 20, paddingRight: 20, alignItems: 'center' }}>
-            <Text style={{ fontSize: 18, fontWeight: '500' }}>MercadoPago: </Text>
-            <Text style={{ fontSize: 17, fontWeight: '300' }}>Tarjeta de Crédito</Text>
+            <Text style={{ fontSize: 18, fontWeight: '500' }}>Tarjeta de Credito:</Text>
+            <Text style={{ fontSize: 17, fontWeight: '300' }}>4242-****-****-4242</Text>
+          </View>
+          <View style={{ height: 35, marginTop: 3, backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 20, paddingRight: 20, alignItems: 'center' }}>
+            <Text style={{ fontSize: 18, fontWeight: '500' }}>Precio:</Text>
+            <Text style={{ fontSize: 17, fontWeight: '300' }}>${data.travel.price}</Text>
+          </View>
+          <View style={{ height: 35, marginTop: 3, backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 20, paddingRight: 20, alignItems: 'center' }}>
+            <Text style={{ fontSize: 18, fontWeight: '500' }}>Id del Viaje: </Text>
+            <Text style={{ fontSize: 17, fontWeight: '300' }}>{data.travel.id}</Text>
           </View>
 
         </View>
@@ -110,7 +118,9 @@ const StartUser = (props) => {
               <Text style={styles.aceptar}>Realizar Pago</Text>
 
             </TouchableOpacity>
-            <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', marginTop: 13, height: '140%', width: '40%', backgroundColor: 'orange', borderRadius: 10 }}>
+            <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', marginTop: 13, height: '140%', width: '40%', backgroundColor: 'orange', borderRadius: 10 }}
+            onPress={() => navigation.navigate('ProfileUserScreen')}
+            >
 
               <Text style={styles.rechazar}>Rechazar</Text>
 

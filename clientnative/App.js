@@ -108,9 +108,6 @@ const App = () => {
         </NavigationContainer>
       </Provider>
     </StripeProvider>
-
-   
-
   );
 };
 export default App;

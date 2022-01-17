@@ -32,38 +32,33 @@ export const GET_TRAVEL_ID = "GET_TRAVEL_ID"
 //       });
 // }
 
-
-
 export function getTravelID(payload) {
-  return async function(dispatch) {
+  return async function (dispatch) {
     try {
-      const travelID = await axios.post(URL_TRAVEL_ID, payload)
+      const travelID = await axios.post(URL_TRAVEL_ID, payload);
       return dispatch({
         type: GET_TRAVEL_ID,
-        payload: travelID.data
-      })
+        payload: travelID.data,
+      });
     } catch (error) {
-      console.log("Error:", error)
+      console.log("Error:", error);
     }
-  }
+  };
 }
-
 
 export function getTravels() {
-  return async function(dispatch) {
+  return async function (dispatch) {
     try {
-      const request = await axios.get(URL_TRAVEL)
+      const request = await axios.get(URL_TRAVEL);
       return dispatch({
         type: GET_TRAVELS,
-        payload: request.data
-      })
+        payload: request.data,
+      });
     } catch (error) {
-      console.log("Error", error)
+      console.log("Error", error);
     }
-  }
+  };
 }
-
-
 
 export function requestTravel(payload) {
   return async function (dispatch) {

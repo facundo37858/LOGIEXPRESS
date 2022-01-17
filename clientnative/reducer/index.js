@@ -17,7 +17,7 @@ const initialState = {
   price: null,
   responseTravel: null,
   travels: null,
-  travel: null,
+  travel: [],
 };
 
   export default function rootReducer(state = initialState, action) {

@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/core";
 const WIDTH = Dimensions.get("window").width;
 const HEIGTH_MODAL = 220;
 
-const SimpleModal = (props) => {
+const SimpleModalCarrier = (props) => {
   const navigation = useNavigation();
 
   let closeModal = (bool, data) => {
@@ -26,24 +26,24 @@ const SimpleModal = (props) => {
         <View style={styles.textView}>
           <View>
             <Image
-              source={require("./sucess.png")}
-              style={{ height: 55, width: 55, marginBottom: 15 }}
+              source={require("./sucess_camion.png")}
+              style={{ height: 130, width: 130, marginTop: -15 }}
             />
           </View>
           <Text style={{ fontSize: 22, fontWeight: "bold" }}>
             ¡FELICITACIONES!
           </Text>
-          <Text style={{ fontSize: 16, margin: 7 }}>
-            ¡Tu perfil fue completado exitosamente!
+          <Text style={{ fontSize: 16, margin: 3 }}>
+            ¡Tu petición fue enviada exitosamente!
           </Text>
         </View>
         <View style={styles.containerBtn}>
           <TouchableOpacity
             onPress={() => closeModal(false, "Aceptar")}
-            onPressIn={() => navigation.navigate("singIn")}
+            onPressIn={() => navigation.navigate("ProfileScreenCarrier")}
             style={styles.btnAceptar}
           >
-            <Text style={{ fontSize: 16, fontWeight: "bold" }}>Continuar</Text>
+            <Text style={{ fontSize: 17, fontWeight: "bold", color: 'white' }}>Aceptar</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -51,12 +51,12 @@ const SimpleModal = (props) => {
   );
 };
 
-export default SimpleModal;
+export default SimpleModalCarrier;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
+    backgroundColor: "rgba(0,0,0,0.7)",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     width: WIDTH - 40,
     paddingTop: 10,
     backgroundColor: "white",
-    borderRadius: 15,
+    borderRadius: 20,
     elevation: 15,
   },
 
@@ -75,11 +75,11 @@ const styles = StyleSheet.create({
   btnAceptar: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#29BB89",
+    backgroundColor: "#81B214",
     borderColor: "#29BB89",
     height: 45,
     width: 120,
-    borderRadius: 10,
+    borderRadius: 11,
   },
   containerBtn: {
     alignContent: "center",

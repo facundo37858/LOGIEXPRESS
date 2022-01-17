@@ -229,7 +229,9 @@ router.put('/acceptTravel', async (req: Request, res: Response, next: NextFuncti
   }
   else res.send('id travel incorrecto');
 
-});
+})
+
+
 
 
 export default router;

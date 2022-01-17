@@ -16,6 +16,7 @@ import RequestTravel from "./Components/RequestTravel";
 import StartCarrier from "./Components/ComenzarViaje/StartCarrier";
 import ScreenWaiting from "./Components/ScreenWaiting";
 import PaymentApp from "./Components/Payment/PaymentApp";
+import StartUser from "./Components/ComenzarViaje/StartUser"
 
 const Stack = createStackNavigator();
 
@@ -24,7 +25,7 @@ const App = () => {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          {/* <Stack.Screen
+          <Stack.Screen
             name="singIn"
             component={SingIn}
             options={{ headerShown: false }}
@@ -69,7 +70,11 @@ const App = () => {
             name="RequestTravel"
             component={RequestTravel}
             options={{ headerShown: false }}
-          /> */}
+          />
+           <Stack.Screen 
+          name="StartUser"
+          component={StartUser}
+          />
           <Stack.Screen
             name='PaymentApp'
             component={PaymentApp}
@@ -83,11 +88,7 @@ const App = () => {
           <Stack.Screen 
           name="ScreenWaiting"
           component={ScreenWaiting}
-          
           />
-     
-
-        
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

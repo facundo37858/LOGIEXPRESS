@@ -166,7 +166,7 @@ const ScreenMap = () => {
                                 <Text>PESO:{resp.travel.weight}</Text>
                                 <Text>PRECIO:{resp.travel.price}</Text>
                                 <View style={styles.btn2}>
-                                    <TouchableOpacity style={styles.btnEditar} onPress={() => navigation.navigate("StartCarrier", resp.travel)} >
+                                    <TouchableOpacity style={styles.btnEditar} onPress={() => navigation.navigate("StartCarrier", resp)} >
                                         <Text style={styles.textBtn}> Ofrecer Servicio</Text>
                                     </TouchableOpacity>
                                 </View>

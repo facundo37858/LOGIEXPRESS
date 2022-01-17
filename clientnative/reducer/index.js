@@ -3,6 +3,7 @@ import {
   GET_PRICE_QUOTE,
   POST_REQUEST_TRAVE,
   GET_TRAVELS,
+  GET_TRAVEL_ID,
 } from '../actions/index.js'
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   price: null,
   responseTravel: null,
   travels: null,
+  travel: null,
 };
 
   export default function rootReducer(state = initialState, action) {
@@ -54,7 +56,13 @@ const initialState = {
                     return {
                       ...state,
                       travels: action.payload
+                    };
+                  case GET_TRAVEL_ID:
+                    return {
+                      ...state,
+                      travel: action.payload
                     }
+
         default:
         return state;
     }

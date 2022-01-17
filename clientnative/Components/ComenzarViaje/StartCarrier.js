@@ -14,12 +14,23 @@ import {
   SafeAreaView,
 } from "react-native";
 import StarRating from 'react-native-star-rating';
+import { useNavigation } from "@react-navigation/core";
+
+
+
+
+
 const StartCarrier = (props) => {
 
-  console.log("Esto es lo que llega: ",props.route.params)
 
+  
+
+  const navigation = useNavigation();
   const data = props.route.params
-
+  const orig = data.travel.orig.split("/")
+  const dest = data.travel.destination.split("/")
+  
+  console.log("Esto es lo que llega: ",data.travel)
   return (
     //Container Start
 
@@ -31,7 +42,7 @@ const StartCarrier = (props) => {
       <View style={{ backgroundColor: "#7952B3", marginTop: 20, height: 60 }}>
         <Text style={{ color: 'white', display: 'flex', alignSelf: 'center', fontSize: 30, fontWeight: 'bold', marginTop: 15 }}>Comenzar Viaje</Text>
       </View>
-      <ImageBackground
+     {/*  <ImageBackground
         source={require("./camion2.gif")}
         style={{
           height: '55%',
@@ -42,9 +53,9 @@ const StartCarrier = (props) => {
           marginTop: 10,
         }}
       >
-      </ImageBackground>
+      </ImageBackground> */}
       <View>
-        <Text style={{ marginLeft: 20, marginTop: -100, marginBottom: 5, fontSize: 20, fontWeight: '200' }}>Información sobre el Cliente</Text>
+        <Text /* style={{ marginLeft: 20, marginTop: -100, marginBottom: 5, fontSize: 20, fontWeight: '200' }} */>Información sobre el Cliente</Text>
         {/* RATING ESTRELLAS */}
         <View style={{ width: 240, alignSelf: 'center', }}>
           <StarRating
@@ -63,12 +74,12 @@ const StartCarrier = (props) => {
         {/* NOMBRE */}
         <View style={{ height: 35, backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 20, paddingRight: 20, alignItems: 'center', marginTop: 5 }}>
           <Text style={{ fontSize: 18, fontWeight: '500', }}>Nombre: </Text>
-          <Text style={{ fontSize: 17, fontWeight: '300' }}>{data.userId}</Text>
+          <Text style={{ fontSize: 17, fontWeight: '300' }}>{data.userReg.name}</Text>
         </View>
         {/* TELEFONO */}
         <View style={{ height: 35, marginTop: 3, backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 20, paddingRight: 20, alignItems: 'center' }}>
           <Text style={{ fontSize: 18, fontWeight: '500' }}>Teléfono: </Text>
-          <Text style={{ fontSize: 17, fontWeight: '300' }}>1534490811</Text>
+          <Text style={{ fontSize: 17, fontWeight: '300' }}>{data.userReg.phone}</Text>
         </View>
         <View >
           <View>
@@ -77,17 +88,17 @@ const StartCarrier = (props) => {
           {/* ORIGEN */}
           <View style={{ height: 35, backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 20, paddingRight: 20, alignItems: 'center' }}>
             <Text style={{ fontSize: 18, fontWeight: '500' }}>Desde: </Text>
-            <Text style={{ fontSize: 17, fontWeight: '300' }}>Buenos Aires</Text>
+            <Text style={{ fontSize: 17, fontWeight: '300' }}>{orig[2]}</Text>
           </View>
           {/* DESTINO */}
           <View style={{ height: 35, marginTop: 3, backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 20, paddingRight: 20, alignItems: 'center' }}>
             <Text style={{ fontSize: 18, fontWeight: '500' }}>Hasta: </Text>
-            <Text style={{ fontSize: 17, fontWeight: '300' }}>Rosario</Text>
+            <Text style={{ fontSize: 17, fontWeight: '300' }}>{dest[2]}</Text>
           </View>
           {/* PESO */}
           <View style={{ height: 35, marginTop: 3, backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 20, paddingRight: 20, alignItems: 'center' }}>
             <Text style={{ fontSize: 18, fontWeight: '500' }}>Peso de la Carga: </Text>
-            <Text style={{ fontSize: 17, fontWeight: '300' }}>200 kg</Text>
+            <Text style={{ fontSize: 17, fontWeight: '300' }}>{data.travel.weight} Toneladas</Text>
           </View>
         </View>
 
@@ -95,11 +106,14 @@ const StartCarrier = (props) => {
       <View  >
         <View style={{ height: 40, marginTop: 5, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 20, paddingRight: 20, backgroundColor: 'white' }}>
           <Text style={{ fontSize: 20, fontWeight: '700', alignSelf: 'center' }}>Monto Total: </Text>
-          <Text style={{ fontSize: 20, fontWeight: '300', alignSelf: 'center' }}>$ 12.000.26</Text>
+          <Text style={{ fontSize: 20, fontWeight: '300', alignSelf: 'center' }}>$ {data.travel.price}</Text>
         </View>
 
         <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
-          <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', marginTop: 15, height: '120%', width: '40%', backgroundColor: 'orange', borderRadius: 10 }}>
+          <TouchableOpacity 
+          style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', marginTop: 15, height: '120%', width: '40%', backgroundColor: 'orange', borderRadius: 10 }}
+          onPress={() => navigation.navigate('') }
+          >
 
             <Text style={styles.aceptar}>Aceptar</Text>
 

@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/core";
+import StarRating from './StarRating'
 
 const ProfileUserScreen = () => {
  
@@ -67,7 +68,7 @@ const ProfileUserScreen = () => {
             <Icon name="calculator-outline" size={23} style={{ marginRight: 10, marginTop: 2 }} />
             <Text style={styles.userBtnTxt}>Cotizar viaje</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.btnText2} onPress={ navigation.navigate("ScreenMap")}>
+          <TouchableOpacity style={styles.btnText2} onPress={() => navigation.navigate("RequestTravel")}>
             <Icon name="hand-right-outline" size={23} style={{ marginRight: 10, marginTop: 2 }} color={'#fff'} />
             <Text style={styles.userBtnTxt2}>Solicitar Viaje</Text>
           </TouchableOpacity>

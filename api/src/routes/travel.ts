@@ -46,7 +46,7 @@ try {
   // let weight= 20;
  let distance= getDistanciaMetros(origen,destino);
    const valor = 10; /// valor de tonelada por km recorrido
-   let price = valor * (weight * distance);
+   let price = Math.round(valor * (weight * distance)) 
    
    res.send({price});
 } catch (error) {
@@ -95,7 +95,7 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
                            {TravelId: TravelId, CarrierId:vehicles[1].CarrierId}
                    } 
                   let alertServices = await ServiceAlert.bulkCreate(obj);
-    	    res.send('Viaje Solicitado');	
+    	    res.send({id: TravelId});	
       
  //let ServiceAlerts = await ServiceAlert.create({id:uuid(),travelId: TravelId, carrierId:vehicles[0].carrierId})
        ///}
@@ -124,8 +124,21 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
 	}
 }); */
 
+router.post('/oneTravel', async (req: Request, res: Response, next: NextFunction) => {
+   
+  const { id } = req.body
+  let getTravel = await Travel.findAll({where:{id:id}})
+     if(getTravel.length===0) res.send('Travel not found');
+      else res.send(getTravel);
+
+});
+
+
 router.get('/Travel', async (req: Request, res: Response, next: NextFunction) => {
-	try {
+	
+  
+  
+  try {
     //Importante en el modelo de travel hay un error en declaración de la relacion con user User_Reg
     //hay que corregir que es de tipo string 
 		let travel = await Travel.findAll()

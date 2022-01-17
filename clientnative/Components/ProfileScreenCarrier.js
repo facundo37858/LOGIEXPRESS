@@ -21,26 +21,6 @@ const ProfileScreen = () => {
 
   const navigation = useNavigation();
   return (
-    /*  <SafeAreaView style={{flex:1, backgroundColor:'#fff'}}>
-         <ScrollView 
-         style={styles.container}
-         contentContainerStyle={{justifyContent:'center', alignItems:'center'}}
-         showsVerticalScrollIndicator={false}>
-             <Image style={styles.userImg} source={require('./Utils/foto1.jpg')}/>
-             <Text style={styles.userName}>Bill Gate</Text>
-             <View style={styles.userBtnWrapper}>
-               <TouchableOpacity style={styles.userBtn}>
-                 <Text style={styles.userBtnTxt}>Datos Personales</Text>
-               </TouchableOpacity>
-               <TouchableOpacity style={styles.userBtn}>
-                 <Text style={styles.userBtnTxt}>Historial de Viaje</Text>
-               </TouchableOpacity>
-               <TouchableOpacity style={styles.userBtn}>
-                 <Text style={styles.userBtnTxt}>Datos Personales</Text>
-               </TouchableOpacity>
-             </View>
-         </ScrollView>
-     </SafeAreaView> */
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ backgroundColor: "#000", height: 120 }}>

@@ -15,10 +15,6 @@ router.post('/userProfile', async (req: Request, res: Response, next: NextFuncti
 
 	try {
 
-		
-		
-
-
 		let newProfile = {
 			id: uuid(),
 			identification: identification,
@@ -30,10 +26,8 @@ router.post('/userProfile', async (req: Request, res: Response, next: NextFuncti
 		}
 		User.create(newProfile)
 			.then((newProfile) => {
-
 				res.send(newProfile);
 			})
-
 	} catch (err) {
 		next(err)
 	}

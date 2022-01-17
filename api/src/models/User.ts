@@ -6,17 +6,14 @@ import { User_Reg } from './User_Reg'
 export class User extends Model {
     @PrimaryKey
     @Column
-    id!: string
+    id!: string 
 
     @Column
     identification!: number
 
-    @Column
-    zone!: string
-
-    @Column
-    phone!: number
-
+    @Column 
+    zone!: string  
+ 
     @Column
     photo!: string
 
@@ -24,7 +21,7 @@ export class User extends Model {
     account!: string //Cuenta bancaria 
 
     @BelongsTo(()=>User_Reg)
-    user_Reg!:User_Reg
+    user_Reg!: string
 
     @ForeignKey(()=>User_Reg)
     idUserReg!:string

@@ -45,7 +45,7 @@ const RequestTravel = () => {
     ////--> HOOK PARA LA NAVEGACION <-- ////
     const navigation = useNavigation();
     const dispatch = useDispatch();
-
+    const response = useSelector((store) => store.responseTravel )
 
     useEffect(() => {
         (async () => {
@@ -58,18 +58,23 @@ const RequestTravel = () => {
             let location = await Location.getCurrentPositionAsync({});
             console.log(location.coords);
         })();
-    }, [price]);
+        if(response !== null ) {
+            navigation.navigate('ScreenWaiting', response)
+        }
+    }, [price, response]);
 
     const price = useSelector((state) => state.price)
 
     const [origen, setOrigen] = useState({
-        latitude: 37.78825,
-        longitude: -122.4324,
+        latitude: 0,
+        longitude: 0,
+        name:null,
     })
 
     const [destino, setDestino] = useState({
-        latitude: 37.78825,
-        longitude: -122.4324,
+        latitude: 0,
+        longitude: 0,
+        name:null,
     })
 
     const [weight, setWeight] = useState("");
@@ -80,8 +85,8 @@ const RequestTravel = () => {
     const handleQuote = () => {
         // en un objeto pongo lo que tengo en el estado inicial
         const quote = {
-            origen: `${origen.latitude},${origen.longitude}`,
-            destino: `${destino.latitude},${destino.longitude}`,
+            origen: `${origen.latitude}/${origen.longitude}`,
+            destino: `${destino.latitude}/${destino.longitude}`,
             weight: parseFloat(weight),
         };
         dispatch(cotizarViaje(quote));
@@ -90,13 +95,15 @@ const RequestTravel = () => {
 
     const handleSubmit = () => {
         const travel = {
-            origen: `${origen.latitude},${origen.longitude}`,
-            destino: `${destino.latitude},${destino.longitude}`,
+            orig: `${origen.latitude}/${origen.longitude}/${origen.name}`,
+            destination: `${destino.latitude}/${destino.longitude}/${destino.name}`,
             weight: parseFloat(weight),
             price: price,
             description: description,
+            id: "973ee39e-40ad-4b8f-aa71-70ea7d99ac33",
         };
         dispatch(requestTravel(travel))
+       
         console.log("Estoy enviando:", travel)
     }
 
@@ -121,12 +128,11 @@ const RequestTravel = () => {
                                 }}
                                 onPress={(data, details = null) => {
                                     // 'details' is provided when fetchDetails = true
-                                    console.log(details.geometry.location.lat, details.geometry.location.lng);
+                                    console.log(details.formatted_address);
                                     setOrigen({
                                         latitude: details.geometry.location.lat,
                                         longitude: details.geometry.location.lng,
-                                        latitudeDelta: 0.0922,
-                                        longitudeDelta: 0.0421,
+                                        name: details.formatted_address,
                                     })
                                 }}
                                 query={{
@@ -161,8 +167,7 @@ const RequestTravel = () => {
                                     setDestino({
                                         latitude: details.geometry.location.lat,
                                         longitude: details.geometry.location.lng,
-                                        latitudeDelta: 0.0922,
-                                        longitudeDelta: 0.0421,
+                                        name: details.formatted_address,
                                     })
                                 }}
                                 query={{
@@ -223,7 +228,7 @@ const RequestTravel = () => {
                                 <Text style={styles.textBtn}>Solicitar</Text>
                             </TouchableOpacity>
                         </View>
-                        <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
+                    {/*     <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
                             Origen {`${origen.latitude}, ${origen.longitude}`}
 
                         </Text>
@@ -232,7 +237,7 @@ const RequestTravel = () => {
                         </Text>
                         <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
                             Kilometros = {getDistanciaMetros(origen, destino)}
-                        </Text>
+                        </Text> */}
                     </View>
                 </View>
             </ScrollView>

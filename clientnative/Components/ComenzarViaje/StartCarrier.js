@@ -18,6 +18,7 @@ import StarRating from "react-native-star-rating";
 import SimpleModalCarrier from './SimpleModalCarrier';
 
 const StartCarrier = () => {
+
   /// --> ESTADO PARA EL MODAL <-- ///
   const [isModalVisible, setisModalVisible] = useState(false);
   const [chooseData, setchooseData] = useState();
@@ -30,9 +31,16 @@ const StartCarrier = () => {
     setchooseData(data);
   };
 
+  
+  const navigation = useNavigation();
+  const data = props.route.params
+  const orig = data.travel.orig.split("/")
+  const dest = data.travel.destination.split("/")
+  
+  console.log("Esto es lo que llega: ",data.travel)
   return (
     //Container Start
-    // <View >
+
     <ScrollView
       style={{ backgroundColor: "#f3f3f3"}}
       showsVerticalScrollIndicator={false}

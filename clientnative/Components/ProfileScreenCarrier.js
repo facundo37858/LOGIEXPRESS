@@ -13,8 +13,14 @@ import { useNavigation } from "@react-navigation/core";
 import { logiarUsuario } from "./../actions/index";
 import { useSelector } from "react-redux";
 
+import StarRating from "./StarRating";
 
 const ProfileScreen = () => {
+
+
+  const rating = 4;
+
+
 
   const navigation = useNavigation();
   const data = useSelector((store) => store.responseLog);

@@ -21,7 +21,7 @@ export class User extends Model {
     account!: string //Cuenta bancaria 
 
     @BelongsTo(()=>User_Reg)
-    user_Reg!:User_Reg
+    user_Reg!: string
 
     @ForeignKey(()=>User_Reg)
     idUserReg!:string

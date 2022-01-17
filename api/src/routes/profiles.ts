@@ -15,24 +15,19 @@ router.post('/userProfile', async (req: Request, res: Response, next: NextFuncti
 
 	try {
 
-		
-		
-
-
 		let newProfile = {
 			id: uuid(),
-			identification: identification||0,
-			zone: zone||null,
-			phone: phone||null,
-			photo: photo||null,
-			account: account||null
+			identification: identification,
+			zone: zone,
+			phone: phone,
+			photo: photo,
+			account: account,
+			idUserReg:id
 		}
 		User.create(newProfile)
 			.then((newProfile) => {
-
 				res.send(newProfile);
 			})
-
 	} catch (err) {
 		next(err)
 	}
@@ -61,20 +56,21 @@ router.post('/userProfile', async (req: Request, res: Response, next: NextFuncti
 //Eli saco email y phone
 router.post('/carrierProfile', async (req: Request, res: Response, next: NextFunction) => {
 	// res.send('llega al carrier profile')
-	const { documentID, license, location, photo, Cuenta,
-		brand, patent, model, color, capacity } = req.body
-
+	const { id, documentID, license, location, Cuenta,
+		brand, patent, model, color, capacity, photo } = req.body
+     
 	try {
 
 		let idCarrier = uuid()
 
 		let newProfileCarrier = {
 			id: idCarrier, 
-			documentID: documentID ||null,
-			license: license ||null,
-			location: location ||null,
-			Cuenta: Cuenta ||null,
-			photo: photo ||null 
+			documentID: documentID,
+			license: license,
+			location: location,
+			Cuenta: Cuenta,
+			photo: photo,
+			idUserReg:id
 		}
 		var newTrack = {
 			id: uuid(),

@@ -5,6 +5,7 @@ import ProfileRoutes from './profiles';
 import review from './review'
 import TravelRoutes from './travel';
 import paymentCheckOut from './Stripe';
+import UploadDataFake from './uploadDataFake';
 
 import payments from './payments'
 
@@ -14,7 +15,10 @@ router.use('/', userRoutes);
 router.use('/', LoginRoutes);
 router.use('/', ProfileRoutes);
 router.use('/', TravelRoutes);
-router.use('/',payments)
+router.use('/', UploadDataFake);
+router.use('/', review )
+router.use('/',payments);
+router.use('/', review);
 //router.use('/', UploadDataFake) 
 
 

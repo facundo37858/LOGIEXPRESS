@@ -28,6 +28,9 @@ const CompleteProfileUser = () => {
     console.log("SOY DATOS DEL USER", datosUser);
   }, [datosUser]);
 
+
+
+
   /// --> ESTADO PARA EL MODAL <-- ///
   const [isModalVisible, setisModalVisible] = useState(false);
   const [chooseData, setchooseData] = useState();
@@ -115,6 +118,7 @@ const CompleteProfileUser = () => {
       zone: user.zone,
       account: user.account,
       photo: selectedImage,
+      id: datosUser.id
     };
     dispatch(completeProfileUser(obj));
     console.log("soy lo que se envia", obj);
@@ -172,7 +176,7 @@ const CompleteProfileUser = () => {
               <View style={styles.viewsInputs}>
                 <Icon name="person-circle-outline" size={26} />
                 <Text style={{ fontSize: 18, marginLeft: 15 }}>
-                  {datosUser.lastname}
+                  {datosUser.lastName}
                 </Text>
                 <TextInput style={styles.textPlaceholder} />
               </View>

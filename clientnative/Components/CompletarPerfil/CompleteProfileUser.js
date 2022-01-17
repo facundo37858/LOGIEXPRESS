@@ -29,8 +29,6 @@ const CompleteProfileUser = () => {
   }, [datosUser]);
 
 
-
-
   /// --> ESTADO PARA EL MODAL <-- ///
   const [isModalVisible, setisModalVisible] = useState(false);
   const [chooseData, setchooseData] = useState();
@@ -116,7 +114,6 @@ const CompleteProfileUser = () => {
     const obj = {
       identification: user.identification,
       zone: user.zone,
-      account: user.account,
       photo: selectedImage,
       id: datosUser.id
     };

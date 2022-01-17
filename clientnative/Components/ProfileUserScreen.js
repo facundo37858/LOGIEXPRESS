@@ -41,7 +41,7 @@ const ProfileUserScreen = () => {
           <Text style={styles.userName}>Nombre Apellido</Text>
         </View>
         <View style={{ flex: 1, marginBottom: 90, }}>
-          <TouchableOpacity style={styles.btnText} onPress={()=>{navigation.navigate('DatosPersonalesCarrier')}}>
+          <TouchableOpacity style={styles.btnText} onPress={()=>{navigation.navigate('DatosPersonalesUser')}}>
             <Icon name="person-circle-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Datos Personales</Text>
             <View style={{marginLeft: 103}}>

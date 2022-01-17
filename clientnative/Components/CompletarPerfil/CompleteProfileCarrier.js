@@ -126,12 +126,12 @@ const CompleteProfileUser = () => {
       location: location,
     });
   };
-
+   
   //Vehicule//
   const handleChangeBrand = (brand) => {
     setCarrier({
       ...carrier,
-      brand: brand,
+      brand: brand, 
     });
   };
 

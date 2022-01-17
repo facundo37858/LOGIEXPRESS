@@ -10,7 +10,7 @@ import payments from './payments'
 
 const router = Router();
 
-router.use('/', dataFake)
+// router.use('/', dataFake)
 router.use('/', userRoutes);
 router.use('/', LoginRoutes);
 router.use('/', ProfileRoutes);
@@ -19,7 +19,7 @@ router.use('/', UploadDataFake);
 router.use('/', review )
 router.use('/',payments);
 router.use('/', review);
-//router.use('/', UploadDataFake) 
+router.use('/', UploadDataFake) 
 
 
 

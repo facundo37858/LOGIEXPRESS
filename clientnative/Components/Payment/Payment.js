@@ -3,10 +3,17 @@ import React, { useState } from "react";
 import { View, Text, TextInput, Button, Alert } from "react-native";
 import axios from 'axios'
 
+
+
+
+
 const Payment = () => {
+ 
+ 
+  
   const [name, setName] = useState("");
   const stripe = useStripe();
-
+  
   const subscribe = async () => {
     try {
       // sending request
@@ -18,7 +25,7 @@ const Payment = () => {
       //   },
       // });
      
-      const response = await axios.post("http://192.168.0.10:3001/api/pay", { name })
+      const response = await axios.post(`http://192.168.2.104:3001/api/pay`, { name })
       //.then(res=>res.data)
 
       console.log(response.data.key)

@@ -17,7 +17,11 @@ const resApiUsers = async () => {
 
 	try {
 
-		let users = await axios.get('https://randomuser.me/api/?results=50')
+
+
+
+
+		let users = await axios.get('https://randomuser.me/api/?results=10')
 			.then(res => { return res.data })
 			.then(async (users) => {
 				let usersFilter = users.results.map((us: { name: { first: string; last: string }; phone: any, email: string, login: { password: string } }) => {
@@ -39,7 +43,7 @@ const resApiUsers = async () => {
 
 
 		await User_Reg.bulkCreate(users)
-			.then((u) => { console.log(u) })
+			//.then((u) => { console.log(u) })
 
 		return users
 
@@ -55,10 +59,10 @@ const resApiUsers = async () => {
 
 }
 sequelize
-	.sync({ force: true, logging: false })
+	.sync({ force: false, logging: false })
 	.then(async () => {
-		let responce = await resApiUsers()
-		return console.log(responce)
+		await resApiUsers()
+		
 	})
 	.then(() => {
 		console.log('base de datos conectada! :D')

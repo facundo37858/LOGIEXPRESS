@@ -10,31 +10,17 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/core";
+import StarRating from "./StarRating";
 
 const ProfileScreen = () => {
 
+
+  const rating = 4;
+
+
+
   const navigation = useNavigation();
   return (
-    /*  <SafeAreaView style={{flex:1, backgroundColor:'#fff'}}>
-         <ScrollView 
-         style={styles.container}
-         contentContainerStyle={{justifyContent:'center', alignItems:'center'}}
-         showsVerticalScrollIndicator={false}>
-             <Image style={styles.userImg} source={require('./Utils/foto1.jpg')}/>
-             <Text style={styles.userName}>Bill Gate</Text>
-             <View style={styles.userBtnWrapper}>
-               <TouchableOpacity style={styles.userBtn}>
-                 <Text style={styles.userBtnTxt}>Datos Personales</Text>
-               </TouchableOpacity>
-               <TouchableOpacity style={styles.userBtn}>
-                 <Text style={styles.userBtnTxt}>Historial de Viaje</Text>
-               </TouchableOpacity>
-               <TouchableOpacity style={styles.userBtn}>
-                 <Text style={styles.userBtnTxt}>Datos Personales</Text>
-               </TouchableOpacity>
-             </View>
-         </ScrollView>
-     </SafeAreaView> */
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ backgroundColor: "#000", height: 120 }}>
@@ -44,43 +30,7 @@ const ProfileScreen = () => {
           <Image style={styles.userImg} source={require("./Utils/foto1.jpg")} />
           <Text style={styles.userName}>Bill Gate</Text>
           <Text style={styles.aboutUser}>Calificacion</Text>
-          <View style={styles.useStars}>
-            {
-              <Icon
-                name="star-outline"
-                size={20}
-                style={{ margin: 3, color: "#FFC107" }}
-              />
-            }
-            {
-              <Icon
-                name="star-outline"
-                size={20}
-                style={{ margin: 3, color: "#FFC107" }}
-              />
-            }
-            {
-              <Icon
-                name="star-outline"
-                size={20}
-                style={{ margin: 3, color: "#FFC107" }}
-              />
-            }
-            {
-              <Icon
-                name="star-outline"
-                size={20}
-                style={{ margin: 3, color: "#FFC107" }}
-              />
-            }
-            {
-              <Icon
-                name="star-outline"
-                size={20}
-                style={{ margin: 3, color: "#000" }}
-              />
-            }
-          </View>
+          <StarRating ratings={rating} reviews={rating}/>
         </View>
         <View>
           <TouchableOpacity style={styles.btnText}>

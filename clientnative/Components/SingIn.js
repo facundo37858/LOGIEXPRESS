@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import { Ionicons } from "@expo/vector-icons";
 import {
   Text,
@@ -12,16 +13,45 @@ import {
   Button,
 } from "react-native";
 import { logiarUsuario } from "./../actions/index";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const SingIn = ({ navigation }) => {
   const dispatch = useDispatch();
+
+  const respuesta = useSelector((store) => store.responseLog);
+
+  // useEffect(()=>{
+  //   // token === localstorage.token
+  //   if(token===true){
+  //     dispatch(action) // llamar a la ruta del back, si el token es valido, el back devuelve respuesta con la info del user
+  //     //si existe la sesion:
+  //     //cargamos la info del perfil en redux
+  //     // se pisa el estado responseLog, al modificarse el estado de redux:
+  //     //se activa el useEffect de abajo
+  //   }
+  // })
+
+  useEffect(() => {
+    console.log("aqui esta la respuestaaaa:", respuesta);
+    if (respuesta?.role === true) {
+      navigation.navigate("ProfileUserScreen");
+    }
+    if (respuesta?.role === false) {
+      navigation.navigate("ProfileScreenCarrier");
+    }
+    if (respuesta?.role === 1) {
+      alert(
+        "La dirección de correo electrónico o la contraseña que ingresaste no son válidas!"
+      );
+    }
+  }, [respuesta]);
 
   const [log, setLog] = useState({
     mail: "",
     contraseña: "",
   });
 
+  // const name = respuesta.name
   // const ChangeInput = (e) => {
   //   setLog({
   //     // y sino es  generos y platforms, directamente pongo lo que escribo en el input
@@ -29,18 +59,18 @@ const SingIn = ({ navigation }) => {
   //     [e.target.name]: e.target.value,
   //   });
   // };
-  const handelChangeMail=(email)=>{
+  const handelChangeMail = (email) => {
     setLog({
-        ...log,
-        mail:email
-    })
-}
-const handelChangePass=(pass)=>{
+      ...log,
+      mail: email,
+    });
+  };
+  const handelChangePass = (pass) => {
     setLog({
-        ...log,
-        contraseña:pass
-    })
-}
+      ...log,
+      contraseña: pass,
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,12 +79,27 @@ const handelChangePass=(pass)=>{
       eMail: log.mail,
       password: log.contraseña,
     };
+
+    //Validaciones:
+
+    if (!obj.eMail.includes(".com") || !obj.eMail.includes("@")) {
+      alert("Por favor escribe un correo electrónico válido!");
+      return;
+    }
+    if (!obj.password) {
+      alert("Por favor escribe una Contraseña válida!");
+      return;
+    }
+
     dispatch(logiarUsuario(obj));
     console.log("Estoy enviado", obj);
     setLog({
       mail: "",
       contraseña: "",
     });
+
+    //cuando se cumpla que respuesta != null
+    //haga un console.log(respuesta)
   };
 
   function navigate() {
@@ -122,15 +167,6 @@ const handelChangePass=(pass)=>{
         <TouchableOpacity style={styles.TextButton} onPress={navigate}>
           <Text style={styles.SingUpText}>Registrate Ahora</Text>
         </TouchableOpacity>
-        {/* BOTONES QUE USO PARA DIRIGIRME A MI PANTALLA */}
-        {/* <Button
-          title="Editar Perfil usuario"
-          onPress={() => navigation.navigate("EditProfile")}
-        />
-        <Button
-          title="Editar Perfil Transportista"
-          onPress={() => navigation.navigate("EditProfileCarrier")}
-        /> */}
       </View>
     </ScrollView>
     // Container End

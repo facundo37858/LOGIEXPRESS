@@ -7,14 +7,16 @@ import SingIn from "./Components/SingIn";
 import SingUp from "./Components/SingUp";
 import EditProfile from "./Components/EditProfile";
 import EditProfileCarrier from "./Components/EditProfileCarrier";
-// import EditVehiculeCarrier from "./Components/EditVehiculeCarrier";
 import CompleteProfileUser from "./Components/CompletarPerfil/CompleteProfileUser";
 import CompleteProfileCarrier from "./Components/CompletarPerfil/CompleteProfileCarrier";
 import ProfileUserScreen from "./Components/ProfileUserScreen";
 import ProfileScreenCarrier from "./Components/ProfileScreenCarrier";
 import ScreenMap from "./Components/ScreenMap";
-import Componentedeauxilio from "./Components/Componentedeauxilio";
 import RequestTravel from "./Components/RequestTravel";
+import StartCarrier from "./Components/ComenzarViaje/StartCarrier";
+import ScreenWaiting from "./Components/ScreenWaiting";
+import PaymentApp from "./Components/Payment/PaymentApp";
+import StartUser from "./Components/ComenzarViaje/StartUser"
 
 const Stack = createStackNavigator();
 
@@ -39,11 +41,7 @@ const App = () => {
             component={EditProfileCarrier}
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen
-            name="EditVehiculeCarrier"
-            component={EditVehiculeCarrier}
-            options={{ headerShown: false }}
-          /> */}
+         
           <Stack.Screen
             name="CompleteProfileUser"
             component={CompleteProfileUser}
@@ -54,21 +52,45 @@ const App = () => {
             component={CompleteProfileCarrier}
             options={{ headerShown: false }}
           />
-          <Stack.Screen name="ProfileScreenCarrier" component={ProfileScreenCarrier} />
-          <Stack.Screen name="ScreenMap" component={ScreenMap} options={{ headerShown: false }} />
           <Stack.Screen
-            name="ProfileUserScreen"
-            component={ProfileUserScreen}
+            name="ProfileScreenCarrier"
+            component={ProfileScreenCarrier}
           />
           <Stack.Screen
-            name="Componentedeauxilio"
-            component={Componentedeauxilio}
+            name="ScreenMap"
+            component={ScreenMap}
             options={{ headerShown: false }}
           />
           <Stack.Screen
-          name="RequestTravel"
-          component={RequestTravel}
-          options={{ headerShown: false }} />
+            name="ProfileUserScreen"
+            component={ProfileUserScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="RequestTravel"
+            component={RequestTravel}
+            options={{ headerShown: false }}
+          />
+           <Stack.Screen 
+          name="StartUser"
+          component={StartUser}
+          options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name='PaymentApp'
+            component={PaymentApp}
+            options={{hederShown:false}}
+          />
+          <Stack.Screen 
+          name="StartCarrier"
+          component={StartCarrier}
+          options={{ headerShown: false }}
+          /> 
+          <Stack.Screen 
+          name="ScreenWaiting"
+          component={ScreenWaiting}
+          options={{ headerShown: false }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

@@ -34,7 +34,7 @@ const SingIn = ({ navigation }) => {
   useEffect(() => {
     console.log("aqui esta la respuestaaaa:", respuesta);
     if (respuesta?.role === true) {
-      navigation.navigate("ProfileScreenCarrier");
+      navigation.navigate("ProfileUserScreen");
     }
     if (respuesta?.role === false) {
       navigation.navigate("ProfileScreenCarrier");
@@ -167,6 +167,7 @@ const SingIn = ({ navigation }) => {
         <TouchableOpacity style={styles.TextButton} onPress={navigate}>
           <Text style={styles.SingUpText}>Registrate Ahora</Text>
         </TouchableOpacity>
+
       </View>
     </ScrollView>
     // Container End

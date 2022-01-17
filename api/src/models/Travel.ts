@@ -18,16 +18,16 @@ export class Travel extends Model {
     destination!: string
 
     @Column
-    weigth!: number
-
-    @Column
     price!: string
 
     @Column
-    description!: string
+    weight!: string
 
     @Column
-    weight!: string
+    description!: string
+    
+    @Column
+    finishedTravel!: string
 
     @Column
     score!: number
@@ -44,7 +44,7 @@ export class Travel extends Model {
     user!: User
 
     @ForeignKey(() => User)
-    userId!: User
+    userId!: string
 
     @BelongsTo(() => Carrier)
     carrier!: Carrier

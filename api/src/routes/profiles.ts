@@ -11,24 +11,23 @@ const router = Router()
 
 router.post('/userProfile', async (req: Request, res: Response, next: NextFunction) => {
 	// res.send('llega al user profile')
-	const { id, identification, zone, photo, account } = req.body
+	const { id, identification, zone, photo, account, phone } = req.body
 
 	try {
-
 
 		let newProfile = {
 			id: uuid(),
 			identification: identification,
 			zone: zone,
+			phone: phone,
 			photo: photo,
-			account: account
+			account: account,
+			idUserReg:id
 		}
 		User.create(newProfile)
 			.then((newProfile) => {
-
 				res.send(newProfile);
 			})
-
 	} catch (err) {
 		next(err)
 	}
@@ -57,9 +56,9 @@ router.post('/userProfile', async (req: Request, res: Response, next: NextFuncti
 //Eli saco email y phone
 router.post('/carrierProfile', async (req: Request, res: Response, next: NextFunction) => {
 	// res.send('llega al carrier profile')
-	const { documentID, license, location, photo, Cuenta,
-		brand, patent, model, color, capacity } = req.body
-
+	const { id, documentID, license, location, Cuenta,
+		brand, patent, model, color, capacity, photo } = req.body
+     
 	try {
 
 		let idCarrier = uuid()
@@ -69,16 +68,17 @@ router.post('/carrierProfile', async (req: Request, res: Response, next: NextFun
 			documentID: documentID,
 			license: license,
 			location: location,
+			Cuenta: Cuenta,
 			photo: photo,
-			Cuenta: Cuenta
+			idUserReg:id
 		}
 		var newTrack = {
 			id: uuid(),
-			brand,
-			patent,
-			model,
-			color,
-			capacity,
+			brand:brand ||null,
+			patent: patent||null,
+			model :model||null,
+			color :color||null,
+			capacity: capacity||null,
 			CarrierId: idCarrier
 		}
 

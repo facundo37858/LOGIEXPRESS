@@ -12,8 +12,8 @@ export class User extends Model {
     identification!: number
 
     @Column 
-    zone!: string  
- 
+    zone!: string
+    
     @Column
     photo!: string
 

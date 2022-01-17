@@ -55,7 +55,7 @@ const StartUser = (props) => {
       </ImageBackground>
       <View>
 
-        <Text style={{ marginLeft: 20, marginTop: -70, marginBottom: 10, fontSize: 20, fontWeight: '200' }}>Información sobre el Conductor</Text>
+        <Text style={{ textAlign: 'center', marginTop: -80, marginBottom: 10, fontSize: 20, fontWeight: '200' }}>Información sobre el Conductor</Text>
         {/* estrellas rating */}
 
         <View style={{ width: 240, alignSelf: 'center', marginBottom: 10, }}>

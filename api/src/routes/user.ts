@@ -22,61 +22,19 @@ router.get('/user', passport.authenticate("jwt", { session: false }), async (req
         next(err)
     }
 });
-//para registrar user
-router.options('/user', async (res: Response) => {
-    res.send('Options send')
-})
-// router.post('/user', async (req: Request, res: Response, next: NextFunction) => {
-// 	// const data1 = JSON.parse(req.body)
-// 	console.log("Estes es el body", req.body);
 
-// 	const { name, lastName, phone, password, eMail, terminosCondiciones, role } = req.body
-
-// 	let passwordHash = await bcrypt.hash(password,8)
-
-/* let passwordHash = await bcrypt.hash(password, 8)
-*/
-// 	let newUser = {
-// 		id: uuid(),
-// 		name,
-// 		lastName,
-// 		password: passwordHash,
-// 		phone,
-// 		terminosCondiciones,
-// 		eMail,
-// 		role
-// 	}
-// 	try {
-// 		const [user/*usuario creado o excistente */, created/*boolean true->lo creo false->no lo creo pq exciste */] = await User_Reg.findOrCreate({//crea un usuario si no excisiste 
-// 			where: { eMail: eMail },
-// 			defaults: newUser
-// 		})
-
-// 		if (!created) {
-// 			return res.send('eMail usado')//podria ser un boolean 
-// 		}
-// 		// console.log('User:',user,'Bool: ',created)
-
-/* 
-        const payload = {
-            eMail,
-            // id: id,
-            role: role,
-            name: name,
-            lastname: lastName,
-            phone: phone,
-        }; */
+router.post('/user', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { token } = req.body
 
 
-// 		res.send('Usuario creado')//podria ser un boolean 
+    }
+    catch (err) {
+        next(err)
+    }
+});
 
 
-// 	}
-// 	catch (err) {
-// 		next(err)
-
-// 	}
-// });
 router.post('/user', async (req: Request, res: Response, next: NextFunction) => {
     // const data1 = JSON.parse(req.body)
     console.log("Estes es el body", req.body);

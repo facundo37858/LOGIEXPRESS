@@ -8,27 +8,6 @@ export const URL_TRAVEL = "http://192.168.1.6:3001/api/Travel";
 export const URL_TRAVEL_ID = "http://192.168.1.6:3001/api/oneTravel";
 export const GET_TRAVEL_ID = "GET_TRAVEL_ID";
 
-// import { registrarUsuario } from './index';
-
-// export function registrarUsuario(obj) {
-//   return (dispatch) =>
-//     fetch("http://localhost:3001/api/user", {
-//       method: "POST",
-//       headers: {
-//         Accept: "application/json",
-//         "Content-Type": "application/x-www-form-urlencoded ",
-//       },
-//       body: JSON.stringify(obj),
-//     })
-//       .then((resp) => resp.json())
-//       .then((json) => {
-//         dispatch({
-//           type: "REGISTRO",
-//           payload: json,
-//         });
-//       });
-// }
-
 export function getTravelID(payload) {
   return async function (dispatch) {
     try {
@@ -114,6 +93,7 @@ export function logiarUsuario(payload) {
           dispatch({
             type: "LOGEOO",
             payload: r.data.payload,
+            token: r.data.token,
           });
           console.log("hace el dispatch");
           console.log("response:", r.data.payload);
@@ -163,27 +143,3 @@ export function completeProfileCarrier(payload) {
     }
   };
 }
-
-// import FormData from "FormData";
-
-// var formData = new FormData();
-// formData.append("key1", "value");
-// formData.append("key2", "value");
-
-// let postData = {
-//   method: "POST",
-//   headers: {
-//     Accept: "application/json",
-//     "Content-Type": "multipart/form-data",
-//   },
-//   body: formData,
-// };
-
-// fetch(api_url, postData)
-//   .then((response) => response.json())
-//   .then((responseJson) => {
-//     console.log("response:", responseJson);
-//   })
-//   .catch((error) => {
-//     console.error(error);
-//   });

@@ -74,6 +74,7 @@ const App = () => {
            <Stack.Screen 
           name="StartUser"
           component={StartUser}
+          options={{ headerShown: false }}
           />
           <Stack.Screen
             name='PaymentApp'
@@ -88,6 +89,7 @@ const App = () => {
           <Stack.Screen 
           name="ScreenWaiting"
           component={ScreenWaiting}
+          options={{ headerShown: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>

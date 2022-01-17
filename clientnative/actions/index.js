@@ -5,6 +5,11 @@ export const POST_REQUEST_TRAVE = "POST_REQUEST_TRAVE"
 export const URL_PRICE_QUOTE = "http://192.168.2.104:3001/api/calculatePrice"
 export const URL_REQUEST_TRAVEL = "http://192.168.2.104:3001/api/requestTravel"
 export const URL_TRAVEL = "http://192.168.2.104:3001/api/Travel"
+<<<<<<< HEAD
+=======
+export const URL_TRAVEL_ID = "http://192.168.2.104:3001/api/oneTravel"
+export const GET_TRAVEL_ID = "GET_TRAVEL_ID"
+>>>>>>> 4d4497c3e84196390cfb5fdfdf6c6d5203875412
 
 
 
@@ -31,6 +36,25 @@ export const URL_TRAVEL = "http://192.168.2.104:3001/api/Travel"
 // }
 
 
+<<<<<<< HEAD
+=======
+
+export function getTravelID(payload) {
+  return async function(dispatch) {
+    try {
+      const travelID = await axios.post(URL_TRAVEL_ID, payload)
+      return dispatch({
+        type: GET_TRAVEL_ID,
+        payload: travelID.data
+      })
+    } catch (error) {
+      console.log("Error:", error)
+    }
+  }
+}
+
+
+>>>>>>> 4d4497c3e84196390cfb5fdfdf6c6d5203875412
 export function getTravels() {
   return async function(dispatch) {
     try {

@@ -1,14 +1,27 @@
 import * as React from 'react';
 import MapView from 'react-native-maps';
 import { Marker, Callout } from 'react-native-maps';
+<<<<<<< HEAD
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
+=======
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Image, Animated } from 'react-native';
+>>>>>>> 4d4497c3e84196390cfb5fdfdf6c6d5203875412
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { getTravels } from '../actions/index.js'
 import * as Location from 'expo-location';
+import { useNavigation } from "@react-navigation/core";
+import StarRating from './StarRating.js';
 
-export default function App() {
+
+
+const ScreenMap = () => {
+
+
+    const navigation = useNavigation();
+    const dispatch = useDispatch();
+
 
     const dispatch = useDispatch()
 
@@ -34,7 +47,11 @@ export default function App() {
 
 
 
+<<<<<<< HEAD
     /*  console.log("Esto es Travel", travels) */
+=======
+     console.log("Esto es Travel", travels)
+>>>>>>> 4d4497c3e84196390cfb5fdfdf6c6d5203875412
 
 
     const [pin, setPin] = useState({
@@ -47,6 +64,7 @@ export default function App() {
         longitude: -122.4324,
     })
 
+<<<<<<< HEAD
     const marker = [
         {
             coordinate: {
@@ -73,6 +91,10 @@ export default function App() {
             }
         }
     ]
+=======
+    const rating = 3;
+
+>>>>>>> 4d4497c3e84196390cfb5fdfdf6c6d5203875412
     return (
         <View style={styles.container}>
             <GooglePlacesAutocomplete
@@ -136,8 +158,13 @@ export default function App() {
                 </Marker>} */}
                 {
                     travels?.map((point, index) => {
+<<<<<<< HEAD
                         const orig = point.orig.split("/")
                         const dest = point.destination.split("/")
+=======
+                        const orig = point.travel.orig.split("/")
+                        const dest = point.travel.destination.split("/")
+>>>>>>> 4d4497c3e84196390cfb5fdfdf6c6d5203875412
                         const lat = Number(orig[0])
                         const lon = Number(orig[1])
                         return (
@@ -153,6 +180,7 @@ export default function App() {
                                     <Text>ID: {point.id}</Text>
                                     <Text>DESCRIPCION: {point.description}</Text>
                                     <Text>ORIGEN:{orig[2]}</Text>
+<<<<<<< HEAD
                                     <Text>DESTINO:{dest[2]}</Text>
                                     <Text>PESO:{point.weight}</Text>
                                     <Text>PRECIO:{point.price}</Text>
@@ -161,6 +189,8 @@ export default function App() {
                                             <Text style={styles.textBtn}>Ver mas!</Text>
                                         </TouchableOpacity>
                                     </View>
+=======
+>>>>>>> 4d4497c3e84196390cfb5fdfdf6c6d5203875412
                                 </Callout>
                             </MapView.Marker>
                         )
@@ -168,9 +198,51 @@ export default function App() {
                     )
                 }
             </MapView>
+<<<<<<< HEAD
+=======
+            <Animated.ScrollView
+                horizontal
+                scrollEventThrottle={1}
+                showHorizontalScrollIndicator={false}
+                style={styles.scrollView}
+            >
+                {travels?.map((resp, index) => {
+                    const orig = resp.travel.orig.split("/")
+                    const dest = resp.travel.destination.split("/")
+                    return (
+                        <View style={styles.card} key={index}>
+                            <View style={{alignItems: "center", flexDirection: "column"} }>
+                                <Image source={require('./Utils/foto1.jpg')} style={styles.cardImage} />
+                                <StarRating ratings={rating} reviews={rating} />
+                                <Text>User: {resp.user.identification}</Text>
+                            </View>
+                            <View style={styles.textContent}>
+                                <Text>ID: {resp.travel.id}</Text>
+                                <Text>DESCRIPCION: {resp.travel.description}</Text>
+                                <Text>ORIGEN:{orig[2]}</Text>
+                                <Text>DESTINO:{dest[2]}</Text>
+                                <Text>PESO:{resp.travel.weight}</Text>
+                                <Text>PRECIO:{resp.travel.price}</Text>
+                                <View style={styles.btn2}>
+                                    <TouchableOpacity style={styles.btnEditar} onPress={() => navigation.navigate("StartCarrier", resp)} >
+                                        <Text style={styles.textBtn}> Ofrecer Servicio</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                    )
+                })}
+
+            </Animated.ScrollView>
+
+>>>>>>> 4d4497c3e84196390cfb5fdfdf6c6d5203875412
         </View >
     );
 }
+
+
+export default ScreenMap;
+
 
 const styles = StyleSheet.create({
     container: {
@@ -196,5 +268,48 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         marginTop: 12,
     },
+<<<<<<< HEAD
+=======
+    scrollView: {
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        paddingVertical: 10,
+    },
+    cardImage: {
+        height: 150,
+        width: 150,
+        borderRadius: 100,
+    },
+    cardtitle: {
+        fontSize: 12,
+        // marginTop: 5,
+        fontWeight: "bold",
+    },
+    cardDescription: {
+        fontSize: 12,
+        color: "#444",
+    },
+    textContent: {
+        flex: 2,
+        padding: 10,
+    },
+    card: {
+        // padding: 10,
+        elevation: 2,
+        backgroundColor: "#FFF",
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        marginHorizontal: 10,
+        shadowColor: "#000",
+        shadowRadius: 5,
+        shadowOpacity: 0.3,
+        shadowOffset: { x: 2, y: -2 },
+        height: 400,
+        width: 250,
+        overflow: "hidden",
+    },
+>>>>>>> 4d4497c3e84196390cfb5fdfdf6c6d5203875412
 
 });

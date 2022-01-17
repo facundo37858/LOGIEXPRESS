@@ -45,7 +45,7 @@ const RequestTravel = () => {
     ////--> HOOK PARA LA NAVEGACION <-- ////
     const navigation = useNavigation();
     const dispatch = useDispatch();
-
+    const response = useSelector((store) => store.responseTravel )
 
     useEffect(() => {
         (async () => {
@@ -58,7 +58,10 @@ const RequestTravel = () => {
             let location = await Location.getCurrentPositionAsync({});
             console.log(location.coords);
         })();
-    }, [price]);
+        if(response !== null ) {
+            navigation.navigate('ScreenWaiting', response)
+        }
+    }, [price, response]);
 
     const price = useSelector((state) => state.price)
 
@@ -100,6 +103,7 @@ const RequestTravel = () => {
             id: "973ee39e-40ad-4b8f-aa71-70ea7d99ac33",
         };
         dispatch(requestTravel(travel))
+       
         console.log("Estoy enviando:", travel)
     }
 
@@ -224,7 +228,7 @@ const RequestTravel = () => {
                                 <Text style={styles.textBtn}>Solicitar</Text>
                             </TouchableOpacity>
                         </View>
-                        <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
+                    {/*     <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
                             Origen {`${origen.latitude}, ${origen.longitude}`}
 
                         </Text>
@@ -233,7 +237,7 @@ const RequestTravel = () => {
                         </Text>
                         <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
                             Kilometros = {getDistanciaMetros(origen, destino)}
-                        </Text>
+                        </Text> */}
                     </View>
                 </View>
             </ScrollView>

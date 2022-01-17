@@ -3,14 +3,14 @@ import axios from 'axios';
 import Stripe from 'stripe'
 //const Stripe = require("stripe")
 //const { conn, Shoe, Color, Brand, AvailableSizes, Role, Price } = require("./src/db.js");
-
+  
 
 const router = Router();
-
+ 
 // llave privada a stripe
 //const stripe = new Stripe("sk_test_51K2dGKJ8rEWDJkMVI4Ppno1uwJVUGB6O0cgvIUACjJt0wzzGB3MgfqXp6FQOXoEXLGo8xVfv0RgjWRsGAdVg3HP600sYbspyXY")
 
-const stripe = new Stripe('sk_test_51KHp41KDcJ8UiNxjhZPL9vNckvDi98mXuAEZAntgDhRSRe8ieczfK1u27oBRgj1ekxONHjpRev5oPjk3qqXiSJ4q00qs7thVnx', {
+const stripe = new Stripe('pk_test_51KHwMJH58Ljah9wGjMPQ9Os5fhEj5awCKf7ARtjrqcwUFGAVniXX5CTP3fP492gqrJv3MerKLDbnAByXzpPkYWsC00P8X1yX8l', {
     apiVersion: "2020-08-27",
     appInfo: { // For sample support and debugging, not required for production:
       name: "stripe-samples/accept-a-payment",
@@ -20,10 +20,10 @@ const stripe = new Stripe('sk_test_51KHp41KDcJ8UiNxjhZPL9vNckvDi98mXuAEZAntgDhRS
     typescript: true,
   })
 
-router.post('/paymentIntet',async(req:Request,res:Response,next:NextFunction)=>{
+router.post('/create-payment-intent',async(req:Request,res:Response,next:NextFunction)=>{
 
     const {amount, id}=req.body
-
+    console.log('esto es el id', id)
     try{  
         const paymentIntent: Stripe.PaymentIntent= await stripe.paymentIntents.create({
             amount,

@@ -14,11 +14,6 @@ router.post('/userProfile', async (req: Request, res: Response, next: NextFuncti
 	const { id, identification, zone, photo, account, phone } = req.body
 
 	try {
-
-
-
-
-
 		let newProfile = {
 			id: uuid(),
 			identification: identification || 0,
@@ -29,40 +24,16 @@ router.post('/userProfile', async (req: Request, res: Response, next: NextFuncti
 		}
 		User.create(newProfile)
 			.then((newProfile) => {
-
 				res.send(newProfile);
 			})
-
 	} catch (err) {
 		next(err)
 	}
-
-	// let newProfile = { 
-	// 	id: uuid(),
-	// 	identification:identification,
-	// 	zone:zone,
-	// 	phone:phone,
-	//     photo:photo,
-	//     account:account
-	// }
-
-
-
-	// User.create(newProfile)
-	// .then(newProfile => {
-	// 	res.send(newProfile);
-	// })
-	// .catch(error => next(error))
-
-
-
-});
-
-//Eli saco email y phone
+})
 router.post('/carrierProfile', async (req: Request, res: Response, next: NextFunction) => {
 	// res.send('llega al carrier profile')
-	const { documentID, license, location, photo, Cuenta,
-		brand, patent, model, color, capacity } = req.body
+	const { id, documentID, license, location, Cuenta,
+		brand, patent, model, color, capacity, photo } = req.body
 
 	try {
 
@@ -97,40 +68,6 @@ router.post('/carrierProfile', async (req: Request, res: Response, next: NextFun
 		next(err)
 	}
 
-
-
-
-
-
-	// 		}else{
-	// 			res.send(`Datos incompletos`)
-	// 		}
-
-
-
-	// 	}catch(e){
-
-	// 		next(e)
-	// 	}
-
-	// }
-
-
-	// let newProfile = { 
-	// 	id: uuid(),
-	// 	documentID:documentID,
-	// 	license:license,
-	// 	email:email,
-	// 	phone:phone,
-	//     location:location,
-	//     CBU:CBU
-	// }
-
-	// Carrier.create(newProfile)
-	// .then(newProfile => {
-	// 	res.send(newProfile);
-	// })
-	// .catch(error => next(error))
 });
 
 

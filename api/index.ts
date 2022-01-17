@@ -43,7 +43,7 @@ const resApiUsers = async () => {
 
 
 		await User_Reg.bulkCreate(users)
-			//.then((u) => { console.log(u) })
+		//.then((u) => { console.log(u) })
 
 		return users
 
@@ -58,11 +58,11 @@ const resApiUsers = async () => {
 	}
 
 }
-sequelize.sync({ force: false, logging: false })
-
+sequelize
+	.sync({ force: false, logging: false })
 	.then(async () => {
 		await resApiUsers()
-		
+
 	})
 	.then(() => {
 		console.log('base de datos conectada! :D')

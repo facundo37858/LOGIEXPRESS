@@ -28,6 +28,9 @@ const CompleteProfileUser = () => {
     console.log("SOY DATOS DEL USER", datosUser);
   }, [datosUser]);
 
+
+
+
   /// --> ESTADO PARA EL MODAL <-- ///
   const [isModalVisible, setisModalVisible] = useState(false);
   const [chooseData, setchooseData] = useState();
@@ -43,7 +46,7 @@ const CompleteProfileUser = () => {
   const [user, setUser] = useState({
     identification: "",
     zone: "",
-    account: "",
+  
   });
 
   ////--> IMAGE PICKER <-- ////
@@ -108,13 +111,6 @@ const CompleteProfileUser = () => {
     });
   };
 
-  const handleChangeAccount = (account) => {
-    setUser({
-      ...user,
-      account: account,
-    });
-  };
-
   function handleSubmit(e) {
     e.preventDefault();
     const obj = {
@@ -122,6 +118,7 @@ const CompleteProfileUser = () => {
       zone: user.zone,
       account: user.account,
       photo: selectedImage,
+      id: datosUser.id
     };
     dispatch(completeProfileUser(obj));
     console.log("soy lo que se envia", obj);
@@ -179,7 +176,7 @@ const CompleteProfileUser = () => {
               <View style={styles.viewsInputs}>
                 <Icon name="person-circle-outline" size={26} />
                 <Text style={{ fontSize: 18, marginLeft: 15 }}>
-                  {datosUser.lastname}
+                  {datosUser.lastName}
                 </Text>
                 <TextInput style={styles.textPlaceholder} />
               </View>
@@ -235,21 +232,6 @@ const CompleteProfileUser = () => {
                   {datosUser.phone}
                 </Text>
                 <TextInput style={styles.textPlaceholder} />
-              </View>
-
-              <View style={styles.viewsInputs}>
-                <Icon
-                  name="card-outline"
-                  size={26}
-                  style={{ paddingBottom: 2 }}
-                />
-                <TextInput
-                  value={user.account}
-                  onChangeText={(account) => handleChangeAccount(account)}
-                  placeholder="Medio de pago: mercadoPago"
-                  name="account"
-                  style={styles.textPlaceholder}
-                />
               </View>
 
               <TouchableOpacity

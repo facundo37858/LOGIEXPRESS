@@ -10,7 +10,34 @@ import { Vehicle } from '../models/Vehicle';
 
  var userFake=[
  {
-		id: uuid(),
+		id: '360208c5-551c-4825-afc5-b05a0e4c9a62',
+		name:"Nemesio",
+		lastName:"Andara",
+		password: "passwordHash",
+		phone:"+584121222392",
+		terminosCondiciones:true,
+		eMail:"NemesioAndara@gmail.com",
+		role:true
+	},{
+		id: '7d06a399-d1a0-4050-a388-eca747b5f762',
+		name:"Marcos",
+		lastName:"Cordoba",
+		password: "passwordHash",
+		phone:"+584121222392",
+		terminosCondiciones:true,
+		eMail:"marcoscordoba@gmail.com",
+		role:true
+	},{
+		id: '90fd0c76-8459-4eda-972a-8be589f8f694',
+		name:"Alejandro",
+		lastName:"Casadiego",
+		password: "passwordHash",
+		phone:"+584121222392",
+		terminosCondiciones:true,
+		eMail:"alejandrocasadiego@gmail.com",
+		role:true
+	},{
+		id: '0029abfb-cc79-4624-aede-aeff02ca4968',
 		name:"Allan",
 		lastName:"Torres",
 		password: "passwordHash",
@@ -19,7 +46,7 @@ import { Vehicle } from '../models/Vehicle';
 		eMail:"allaneduardot@gmail.com",
 		role:false
 	},{
-		id: uuid(),
+		id: '0fe1f9b6-a3d5-4d34-8026-1e239c5a3ef9',
 		name:"Eliana",
 		lastName:"Henry",
 		password: "passwordHash",
@@ -28,7 +55,7 @@ import { Vehicle } from '../models/Vehicle';
 		eMail:"elianahenry@gmail.com",
 		role:false
 	},{
-		id: uuid(),
+		id: '3840c5ad-a72d-40b7-bd27-46db1e27d481',
 		name:"Facu",
 		lastName:"Henry",
 		password: "passwordHash",
@@ -37,7 +64,7 @@ import { Vehicle } from '../models/Vehicle';
 		eMail:"Facuhenry@gmail.com",
 		role:false
 	},{
-		id: uuid(),
+		id: '3b44d0d9-615f-4ea3-bd81-8557b739ce00',
 		name:"Luis",
 		lastName:"Henry",
 		password: "passwordHash",
@@ -46,7 +73,7 @@ import { Vehicle } from '../models/Vehicle';
 		eMail:"Luishenry@gmail.com",
 		role:false
 	},{
-		id: uuid(),
+		id: '503296d5-4da6-4d22-a591-4a9d647ee4b4',
 		name:"Gonza",
 		lastName:"Henry",
 		password: "passwordHash",
@@ -55,7 +82,7 @@ import { Vehicle } from '../models/Vehicle';
 		eMail:"Gonzahenry@gmail.com",
 		role:false
 	},{
-		id: uuid(),
+		id: '86b689c8-6a1a-4e93-aed9-2d60b89b51ad',
 		name:"Maca",
 		lastName:"Henry",
 		password: "passwordHash",
@@ -64,7 +91,7 @@ import { Vehicle } from '../models/Vehicle';
 		eMail:"Macahenry@gmail.com",
 		role:false
 	},{
-		id: uuid(),
+		id: 'b17aacfa-0bd6-4ef8-8825-4ad417082715',
 		name:"Fredy",
 		lastName:"Henry",
 		password: "passwordHash",
@@ -73,7 +100,7 @@ import { Vehicle } from '../models/Vehicle';
 		eMail:"Fredyhenry@gmail.com",
 		role:false
 	},{
-		id: uuid(),
+		id: 'b42586c3-02b3-4966-95a0-89b0b35c958d',
 		name:"Matias",
 		lastName:"HenryHero",
 		password: "passwordHash",
@@ -82,7 +109,7 @@ import { Vehicle } from '../models/Vehicle';
 		eMail:"MatiashenryHero@gmail.com",
 		role:false
 	},{
-		id: uuid(),
+		id: 'e30eef12-d9e6-4eb3-82e5-3d4277ebd92c',
 		name:"Franco",
 		lastName:"Teacher",
 		password: "passwordHash",
@@ -91,7 +118,7 @@ import { Vehicle } from '../models/Vehicle';
 		eMail:"FrancoTeacherHenry@gmail.com",
 		role:false
 	},{
-		id: uuid(),
+		id: 'e4457da8-be02-4757-864a-ee8a551c63c1',
 		name:"Martina",
 		lastName:"Teacher",
 		password: "passwordHash",
@@ -108,7 +135,8 @@ var carrierFake = [{
 			eMail: "a@gmail.com",
 			phone: 121211212,
 			location: "0000000, 111111",
-			CBU: "225114"
+			CBU: "225114",
+			UserRegId: '0029abfb-cc79-4624-aede-aeff02ca4968'
  },{			
             id:"1b8ed2d7-1660-4fd0-a7e7-049a533d543d",
 			documentID: "3033333",
@@ -116,7 +144,8 @@ var carrierFake = [{
 			eMail: "allanedurdot@gmail.com",
 			phone: 121211212,
 			location: "2222222, 33333",
-			CBU: "1324234"
+			CBU: "1324234",
+			UserRegId: '0fe1f9b6-a3d5-4d34-8026-1e239c5a3ef9'
 		},{			
             id:"1cdf84c7-4096-4136-9783-463ea992b637",
 			documentID: "1e123d1",
@@ -124,7 +153,8 @@ var carrierFake = [{
 			eMail: "allanedurdot@gmail.com",
 			phone: 0,
 			location: "4444444, 33333",
-			CBU: "03039393"
+			CBU: "03039393",
+			UserRegId: '3840c5ad-a72d-40b7-bd27-46db1e27d481'
 		},{			
             id:"236af201-b546-4b8c-bf21-28c96d5970f1",
 			documentID: "documentoIDGonza",
@@ -132,7 +162,8 @@ var carrierFake = [{
 			eMail: "allanedurdot@gmail.com",
 			phone: 0,
 			location: "444224,121212",
-			CBU: "0303939asd"
+			CBU: "0303939asd",
+			UserRegId: '3b44d0d9-615f-4ea3-bd81-8557b739ce00'
 		},{			
             id:"49824efe-37c5-4389-8a72-14822899dd9c",
 			documentID: "documentoIDFranco",
@@ -140,7 +171,8 @@ var carrierFake = [{
 			eMail: "allanedurdot@gmail.com",
 			phone: 0,
 			location: "44asda4,0000212",
-			CBU: "0303939asd"
+			CBU: "0303939asd",
+			UserRegId: '503296d5-4da6-4d22-a591-4a9d647ee4b4'
 		},{			
             id:"7fd536f3-f760-4372-8894-044c1e99a872",
 			documentID: "documentoIDLuis",
@@ -148,7 +180,8 @@ var carrierFake = [{
 			eMail: "allanedurdot@gmail.com",
 			phone: 0,
 			location: "33433434,0000212",
-			CBU: "3343434q43"
+			CBU: "3343434q43",
+			UserRegId: '86b689c8-6a1a-4e93-aed9-2d60b89b51ad'
 		},{			
             id:"a015ed83-8692-4c4f-af1e-c4a6df4e1fb9",
 			documentID: "documentoIDMAtias",
@@ -156,7 +189,8 @@ var carrierFake = [{
 			eMail: "allanedurdot@gmail.com",
 			phone: 0,
 			location: "Ubicacion,Matias",
-			CBU: "CBUMatias"
+			CBU: "CBUMatias",
+			UserRegId: 'b17aacfa-0bd6-4ef8-8825-4ad417082715'
 		},{			
             id:"b85f6147-3482-42a0-b00c-266710367275",
 			documentID: "documentoIDMartina",
@@ -164,7 +198,8 @@ var carrierFake = [{
 			eMail: "allanedurdot@gmail.com",
 			phone: 0,
 			location: "Ubicacion,Martina",
-			CBU: "CBUMartina"
+			CBU: "CBUMartina",
+			UserRegId: 'b42586c3-02b3-4966-95a0-89b0b35c958d'
 		},{			
             id:"d281c6f7-29c6-4c9c-8b03-6fc90e4282ba",
 			documentID: "documentoIDEliana",
@@ -172,7 +207,8 @@ var carrierFake = [{
 			eMail: "allanedurdot@gmail.com",
 			phone: 0,
 			location: "Ubicacion,Eliana",
-			CBU: "CBUEliana"
+			CBU: "CBUEliana",
+			UserRegId: 'e30eef12-d9e6-4eb3-82e5-3d4277ebd92c'
 		},{			
             id:"e2bc48a0-cb4c-48a4-ad08-cf13f5079b6e",
 			documentID: "documentoIDFacu",
@@ -180,7 +216,8 @@ var carrierFake = [{
 			eMail: "allanedurdot@gmail.com",
 			phone: 0,
 			location: "Ubicacion,Facu",
-			CBU: "CBUFacu"
+			CBU: "CBUFacu",
+			UserRegId: 'e4457da8-be02-4757-864a-ee8a551c63c1'
 		}]
 		var vehicleFake = [{
 			id: uuid(),
@@ -272,12 +309,43 @@ var carrierFake = [{
 			capacity:2,
 			CarrierId:"e2bc48a0-cb4c-48a4-ad08-cf13f5079b6e"
 		}]
+	var idUser=[
+	{
+      id: '973ee39e-40ad-4b8f-aa71-70ea7d99ac33',
+    identification: 765765,
+     zone: "string1",
+       phone:9898999,
+       photo: 'fotostring1',
+       account: 'accountstring1',
+	   idUserReg: '360208c5-551c-4825-afc5-b05a0e4c9a62'
+	},
+	{
+      id: 'cdcd30ba-6ab1-41bc-a5d0-b010439aa223',
+      identification: 989879,
+     zone: "string2", 
+     phone:121312,
+     photo: 'fotostring2',
+     account: 'accountstring2',
+	 idUserReg: "7d06a399-d1a0-4050-a388-eca747b5f762"
+	},
+	{
+      id: 'd4053632-8539-46d6-be65-066212006b99',
+    identification: 123234,
+    zone: "string3", 
+    phone:4653442,
+    photo: 'fotostring3',
+    account: 'accountstring3',
+    idUserReg: "90fd0c76-8459-4eda-972a-8be589f8f694"
+	}
+	]	
 const router = Router()
-router.get('/uploadDataFake', async(req: Request, res: Response) => {
-            const user_regs= await User_Reg.bulkCreate(userFake);
-           let carrier = await Carrier.bulkCreate(carrierFake);
-           let track = await Vehicle.bulkCreate(vehicleFake);   
-	res.send("uploadDataFake Ok");
+ router.get('/uploadDataFake', async(req: Request, res: Response) => {
+             const user_regs= await User_Reg.bulkCreate(userFake);
+            let carrier = await Carrier.bulkCreate(carrierFake);
+            let track = await Vehicle.bulkCreate(vehicleFake); 
+    //const userTrue = await User_Reg.findAll({where:{role:true},attributes:[['id','UserRegId']]})  
+             const userTrues = await User.bulkCreate(idUser);  
+	res.send("Create Data Fake");
 });
 
 

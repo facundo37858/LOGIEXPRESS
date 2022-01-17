@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import * as SecureStore from "expo-secure-store";
 import { Ionicons } from "@expo/vector-icons";
 import {
   Text,
@@ -34,7 +34,7 @@ const SingIn = ({ navigation }) => {
   useEffect(() => {
     console.log("aqui esta la respuestaaaa:", respuesta);
     if (respuesta?.role === true) {
-      navigation.navigate("ProfileScreenCarrier");
+      navigation.navigate("ProfileUserScreen");
     }
     if (respuesta?.role === false) {
       navigation.navigate("ProfileScreenCarrier");
@@ -105,6 +105,33 @@ const SingIn = ({ navigation }) => {
   function navigate() {
     navigation.navigate("singUp");
   }
+
+  // const tokenredux = useSelector((store) => store.token);
+
+  // const [result, onChangeResult] = useState("(result)");
+
+  // async function save(key, value) {
+  //   //FUNCION PARA GUARDAR LA INFO EN EL STORE, KEY = token , VALUE=el string del token
+  //   await SecureStore.setItemAsync(key, value);
+  // }
+
+  // async function getValueFor(key) {
+  //   // SE CONSULTA EL VALUE DEL STORE, CON EL KEY
+  //   let result = await SecureStore.getItemAsync(key);
+  //   if (result) {
+  //     onChangeResult(result);
+  //   } else {
+  //     alert("Invalid Key");
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   console.log("aqui esta EL TOKEN:", tokenredux);
+  //   getValueFor(token); // guardo en result, el token guardado en el store
+  //   if (tokenredux != result) {
+  //     // corroboro si lo que me llega de redux, es lo mismo que tengo guardado
+  //   }
+  // }, [tokenredux]);
 
   return (
     //Container Start

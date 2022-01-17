@@ -4,6 +4,11 @@ import { Carrier } from './Carrier'
 import { User } from './User'
 
 
+export interface IUser extends User_Reg {
+    eMail: string,
+    password: string
+}
+
 
 // @Table
 // export class User extends Model {
@@ -41,11 +46,11 @@ export class User_Reg extends Model {
     @Column({ primaryKey: true })
     id!: string
 
-    @HasOne(()=>Carrier) 
-    carrier!:Carrier
+    @HasOne(() => Carrier)
+    carrier!: Carrier
 
-    @HasOne(()=>User)
-    user!:User
+    @HasOne(() => User)
+    user!: User
 
     @Column
     name!: string
@@ -57,18 +62,18 @@ export class User_Reg extends Model {
     phone!: string
 
     @Column
-    eMail!:string
+    eMail!: string
 
     @Column
-    password!:string
+    password!: string
 
     @Column
     terminosCondiciones!: boolean
 
     @Column
-    role!:boolean
+    role!: boolean
 
-   
+
 
 }
 

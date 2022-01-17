@@ -10,11 +10,18 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/core";
+import StarRating from "./StarRating";
 
 const ProfileScreen = () => {
+
+
+  const rating = 4;
+
+
+
   const navigation = useNavigation();
   return (
-    <View style={{ flex: 1, backgroundColor: "#fff" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
@@ -27,43 +34,7 @@ const ProfileScreen = () => {
           </View>
           <Text style={styles.userName}>Bill Gate</Text>
           <Text style={styles.aboutUser}>Calificacion</Text>
-          <View style={styles.useStars}>
-            {
-              <Icon
-                name="star-outline"
-                size={20}
-                style={{ margin: 3, color: "#FFC107" }}
-              />
-            }
-            {
-              <Icon
-                name="star-outline"
-                size={20}
-                style={{ margin: 3, color: "#FFC107" }}
-              />
-            }
-            {
-              <Icon
-                name="star-outline"
-                size={20}
-                style={{ margin: 3, color: "#FFC107" }}
-              />
-            }
-            {
-              <Icon
-                name="star-outline"
-                size={20}
-                style={{ margin: 3, color: "#FFC107" }}
-              />
-            }
-            {
-              <Icon
-                name="star-outline"
-                size={20}
-                style={{ margin: 3, color: "#000" }}
-              />
-            }
-          </View>
+          <StarRating ratings={rating} reviews={rating}/>
         </View>
         <View>
           <TouchableOpacity style={styles.btnText}>
@@ -115,7 +86,7 @@ const ProfileScreen = () => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 

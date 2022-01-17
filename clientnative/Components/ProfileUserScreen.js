@@ -10,10 +10,19 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/core";
+<<<<<<< HEAD
 import { useSelector } from 'react-redux';
 
 const ProfileUserScreen = () => {
   
+=======
+import StarRating from './StarRating'
+
+const ProfileUserScreen = () => {
+ 
+  const rating = 4;
+
+>>>>>>> 4d4497c3e84196390cfb5fdfdf6c6d5203875412
   const navigation = useNavigation();
 
   const datosProfile = useSelector((store) => store.responseReg);
@@ -35,6 +44,7 @@ const ProfileUserScreen = () => {
           
           <Text style={styles.userName}>{datosProfile.name} {datosProfile.lastname}</Text>
           <Text style={styles.aboutUser}>Calificacion</Text>
+<<<<<<< HEAD
           <View style={styles.useStars}>
             {
               <Icon
@@ -72,6 +82,9 @@ const ProfileUserScreen = () => {
               />
             }
           </View>
+=======
+          <StarRating ratings={rating} reviews={rating}/>
+>>>>>>> 4d4497c3e84196390cfb5fdfdf6c6d5203875412
         </View>
         <View>
           <TouchableOpacity style={styles.btnText}>
@@ -108,6 +121,7 @@ const ProfileUserScreen = () => {
             />
             <Text style={styles.userBtnTxt}>Cotizar viaje</Text>
           </TouchableOpacity>
+<<<<<<< HEAD
           <TouchableOpacity
             style={styles.btnText2}
             onPress={() => navigation.navigate("ScreenMap")}
@@ -118,6 +132,10 @@ const ProfileUserScreen = () => {
               style={{ marginRight: 10, marginTop: 2 }}
               color={"#fff"}
             />
+=======
+          <TouchableOpacity style={styles.btnText2} onPress={() => navigation.navigate("RequestTravel")}>
+            <Icon name="hand-right-outline" size={23} style={{ marginRight: 10, marginTop: 2 }} color={'#fff'} />
+>>>>>>> 4d4497c3e84196390cfb5fdfdf6c6d5203875412
             <Text style={styles.userBtnTxt2}>Solicitar Viaje</Text>
           </TouchableOpacity>
         </View>

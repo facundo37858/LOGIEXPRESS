@@ -13,9 +13,10 @@ import ProfileUserScreen from "./Components/ProfileUserScreen";
 import ProfileScreenCarrier from "./Components/ProfileScreenCarrier";
 import ScreenMap from "./Components/ScreenMap";
 import RequestTravel from "./Components/RequestTravel";
-import Pago from "./Components/Pago";
-import { StripeProvider } from "@stripe/stripe-react-native";
-import { fetchPublishableKey } from "./Components/helpers";
+import StartCarrier from "./Components/ComenzarViaje/StartCarrier";
+import ScreenWaiting from "./Components/ScreenWaiting";
+import PaymentApp from "./Components/Payment/PaymentApp";
+import StartUser from "./Components/ComenzarViaje/StartUser"
 
 const Stack = createStackNavigator();
 
@@ -89,13 +90,24 @@ const App = () => {
             component={RequestTravel}
             options={{ headerShown: false }}
           />
-        
-            <Stack.Screen
-              name="Pago"
-              component={Pago}
-              options={{ headerShown: false }}
-            />
-        
+           <Stack.Screen 
+          name="StartUser"
+          component={StartUser}
+          />
+          <Stack.Screen
+            name='PaymentApp'
+            component={PaymentApp}
+            options={{hederShown:false}}
+          />
+          <Stack.Screen 
+          name="StartCarrier"
+          component={StartCarrier}
+          options={{ headerShown: false }}
+          /> 
+          <Stack.Screen 
+          name="ScreenWaiting"
+          component={ScreenWaiting}
+          />
         </Stack.Navigator>
       </NavigationContainer>
       </StripeProvider>

@@ -62,7 +62,7 @@ sequelize.sync({ force: false, logging: false })
 
 	.then(async () => {
 		//   let responce= 
-		await resApiUsers()
+		// await resApiUsers()
 		//   return console.log(responce)
 	})
 	.then(() => {

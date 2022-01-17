@@ -134,8 +134,13 @@ router.post('/carrierProfile', async (req: Request, res: Response, next: NextFun
 router.get('/profile', async (req: Request, res: Response) => {
 	// res.send('llega al  profile')
 	const { id } = req.params;
+	// const id = req.params.id
+
+	console.log(req.params.id) // llega undefined
 
 	const user = await User.findByPk(id)
+
+	// console.log(user)
 
 	if (user === null) {
 		const carrier = await Carrier.findByPk(id);

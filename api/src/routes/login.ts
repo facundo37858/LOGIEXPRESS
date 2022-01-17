@@ -35,6 +35,8 @@ router.post('/login', async (req: Request, res: Response) => {
 				name: user[0].name,
 				lastname: user[0].lastName,
 				phone: user[0].phone,
+				// CHARLAR CON ALLAN
+				// photo: user[0].carrier? user[0].carrier : user[0].user,
 			};
 
 			return res.json({

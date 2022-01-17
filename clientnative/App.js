@@ -98,6 +98,7 @@ const App = () => {
               options={{ headerShown: false }}
             />
             <Stack.Screen name="ScreenWaiting" component={ScreenWaiting} />
+            <Stack.Screen name="StartCarrier" component={StartCarrier} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

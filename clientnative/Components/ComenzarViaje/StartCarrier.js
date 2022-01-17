@@ -16,8 +16,9 @@ import {
 } from "react-native";
 import StarRating from "react-native-star-rating";
 import SimpleModalCarrier from './SimpleModalCarrier';
+import { useNavigation } from "@react-navigation/core";
 
-const StartCarrier = () => {
+const StartCarrier = (props) => {
 
   /// --> ESTADO PARA EL MODAL <-- ///
   const [isModalVisible, setisModalVisible] = useState(false);
@@ -37,7 +38,7 @@ const StartCarrier = () => {
   const orig = data.travel.orig.split("/")
   const dest = data.travel.destination.split("/")
   
-  console.log("Esto es lo que llega: ",data.travel)
+  console.log("Esto es lo que llega: ",data)
   return (
     //Container Start
 
@@ -118,7 +119,7 @@ const StartCarrier = () => {
         >
           <Text style={{ fontSize: 18, fontWeight: "500" }}>Nombre: </Text>
           <Text style={{ fontSize: 17, fontWeight: "300" }}>
-            Gonzalo Lucero
+           {data?.userReg.name}
           </Text>
         </View>
         {/* TELEFONO */}
@@ -135,7 +136,7 @@ const StartCarrier = () => {
           }}
         >
           <Text style={{ fontSize: 18, fontWeight: "500" }}>Teléfono: </Text>
-          <Text style={{ fontSize: 17, fontWeight: "300" }}>1534490811</Text>
+          <Text style={{ fontSize: 17, fontWeight: "300" }}>{data?.userReg.phone}</Text>
         </View>
         <View>
           <View>
@@ -165,7 +166,7 @@ const StartCarrier = () => {
           >
             <Text style={{ fontSize: 18, fontWeight: "500" }}>Desde: </Text>
             <Text style={{ fontSize: 17, fontWeight: "300" }}>
-              Buenos Aires
+              {orig[2]}
             </Text>
           </View>
           {/* DESTINO */}
@@ -182,7 +183,7 @@ const StartCarrier = () => {
             }}
           >
             <Text style={{ fontSize: 18, fontWeight: "500" }}>Hasta: </Text>
-            <Text style={{ fontSize: 17, fontWeight: "300" }}>Rosario</Text>
+            <Text style={{ fontSize: 17, fontWeight: "300" }}>{dest[2]}</Text>
           </View>
           {/* PESO */}
           <View
@@ -200,7 +201,7 @@ const StartCarrier = () => {
             <Text style={{ fontSize: 18, fontWeight: "500" }}>
               Peso de la Carga:{" "}
             </Text>
-            <Text style={{ fontSize: 17, fontWeight: "300" }}>200 kg</Text>
+            <Text style={{ fontSize: 17, fontWeight: "300" }}>{data?.travel.weight} Toneladas</Text>
           </View>
         </View>
       </View>
@@ -224,7 +225,7 @@ const StartCarrier = () => {
           <Text
             style={{ fontSize: 20, fontWeight: "300", alignSelf: "center" }}
           >
-            $ 12.000.26
+            $ {data?.travel.price}
           </Text>
         </View>
 

@@ -76,7 +76,6 @@ const App = () => {
               component={RequestTravel}
               options={{ headerShown: false }}
             />
-            <Stack.Screen name="StartUser" component={StartUser} />
             <Stack.Screen
               name="PaymentApp"
               component={PaymentApp}
@@ -94,8 +93,8 @@ const App = () => {
             />
 
             <Stack.Screen
-              name="StartCarrier"
-              component={StartCarrier}
+              name="StartUser"
+              component={StartUser}
               options={{ headerShown: false }}
             />
             <Stack.Screen name="ScreenWaiting" component={ScreenWaiting} />

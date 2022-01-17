@@ -16,18 +16,14 @@ import { useSelector } from "react-redux";
 import StarRating from "./StarRating";
 
 const ProfileScreen = () => {
-
-
   const rating = 4;
 
+   const navigation = useNavigation();
+  // const data = useSelector((store) => store.responseLog);
 
-
-  const navigation = useNavigation();
-  const data = useSelector((store) => store.responseLog);
-
-  useEffect(() => {
-    //console.log("data", data);
-  }, [data]);
+  // useEffect(() => {
+  //   //console.log("data", data);
+  // }, [data]);
   
   return (
     <View style={{ flex: 1 }}>
@@ -42,7 +38,7 @@ const ProfileScreen = () => {
               source={require("./Utils/foto1.jpg")}
             />
           </View>
-          <Text style={styles.userName}>{data.name} {data.lastname}</Text>
+          <Text style={styles.userName}>Nombre Apellido</Text>
         </View>
         <View style={{ flex: 1, marginBottom: 90, }}>
           <TouchableOpacity style={styles.btnText} onPress={()=>{navigation.navigate('DatosPersonalesCarrier')}}>

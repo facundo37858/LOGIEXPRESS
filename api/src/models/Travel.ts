@@ -30,9 +30,6 @@ export class Travel extends Model {
     finishedTravel!: string
 
     @Column
-    weight!: string
-
-    @Column
     score!: number
 
     @CreatedAt

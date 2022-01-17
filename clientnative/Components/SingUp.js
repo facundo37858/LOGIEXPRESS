@@ -284,6 +284,11 @@ if (!obj.phone) {
           title="RequestTravel"
           onPress={() => navigation.navigate("RequestTravel")}/>
         </View>
+
+        <Button
+          title="cosa de gonzalo 2"
+          onPress={() => navigation.navigate("StartUser")}/>
+        
       </View>
     </ScrollView>
   );

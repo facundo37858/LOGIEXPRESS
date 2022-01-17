@@ -167,6 +167,7 @@ const SingIn = ({ navigation }) => {
         <TouchableOpacity style={styles.TextButton} onPress={navigate}>
           <Text style={styles.SingUpText}>Registrate Ahora</Text>
         </TouchableOpacity>
+
       </View>
     </ScrollView>
     // Container End

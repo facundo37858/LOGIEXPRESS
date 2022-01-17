@@ -280,7 +280,6 @@ const StartCarrier = () => {
       </View>
       </View>
     </ScrollView>
-    // </View>
   );
 };
 

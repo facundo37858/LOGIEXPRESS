@@ -252,7 +252,7 @@ const CompleteProfileUser = () => {
               <View style={styles.viewsInputs}>
                 <Icon name="person-circle-outline" size={26} />
                 <Text style={{ fontSize: 18, marginLeft: 15 }}>
-                  {datosCarrier.lastname}
+                  {datosCarrier.lastName}
                 </Text>
                 <TextInput style={styles.textPlaceholder} />
               </View>

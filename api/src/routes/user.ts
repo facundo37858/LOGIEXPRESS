@@ -7,6 +7,11 @@ const bcrypt = require("bcryptjs");
 
 const router = Router()
 
+router.get('/user', async (req: Request, res: Response, next: NextFunction) => {
+	try {
+		let user = await User_Reg.findAll()
+
+
 router.get('/user', passport.authenticate("jwt", { session: false }), async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		let user = await User_Reg.findAll();

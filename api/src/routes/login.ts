@@ -1,12 +1,9 @@
 import { Response, Request, Router } from 'express';
-
 import { User_Reg } from '../models/User_Reg';
-
-// const bcryptjs = require("bcryptjs");
 import config from '../../config/config';
 import bcryptjs from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-// import passport from 'passport';
+
 
 
 const router = Router()
@@ -55,45 +52,13 @@ router.post('/login', async (req: Request, res: Response) => {
 				mensaje: "Contrasena no coincide", payload
 			}).status(300)
 		}
-
-
 	} else {
-		// return res.status(404).json({ mensaje: "Usuario o contraseña incorrectos" })
-
 		const payload = {
 			role: 1,
 		};
 		return res.json({ payload, mensaje: "usuario y mail ingresados son invalidos" }).status(301)
 	}
-
-	// 	console.log('pass: ',password)
-
-
-	// 	
-
-	// 	if ( user && compare /*bcryptjs.compare(password, user.password, function(err:Error, result:boolean){}) */ ){
-
-	// const payload = {
-	// 	eMail,
-	// 	id: user.id,
-	// 	role: user.role,
-	// 	name: user.name,
-	// 	lastname:user.lastName,
-	// 	phone:user.phone,
-	// };
-
-	// res.json({
-	// 	mensaje: 'Autenticación correcta', payload
-	// });
-
 });
-
-
-
-// router.post('/googleAuthentication', async (req: Request, res: Response) => {
-
-
-// })
 
 
 export default router;

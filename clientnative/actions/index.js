@@ -96,7 +96,7 @@ export function logiarUsuario(payload) {
             token: r.data.token,
           });
           console.log("hace el dispatch");
-          console.log("response:", r.data.payload);
+          console.log("Aqui esta el token:", r.data.token);
         });
       // console.log(r);
       // return response;
@@ -140,6 +140,27 @@ export function completeProfileCarrier(payload) {
       });
     } catch (error) {
       console.log(error.response);
+    }
+  };
+}
+
+export function enviarToken(payload) {
+  return async function (dispatch) {
+    try {
+      const response = await axios
+        .post("http://192.168.1.6:3001/api/verifytoken", JSON.parse(payload)) //aca cada uno pone su ip
+        .then((r) => {
+          dispatch({
+            type: "TOKEN",
+            payload: r.data.payload,
+          });
+          console.log("hace el dispatch");
+          console.log("Aqui esta el payload:", r.data.payload);
+        });
+      // console.log(r);
+      // return response;
+    } catch (error) {
+      console.error(error.response);
     }
   };
 }

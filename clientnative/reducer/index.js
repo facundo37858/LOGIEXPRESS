@@ -19,6 +19,7 @@ const initialState = {
   travels: null,
   travel: [],
   token: "",
+  respToken: {},
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -64,7 +65,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         travel: action.payload,
       };
-
+    case "TOKEN":
+      return {
+        ...state,
+        respToken: action.payload,
+      };
     default:
       return state;
   }

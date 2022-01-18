@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
   Button,
 } from "react-native";
-import { logiarUsuario } from "./../actions/index";
+import { enviarToken, logiarUsuario } from "./../actions/index";
 import { useDispatch, useSelector } from "react-redux";
 
 const SingIn = ({ navigation }) => {
@@ -79,6 +79,11 @@ const SingIn = ({ navigation }) => {
       eMail: log.mail,
       password: log.contraseña,
     };
+    getValueFor();
+    const objToken = {
+      token: result,
+    };
+    dispatch(enviarToken(objToken));
 
     //Validaciones:
 
@@ -97,41 +102,51 @@ const SingIn = ({ navigation }) => {
       mail: "",
       contraseña: "",
     });
-
-    //cuando se cumpla que respuesta != null
-    //haga un console.log(respuesta)
   };
 
   function navigate() {
     navigation.navigate("singUp");
   }
 
-  // const tokenredux = useSelector((store) => store.token);
+  const tokenredux = useSelector((store) => store.token);
 
-  // const [result, onChangeResult] = useState("(result)");
+  const [result, onChangeResult] = useState("(result)");
 
-  // async function save(key, value) {
-  //   //FUNCION PARA GUARDAR LA INFO EN EL STORE, KEY = token , VALUE=el string del token
-  //   await SecureStore.setItemAsync(key, value);
-  // }
+  async function save(value) {
+    //FUNCION PARA GUARDAR LA INFO EN EL STORE, KEY = token , VALUE=el string del token
+    await SecureStore.setItemAsync("token", value);
+  }
 
-  // async function getValueFor(key) {
-  //   // SE CONSULTA EL VALUE DEL STORE, CON EL KEY
-  //   let result = await SecureStore.getItemAsync(key);
-  //   if (result) {
-  //     onChangeResult(result);
-  //   } else {
-  //     alert("Invalid Key");
-  //   }
-  // }
+  async function getValueFor() {
+    // SE CONSULTA EL VALUE DEL STORE, CON EL KEY
+    let result = await SecureStore.getItemAsync("token");
+    if (result) {
+      onChangeResult(result);
+      console.log("Este es result ", result);
+    } /*else {
+      alert("Invalid Key");
+    }*/
+  }
+
+  useEffect(() => {
+    console.log("aqui esta EL TOKEN:", tokenredux);
+    save(tokenredux);
+    getValueFor(); // guardo en result, el token guardado en el store
+    if (tokenredux != result) {
+      // corroboro si lo que me llega de redux, es lo mismo que tengo guardado
+    }
+  }, [tokenredux]);
 
   // useEffect(() => {
-  //   console.log("aqui esta EL TOKEN:", tokenredux);
-  //   getValueFor(token); // guardo en result, el token guardado en el store
-  //   if (tokenredux != result) {
-  //     // corroboro si lo que me llega de redux, es lo mismo que tengo guardado
+  //   if (tokenredux === "") {
   //   }
   // }, [tokenredux]);
+
+  const responToken = useSelector((store) => store.respToken);
+
+  useEffect(() => {
+    console.log("responToken", responToken);
+  }, [responToken]);
 
   return (
     //Container Start

@@ -24,8 +24,10 @@ app.use(
 		allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
 	})
 );
+
 app.use(passport.initialize())
 passport.use(passportMiddle)
+
 
 interface error {
 	status: number,

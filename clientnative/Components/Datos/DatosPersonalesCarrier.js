@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
+import { logiarUsuario } from "../../actions";
+import { useDispatch, useSelector } from "react-redux";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/core";
 import StarRating from "../StarRating";
 
 const DatosPersonalesCarrier = () => {
-  const rating = 2
-  
+  const data = useSelector((store) => store.responseLog);
+  const navigation = useNavigation();
+  const rating = 3;
+  useEffect(() => {
+    //console.log("data", data)
+  }, [data]);
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -23,12 +32,33 @@ const DatosPersonalesCarrier = () => {
             />
           </View>
           <View style={styles.boxDatos}>
-            <Text style={styles.userName}>Eliana Alvarez</Text>
-            <Text style={{fontSize: 15}}>Macarenam328@gmail.com</Text>
-            <Text style={{fontSize: 15}}>Villa Angela</Text>
+            <Text style={styles.userName}>
+              {data.name} {data.lastname}
+            </Text>
+            <Text style={{ fontSize: 15 }}>{data.eMail}</Text>
+            <Text style={{ fontSize: 15 }}>Villa Angela</Text>
+            <View style={{ marginTop: 2}}>
+              <StarRating
+                ratings={rating}
+                reviews={rating}
+                size={23}
+              ></StarRating>
+            </View>
           </View>
         </View>
-        <StarRating ratings={rating} reviews={rating}  style={styles.starRating}/>
+        <View style={styles.botones}>
+          <TouchableOpacity style={styles.btn} >
+            <Text style={styles.textBtn} onPress={() => navigation.navigate('EditProfileCarrier')}>Editar perfil</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.btn}>
+            <Text style={styles.textBtn}>Cambiar contraseña</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.btn}>
+            <Text style={styles.textBtn}>Desloguearse</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </View>
   );
@@ -46,20 +76,44 @@ const styles = StyleSheet.create({
   },
   userImg: {
     marginTop: 10,
-    height: 100,
-    width: 100,
-    borderRadius: 50,
+    height: 110,
+    width: 110,
+    borderRadius: 55,
     borderWidth: 5,
     borderColor: "#7952B3",
   },
   userName: {
-    fontSize: 25,
+    fontSize: 22,
     fontWeight: "bold",
-    marginBottom: 4
+    marginBottom: 1,
   },
-  boxDatos: { 
+  boxDatos: {
     flexDirection: "column",
     marginTop: 40,
-    marginLeft: 15
-   }
+    marginLeft: 15,
+  },
+  estrellitas: {
+    marginTop: 30,
+    textAlign: "center",
+    fontSize: 20,
+  },
+  botones: {
+    alignContent: "center",
+    alignItems: "center",
+    margin: 100,
+  },
+  btn: {
+    borderWidth: 4,
+    borderColor: "#7952B3",
+    width: 250,
+    height: 50,
+    marginBottom: 20,
+    borderRadius: 15,
+  },
+  textBtn: {
+    textAlign: "center",
+    marginTop: 5,
+    fontSize: 18,
+    fontWeight: "bold",
+  },
 });

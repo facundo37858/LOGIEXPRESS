@@ -16,14 +16,12 @@ import { useSelector } from "react-redux";
 import StarRating from './StarRating'
 
 const ProfileUserScreen = () => {
-  const rating = 4;
-
+  const data = useSelector((store) => store.responseLog);
   const navigation = useNavigation();
-  // const data = useSelector((store) => store.responseLog);
-
-  // useEffect(() => {
-  //   //console.log("data", data);
-  // }, [data]);
+  
+  useEffect(() => {
+    console.log("data", data);
+  }, [data]);
   
   return (
     <View style={{ flex: 1 }}>
@@ -38,7 +36,7 @@ const ProfileUserScreen = () => {
               source={require("./Utils/foto1.jpg")}
             />
           </View>
-          <Text style={styles.userName}>Nombre Apellido</Text>
+          <Text style={styles.userName}>{data.name} {data.lastname}</Text>
         </View>
         <View style={{ flex: 1, marginBottom: 90, }}>
           <TouchableOpacity style={styles.btnText} onPress={()=>{navigation.navigate('DatosPersonalesUser')}}>
@@ -51,7 +49,7 @@ const ProfileUserScreen = () => {
 
           <TouchableOpacity style={styles.btnText}>
             <Icon name="bus-outline" style={styles.icons} />
-            <Text style={styles.userBtnTxt}>Historial de viaje</Text>
+            <Text style={styles.userBtnTxt}>Historial de viajes</Text>
             <View style={{marginLeft: 110}}>
             <Icon name="chevron-forward-outline" style={styles.icons3} />
             </View>

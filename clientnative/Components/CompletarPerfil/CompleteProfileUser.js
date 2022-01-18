@@ -152,7 +152,7 @@ const CompleteProfileUser = () => {
           <View style={styles.add}>
             <TouchableWithoutFeedback onPress={openImagePickerAsync}>
               <Image
-                source={require("../add-image.png")}
+                source={require("./add-image.png")}
                 style={styles.imgAdd}
               />
             </TouchableWithoutFeedback>

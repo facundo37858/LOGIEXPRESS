@@ -7,10 +7,9 @@ const bcrypt = require("bcryptjs");
 
 const router = Router()
 
-
 router.get('/user', passport.authenticate("jwt", { session: false }), async (req: Request, res: Response, next: NextFunction) => {
     try {
-        let user = await User_Reg.findAll();
+        let user = await User_Reg.findAll()
         console.log("AQUI", req.user)
         if (user.length > 0) {
             return res.send(user)
@@ -110,24 +109,11 @@ router.post('/user', async (req: Request, res: Response, next: NextFunction) => 
             };
             return res.json({ payload, mensaje: 'eMail usado' })//podria ser un boolean 
         }
-        // console.log('User:',user,'Bool: ',created)
-
-
-        // const payload = {
-        //  eMail,
-        //  // id: id,
-        //  role: role,
-        //  name: name,
-        //  lastname: lastName,
-        //  phone: phone,
-        // };
 
         return res.json({
             mensaje: 'Usuario creado', payload
         }).status(300);
 
-
-        // res.send('Usuario creado')//podria ser un boolean 
 
 
     }

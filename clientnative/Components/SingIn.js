@@ -13,13 +13,14 @@ import {
   Button,
 } from "react-native";
 import { logiarUsuario } from "./../actions/index";
-import { useDispatch, useSelector,  } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import * as SecureStore from 'expo-secure-store'
+
 
 const SingIn = ({ navigation }) => {
-  
   const dispatch = useDispatch();
-  
-  const respuesta = useSelector((store) => store.responseLog)
+
+  const respuesta = useSelector((store) => store.responseLog);
 
   // useEffect(()=>{
   //   // token === localstorage.token
@@ -31,18 +32,35 @@ const SingIn = ({ navigation }) => {
   //     //se activa el useEffect de abajo
   //   }
   // })
+  async function save(key,value) { //FUNCION PARA GUARDAR LA INFO EN EL STORE, KEY = token , VALUE=el string del token
+    await SecureStore.setItemAsync(key,value);
+  }
 
-  useEffect(()=>{
-    console.log('aqui esta la respuestaaaa:',respuesta);
-    if(respuesta?.role === true){
-      navigation.navigate("ProfileUserScreen");
-    }if(respuesta?.role === false){
-      navigation.navigate("ProfileScreen");
-    }if(respuesta?.role === 1){
-      alert('La dirección de correo electrónico o la contraseña que ingresaste no son válidas!')
+  const nuevotoken = useSelector((store) => store.token);
+  useEffect(() =>{
+    console.log('verificando, que se envia', nuevotoken)
+    save('token',nuevotoken)
+    
+  },[nuevotoken])
+
+  const guardarToken =() =>{
+    console.log('el nuevo token', nuevotoken)
+  }
+
+  useEffect(() => {
+    console.log("aqui esta la respuestaaaa:", respuesta);
+    if (respuesta?.role === true) {
+      navigation.navigate("ProfileScreenCarrier");
     }
-  },[respuesta]);
-
+    if (respuesta?.role === false) {
+      navigation.navigate("ProfileScreenCarrier");
+    }
+    if (respuesta?.role === 1) {
+      alert(
+        "La dirección de correo electrónico o la contraseña que ingresaste no son válidas!"
+      );
+    }
+  }, [respuesta]);
 
   const [log, setLog] = useState({
     mail: "",
@@ -57,18 +75,18 @@ const SingIn = ({ navigation }) => {
   //     [e.target.name]: e.target.value,
   //   });
   // };
-  const handelChangeMail=(email)=>{
+  const handelChangeMail = (email) => {
     setLog({
-        ...log,
-        mail:email
-    })
-}
-const handelChangePass=(pass)=>{
+      ...log,
+      mail: email,
+    });
+  };
+  const handelChangePass = (pass) => {
     setLog({
-        ...log,
-        contraseña:pass
-    })
-}
+      ...log,
+      contraseña: pass,
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -80,13 +98,14 @@ const handelChangePass=(pass)=>{
 
     //Validaciones:
 
-    if (!obj.eMail.includes('.com') || !obj.eMail.includes('@')  ) {
-      alert("Por favor escribe un correo electrónico válido!")
-      return
-  } if (!obj.password) {
-    alert("Por favor escribe una Contraseña válida!")
-    return
-  }
+    if (!obj.eMail.includes(".com") || !obj.eMail.includes("@")) {
+      alert("Por favor escribe un correo electrónico válido!");
+      return;
+    }
+    if (!obj.password) {
+      alert("Por favor escribe una Contraseña válida!");
+      return;
+    }
 
     dispatch(logiarUsuario(obj));
     console.log("Estoy enviado", obj);
@@ -95,21 +114,46 @@ const handelChangePass=(pass)=>{
       contraseña: "",
     });
 
+    //cuando se cumpla que respuesta != null
+    //haga un console.log(respuesta)
 
-  
+   
 
+    guardarToken();
 
-
-      //cuando se cumpla que respuesta != null
-      //haga un console.log(respuesta)
-
-
-  }
+  };
 
   function navigate() {
     navigation.navigate("singUp");
   }
 
+
+  //                        TOKEN Y SECURE STORE
+
+
+
+  // const tokenredux = useSelector((store) => store.token);
+
+//  const [result,onChangeResult] = useState('(result)');
+
+
+
+
+   
+
+
+//  useEffect(() => {
+//   console.log("aqui esta EL TOKEN:", tokenredux);
+//   getValueFor(token); // guardo en result, el token guardado en el store
+//   if(tokenredux != result){ // corroboro si lo que me llega de redux, es lo mismo que tengo guardado
+
+//   }
+  
+//   }, [tokenredux]);
+
+//   if(tokenredux =! result){
+    
+  
   return (
     //Container Start
     <ScrollView
@@ -176,6 +220,7 @@ const handelChangePass=(pass)=>{
     // Container End
   );
 };
+
 
 export default SingIn;
 

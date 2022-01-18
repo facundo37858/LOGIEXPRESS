@@ -1,5 +1,5 @@
 
-import app from "./src/app";
+import {httpserver} from "./src/app";
 import { sequelize } from "./src/db";
 import axios from 'axios'
 import { User_Reg } from "./src/models/User_Reg";
@@ -65,7 +65,7 @@ sequelize.sync({ force: true, logging: false })
 	})
 	.then(() => {
 		console.log('base de datos conectada! :D')
-		app.listen(3001, function () {
+		httpserver.listen(3001, function () {
 			console.log('App is listening on port 3001!');
 		});
 	})

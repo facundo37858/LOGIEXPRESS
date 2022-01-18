@@ -8,8 +8,17 @@ import passport from 'passport';
 import passportMiddle from '../middlewares/passport';
 import routesUser from './routes/index';
 
+import { createServer } from "http";
+import { Server } from "socket.io";
 
 const app: Application = express();
+
+const httpserver = createServer(app)
+
+const io = new Server(httpserver, { /* options */ });
+
+
+
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 //middleware
@@ -46,4 +55,8 @@ app.use((err: error, req: Request, res: Response, next: NextFunction) => {
 
 app.use('/api', routesUser)
 
-export default app;
+
+
+
+
+export {httpserver,io};

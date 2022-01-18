@@ -5,6 +5,7 @@ import ProfileRoutes from './profiles';
 import review from './review'
 import TravelRoutes from './travel';
 import UploadDataFake from './uploadDataFake';
+import ioON from './ioOn'
 
 import payments from './payments'
 
@@ -18,6 +19,7 @@ router.use('/', UploadDataFake);
 router.use('/', review )
 router.use('/',payments);
 router.use('/', review);
+router.use('/',ioON)
 //router.use('/', UploadDataFake) 
 
 

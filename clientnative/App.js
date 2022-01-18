@@ -20,6 +20,7 @@ import StartCarrier from "./Components/ComenzarViaje/StartCarrier";
 import ScreenWaiting from "./Components/ScreenWaiting";
 import PaymentApp from "./Components/Payment/PaymentApp";
 import StartUser from "./Components/ComenzarViaje/StartUser";
+import Home from "./Components/home"
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,11 @@ const App = () => {
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator>
+          <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{ headerShown: false }}
+            />
             <Stack.Screen
               name="singIn"
               component={SingIn}

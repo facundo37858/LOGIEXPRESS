@@ -18,6 +18,8 @@ const ScreenMap = () => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
+    const rating = 3
+
 
     useEffect(() => {
         (async () => {
@@ -40,7 +42,7 @@ const ScreenMap = () => {
 
 
 
-     console.log("Esto es Travel", travels)
+    /*  console.log("Esto es Travel", travels) */
 
 
     const [pin, setPin] = useState({
@@ -53,8 +55,7 @@ const ScreenMap = () => {
         longitude: -122.4324,
     })
 
-    const rating = 3;
-
+   
     return (
         <View style={styles.container}>
             <GooglePlacesAutocomplete

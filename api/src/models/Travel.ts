@@ -18,16 +18,19 @@ export class Travel extends Model {
     destination!: string
 
     @Column
-    weigth!: number
-
-    @Column
     price!: string
 
     @Column
-    description!: string
+    weight!: string
 
-    @HasOne(() => Review)
-    rewiew!: Review
+    @Column
+    description!: string
+    
+    @Column
+    finishedTravel!: string
+
+    @Column
+    score!: number
 
     @CreatedAt
     @Column
@@ -41,7 +44,7 @@ export class Travel extends Model {
     user!: User
 
     @ForeignKey(() => User)
-    userId!: User
+    userId!: string
 
     @BelongsTo(() => Carrier)
     carrier!: Carrier

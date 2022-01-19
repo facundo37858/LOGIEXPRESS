@@ -26,11 +26,18 @@ router.post('/verifytoken', async (req: Request, res: Response, next: NextFuncti
     const { token } = req.body;
     try {
         const decoded = jwt.verify(token, config.jwtSecret)
+        const dataUser = await User_Reg.findByPk(decoded.id)
+
         const payload = {
-            userId: decoded.id,
-            mensaje: true
+            id: dataUser?.id,
+            name: dataUser?.name,
+            lastname: dataUser?.lastName,
+            phone: dataUser?.phone,
+            eMail: dataUser?.eMail,
+            role: dataUser?.role,
         }
-        console.log("DECODED", decoded);
+
+        console.log("PAYLOAD en verifytoken", payload);
         return res.json({ payload, mensaje: 'the access token is valid' })
     }
     catch (err) {

@@ -33,100 +33,46 @@ const Home = () => {
     }
   }
 
+  async function save(key, value) {
+    //FUNCION PARA GUARDAR LA INFO EN EL STORE, KEY = token , VALUE=el string del token
+    await SecureStore.setItemAsync(key, value);
+  }
+
   //TOKEN
   const [result, onChangeResult] = useState("(result)");
   // getValueFor(); // PRIMERO CORROBORAMOS SI HAY UN TOKEN GUARDADO
   getValueFor();
+  useEffect(() => {
+    if (result === "(result)") {
+      navigation.navigate("singIn"); // si nunca se logio lo lleva al login
+    } else {
+      // SI YA SE LOGIO ANTERIORMENTE
+      const obj2 = {
+        token: result,
+      };
 
-  if (result === "(result)") {
-    navigation.navigate("singIn"); // si nunca se logio lo lleva al login
-  } else {
-    // SI YA SE LOGIO ANTERIORMENTE
-    const obj2 = {
-      token: result,
-    };
-    console.log("este es el result", obj2);
-    dispatch(enviarToken(obj2));
-  }
+      console.log("este es el result", obj2);
+
+      dispatch(enviarToken(obj2));
+      console.log(resptoken);
+    }
+  }, [result]);
 
   useEffect(() => {
-    console.log("resptoken:", resptoken);
+    console.log("respotoken:", resptoken);
     console.log("resptoken.mensaje", resptoken.mensaje);
 
     if (resptoken != {}) {
       if (resptoken.mensaje === true) {
-        navigation.navigate(() => "ProfileUserScreen");
+        navigation.navigate("ProfileUserScreen");
       } else {
-        // save("token", resptoken);
+        save("token", "(result)");
         navigation.navigate("singIn");
       }
     }
   }, [resptoken]);
 
-<<<<<<< HEAD
   return (
-=======
-
-    //TOKEN
-    const [result,onChangeResult] = useState('(result)');
-    // getValueFor(); // PRIMERO CORROBORAMOS SI HAY UN TOKEN GUARDADO
-    getValueFor()
-    useEffect(() =>{
-     
-      if(result === '(result)'){
-        navigation.navigate("singIn"); // si nunca se logio lo lleva al login
-    }else{ // SI YA SE LOGIO ANTERIORMENTE
-        const obj2 = {
-            'token':result
-        }
-
-        
-
-        
-        console.log('este es el result',obj2)
-        
-        dispatch(enviarToken(obj2))
-      
-
-        
-        
-    }
-
-    },[result])
-        
-  
-    
-    
-        
-      
-        
-        
-        useEffect(() =>{
-            console.log('respotoken:', resptoken)
-            console.log('resptoken.mensaje',resptoken.mensaje)
-
-            if(resptoken != {}){
-                if(resptoken.mensaje === true){
-                    navigation.navigate("ProfileUserScreen")
-                }else{
-                    save('token','(result)')
-                    navigation.navigate("singIn")
-                }
-
-            }
-           
-           
-            
-          },[resptoken])
-
-        
-
-    
-
-
-
-return (
->>>>>>> 15f9059333fda0fbf31b9fe365c87e93d10562fb
     //Container Start
     <ScrollView
       style={{ flex: 1, backgroundColor: "#ffffffff" }}

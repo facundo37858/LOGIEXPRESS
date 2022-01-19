@@ -34,10 +34,10 @@ const SingIn = ({ navigation }) => {
   useEffect(() => {
     console.log("aqui esta la respuestaaaa:", respuesta);
     if (respuesta?.role === true) {
-      navigation.navigate("ProfileUserScreen");
+      navigation.navigate("ProfileUserScreen", respuesta);
     }
     if (respuesta?.role === false) {
-      navigation.navigate("ProfileScreenCarrier");
+      navigation.navigate("ProfileScreenCarrier", respuesta);
     }
     if (respuesta?.role === 1) {
       alert(

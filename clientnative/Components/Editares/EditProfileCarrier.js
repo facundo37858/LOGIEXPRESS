@@ -1,22 +1,23 @@
 import React, { useState } from "react";
 import {
-  View,
-  Text,
-  ScrollView,
   StyleSheet,
+  Text,
+  View,
+  ScrollView,
   Image,
-  TouchableOpacity,
   TouchableWithoutFeedback,
+  Alert,
   TextInput,
+  TouchableOpacity,
 } from "react-native";
 //iconos
 import Icon from "react-native-vector-icons/Ionicons";
-//Hook para la navegacion
+// HOOK PARA LA NAVEGACION
 import { useNavigation } from "@react-navigation/core";
 //Agarrar imagen del celu
 import * as ImagePicker from "expo-image-picker";
 
-const EditProfile = () => {
+const EditProfileCarrier = () => {
   ////--> HOOK PARA LA NAVEGACION <-- ////
   const navigation = useNavigation();
 
@@ -32,14 +33,42 @@ const EditProfile = () => {
       return;
     }
 
-    const pickerResult = await ImagePicker.launchImageLibraryAsync();
-    if (pickerResult.cancelled === true) {
-      return;
+    //Si es true va a venir a pickerResult
+    const pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (pickerResult.cancelled !== true) {
+      let newFile = {
+        uri: pickerResult.uri,
+        type: `logi/${pickerResult.uri.split(".")[1]}`,
+        name: `logi.${pickerResult.uri.split(".")[1]}`,
+      };
+      handleUpload(newFile);
     }
-    setSelectedImage({ localUri: pickerResult.uri });
   };
 
+  const handleUpload = (image) => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "logiexpress");
+    data.append("cloud_name", "elialvarez");
+
+    fetch("https://api.cloudinary.com/v1_1/elialvarez/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        //console.log(data)
+        setSelectedImage(data.url);
+      });
+  };
   //// --> Inicio de componente <-- ////
+
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
       <ScrollView
@@ -49,7 +78,7 @@ const EditProfile = () => {
         <View style={styles.iconBar}>
           <TouchableOpacity
             //no esta conectado a ningun lugar
-            onPress={() => navigation.navigate("ProfileUserScreen")}
+            onPress={() => navigation.navigate("DatosPersonalesCarrier")}
           >
             <Icon name="chevron-back-outline" size={30} />
           </TouchableOpacity>
@@ -57,19 +86,20 @@ const EditProfile = () => {
         <Text style={{ fontWeight: "bold", marginLeft: 15, fontSize: 25 }}>
           Editar perfil
         </Text>
+        {/* Foto e iconito de agregar imagen */}
         <View style={{ alignItems: "center" }}>
           <Image
             source={{
               uri:
                 selectedImage !== null
-                  ? selectedImage.localUri
+                  ? selectedImage
                   : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
             }}
             style={styles.imgPerfil}
           />
-
           <View>
             <TouchableWithoutFeedback onPress={openImagePickerAsync}>
+              {/* <Icon name="add-circle-outline" size={40} style={{ marginLeft: 80, marginTop: -35}}/> */}
               <Image
                 source={require("./add-photo.png")}
                 style={styles.imgAdd}
@@ -77,7 +107,8 @@ const EditProfile = () => {
             </TouchableWithoutFeedback>
           </View>
         </View>
-        {/* INICIO DEL FORMULARIO */}
+
+        {/* Inicio de inputs formulario */}
         <View style={styles.containerInputs}>
           <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
             Datos personales
@@ -115,33 +146,28 @@ const EditProfile = () => {
             />
           </View>
           <View style={styles.viewsInputs}>
-            <Icon name="map-outline" size={26} />
+            <Icon name="earth-outline" size={26} />
             <TextInput
               placeholder="Lugar de residencia actual"
               name="location"
               style={styles.textPlaceholder}
             />
           </View>
-          <View style={styles.viewsInputs}>
-            <Icon name="card-outline" size={26} />
-            <TextInput
-              placeholder="Medio de pago válido"
-              name="CBU"
-              style={styles.textPlaceholder}
-            />
-          </View>
-          <View style={styles.btn2}>
-            <TouchableOpacity
-              style={styles.btnEditar}
-              ///---> PONER A DONDE TIENE QUE VOLVER <--- ///
-              onPress={() => navigation.navigate("ProfileUserScreen")}
-            >
-              <Text style={styles.textBtn}>Cancelar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.btnEditar}>
-              <Text style={styles.textBtn}>Editar</Text>
-            </TouchableOpacity>
-          </View>
+         
+            <View style={styles.btn2}>
+              <TouchableOpacity
+                style={styles.btnEditar}
+                onPress={() => navigation.navigate("ProfileScreenCarrier")}
+              >
+                <Text style={styles.textBtn}>Cancelar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                ///---> PONER A DONDE TIENE QUE VOLVER <--- ///
+                style={styles.btnEditar}
+              >
+                <Text style={styles.textBtn}>Editar</Text>
+              </TouchableOpacity>
+            </View>
         </View>
       </ScrollView>
     </View>
@@ -157,20 +183,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: "white",
   },
-
   containerInputs: {
     flex: 1,
     alignItems: "flex-start",
     marginTop: 40,
     marginLeft: 20,
   },
-
   imgPerfil: {
     width: 170,
     height: 170,
     borderRadius: 100,
-    borderColor: "#FFC107",
-    borderWidth: 5,
+    borderColor: "#511281",
+    borderWidth: 6,
     marginTop: 40,
   },
   imgAdd: {
@@ -179,26 +203,17 @@ const styles = StyleSheet.create({
     marginLeft: 135,
     marginTop: -70,
     borderWidth: 3,
-    borderColor: "#511281",
+    borderColor: "#FFC107",
     borderRadius: 50,
   },
-  viewsInputs: {
-    margin: 2,
-    borderColor: "#511281",
-    borderBottomWidth: 2,
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    width: 360,
-    alignItems: "flex-start",
-    marginBottom: 15,
-  },
+
   textPlaceholder: {
     marginLeft: 20,
     fontSize: 17,
     marginBottom: 2,
   },
   btnEditar: {
-    backgroundColor: "#7952B3",
+    backgroundColor: "#511281",
     borderRadius: 10,
     width: 150,
     height: 50,
@@ -207,15 +222,22 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginRight: 30,
   },
-
   textBtn: {
     color: "white",
     fontSize: 17,
     alignSelf: "center",
     marginTop: 12,
   },
-
+  viewsInputs: {
+    margin: 2,
+    borderColor: "#511281",
+    borderBottomWidth: 2,
+    flexDirection: "row",
+    width: 360,
+    alignItems: "flex-start",
+    marginBottom: 15,
+  },
   btn2: { flexDirection: "row", marginLeft: 20 },
 });
 
-export default EditProfile;
+export default EditProfileCarrier;

@@ -60,9 +60,8 @@ router.post('/userProfile', async (req: Request, res: Response, next: NextFuncti
 //Eli saco email y phone
 router.post('/carrierProfile', async (req: Request, res: Response, next: NextFunction) => {
 	// res.send('llega al carrier profile')
-	const {id, documentID, license, email, phone, location, Cuenta,
-		brand, patent, model, color, capacity } = req.body
-  
+	const { id, documentID, license, location, Cuenta,
+		brand, patent, model, color, capacity, photo } = req.body
 	try {
 
 		let idCarrier = uuid()
@@ -73,6 +72,7 @@ router.post('/carrierProfile', async (req: Request, res: Response, next: NextFun
 			license: license,
 			location: location,
 			Cuenta: Cuenta,
+			photo: photo,
 			idUserReg:id
 		}
 		var newTrack = {

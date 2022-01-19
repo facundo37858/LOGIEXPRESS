@@ -77,7 +77,7 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
 
 
 		    let traveles = await Travel.create(newViaje)
-
+               
 	         let vehicles = await Vehicle.findAll({where:{
                     capacity:{[Op.or]:{[Op.eq]: weight,[Op.gt]: weight}}
          } }) 
@@ -103,18 +103,19 @@ router.get('/Travel', async (req: Request, res: Response, next: NextFunction) =>
     //Importante en el modelo de travel hay un error en declaración de la relacion con user User_Reg
     //hay que corregir que es de tipo string 
 		let travel = await Travel.findAll()
+   // res.send(travel);
 		if (travel.length > 0) {
                let tam = travel.length;
               var travelFullData=[];
                for(let i=0;i<tam;i++){
          
-                       let varUser= await User.findAll({where:{id:'travel[i].userId'}})
+                       let varUser= await User.findAll({where:{id:travel[i].userId}})
                        let varUserReg = await User_Reg.findOne({where:{id:varUser[0].idUserReg}});
                        travelFullData[i]={travel:travel[i],user:varUser[0],userReg:varUserReg}
                }
 			return res.send(travelFullData)
 		}
-		res.send('data not found')
+		//res.send('data not found')
 		//por consola me aparece:"Executing (default): SELECT "id", "ducumentoIdentidad", "eMail", "ubicacion", "cel", "tel", "fotoPerfil", "medioPago", "name", "lastName", "paswword", "terminosCondiciones", "createdAt", "updatedAt" FROM "Users" AS "User";"
 		//no pude corregirlo!!
 	}
@@ -146,23 +147,9 @@ router.post('/requestAlert', async (req: Request, res: Response, next: NextFunct
 router.post('/waitTravel', async (req: Request, res: Response, next: NextFunction) => {
    
    const { id} = req.body
-   let getTravel = await Travel.findAll({where:{userId:id, carrierId:{[Op.not]: null}, finishedTravel:{[Op.is]: null}}})
+   let getTravel = await Travel.findAll({where:{userId:id, carrierId:{[Op.eq]: null}, finishedTravel:{[Op.is]: null}}})
       if(getTravel.length===0) res.send({data:0});
        else res.send(getTravel);
-
-  // try {
-        
-  //          let alert = await ServiceAlert.findAll({where:{CarrierId:id}}) 
-  //          let tamAlert=alert.length;
-  //          let notification: boolean;
-           
-  //             if(tamAlert>0){notification=true}
-  //               else {notification=false}
-  //              res.send({notification});  
-
-  // } catch (err) {
-  //   next(err)
-  // }
 
 });
 router.put('/acceptTravel', async (req: Request, res: Response, next: NextFunction) => {

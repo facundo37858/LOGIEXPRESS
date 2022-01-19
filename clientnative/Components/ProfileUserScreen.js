@@ -42,7 +42,9 @@ const ProfileUserScreen = () => {
               source={require("./Utils/foto1.jpg")}
             />
           </View>
-          <Text style={styles.userName}>Nombre Apellido</Text>
+          <Text style={styles.userName}>
+            {data.name} {data.lastname}
+          </Text>
         </View>
         <View style={{ flex: 1, marginBottom: 90 }}>
           <TouchableOpacity

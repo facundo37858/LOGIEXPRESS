@@ -24,11 +24,11 @@ const ProfileScreen = () => {
   const rating = 4;
 
   const navigation = useNavigation();
-  // const data = useSelector((store) => store.responseLog);
+  const data = useSelector((store) => store.responseLog);
 
-  // useEffect(() => {
-  //   //console.log("data", data);
-  // }, [data]);
+  useEffect(() => {
+    //console.log("data", data);
+  }, [data]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -43,7 +43,9 @@ const ProfileScreen = () => {
               source={require("./Utils/foto1.jpg")}
             />
           </View>
-          <Text style={styles.userName}>Nombre Apellido</Text>
+          <Text style={styles.userName}>
+            {data.name} {data.lastname}
+          </Text>
         </View>
         <View style={{ flex: 1, marginBottom: 90 }}>
           <TouchableOpacity
@@ -59,10 +61,23 @@ const ProfileScreen = () => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btnText}>
+          <TouchableOpacity
+            style={styles.btnText}
+            onPress={() => {
+              navigation.navigate("EditVehicule");
+            }}
+          >
             <Icon name="bus-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Datos del vehículo</Text>
             <View style={{ marginLeft: 95 }}>
+              <Icon name="chevron-forward-outline" style={styles.icons3} />
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.btnText}>
+            <Icon name="location-outline" style={styles.icons} />
+            <Text style={styles.userBtnTxt}>Historial de viajes</Text>
+            <View style={{ marginLeft: 100 }}>
               <Icon name="chevron-forward-outline" style={styles.icons3} />
             </View>
           </TouchableOpacity>
@@ -128,7 +143,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     backgroundColor: "#fff",
     width: "85%",
-    height: "13%",
+    height: "11%",
     padding: 10,
     paddingBottom: 10,
     borderRadius: 15,
@@ -144,7 +159,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#7952B3",
     width: "85%",
-    height: "17%",
+    height: "15%",
     padding: 10,
     paddingBottom: 10,
     borderRadius: 15,

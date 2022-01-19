@@ -1,4 +1,4 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import userRoutes from './user';
 import LoginRoutes from './login';
 import ProfileRoutes from './profiles';
@@ -17,11 +17,11 @@ router.use('/', LoginRoutes);
 router.use('/', ProfileRoutes);
 router.use('/', TravelRoutes);
 router.use('/', UploadDataFake);
-router.use('/', review )
-router.use('/',payments);
+router.use('/', review)
+router.use('/', payments);
 router.use('/', review);
-router.use('/',changePassword)
-router.use('/',history)
+router.use('/', changePassword)
+router.use('/', history)
 //router.use('/', UploadDataFake) 
 
 

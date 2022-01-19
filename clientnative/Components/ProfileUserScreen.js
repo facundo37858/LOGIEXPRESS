@@ -13,16 +13,22 @@ import { useNavigation } from "@react-navigation/core";
 import { logiarUsuario } from "./../actions/index";
 import { useSelector } from "react-redux";
 
-import StarRating from './StarRating'
+import StarRating from "./StarRating";
 
 const ProfileUserScreen = () => {
-  const data = useSelector((store) => store.responseLog);
+  const resptoken = useSelector((store) => store.respToken);
+  const responLog = useSelector((store) => store.responseLog);
+  const rating = 4;
+
   const navigation = useNavigation();
-  
-  useEffect(() => {
-    console.log("data", data);
-  }, [data]);
-  
+  // const data = useSelector((store) => store.responseLog);
+
+  // useEffect(() => {
+  //   //console.log("data", data);
+  // }, [data]);
+  console.log("AQUI RESPONLOG EN PROFILEUSERScreen", responLog);
+  console.log("AQUI RESPTOKEN en PROFILEUSERScreen", resptoken);
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -36,31 +42,38 @@ const ProfileUserScreen = () => {
               source={require("./Utils/foto1.jpg")}
             />
           </View>
-          <Text style={styles.userName}>{data.name} {data.lastname}</Text>
+          <Text style={styles.userName}>
+            {data.name} {data.lastname}
+          </Text>
         </View>
-        <View style={{ flex: 1, marginBottom: 90, }}>
-          <TouchableOpacity style={styles.btnText} onPress={()=>{navigation.navigate('DatosPersonalesUser')}}>
+        <View style={{ flex: 1, marginBottom: 90 }}>
+          <TouchableOpacity
+            style={styles.btnText}
+            onPress={() => {
+              navigation.navigate("DatosPersonalesCarrier");
+            }}
+          >
             <Icon name="person-circle-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Datos Personales</Text>
-            <View style={{marginLeft: 103}}>
-            <Icon name="chevron-forward-outline" style={styles.icons3} />
+            <View style={{ marginLeft: 103 }}>
+              <Icon name="chevron-forward-outline" style={styles.icons3} />
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btnText}>
             <Icon name="bus-outline" style={styles.icons} />
-            <Text style={styles.userBtnTxt}>Historial de viajes</Text>
-            <View style={{marginLeft: 110}}>
-            <Icon name="chevron-forward-outline" style={styles.icons3} />
+            <Text style={styles.userBtnTxt}>Historial de viaje</Text>
+            <View style={{ marginLeft: 110 }}>
+              <Icon name="chevron-forward-outline" style={styles.icons3} />
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btnText}>
             <Icon name="cash-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Transacciones</Text>
-            <View style={{marginLeft: 128}}>
-            <Icon name="chevron-forward-outline" style={styles.icons3} />
-            </View>        
+            <View style={{ marginLeft: 128 }}>
+              <Icon name="chevron-forward-outline" style={styles.icons3} />
+            </View>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btnText}>
@@ -72,12 +85,12 @@ const ProfileUserScreen = () => {
           <TouchableOpacity
             style={styles.btn2}
             onPress={() => navigation.navigate("RequestTravel")}
-         >
-              <Image
-              style={{width: 70, height: 55, marginLeft: -4}}
+          >
+            <Image
+              style={{ width: 70, height: 55, marginLeft: -4 }}
               source={require("./Utils/UserProfile.png")}
-            />  
-              <Text style={styles.userBtnTxt2}>Solicitar Viaje</Text>
+            />
+            <Text style={styles.userBtnTxt2}>Solicitar Viaje</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -95,13 +108,13 @@ const styles = StyleSheet.create({
   },
   icons2: {
     fontSize: 22,
-    marginLeft: '45%',
-    marginTop: 4
+    marginLeft: "45%",
+    marginTop: 4,
   },
-  icons3:{
+  icons3: {
     fontSize: 22,
-    alignSelf: 'stretch',
-    marginTop: 4
+    alignSelf: "stretch",
+    marginTop: 4,
   },
   perfilTex: {
     fontSize: 19,
@@ -113,7 +126,7 @@ const styles = StyleSheet.create({
   btnText: {
     alignSelf: "center",
     flexDirection: "row",
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
     backgroundColor: "#fff",
     width: "85%",
     height: "13%",
@@ -123,11 +136,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 80,
     elevation: 15,
     marginTop: 27,
-    borderColor: '#E1E8EB',
-    borderWidth: 1.5
+    borderColor: "#E1E8EB",
+    borderWidth: 1.5,
   },
   btn2: {
-    alignContent: 'center',
+    alignContent: "center",
     alignSelf: "center",
     flexDirection: "row",
     justifyContent: "center",
@@ -161,15 +174,15 @@ const styles = StyleSheet.create({
     color: "black",
     textAlign: "center",
     fontSize: 18,
-    marginTop: 3
+    marginTop: 3,
   },
   userBtnTxt2: {
     color: "black",
     textAlign: "center",
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 9,
-    marginRight: 15
+    marginRight: 15,
   },
   userInfoWrapper: {
     flexDirection: "row",

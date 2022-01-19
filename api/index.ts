@@ -36,6 +36,7 @@ const resApiUsers = async () => {
 						eMail: us.email,
 						password: bcrypt.hashSync(us.login.password, 8),//problemas cuando sean muchos datos!!!
 						terminosCondiciones: true,
+						role: true
 					}
 				})
 				return usersFilter
@@ -43,7 +44,7 @@ const resApiUsers = async () => {
 
 
 		await User_Reg.bulkCreate(users)
-			//.then((u) => { console.log(u) })
+		//.then((u) => { console.log(u) })
 
 		return users
 
@@ -58,11 +59,14 @@ const resApiUsers = async () => {
 	}
 
 }
+
+
 sequelize
-	.sync({ force: true, logging: false })
+	.sync({ force: false, logging: false })
+
 	.then(async () => {
 		await resApiUsers()
-		
+
 	})
 	.then(() => {
 		console.log('base de datos conectada! :D')

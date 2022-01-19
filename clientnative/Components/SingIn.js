@@ -14,25 +14,33 @@ import {
 } from "react-native";
 import { logiarUsuario } from "./../actions/index";
 import { useDispatch, useSelector } from "react-redux";
+import * as SecureStore from "expo-secure-store";
 
 const SingIn = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const respuesta = useSelector((store) => store.responseLog);
 
-  // useEffect(()=>{
-  //   // token === localstorage.token
-  //   if(token===true){
-  //     dispatch(action) // llamar a la ruta del back, si el token es valido, el back devuelve respuesta con la info del user
-  //     //si existe la sesion:
-  //     //cargamos la info del perfil en redux
-  //     // se pisa el estado responseLog, al modificarse el estado de redux:
-  //     //se activa el useEffect de abajo
-  //   }
-  // })
+  async function save(key, value) {
+    //FUNCION PARA GUARDAR LA INFO EN EL STORE, KEY = token , VALUE=el string del token
+    await SecureStore.setItemAsync(key, value);
+  }
+
+  const nuevotoken = useSelector((store) => store.token);
+  useEffect(() => {
+    console.log("verificando, que se envia", nuevotoken);
+    save("token", nuevotoken);
+  }, [nuevotoken]);
+
+  const guardarToken = () => {
+    console.log("el nuevo token", nuevotoken);
+  };
 
   useEffect(() => {
-    console.log("aqui esta la respuestaaaa:", respuesta);
+    console.log(
+      "aqui esta la respuesta (Componente SingIn linea 40):",
+      respuesta
+    );
     if (respuesta?.role === true) {
       navigation.navigate("ProfileUserScreen", respuesta);
     }
@@ -51,14 +59,6 @@ const SingIn = ({ navigation }) => {
     contraseña: "",
   });
 
-  // const name = respuesta.name
-  // const ChangeInput = (e) => {
-  //   setLog({
-  //     // y sino es  generos y platforms, directamente pongo lo que escribo en el input
-  //     ...log,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
   const handelChangeMail = (email) => {
     setLog({
       ...log,
@@ -100,6 +100,8 @@ const SingIn = ({ navigation }) => {
 
     //cuando se cumpla que respuesta != null
     //haga un console.log(respuesta)
+
+    guardarToken();
   };
 
   function navigate() {
@@ -167,7 +169,6 @@ const SingIn = ({ navigation }) => {
         <TouchableOpacity style={styles.TextButton} onPress={navigate}>
           <Text style={styles.SingUpText}>Registrate Ahora</Text>
         </TouchableOpacity>
-        
       </View>
     </ScrollView>
     // Container End

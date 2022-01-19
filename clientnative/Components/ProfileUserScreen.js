@@ -17,7 +17,7 @@ import StarRating from "./StarRating";
 
 const ProfileUserScreen = () => {
   const resptoken = useSelector((store) => store.respToken);
-  const responLog = useSelector((store) => store.responseLog);
+  const data = useSelector((store) => store.responseLog);
   const rating = 4;
 
   const navigation = useNavigation();
@@ -26,7 +26,7 @@ const ProfileUserScreen = () => {
   // useEffect(() => {
   //   //console.log("data", data);
   // }, [data]);
-  console.log("AQUI RESPONLOG EN PROFILEUSERScreen", responLog);
+  console.log("AQUI RESPONLOG EN PROFILEUSERScreen", data);
   console.log("AQUI RESPTOKEN en PROFILEUSERScreen", resptoken);
 
   return (

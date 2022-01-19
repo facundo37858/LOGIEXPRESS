@@ -59,7 +59,7 @@ const resApiUsers = async () => {
 
 }
 sequelize
-	.sync({ force: true, logging: false })
+	.sync({ force: false, logging: false })
 	.then(async () => {
 		await resApiUsers()
 		

@@ -24,13 +24,17 @@ const ScreenWaiting = (payload) => {
     }, [])
 
 
-    console.log("ESTO ES LA RESPUESTA",travel.travel)
+    console.log("ESTO ES TRAVEL", travel)
 /* 
     console.log("Esto es lo que llegan en ScreenWaiting", travel[0].id) */
     /* const orig = travel[0]?.orig.split("/")
     const dest = travel[0]?.destination.split("/") */
 
     function renderComponent() {
+
+        const orig = travel?.travel.orig.split('/')
+        const dest = travel?.travel.destination.split('/')
+
         return (
             <View style={{
                 marginTop: 24,
@@ -39,10 +43,10 @@ const ScreenWaiting = (payload) => {
                 borderRadius: 12,
                 backgroundColor: '#FFC107'
             }}>
-                <Text>ID del Viaje:{travel.travel?.id}</Text>
+                <Text>ID del Viaje:{travel.travel?.id.slice(24)}</Text>
                 <Text>Descripcion: {travel.travel?.description}</Text>
-                <Text>Origen:{} </Text>
-                <Text>Destino: {}</Text>
+                <Text>Origen:{orig[2]} </Text>
+                <Text>Destino: {dest[2]}</Text>
                 <Text>Precio: ${travel.travel?.price}</Text>
                 <Text>Peso: {travel.travel?.weight} toneladas</Text>
                 <Text>Solicitud creada: {travel.travel?.createdAt} </Text>
@@ -69,7 +73,7 @@ const ScreenWaiting = (payload) => {
                     </View>
                     <View>
                         {
-                            renderComponent()
+                           travel !== null ? renderComponent() : <ActivityIndicator size="large" color="#0000ff" />
                         }
                     </View>
                     <View style={{ alignItems: 'center', marginTop: 40 }}>

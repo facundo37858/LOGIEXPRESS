@@ -4,7 +4,7 @@ export const GET_TRAVELS = "GET_TRAVELS"
 export const POST_REQUEST_TRAVE = "POST_REQUEST_TRAVE"
 export const URL_PRICE_QUOTE = "http://192.168.2.104:3001/api/calculatePrice"
 export const URL_REQUEST_TRAVEL = "http://192.168.2.104:3001/api/requestTravel"
-export const URL_TRAVEL = `http://192.168.2.104:3001/api/Travel`
+export const URL_TRAVEL = "http://192.168.2.104:3001/api/Travel"
 export const URL_TRAVEL_ID = "http://192.168.2.104:3001/api/oneTravel"
 export const GET_TRAVEL_ID = "GET_TRAVEL_ID"
 

@@ -11,7 +11,7 @@ const StarRating = (props) => {
         if (i > props.ratings) {
             name = 'ios-star-outline';
         }
-        stars.push((<Ionicons name={name} size={15} style={styles.star} key={i} />));
+        stars.push((<Ionicons name={name} size={props.size} style={styles.star} key={i} />));
     }
 
     return (

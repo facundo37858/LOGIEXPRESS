@@ -15,15 +15,20 @@ import { useSelector } from "react-redux";
 
 import StarRating from './StarRating'
 
-const ProfileUserScreen = () => {
+const ProfileUserScreen = (props) => {
   const rating = 4;
 
   const navigation = useNavigation();
+  const data = props.route.params
+  const response = useSelector((store) => store.responseReg)
+  
+  console.log("ESTOS SON DATOS QUE LLEGAN AL PERFIL POR PROPS", data)
+ 
   // const data = useSelector((store) => store.responseLog);
 
-  // useEffect(() => {
-  //   //console.log("data", data);
-  // }, [data]);
+   useEffect(() => {
+    console.log("ESTOS SON DATOS QUE LLEGAN AL PERFIL POR EL ESTADO", data)
+  }, [response]);
   
   return (
     <View style={{ flex: 1 }}>
@@ -38,7 +43,8 @@ const ProfileUserScreen = () => {
               source={require("./Utils/foto1.jpg")}
             />
           </View>
-          <Text style={styles.userName}>Nombre Apellido</Text>
+          <Text style={styles.userName}>{data.name}</Text>
+          <StarRating ratings={rating} reviews={rating} size={20}/>
         </View>
         <View style={{ flex: 1, marginBottom: 90, }}>
           <TouchableOpacity style={styles.btnText} onPress={()=>{navigation.navigate('DatosPersonalesCarrier')}}>
@@ -73,7 +79,7 @@ const ProfileUserScreen = () => {
 
           <TouchableOpacity
             style={styles.btn2}
-            onPress={() => navigation.navigate("RequestTravel")}
+            onPress={() => navigation.navigate("RequestTravel", data)}
          >
               <Image
               style={{width: 70, height: 55, marginLeft: -4}}

@@ -1,18 +1,27 @@
 import { useStripe} from "@stripe/stripe-react-native";
-import React, { useState } from "react";
-import { View, Text, TextInput, Button, Alert } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, TextInput, ScrollView, Alert, ImageBackground, Dimensions, StyleSheet } from "react-native";
 import axios from 'axios'
-
+import { useSelector} from "react-redux";
+import { Ionicons } from "@expo/vector-icons";
 
 
 
 
 const Payment = () => {
- 
- 
+
   
-  const [name, setName] = useState("");
+ 
+  const info = useSelector((store) => store.responseLog)
+  
+  const [name, setName] = useState(info.eMail);
   const stripe = useStripe();
+
+  useEffect(()=>{
+    console.log('llega bien el mail?',info.eMail)
+    subscribe();
+    
+  },[])
   
   const subscribe = async () => {
     try {
@@ -25,7 +34,7 @@ const Payment = () => {
       //   },
       // });
      
-      const response = await axios.post(`http://192.168.2.104:3001/api/pay`, { name })
+      const response = await axios.post(`http://192.168.0.111:3001/api/pay`, { name })
       //.then(res=>res.data)
 
       console.log(response.data.key)
@@ -62,22 +71,45 @@ const Payment = () => {
   };
 
   return (
-    <View>
-      <TextInput
-        value={name}
-        onChangeText={(text) => setName(text)}
-        placeholder="e-mail"
-        style={{
-          width: 300,
-          fontSize: 20,
-          padding: 10,
-          borderWidth: 1,
-        }}
-      />
+    <ScrollView
+      style={{ flex: 1, backgroundColor: "#ffffffff",alignSelf: 'stretch', }}
+      showsVerticalScrollIndicator={false}
       
-      <Button title="Pay Carrier" onPress={subscribe} />
-    </View>
+    >
+         <ImageBackground
+        source={require("../ruta.png")}
+        style={{
+          height: Dimensions.get("window").height / 1.1,
+          width:'100%'
+        }}
+      >
+        <View style={styles.brandView}>
+          <Ionicons
+            name="location-sharp"
+            style={{ color: "#FFC107", fontSize: 100 }}
+          />
+          <Text style={styles.brandViewText}>LOGIEXPRESS</Text>
+        </View>
+      </ImageBackground>
+    </ScrollView>
   );
 };
 
 export default Payment;
+
+
+const styles = StyleSheet.create({
+  brandView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  brandViewText: {
+    color: "#FFC107",
+    fontSize: 45,
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    
+    // justifyContent:'flex-start'
+  },
+})

@@ -35,7 +35,7 @@ const StartUser = (props) => {
     >
       {/* Brand View */}
 
-      <HeaderBar />
+      {/* <HeaderBar /> */}
 
 
       <View style={{ backgroundColor: "#7952B3", marginTop: 20, height: 60 }}>
@@ -55,7 +55,7 @@ const StartUser = (props) => {
       </ImageBackground>
       <View>
 
-        <Text style={{ textAlign: 'center', marginTop: -80, marginBottom: 10, fontSize: 20, fontWeight: '200' }}>Información sobre el Conductor</Text>
+        <Text style={{ textAlign: 'center', marginTop: -130, marginBottom: 10, fontSize: 20, fontWeight: '200' }}>Información sobre el Conductor</Text>
         {/* estrellas rating */}
 
         <View style={{ width: 240, alignSelf: 'center', marginBottom: 10, }}>

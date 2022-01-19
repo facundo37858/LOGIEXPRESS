@@ -1,4 +1,4 @@
-import { Model, Column, Table, CreatedAt, UpdatedAt, IsUUID, HasOne, BelongsTo, ForeignKey } from 'sequelize-typescript'
+import {AutoIncrement, Model, Column, Table, CreatedAt, UpdatedAt, IsUUID, HasOne, BelongsTo, ForeignKey } from 'sequelize-typescript'
 import { Carrier } from './Carrier';
 import { Review } from './Review';
 import { User } from './User';
@@ -7,9 +7,9 @@ import { Travel } from './Travel';
 @Table
 export class ServiceAlert extends Model {
 
-    @IsUUID(4)
+    @AutoIncrement
     @Column({ primaryKey: true })
-    id!: string;
+    id!: number;
 
 
     @CreatedAt
@@ -24,13 +24,13 @@ export class ServiceAlert extends Model {
     travel!: Travel
 
     @ForeignKey(() => Travel)
-    travelId!: string
+    TravelId!: string
 
     @BelongsTo(() => Carrier)
     carrier!: Carrier
 
     @ForeignKey(() => Carrier)
-    carrierId!: string
+    CarrierId!: string
 
 
 

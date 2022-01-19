@@ -25,19 +25,17 @@ router.post('/login', async (req: Request, res: Response) => {
 	const { eMail, password } = req.body
 
 	const user = await User_Reg.findAll({ where: { eMail: eMail } })
+	console.log(user[0], 'user')
 
 	
 	if (user.length > 0) {
 		
-		const photoUser = await User.findAll({ where: { idUserReg:user[0].id } })
-		console.log(photoUser, "foto")
+		const dataUser = await User.findOne({ where: { idUserReg:user[0].id } })
+		// console.log(photoUser!.photo, "fotoUser")
 	
-		const photoCarrier = await Carrier.findAll({ where: { idUserReg:user[0].id } })
+		const dataCarrier = await Carrier.findOne({ where: { idUserReg:user[0].id } })
+		// console.log(photoCarrier!.photo, "fotoCarrier")
 	
-		const locationUser = await User.findAll({ where: { idUserReg:user[0].id } })
-		console.log(locationUser)
-	
-		const locationCarrier = await Carrier.findAll({ where: { idUserReg:user[0].id } }) 
 
 		const compare = await bcryptjs.compare(password, user[0].password)
 		
@@ -50,7 +48,9 @@ router.post('/login', async (req: Request, res: Response) => {
 				name: user[0].name,
 				lastname: user[0].lastName,
 				phone: user[0].phone,
-				// photo: photoCarrier? photoCarrier : photoUser, 
+				photo: dataCarrier? dataCarrier!.photo : dataUser!.photo, 
+				location: dataCarrier? dataCarrier!.location : dataUser!.zone
+			
 			};
 
 			return res.json({

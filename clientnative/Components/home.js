@@ -43,17 +43,35 @@ const Home = () => {
     const [result,onChangeResult] = useState('(result)');
     // getValueFor(); // PRIMERO CORROBORAMOS SI HAY UN TOKEN GUARDADO
     getValueFor()
-
-        if(result === '(result)'){
-            navigation.navigate("singIn"); // si nunca se logio lo lleva al login
-        }else{ // SI YA SE LOGIO ANTERIORMENTE
-            const obj2 = {
-                'token':result
-            }
-            console.log('este es el result',obj2)
-            dispatch(enviarToken(obj2))
-
+    useEffect(() =>{
+     
+      if(result === '(result)'){
+        navigation.navigate("singIn"); // si nunca se logio lo lleva al login
+    }else{ // SI YA SE LOGIO ANTERIORMENTE
+        const obj2 = {
+            'token':result
         }
+
+        
+
+        
+        console.log('este es el result',obj2)
+        
+        dispatch(enviarToken(obj2))
+      
+
+        
+        
+    }
+
+    },[result])
+        
+  
+    
+    
+        
+      
+        
         
         useEffect(() =>{
             console.log('respotoken:', resptoken)
@@ -63,7 +81,7 @@ const Home = () => {
                 if(resptoken.mensaje === true){
                     navigation.navigate("ProfileUserScreen")
                 }else{
-                    save('token',resptoken)
+                    save('token','(result)')
                     navigation.navigate("singIn")
                 }
 

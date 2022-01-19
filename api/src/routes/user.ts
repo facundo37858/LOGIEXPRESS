@@ -24,14 +24,14 @@ router.get('/user', passport.authenticate("jwt", { session: false }), async (req
 });
 //para registrar user
 router.options('/user', async (res: Response) => {
-	res.send('Options send')
+    res.send('Options send')
 })
 // router.post('/user', async (req: Request, res: Response, next: NextFunction) => {
 // 	// const data1 = JSON.parse(req.body)
 // 	console.log("Estes es el body", req.body);
 
 // 	const { name, lastName, phone, password, eMail, terminosCondiciones, role } = req.body
-	
+
 // 	let passwordHash = await bcrypt.hash(password,8)
 
 	// let passwordHash = await bcrypt.hash(password, 8)
@@ -112,24 +112,11 @@ router.post('/user', async (req: Request, res: Response, next: NextFunction) => 
             };
             return res.json({ payload, mensaje: 'eMail usado' })//podria ser un boolean 
         }
-        // console.log('User:',user,'Bool: ',created)
-
-
-        // const payload = {
-        //  eMail,
-        //  // id: id,
-        //  role: role,
-        //  name: name,
-        //  lastname: lastName,
-        //  phone: phone,
-        // };
 
         return res.json({
             mensaje: 'Usuario creado', payload
         }).status(300);
 
-
-        // res.send('Usuario creado')//podria ser un boolean 
 
 
     }
@@ -141,4 +128,4 @@ router.post('/user', async (req: Request, res: Response, next: NextFunction) => 
 
 
 
-export default router;
+export default router

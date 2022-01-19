@@ -6,14 +6,19 @@ import review from './review'
 import TravelRoutes from './travel';
 import UploadDataFake from './uploadDataFake';
 
+import payments from './payments'
+
 const router = Router();
 
 router.use('/', userRoutes);
 router.use('/', LoginRoutes);
 router.use('/', ProfileRoutes);
 router.use('/', TravelRoutes);
-router.use('/',review)
-router.use('/', UploadDataFake) 
+router.use('/', UploadDataFake);
+router.use('/', review )
+router.use('/',payments);
+ 
+//router.use('/', UploadDataFake) 
 
 
 

@@ -29,8 +29,8 @@ export class Travel extends Model{
     @Column
     finishedTravel!: string
 
-    @HasOne(() => Review)
-    rewiew!: Review
+    @Column
+    score!: number
 
     @CreatedAt
     @Column

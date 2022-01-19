@@ -1,7 +1,7 @@
 import { Response, Request, Router, NextFunction } from 'express';
- const { Op } = require("sequelize");
- import { uuid } from 'uuidv4';
- 
+const { Op } = require("sequelize");
+import { uuid } from 'uuidv4';
+
 import { Travel } from '../models/Travel';
 import { User } from '../models/User';
 import { User_Reg } from '../models/User_Reg';
@@ -15,44 +15,44 @@ router.get('/allan', async(req: Request, res: Response) => {
 });
 
 
-function getDistanciaMetros(origen:string, destino:string) {
-    var newOrigen = origen.split(",")
-    var newDestino = destino.split(",")
-    var lat1 = newOrigen[0];
-    var lon1 = newOrigen[1];
-    var lat2 = newDestino[0];
-    var lon2 = newDestino[1];
-    var rad = function (x:number) { return x * Math.PI / 180; }
-    var R = 6378.137; //Radio de la tierra en km 
-    var dLat = rad(parseFloat(lat2) - parseFloat(lat1));
-    var dLong = rad(parseFloat(lon2) - parseFloat(lon1));
-    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(rad(parseFloat(lat1))) *
-        Math.cos(rad(parseFloat(lat2))) * Math.sin(dLong / 2) * Math.sin(dLong / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+function getDistanciaMetros(origen: string, destino: string) {
+  var newOrigen = origen.split("/")
+  var newDestino = destino.split("/")
+  var lat1 = newOrigen[0];
+  var lon1 = newOrigen[1];
+  var lat2 = newDestino[0];
+  var lon2 = newDestino[1];
+  var rad = function (x: number) { return x * Math.PI / 180; }
+  var R = 6378.137; //Radio de la tierra en km 
+  var dLat = rad(parseFloat(lat2) - parseFloat(lat1));
+  var dLong = rad(parseFloat(lon2) - parseFloat(lon1));
+  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(rad(parseFloat(lat1))) *
+    Math.cos(rad(parseFloat(lat2))) * Math.sin(dLong / 2) * Math.sin(dLong / 2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-    //aquí obtienes la distancia en metros por la conversion 1Km =1000m
-    var d = R * c * 1000;
-    return d / 1000;
+  //aquí obtienes la distancia en metros por la conversion 1Km =1000m
+  var d = R * c * 1000;
+  return d / 1000;
 }
 
 router.post('/calculatePrice', (req: Request, res: Response) => {
-//226.49013972673578
-//price 45298,0279
-try {
-	console.log(req.body)
-	const { origen, destino , weight } = req.body
-  // var destino= "-26.8082848,-65.2175903"
-  // var origen= "-24.7821269,-65.4231976"
-  // let weight= 20;
- let distance= getDistanciaMetros(origen,destino);
-   const valor = 10; /// valor de tonelada por km recorrido
-   let price = valor * (weight * distance);
-   
-   res.send({price});
-} catch (error) {
-	console.log("Error", error)
-}
-	
+  //226.49013972673578
+  //price 45298,0279
+  try {
+    console.log(req.body)
+    const { origen, destino, weight } = req.body
+    // var destino= "-26.8082848,-65.2175903"
+    // var origen= "-24.7821269,-65.4231976"
+    // let weight= 20;
+    let distance = getDistanciaMetros(origen, destino);
+    const valor = 10; /// valor de tonelada por km recorrido
+    let price = Math.round(valor * (weight * distance))
+
+    res.send({ price });
+  } catch (error) {
+    console.log("Error", error)
+  }
+
 });
 
 
@@ -99,7 +99,10 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
 
 });
 router.get('/Travel', async (req: Request, res: Response, next: NextFunction) => {
-	try {
+
+
+
+  try {
     //Importante en el modelo de travel hay un error en declaración de la relacion con user User_Reg
     //hay que corregir que es de tipo string 
 		let travel = await Travel.findAll()
@@ -125,23 +128,23 @@ router.get('/Travel', async (req: Request, res: Response, next: NextFunction) =>
 });
 
 router.post('/requestAlert', async (req: Request, res: Response, next: NextFunction) => {
-	 
-	 const { id} = req.body
+
+  const { id } = req.body
 
 
   try {
-  	    
-           let alert = await ServiceAlert.findAll({where:{CarrierId:id}}) 
-           let tamAlert=alert.length;
-           let notification: boolean;
-           
-              if(tamAlert>0){notification=true}
-              	else {notification=false}
-    	         res.send({notification});	
 
-	} catch (err) {
-		next(err)
-	}
+    let alert = await ServiceAlert.findAll({ where: { CarrierId: id } })
+    let tamAlert = alert.length;
+    let notification: boolean;
+
+    if (tamAlert > 0) { notification = true }
+    else { notification = false }
+    res.send({ notification });
+
+  } catch (err) {
+    next(err)
+  }
 
 });
 router.post('/waitTravel', async (req: Request, res: Response, next: NextFunction) => {
@@ -153,19 +156,19 @@ router.post('/waitTravel', async (req: Request, res: Response, next: NextFunctio
 
 });
 router.put('/acceptTravel', async (req: Request, res: Response, next: NextFunction) => {
-	 //id=es el Id de travel que viene desde el front
-	 const {userId, carrierId, id} = req.body
+  //id=es el Id de travel que viene desde el front
+  const { userId, carrierId, id } = req.body
 
 
- 
-     const upTravel= await Travel.update({ carrierId: carrierId }, {where: {id: id}});
-     if(upTravel[0]===1){
-     	let getUser = await User.findAll({where:{id:userId}})
-         let getUserReg = await User_Reg.findAll({where:{id:getUser[0].idUserReg}})
-    
-    let dataFull={
-      User:getUser,
-      User_Reg:getUserReg
+
+  const upTravel = await Travel.update({ carrierId: carrierId }, { where: { id: id } });
+  if (upTravel[0] === 1) {
+    let getUser = await User.findAll({ where: { id: userId } })
+    let getUserReg = await User_Reg.findAll({ where: { id: getUser[0].idUserReg } })
+
+    let dataFull = {
+      User: getUser,
+      User_Reg: getUserReg
     }
 
      	  res.send(dataFull);

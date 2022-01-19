@@ -18,7 +18,8 @@ const ScreenMap = () => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
-    const rating = 3
+
+    const dispatch = useDispatch()
 
 
     useEffect(() => {
@@ -55,7 +56,8 @@ const ScreenMap = () => {
         longitude: -122.4324,
     })
 
-   
+    const rating = 3;
+
     return (
         <View style={styles.container}>
             <GooglePlacesAutocomplete

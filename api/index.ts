@@ -16,11 +16,6 @@ interface error {
 const resApiUsers = async () => {
 
 	try {
-
-
-
-
-
 		let users = await axios.get('https://randomuser.me/api/?results=10')
 			.then(res => { return res.data })
 			.then(async (users) => {

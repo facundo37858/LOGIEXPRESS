@@ -35,9 +35,11 @@ router.post('/verifytoken', async (req: Request, res: Response, next: NextFuncti
             phone: dataUser?.phone,
             eMail: dataUser?.eMail,
             role: dataUser?.role,
+            mensaje: true
         }
 
         console.log("PAYLOAD en verifytoken", payload);
+
         return res.json({ payload, mensaje: 'the access token is valid' })
     }
     catch (err) {

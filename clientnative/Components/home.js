@@ -54,7 +54,6 @@ const Home = () => {
       console.log("este es el result", obj2);
 
       dispatch(enviarToken(obj2));
-      console.log(resptoken);
     }
   }, [result]);
 
@@ -64,7 +63,11 @@ const Home = () => {
 
     if (resptoken != {}) {
       if (resptoken.mensaje === true) {
-        navigation.navigate("ProfileUserScreen");
+        if (resptoken.role === true) {
+          navigation.navigate("ProfileUserScreen");
+        } else {
+          navigation.navigate("ProfileScreenCarrier");
+        }
       } else {
         save("token", "(result)");
         navigation.navigate("singIn");

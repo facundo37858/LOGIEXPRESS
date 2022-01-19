@@ -69,6 +69,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         respToken: action.payload,
+        responseLog: action.payload,
       };
     default:
       return state;

@@ -19,6 +19,7 @@ import { SafeAreaView } from "react-native";
 import { Input } from "react-native-elements"
 import { useSelector, useDispatch } from "react-redux";
 import { cotizarViaje, requestTravel } from "../actions/index.js"
+import { LogBox } from 'react-native';
 
 
 // funcion para calcular la distancia en km
@@ -46,6 +47,11 @@ const RequestTravel = () => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const response = useSelector((store) => store.responseTravel )
+
+     /// --> ESTO ES PARA ELIMINAR EL WARNING QUE SALE EN LA PANTALLA <-- ///
+    useEffect(() => {
+        LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+    }, []);
 
     useEffect(() => {
         (async () => {

@@ -18,7 +18,7 @@ import StarRating from "./StarRating";
 const ProfileScreen = () => {
   const rating = 4;
 
-   const navigation = useNavigation();
+  const navigation = useNavigation();
   const data = useSelector((store) => store.responseLog);
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const ProfileScreen = () => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btnText}>
+          <TouchableOpacity style={styles.btnText} onPress={()=>(navigation.navigate('CotizarViaje'))}>
             <Icon name="calculator-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Cotizar viaje</Text>
             <Icon name="chevron-forward-outline" style={styles.icons2} />

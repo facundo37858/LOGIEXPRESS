@@ -16,8 +16,8 @@ const initialState = {
   completeCarrier: [],
   price: null,
   responseTravel: null,
-  travels: null,
-  travel: [],
+  travels: [],
+  travel: null,
 };
 
   export default function rootReducer(state = initialState, action) {

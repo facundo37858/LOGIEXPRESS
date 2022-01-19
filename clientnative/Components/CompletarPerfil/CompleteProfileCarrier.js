@@ -126,12 +126,12 @@ const CompleteProfileUser = () => {
       location: location,
     });
   };
-
+   
   //Vehicule//
   const handleChangeBrand = (brand) => {
     setCarrier({
       ...carrier,
-      brand: brand,
+      brand: brand, 
     });
   };
 
@@ -227,7 +227,7 @@ const CompleteProfileUser = () => {
           <View style={styles.add}>
             <TouchableWithoutFeedback onPress={openImagePickerAsync}>
               <Image
-                source={require("../add-image.png")}
+                source={require("./add-image.png")}
                 style={styles.imgAdd}
               />
             </TouchableWithoutFeedback>

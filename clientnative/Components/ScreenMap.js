@@ -24,8 +24,7 @@ const ScreenMap = () => {
 
     const navigation = useNavigation();
     const dispatch = useDispatch();
-
-    const rating = 3
+    
     let mapIndex = 0;
     let mapAnimation = new Animated.Value(0);
 
@@ -105,6 +104,14 @@ const ScreenMap = () => {
     const _map = React.useRef(null)
     const _scrollView = React.useRef(null);
    
+
+    const [region, setRegion] = useState({
+        latitude: 37.78825,
+        longitude: -122.4324,
+    })
+
+    const rating = 3;
+
     return (
         <View style={styles.container}>
             {

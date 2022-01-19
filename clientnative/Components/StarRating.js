@@ -28,7 +28,9 @@ export default StarRating;
 const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
-		alignItems: 'center'
+		alignContent: 'center',
+        alignItems: 'center',
+         
 	},
 	star: {
 		color: '#FF8C00'

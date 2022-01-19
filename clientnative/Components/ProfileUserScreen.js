@@ -15,20 +15,13 @@ import { useSelector } from "react-redux";
 
 import StarRating from './StarRating'
 
-const ProfileUserScreen = (props) => {
-  const rating = 4;
-
+const ProfileUserScreen = () => {
+  const data = useSelector((store) => store.responseLog);
   const navigation = useNavigation();
-  const data = props.route.params
-  const response = useSelector((store) => store.responseReg)
   
-  console.log("ESTOS SON DATOS QUE LLEGAN AL PERFIL POR PROPS", data)
- 
-  // const data = useSelector((store) => store.responseLog);
-
-   useEffect(() => {
-    console.log("ESTOS SON DATOS QUE LLEGAN AL PERFIL POR EL ESTADO", data)
-  }, [response]);
+  useEffect(() => {
+    console.log("data", data);
+  }, [data]);
   
   return (
     <View style={{ flex: 1 }}>
@@ -43,11 +36,10 @@ const ProfileUserScreen = (props) => {
               source={require("./Utils/foto1.jpg")}
             />
           </View>
-          <Text style={styles.userName}>{data.name}</Text>
-          <StarRating ratings={rating} reviews={rating} size={20}/>
+          <Text style={styles.userName}>{data.name} {data.lastname}</Text>
         </View>
         <View style={{ flex: 1, marginBottom: 90, }}>
-          <TouchableOpacity style={styles.btnText} onPress={()=>{navigation.navigate('DatosPersonalesCarrier')}}>
+          <TouchableOpacity style={styles.btnText} onPress={()=>{navigation.navigate('DatosPersonalesUser')}}>
             <Icon name="person-circle-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Datos Personales</Text>
             <View style={{marginLeft: 103}}>
@@ -57,7 +49,7 @@ const ProfileUserScreen = (props) => {
 
           <TouchableOpacity style={styles.btnText}>
             <Icon name="bus-outline" style={styles.icons} />
-            <Text style={styles.userBtnTxt}>Historial de viaje</Text>
+            <Text style={styles.userBtnTxt}>Historial de viajes</Text>
             <View style={{marginLeft: 110}}>
             <Icon name="chevron-forward-outline" style={styles.icons3} />
             </View>

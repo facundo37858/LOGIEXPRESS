@@ -21,7 +21,7 @@ const ScreenWaiting = (payload) => {
     
     useEffect(() => {
         dispatch(getTravelID(data))
-    }, [])
+    }, [dispatch])
 
 
     console.log("ESTO ES TRAVEL", travel)

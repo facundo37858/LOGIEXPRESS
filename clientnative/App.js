@@ -6,8 +6,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SingIn from "./Components/SingIn";
 import SingUp from "./Components/SingUp";
-import EditProfile from "./Components/EditProfile";
-import EditProfileCarrier from "./Components/EditProfileCarrier";
+import EditProfile from "./Components/Editares/EditProfile";
+import EditProfileCarrier from "./Components/Editares/EditProfileCarrier";
 import CompleteProfileUser from "./Components/CompletarPerfil/CompleteProfileUser";
 import CompleteProfileCarrier from "./Components/CompletarPerfil/CompleteProfileCarrier";
 import ProfileUserScreen from "./Components/ProfileUserScreen";
@@ -20,15 +20,11 @@ import StartCarrier from "./Components/ComenzarViaje/StartCarrier";
 import ScreenWaiting from "./Components/ScreenWaiting";
 import PaymentApp from "./Components/Payment/PaymentApp";
 import StartUser from "./Components/ComenzarViaje/StartUser";
-
-
-
-
+import EditVehicule from "./Components/Editares/EditVehicule";
 
 const Stack = createStackNavigator();
 
 const App = () => {
-  
   return (
     <StripeProvider publishableKey="pk_test_51KHwMJH58Ljah9wGjMPQ9Os5fhEj5awCKf7ARtjrqcwUFGAVniXX5CTP3fP492gqrJv3MerKLDbnAByXzpPkYWsC00P8X1yX8l">
       <Provider store={store}>
@@ -48,6 +44,11 @@ const App = () => {
             <Stack.Screen
               name="EditProfileCarrier"
               component={EditProfileCarrier}
+              options={{ headerShown: false }}
+            />
+             <Stack.Screen
+              name="EditVehicule"
+              component={EditVehicule}
               options={{ headerShown: false }}
             />
 
@@ -96,7 +97,6 @@ const App = () => {
               component={DatosPersonalesUser}
               options={{ headerShown: false }}
             />
-
             <Stack.Screen
               name="StartUser"
               component={StartUser}

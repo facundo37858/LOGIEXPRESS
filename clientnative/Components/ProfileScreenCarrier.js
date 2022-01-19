@@ -15,19 +15,15 @@ import { useSelector } from "react-redux";
 
 import StarRating from "./StarRating";
 
-const ProfileScreen = (props) => {
+const ProfileScreen = () => {
   const rating = 4;
 
    const navigation = useNavigation();
+  const data = useSelector((store) => store.responseLog);
 
-   const data = props.route.params
-  
-   console.log("ESTOS SON DATOS QUE LLEGAN AL PERFIL", data)
-  // const data = useSelector((store) => store.responseLog);
-
-  // useEffect(() => {
-  //   //console.log("data", data);
-  // }, [data]);
+  useEffect(() => {
+    //console.log("data", data);
+  }, [data]);
   
   return (
     <View style={{ flex: 1 }}>
@@ -42,8 +38,7 @@ const ProfileScreen = (props) => {
               source={require("./Utils/foto1.jpg")}
             />
           </View>
-          <Text style={styles.userName}>{data.name}</Text>
-          <StarRating ratings={rating} reviews={rating}/>
+          <Text style={styles.userName}>{data.name} {data.lastname}</Text>
         </View>
         <View style={{ flex: 1, marginBottom: 90, }}>
           <TouchableOpacity style={styles.btnText} onPress={()=>{navigation.navigate('DatosPersonalesCarrier')}}>
@@ -54,10 +49,18 @@ const ProfileScreen = (props) => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btnText}>
+          <TouchableOpacity style={styles.btnText} onPress={() => {navigation.navigate('EditVehicule')}}>
             <Icon name="bus-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Datos del vehículo</Text>
             <View style={{marginLeft: 95}}>
+            <Icon name="chevron-forward-outline" style={styles.icons3} />
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.btnText}>
+            <Icon name="location-outline" style={styles.icons} />
+            <Text style={styles.userBtnTxt}>Historial de viajes</Text>
+            <View style={{marginLeft: 100}}>
             <Icon name="chevron-forward-outline" style={styles.icons3} />
             </View>
           </TouchableOpacity>
@@ -68,7 +71,6 @@ const ProfileScreen = (props) => {
             <View style={{marginLeft: 128}}>
             <Icon name="chevron-forward-outline" style={styles.icons3} />
             </View>
-           
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btnText}>
@@ -124,13 +126,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     backgroundColor: "#fff",
     width: "85%",
-    height: "13%",
+    height: "11%",
     padding: 10,
     paddingBottom: 10,
     borderRadius: 15,
     shadowOpacity: 80,
     elevation: 15,
-    marginTop: 27,
+    marginTop: 20,
     borderColor: '#E1E8EB',
     borderWidth: 1.5
   },
@@ -140,7 +142,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#7952B3",
     width: "85%",
-    height: "17%",
+    height: "15%",
     padding: 10,
     paddingBottom: 10,
     borderRadius: 15,

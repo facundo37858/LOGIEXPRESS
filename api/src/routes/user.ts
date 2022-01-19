@@ -79,7 +79,7 @@ router.options('/user', async (res: Response) => {
 // });
 router.post('/user', async (req: Request, res: Response, next: NextFunction) => {
     // const data1 = JSON.parse(req.body)
-    console.log("Estes es el body", req.body);
+    // console.log("Estes es el body", req.body);
 
     const { name, lastName, phone, password, eMail, terminosCondiciones, role } = req.body
 

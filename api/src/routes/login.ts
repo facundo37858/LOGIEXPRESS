@@ -1,6 +1,9 @@
 import { Response, Request, Router } from 'express';
 
 import { User_Reg } from '../models/User_Reg';
+import {User} from '../models/User';
+import {Carrier} from '../models/Carrier';
+
 
 // const bcryptjs = require("bcryptjs");
 import config from '../../config/config';
@@ -23,9 +26,21 @@ router.post('/login', async (req: Request, res: Response) => {
 
 	const user = await User_Reg.findAll({ where: { eMail: eMail } })
 
+	
 	if (user.length > 0) {
+		
+		const photoUser = await User.findAll({ where: { idUserReg:user[0].id } })
+		console.log(photoUser, "foto")
+	
+		const photoCarrier = await Carrier.findAll({ where: { idUserReg:user[0].id } })
+	
+		const locationUser = await User.findAll({ where: { idUserReg:user[0].id } })
+		console.log(locationUser)
+	
+		const locationCarrier = await Carrier.findAll({ where: { idUserReg:user[0].id } }) 
 
 		const compare = await bcryptjs.compare(password, user[0].password)
+		
 
 		if (compare) {
 			const payload = {
@@ -35,8 +50,7 @@ router.post('/login', async (req: Request, res: Response) => {
 				name: user[0].name,
 				lastname: user[0].lastName,
 				phone: user[0].phone,
-				// CHARLAR CON ALLAN
-				// photo: user[0].carrier? user[0].carrier : user[0].user,
+				// photo: photoCarrier? photoCarrier : photoUser, 
 			};
 
 			return res.json({

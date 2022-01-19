@@ -101,7 +101,7 @@ const RequestTravel = (props) => {
             weight: parseFloat(weight),
             price: price.price,
             description: description,
-            id: "2083a1f1-16f9-4f07-aab0-548e5a90af26"
+            id: "d4053632-8539-46d6-be65-066212006b99"
         };
         dispatch(requestTravel(travel))
 

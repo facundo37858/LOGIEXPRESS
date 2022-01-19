@@ -24,7 +24,7 @@ const ScreenMap = () => {
 
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    
+
     let mapIndex = 0;
     let mapAnimation = new Animated.Value(0);
 
@@ -93,7 +93,7 @@ const ScreenMap = () => {
         _scrollView.current.scrollTo({ x: x, y: 0, animated: true });
     }
 
-    
+    console.log("ESTO SON TRAVELS", travels)
 
 
     const [pin, setPin] = useState({
@@ -103,12 +103,7 @@ const ScreenMap = () => {
     console.log("ESTO ES EL PIN DE LA UBI", pin)
     const _map = React.useRef(null)
     const _scrollView = React.useRef(null);
-   
 
-    const [region, setRegion] = useState({
-        latitude: 37.78825,
-        longitude: -122.4324,
-    })
 
     const rating = 3;
 
@@ -125,7 +120,7 @@ const ScreenMap = () => {
                     }}
                     style={styles.container}
                     provider="google"
-                >        
+                >
                     {
                         travels?.map((point, index) => {
                             const orig = point.travel.orig.split("/")
@@ -140,7 +135,7 @@ const ScreenMap = () => {
                                         longitude: lon,
                                     }}
                                     onPress={(e) => onMarkerPress(e)}
-                                >   
+                                >
                                     <Animated.View style={styles.markerWrap}>
                                         <Animated.Image
                                             source={require('../Components/Utils/puntero.png')}
@@ -157,7 +152,7 @@ const ScreenMap = () => {
             }
 
             <Animated.ScrollView
-                ref={_scrollView }
+                ref={_scrollView}
                 horizontal
                 scrollEventThrottle={1}
                 showHorizontalScrollIndicator={false}
@@ -176,16 +171,16 @@ const ScreenMap = () => {
                 }}
                 onScroll={Animated.event(
                     [
-                      {
-                        nativeEvent: {
-                          contentOffset: {
-                            x: mapAnimation,
-                          }
+                        {
+                            nativeEvent: {
+                                contentOffset: {
+                                    x: mapAnimation,
+                                }
+                            },
                         },
-                      },
                     ],
-                    {useNativeDriver: true}
-                  )}
+                    { useNativeDriver: true }
+                )}
             >
                 {travels?.map((resp, index) => {
                     const orig = resp.travel.orig.split("/")
@@ -297,7 +292,7 @@ const styles = StyleSheet.create({
         height: CARD_HEIGTH,
         width: CARD_WIDTH,
         overflow: "hidden",
-      },
+    },
     header: {
         marginTop: 20,
 

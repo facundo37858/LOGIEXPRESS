@@ -24,7 +24,6 @@ router.get('/user', passport.authenticate("jwt", { session: false }), async (req
 
 router.post('/verifytoken', async (req: Request, res: Response, next: NextFunction) => {
     const { token } = req.body;
-    console.log('verificando que llega del front', token)
     try {
         const decoded = jwt.verify(token, config.jwtSecret)
         const payload = {

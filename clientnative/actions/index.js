@@ -87,7 +87,7 @@ export function registrarUsuario(payload) {
 export function logiarUsuario(payload) {
   return async function (dispatch) {
     try {
-      const response = await axios
+      const respuesta = await axios
         .post("http://192.168.1.6:3001/api/login", payload) //aca cada uno pone su ip
         .then((r) => {
           dispatch({
@@ -96,7 +96,10 @@ export function logiarUsuario(payload) {
             token: r.data.token,
           });
           console.log("hace el dispatch");
-          console.log("Aqui esta el token:", r.data.token);
+          console.log(
+            "Aqui esta el token llegando en la action logiarusuario:",
+            r.data.token
+          );
         });
       // console.log(r);
       // return response;
@@ -150,7 +153,7 @@ export function enviarToken(payload) {
       const response = await axios
         .post("http://192.168.1.6:3001/api/verifytoken", payload) //aca cada uno pone su ip
         .then((r) => {
-          console.log("este token se envia al back", payload);
+          console.log("Token llegando a la action enviarToken", payload);
           dispatch({
             type: "TOKEN",
             payload: r.data.payload,

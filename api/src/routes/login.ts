@@ -3,7 +3,8 @@ import { User_Reg } from '../models/User_Reg';
 import config from '../../config/config';
 import bcryptjs from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-
+import { User } from '../models/User';
+// import passport from 'passport';
 
 
 const router = Router()
@@ -19,6 +20,7 @@ router.post('/login', async (req: Request, res: Response) => {
 	const { eMail, password } = req.body
 
 	const user = await User_Reg.findAll({ where: { eMail: eMail } })
+	/* const objUser = await User.findOne({where: { idUserReg : user[0].id}}) */
 
 	if (user.length > 0) {
 
@@ -39,6 +41,7 @@ router.post('/login', async (req: Request, res: Response) => {
 				mensaje: 'Autenticación correcta', payload
 			}).status(300);
 
+
 		} else {
 			const payload = {
 				eMail,
@@ -53,6 +56,8 @@ router.post('/login', async (req: Request, res: Response) => {
 			}).status(300)
 		}
 	} else {
+
+
 		const payload = {
 			role: 1,
 		};

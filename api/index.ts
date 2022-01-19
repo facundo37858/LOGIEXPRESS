@@ -36,7 +36,7 @@ const resApiUsers = async () => {
 						eMail: us.email,
 						password: bcrypt.hashSync(us.login.password, 8),//problemas cuando sean muchos datos!!!
 						terminosCondiciones: true,
-						role:true
+						role: true
 					}
 				})
 				return usersFilter
@@ -59,12 +59,11 @@ const resApiUsers = async () => {
 	}
 
 }
-<<<<<<< HEAD
-sequelize.sync({ force: true, logging: false })
-=======
+
+
 sequelize
 	.sync({ force: false, logging: false })
->>>>>>> gonzalo
+
 	.then(async () => {
 		await resApiUsers()
 

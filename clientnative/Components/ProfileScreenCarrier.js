@@ -102,7 +102,7 @@ const ProfileScreen = () => {
           >
             <Text style={styles.userBtnTxt2}>Comenzar viaje</Text>
             <Image
-              style={{ width: 75, height: 60 }}
+              style={{ width: 50, height: 35 }}
               source={require("./Utils/camion.png")}
             />
           </TouchableOpacity>

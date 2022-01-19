@@ -2,10 +2,10 @@ import axios from "axios";
 export const GET_PRICE_QUOTE = "GET_PRICE_QUOTE";
 export const GET_TRAVELS = "GET_TRAVELS";
 export const POST_REQUEST_TRAVE = "POST_REQUEST_TRAVE";
-export const URL_PRICE_QUOTE = "http://192.168.0.13:3001/api/calculatePrice";
-export const URL_REQUEST_TRAVEL = "http://192.168.0.13:3001/api/requestTravel";
-export const URL_TRAVEL = "http://192.168.0.13:3001/api/Travel";
-export const URL_TRAVEL_ID = "http://192.168.0.13:3001/api/oneTravel";
+export const URL_PRICE_QUOTE = "http://192.168.2.104:3001/api/calculatePrice";
+export const URL_REQUEST_TRAVEL = "http://192.168.2.104:3001/api/requestTravel";
+export const URL_TRAVEL = "http://192.168.2.104:3001/api/Travel";
+export const URL_TRAVEL_ID = "http://192.168.2.104:3001/api/oneTravel";
 export const GET_TRAVEL_ID = "GET_TRAVEL_ID";
 
 export function getTravelID(payload) {
@@ -68,7 +68,7 @@ export function registrarUsuario(payload) {
   return async function (dispatch) {
     try {
       const response = await axios
-        .post("http://192.168.0.13:3001/api/user", payload) //aca cada uno pone su ip
+        .post("http://192.168.2.104:3001/api/user", payload) //aca cada uno pone su ip
         .then((r) => {
           dispatch({
             type: "REGISTROO",
@@ -87,8 +87,8 @@ export function registrarUsuario(payload) {
 export function logiarUsuario(payload) {
   return async function (dispatch) {
     try {
-      const respuesta = await axios
-        .post("http://192.168.1.6:3001/api/login", payload) //aca cada uno pone su ip
+      const response = await axios
+        .post("http://192.168.2.104:3001/api/login", payload) //aca cada uno pone su ip
         .then((r) => {
           dispatch({
             type: "LOGEOO",
@@ -114,7 +114,7 @@ export function completeProfileUser(payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        "http://192.168.0.13:3001/api/userProfile",
+        "http://192.168.2.104:3001/api/userProfile",
         payload
       );
       //console.log('Soy el console.log de response', response)
@@ -133,7 +133,7 @@ export function completeProfileCarrier(payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        "http://192.168.0.13:3001/api/carrierProfile",
+        "http://192.168.2.104:3001/api/carrierProfile",
         payload
       );
       // console.log('Soy el console.log de response', response)

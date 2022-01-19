@@ -24,11 +24,11 @@ const ProfileScreen = () => {
   const rating = 4;
 
   const navigation = useNavigation();
-  // const data = useSelector((store) => store.responseLog);
+  const data = useSelector((store) => store.responseLog);
 
-  // useEffect(() => {
-  //   //console.log("data", data);
-  // }, [data]);
+  useEffect(() => {
+    //console.log("data", data);
+  }, [data]);
 
   return (
     <View style={{ flex: 1 }}>

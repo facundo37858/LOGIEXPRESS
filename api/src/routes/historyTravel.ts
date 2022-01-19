@@ -5,10 +5,11 @@ const router=Router()
 
 
 
-router.get(`/historyTravelUser:idUser`,async(req:Request,res:Response,next:NextFunction)=>{
+router.get('/historyTravelUser/:idUser',async(req:Request,res:Response,next:NextFunction)=>{
 
     let {idUser}=req.params
-
+    console.log(req.params)
+    
     try{
 
         let travel=await Travel.findAll({where:{
@@ -29,7 +30,7 @@ router.get(`/historyTravelUser:idUser`,async(req:Request,res:Response,next:NextF
 
 
 })
-router.get(`/historyTravelUser:idCarrier`,async(req:Request,res:Response,next:NextFunction)=>{
+router.get(`/historyTravelUser/:idCarrier`,async(req:Request,res:Response,next:NextFunction)=>{
 
     let {idCarrier}=req.params
 
@@ -53,5 +54,7 @@ router.get(`/historyTravelUser:idCarrier`,async(req:Request,res:Response,next:Ne
 
 
 })
+
+
 
 export default router

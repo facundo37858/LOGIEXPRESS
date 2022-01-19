@@ -36,6 +36,7 @@ const resApiUsers = async () => {
 						eMail: us.email,
 						password: bcrypt.hashSync(us.login.password, 8),//problemas cuando sean muchos datos!!!
 						terminosCondiciones: true,
+						role:true
 					}
 				})
 				return usersFilter

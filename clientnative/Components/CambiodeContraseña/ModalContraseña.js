@@ -25,8 +25,8 @@ const SimpleModalCarrier = (props) => {
 
   const handleSubmit = () => {
     const pass = {
-      contraseña: props.contraseña,
-      id: props.id,
+      newPassword: props.contraseña,
+      idUser: props.id,
     };
     dispatch(changePassword(pass));
     console.log("Estoy enviando:", pass);

@@ -30,13 +30,13 @@ const CambiarContraseña = () => {
  /// --> ESTADO PARA EL INPUT <-- ///
  const [contraseña, setContraseña] = useState('');
  
- const handleChange = (contraseña) => {
-     setContraseña({
-         ...contraseña,
-         contraseña : contraseña
+//  const handleChange = (contraseña) => {
+//      setContraseña({
+//          ...contraseña,
+//          contraseña : contraseña
 
-     })
- }
+//      })
+//  }
 
  
       /// --> ESTADO PARA EL MODAL <-- ///
@@ -71,11 +71,11 @@ const CambiarContraseña = () => {
 
       <View style={styles.viewsInputs}>
         <TextInput
-        value={contraseña.contraseña}
+        //value={contraseña.contraseña}
           placeholder="Nueva contraseña"
           name="phone"
           style={styles.textPlaceholder}
-          onChangeText={(contraseña) => handleChange(contraseña)}
+          onChangeText={(text) => setContraseña(text)}
         />
       </View>
 

@@ -24,7 +24,7 @@ const SimpleModalCarrier = (props) => {
     props.setData(data);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const pass = {
       contraseña: props.contraseña,
       id: props.id,

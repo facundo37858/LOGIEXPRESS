@@ -16,18 +16,17 @@ import { useSelector } from "react-redux";
 import StarRating from "./StarRating";
 
 const ProfileScreen = () => {
-  
   const resptoken = useSelector((store) => store.respToken);
   const data = useSelector((store) => store.responseLog);
   const navigation = useNavigation();
 
   console.log("AQUI RESPONLOG EN PROFILEUSERScreen", data);
   console.log("AQUI RESPTOKEN en PROFILEUSERScreen", resptoken);
-  
+
   useEffect(() => {
     //console.log("data", data);
   }, [data]);
-  
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -41,7 +40,9 @@ const ProfileScreen = () => {
               source={require("./Utils/foto1.jpg")}
             />
           </View>
-          <Text style={styles.userName}>{data.name} {data.lastname}</Text>
+          <Text style={styles.userName}>
+            {data.name} {data.lastname}
+          </Text>
         </View>
         <View style={{ flex: 1, marginBottom: 90 }}>
           <TouchableOpacity
@@ -57,7 +58,12 @@ const ProfileScreen = () => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btnText} onPress={() => {navigation.navigate('EditVehicule')}}>
+          <TouchableOpacity
+            style={styles.btnText}
+            onPress={() => {
+              navigation.navigate("EditVehicule");
+            }}
+          >
             <Icon name="bus-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Datos del vehículo</Text>
             <View style={{ marginLeft: 95 }}>
@@ -76,8 +82,8 @@ const ProfileScreen = () => {
           <TouchableOpacity style={styles.btnText}>
             <Icon name="location-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Historial de viajes</Text>
-            <View style={{marginLeft: 100}}>
-            <Icon name="chevron-forward-outline" style={styles.icons3} />
+            <View style={{ marginLeft: 100 }}>
+              <Icon name="chevron-forward-outline" style={styles.icons3} />
             </View>
           </TouchableOpacity>
 
@@ -89,7 +95,10 @@ const ProfileScreen = () => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btnText} onPress={()=>(navigation.navigate('CotizarViaje'))}>
+          <TouchableOpacity
+            style={styles.btnText}
+            onPress={() => navigation.navigate("CotizarViaje")}
+          >
             <Icon name="calculator-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Cotizar viaje</Text>
             <Icon name="chevron-forward-outline" style={styles.icons2} />
@@ -149,8 +158,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 80,
     elevation: 15,
     marginTop: 20,
-    borderColor: '#E1E8EB',
-    borderWidth: 1.5
+    borderColor: "#E1E8EB",
+    borderWidth: 1.5,
   },
   btn2: {
     alignSelf: "center",

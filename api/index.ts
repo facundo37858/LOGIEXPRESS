@@ -31,12 +31,18 @@ io.on("connection", (socket:any)=>{
     let traveles = await Travel.create(newViaje)
    // console.log('traveles: ',traveles);
     socket.broadcast.emit('message', newViaje)
+	let travel = await Travel.findAll()  
+	 socket.broadcast.emit('Travel', travel)
  })
      socket.on("response",async(data:any)=>{
         console.log(data)
- const upTravel = await Travel.update({ carrierId: data.carrierId }, { where: { userId:data.userId, carrierId:{[Op.eq]: null}}});
+   const upTravel = await Travel.update({ carrierId: data.carrierId }, { where: { userId:data.userId, carrierId:{[Op.eq]: null}}});
       socket.broadcast.emit('response', data)
    })
+
+ 
+
+   
 })
 
  

@@ -82,9 +82,11 @@ const ScreenMap = () => {
     }, [pin]);
 
     const travels = useSelector((state) => state.travels)
+    
+    
     const onMarkerPress = (mapEventData) => {
         const markerID = mapEventData._targetInst.return.key;
-
+        console.log("ESTO ES EL EVENTO", markerID)
         let x = (markerID * CARD_WIDTH) + (markerID * 20);
         if (Platform.OS === 'ios') {
             x = x - SPACING_FOR_CARD_INSET;
@@ -104,6 +106,7 @@ const ScreenMap = () => {
     const _map = React.useRef(null)
     const _scrollView = React.useRef(null);
 
+    console.log(_map)
 
     const rating = 3;
 

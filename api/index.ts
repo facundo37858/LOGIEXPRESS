@@ -16,11 +16,6 @@ interface error {
 const resApiUsers = async () => {
 
 	try {
-
-
-
-
-
 		let users = await axios.get('https://randomuser.me/api/?results=10')
 			.then(res => { return res.data })
 			.then(async (users) => {
@@ -36,7 +31,7 @@ const resApiUsers = async () => {
 						eMail: us.email,
 						password: bcrypt.hashSync(us.login.password, 8),//problemas cuando sean muchos datos!!!
 						terminosCondiciones: true,
-						role:true
+						role: true
 					}
 				})
 				return usersFilter
@@ -44,7 +39,7 @@ const resApiUsers = async () => {
 
 
 		await User_Reg.bulkCreate(users)
-			//.then((u) => { console.log(u) })
+		//.then((u) => { console.log(u) })
 
 		return users
 
@@ -59,11 +54,14 @@ const resApiUsers = async () => {
 	}
 
 }
-sequelize.sync({ force: true, logging: false })
-	.then(async () => {
-		await resApiUsers()
+
+
+sequelize
+	.sync({ force: true, logging: false })
+	// .then(async () => {
+	// 	// await resApiUsers()
 		
-	})
+	// })
 	.then(() => {
 		console.log('base de datos conectada! :D')
 		app.listen(3001, function () {

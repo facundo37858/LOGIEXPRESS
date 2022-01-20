@@ -179,7 +179,7 @@ const CompleteProfileUser = () => {
       capacity: carrier.capacity,
     };
     dispatch(completeProfileCarrier(obj));
-    console.log("soy lo que se envia", obj);
+    console.log("soy lo que se envia carrier", obj);
     // setCarrier({
     //   //Datos del carrier//
     //   documentID: "",

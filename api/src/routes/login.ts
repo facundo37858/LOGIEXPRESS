@@ -47,7 +47,7 @@ router.post('/login', async (req: Request, res: Response) => {
 				photo: dataCarrier ? dataCarrier!.photo : dataUser!.photo,
 				location: dataCarrier ? dataCarrier!.location : dataUser!.zone
 
-			};
+			}; 
 
 			return res.json({
 				token: createToken(payload),

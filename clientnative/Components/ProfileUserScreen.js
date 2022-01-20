@@ -15,11 +15,10 @@ import { logiarUsuario } from "./../actions/index";
 import { useSelector } from "react-redux";
 
 const ProfileUserScreen = () => {
-  
-const resptoken = useSelector((store) => store.respToken);  
-const data = useSelector((store) => store.responseLog);
-const navigation = useNavigation();
-  
+  const resptoken = useSelector((store) => store.respToken);
+  const data = useSelector((store) => store.responseLog);
+  const navigation = useNavigation();
+
   useEffect(() => {
     // console.log("data", data);
   }, [data]);
@@ -36,8 +35,13 @@ const navigation = useNavigation();
         >
           <View style={{ marginTop: 25 }}>
             <Image
+              source={{
+                uri:
+                  data.photo !== null
+                    ? data.photo
+                    : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
+              }}
               style={styles.userImg}
-              source={require("./Utils/foto1.jpg")}
             />
           </View>
           <Text style={styles.userName}>

@@ -1,4 +1,4 @@
-import { Response, Request, Router, NextFunction } from 'express';
+import { Response, Request, Router, NextFunction, response } from 'express';
 const { Op } = require("sequelize");
 import { uuid } from 'uuidv4';
 
@@ -61,9 +61,6 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
   const { id, orig, destination, weight, price, description } = req.body
 
   try {
-    //   let distance= getDistanciaMetros(orig,destination);
-    //  const valor = 10; /// valor de tonelada por km recorrido
-    //  let price = valor * (weight * distance);
     let TravelId = uuid()
     var newViaje = {
       id: TravelId,
@@ -75,17 +72,10 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
       userId: id
     }
 
-    //const userTrue = await User_Reg.findAll({where:{role:true},attributes:[['id','UserRegId']]})
-    // let travel = await User.create({id: 'd8c21800-db1e-4a11-802b-4728efc47ef3'})
-    // let travel = await User.create({id: 'd8c21800-db1e-4a11-802b-4728efc47exc'})
-    //return res.send('linea 79');
+    
     let traveles = await Travel.create(newViaje)
-    //let conteinerVehicles: any[];
-    //const carriers = await Carrier.findAll()
-    // const vehicles = await Vehicle.findAll()
-    //  let tam= carriers.length
-
-    let vehicles = await Vehicle.findAll({
+    
+    /* let vehicles = await Vehicle.findAll({
       where: {
         capacity: { [Op.or]: { [Op.eq]: weight, [Op.gt]: weight } }
       }
@@ -94,16 +84,11 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
     let tam = vehicles.length;
     for (let i = 0; i < tam; i++) {
       obj[i] =
-        { TravelId: TravelId, CarrierId: vehicles[1].CarrierId }
+      { TravelId: TravelId, CarrierId: vehicles[1].CarrierId }
     }
-    let alertServices = await ServiceAlert.bulkCreate(obj);
-    res.send({ id: TravelId });
-
-    //let ServiceAlerts = await ServiceAlert.create({id:uuid(),travelId: TravelId, carrierId:vehicles[0].carrierId})
-    ///}
-
-
-
+    let alertServices = await ServiceAlert.bulkCreate(obj); */
+  /*   res.send(newViaje) */
+    res.send({ id: TravelId })
 
   } catch (err) {
     next(err)

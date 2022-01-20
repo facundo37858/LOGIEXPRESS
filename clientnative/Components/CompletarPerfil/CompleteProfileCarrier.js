@@ -166,6 +166,7 @@ const CompleteProfileUser = () => {
   function handleSubmit(e) {
     e.preventDefault();
     const obj = {
+      id:datosCarrier.id,
       documentID: carrier.documentID,
       license: carrier.license,
       location: carrier.location,

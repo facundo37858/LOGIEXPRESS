@@ -99,7 +99,6 @@ const EditProfileCarrier = () => {
           />
           <View>
             <TouchableWithoutFeedback onPress={openImagePickerAsync}>
-              {/* <Icon name="add-circle-outline" size={40} style={{ marginLeft: 80, marginTop: -35}}/> */}
               <Image
                 source={require("./add-photo.png")}
                 style={styles.imgAdd}
@@ -157,7 +156,7 @@ const EditProfileCarrier = () => {
             <View style={styles.btn2}>
               <TouchableOpacity
                 style={styles.btnEditar}
-                onPress={() => navigation.navigate("ProfileScreenCarrier")}
+                onPress={() => navigation.navigate("DatosPersonalesCarrier")}
               >
                 <Text style={styles.textBtn}>Cancelar</Text>
               </TouchableOpacity>

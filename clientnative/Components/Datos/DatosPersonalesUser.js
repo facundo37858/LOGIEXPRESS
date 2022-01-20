@@ -29,9 +29,14 @@ const DatosPersonalesCarrier = (props) => {
           }}
         >
           <View style={{ marginTop: 25 }}>
-            <Image
+          <Image
+              source={{
+                uri:
+                  data.photo !== null
+                    ? data.photo
+                    : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
+              }}
               style={styles.userImg}
-              source={require("./default-user.jpg")}
             />
           </View>
           <View style={styles.boxDatos}>
@@ -39,7 +44,7 @@ const DatosPersonalesCarrier = (props) => {
               {data.name} {data.lastname}
             </Text>
             <Text style={{ fontSize: 15 }}>{data.eMail}</Text>
-            <Text style={{ fontSize: 15 }}>Villa Angela</Text>
+            <Text style={{ fontSize: 15 }}>{data.location}</Text>
             <View style={{ marginTop: 2}}>
               <StarRating
                 ratings={rating}

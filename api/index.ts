@@ -16,11 +16,6 @@ interface error {
 const resApiUsers = async () => {
 
 	try {
-
-
-
-
-
 		let users = await axios.get('https://randomuser.me/api/?results=10')
 			.then(res => { return res.data })
 			.then(async (users) => {
@@ -62,12 +57,11 @@ const resApiUsers = async () => {
 
 
 sequelize
-	.sync({ force: false, logging: false })
-
-	.then(async () => {
-		await resApiUsers()
-
-	})
+	.sync({ force: true, logging: false })
+	// .then(async () => {
+	// 	// await resApiUsers()
+		
+	// })
 	.then(() => {
 		console.log('base de datos conectada! :D')
 		app.listen(3001, function () {

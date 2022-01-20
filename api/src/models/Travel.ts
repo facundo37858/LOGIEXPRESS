@@ -1,4 +1,3 @@
-
 import { Model, Column, Table, CreatedAt, UpdatedAt, IsUUID, HasOne, BelongsTo, ForeignKey } from 'sequelize-typescript'
 import { Carrier } from './Carrier';
 import { Review } from './Review';
@@ -29,8 +28,8 @@ export class Travel extends Model{
     @Column
     finishedTravel!: string
 
-    @Column
-    score!: number
+    @HasOne(() => Review)
+    rewiew!: Review
 
     @CreatedAt
     @Column

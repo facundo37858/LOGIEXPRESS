@@ -21,6 +21,9 @@ import ScreenWaiting from "./Components/ScreenWaiting";
 import PaymentApp from "./Components/Payment/PaymentApp";
 import StartUser from "./Components/ComenzarViaje/StartUser";
 import EditVehicule from "./Components/Editares/EditVehicule";
+import CotizarViaje from "./Components/CotizarViaje";
+import Home from "./Components/home";
+import CambiarContraseña from "./Components/CambiodeContraseña/CambiarContraseña";
 
 const Stack = createStackNavigator();
 
@@ -30,6 +33,11 @@ const App = () => {
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator>
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{ headerShown: false }}
+            />
             <Stack.Screen
               name="singIn"
               component={SingIn}
@@ -46,7 +54,7 @@ const App = () => {
               component={EditProfileCarrier}
               options={{ headerShown: false }}
             />
-             <Stack.Screen
+            <Stack.Screen
               name="EditVehicule"
               component={EditVehicule}
               options={{ headerShown: false }}
@@ -100,6 +108,16 @@ const App = () => {
             <Stack.Screen
               name="StartUser"
               component={StartUser}
+              options={{ headerShown: false }}
+            />
+             <Stack.Screen
+              name="CotizarViaje"
+              component={CotizarViaje}
+              options={{ headerShown: false }}
+            />
+             <Stack.Screen
+              name="CambiarContraseña"
+              component={CambiarContraseña}
               options={{ headerShown: false }}
             />
             <Stack.Screen name="ScreenWaiting" component={ScreenWaiting} />

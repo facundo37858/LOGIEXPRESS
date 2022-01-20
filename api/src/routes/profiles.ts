@@ -14,7 +14,6 @@ router.post('/userProfile', async (req: Request, res: Response, next: NextFuncti
 	const { id, identification, zone, photo, account, phone } = req.body
 
 	try {
-
 		let newProfile = {
 			id: uuid(),
 			identification: identification,
@@ -22,7 +21,7 @@ router.post('/userProfile', async (req: Request, res: Response, next: NextFuncti
 			phone: phone,
 			photo: photo,
 			account: account,
-			idUserReg:id
+			idUserReg: id
 		}
 		User.create(newProfile)
 			.then((newProfile) => {
@@ -63,21 +62,21 @@ router.post('/carrierProfile', async (req: Request, res: Response, next: NextFun
 		let idCarrier = uuid()
 
 		let newProfileCarrier = {
-			id: idCarrier, 
+			id: idCarrier,
 			documentID: documentID,
 			license: license,
 			location: location,
 			Cuenta: Cuenta,
 			photo: photo,
-			idUserReg:id
+			idUserReg: id
 		}
 		var newTrack = {
 			id: uuid(),
-			brand:brand ||null,
-			patent: patent||null,
-			model :model||null,
-			color :color||null,
-			capacity: capacity||null,
+			brand: brand || null,
+			patent: patent || null,
+			model: model || null,
+			color: color || null,
+			capacity: capacity || null,
 			CarrierId: idCarrier
 		}
 
@@ -91,18 +90,9 @@ router.post('/carrierProfile', async (req: Request, res: Response, next: NextFun
 	} catch (err) {
 		next(err)
 	}
-
-
-
-
-
-
 	// 		}else{
 	// 			res.send(`Datos incompletos`)
 	// 		}
-
-
-
 	// 	}catch(e){
 
 	// 		next(e)
@@ -133,13 +123,18 @@ router.post('/carrierProfile', async (req: Request, res: Response, next: NextFun
 router.get('/profile', async (req: Request, res: Response) => {
 	// res.send('llega al  profile')
 	const { id } = req.params;
+	// const id = req.params.id
+
+	console.log(req.params.id) // llega undefined
 
 	const user = await User.findByPk(id)
+
+	// console.log(user)
 
 	if (user === null) {
 		const carrier = await Carrier.findByPk(id);
 
-		const carrierData =  {
+		const carrierData = {
 			documentID: carrier?.documentID,
 			license: carrier?.license,
 			Active: carrier?.Active,
@@ -148,170 +143,181 @@ router.get('/profile', async (req: Request, res: Response) => {
 			photo: carrier?.photo,
 			// travel: carrier?.travel
 		}
-		
-		return carrierData? res.json(carrierData) : res.status(404).send("Carrier Not Found")
+
+		return carrierData ? res.json(carrierData) : res.status(404).send("Carrier Not Found")
 	}
 
 
-	const userData ={
+	const userData = {
 		identification: user.identification,
 		zone: user.zone,
 		photo: user.photo,
 		account: user.account,
 	}
 
-	return userData? res.json(userData) : res.status(404).send("User Not Found")
+	return userData ? res.json(userData) : res.status(404).send("User Not Found")
 
 });
 
+router.put('/updateUser', async (req: Request, res: Response, next: NextFunction) => {
+	const { id, name, lastName, phone, photo, zone, account } = req.body
 
-//DEBUG
-router.put('/edit', async (req: Request, res: Response, next: NextFunction)=>{
+	const user = await User_Reg.findOne({ where: { id } })
 
-	const {id, name, lastName, phone, photo, account, Cuenta, brand, patent, model, color} = req.body;
+	const userData = await User.findOne({ where: { idUserReg: id } })
 
-	
-	if (name || lastName || phone ){
-		
-		const user = await User_Reg.findOne({where:{id}})
+	if (user && userData) {
 
-		user ? user.update(User_Reg, {where:{
-			name: name,
-			lastName: lastName,
-			phone: phone,
-		}}) :
-		
-		res.status(404).json({msg: "Usuario no encontrado"})
-		
+		const userUpdate = user.update(User_Reg, {
+			where: {
+				name: name,
+				lastName: lastName,
+				phone: phone,
+			}
+		})
 
-	}else if (brand || patent|| model || color){
+		const userDataUpdate = userData.update(User, {
+			where: {
+				photo: photo,
+				zone: zone,
+				account: account,
+			}
+		})
 
-		const carrier =  await Carrier.findOne({where:{
-			userRegId: id,
-		}})
-
-		if(carrier){
-			const vehicle = await Vehicle.findOne({where:{
-				CarrierId: carrier.id,
-			}})
-
-			await vehicle?.update(Vehicle, {where:{
-				brand: brand,
-				patent: patent,
-				model: model,
-				color: color,
-			}})
-
-			return res.status(200).json(vehicle)
-
-		}else{
-			res.status(404).json({msg: "transportista no encontrado"})
-		}
-
-
-
-	}
-	
-	if(account || photo){
-		const userUser = await User.findOne({where:{account}})
-
-		userUser ? userUser.update(User, {where:{
-			account: account,
-			photo: photo,
-		}}):
-		res.status(404).json({msg: "Usuario no encontrado"})
-
-
-
-	}else if (Cuenta){
-		const userCarrier = await User_Reg.findOne({where:{id}})
-
-		userCarrier ? userCarrier.update(Carrier, {where:{
-			Cuenta : Cuenta,
-		}})
-
-		:
-		
-		res.status(404).json({msg: "Conductor no encontrado"})
-
+		res.status(200).json({ userUpdate, userDataUpdate })
 	}
 
+	res.status(404).json({ msg: 'No se encontro usuario registrado' })
 })
 
-router.put('/changepassword', async (req: Request, res: Response, next: NextFunction)=>{
+
+router.put('/editCarrier', async (req: Request, res: Response, next: NextFunction) => {
+	const { id, name, lastName, phone, documentID, license, location, Cuenta, brand, patent, model, color, capacity } = req.body
+
+	const carrier = await User_Reg.findOne({ where: { id } })
+
+	const carrierData = await Carrier.findOne({ where: { idUserReg: id } })
+
+	const Vehicle1 = await Vehicle.findOne({ where: { CarrierId: carrierData?.id } })
+
+	if (carrier && carrierData) {
+
+		const carrierUpdate = carrier.update(User_Reg, {
+			where: {
+				name: name,
+				lastName: lastName,
+				phone: phone,
+			}
+		})
+
+		const carrierDataUpdate = carrierData.update(Carrier, {
+			where: {
+				documentID: documentID,
+				license: license,
+				location: location,
+				Cuenta: Cuenta
+			}
+		})
+
+
+		if (Vehicle1) {
+
+			const vehicleDataUpdate = Vehicle1.update(Vehicle, {
+				where: {
+					brand: brand,
+					patent: patent,
+					model: model,
+					color: color,
+					capacity: capacity
+				}
+			})
+			return res.status(200).json({ vehicleDataUpdate, carrierUpdate, carrierDataUpdate })
+		}
+
+		return res.status(200).json({ carrierUpdate, carrierDataUpdate })
+	}
+
+
+	res.status(404).json({ msg: 'No se encontro usuario registrado' })
+})
+
+
+
+router.put('/changepassword', async (req: Request, res: Response, next: NextFunction) => {
 
 	const { eMail, password } = req.body
 
-	try{
-		const userPassword = await User_Reg.findOne({where:{eMail}})
+	try {
+		const userPassword = await User_Reg.findOne({ where: { eMail } })
 
-		if(userPassword){
-			const updatePassword = await userPassword.update(User_Reg, {where:{password:password}});
+		if (userPassword) {
+			const updatePassword = await userPassword.update(User_Reg, { where: { password: password } });
 
 			return res.status(200).json(updatePassword)
 
 		}
 
-		return res.status(404).json({msg: "No se pudo actualizar la base de datos"})
+		return res.status(404).json({ msg: "No se pudo actualizar la base de datos" })
 
 
-	}catch(err){
+	} catch (err) {
 		next(err)
 	}
 
 })
 
-router.put('/capacity', async (req: Request, res: Response, next: NextFunction)=>{
+router.put('/capacity', async (req: Request, res: Response, next: NextFunction) => {
 
-	// const { eMail, capacity } = req.body
+	const { eMail, capacity } = req.body
 
-	// try{
-	// 	const carrier = await Carrier.findOne({where:{eMail}})
+	try {
+		const carrier = await Carrier.findOne({ where: { eMail } })
+		const vehicle = await Vehicle.findOne({ where: { carrier: carrier?.id } })
 
-	// 	if(carrier && capacity){
-	// 		const updateCapacity = await carrier.update(Carrier, {where:{capacity:capacity}});
+		if (carrier && capacity) {
+			const updateCapacity = await vehicle?.update(Vehicle, { where: { capacity: capacity } });
 
-	// 		return res.status(200).json(updateCapacity)
+			return res.status(200).json(updateCapacity)
 
-	// 	}
+		}
 
-	// 	return res.status(404).json({msg: "No se pudo actualizar la base de datos"})
+		return res.status(404).json({ msg: "No se pudo actualizar la base de datos" })
 
 
-	// }catch(err){
-	// 	next(err)
-	// }
+	} catch (err) {
+		next(err)
+	}
 
 })
 
 
-router.delete('/delete', async (req: Request, res: Response, next: NextFunction)=>{
+router.delete('/delete', async (req: Request, res: Response, next: NextFunction) => {
 	const { id } = req.params;
-    try {
-        const existsInDBUser = await User.findOne({
-            where: {
-                id,
-            },
-        });
-        if (existsInDBUser) {
-            User.destroy({
-                where: {
-                    id,
-                },
-            });
-            return res.status(200).send("User has been deleted from database successfully");
-        } else if (!existsInDBUser){
+	try {
+		const existsInDBUser = await User.findOne({
+			where: {
+				id,
+			},
+		});
+		if (existsInDBUser) {
+			User.destroy({
+				where: {
+					id,
+				},
+			});
+			return res.status(200).send("User has been deleted from database successfully");
+		} else if (!existsInDBUser) {
 			const existsInDBCarrier = await Carrier.findOne({
 				where: {
 					id,
 				},
 			})
-			existsInDBCarrier ? User.destroy({where:{id,}}) : new Error("ERROR 500: User with given name does not exist in database")
-			
+			existsInDBCarrier ? User.destroy({ where: { id, } }) : new Error("ERROR 500: User with given name does not exist in database")
+
 		};
-    } catch (err) {
-        next(err);
-    }
+	} catch (err) {
+		next(err);
+	}
 
 })
 

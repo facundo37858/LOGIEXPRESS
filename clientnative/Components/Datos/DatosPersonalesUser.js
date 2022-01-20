@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
-import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View, ScrollView, Image, Modal } from "react-native";
 import { logiarUsuario } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/core";
 import StarRating from "../StarRating";
+
 
 const DatosPersonalesCarrier = (props) => {
   const data = useSelector((store) => store.responseLog);
@@ -15,6 +16,7 @@ const DatosPersonalesCarrier = (props) => {
     //console.log("data", data)
   }, [data]);
 
+  
   return (
     <View style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -58,12 +60,14 @@ const DatosPersonalesCarrier = (props) => {
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btn}>
+          <TouchableOpacity style={styles.btn} 
+           onPress={() => navigation.navigate("CambiarContraseña")}
+            >
             <Text style={styles.textBtn}>Cambiar contraseña</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btn}>
-            <Text style={styles.textBtn}>Desloguearse</Text>
+            <Text style={styles.textBtn}>Cerrar sesión</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

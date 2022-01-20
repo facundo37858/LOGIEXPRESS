@@ -1,4 +1,4 @@
-import { Response, Request, Router, NextFunction } from 'express';
+import { Response, Request, Router, NextFunction, response } from 'express';
 const { Op } = require("sequelize");
 import { uuid } from 'uuidv4';
 
@@ -61,41 +61,38 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
 	 const { id, orig, destination, weight, price, description } = req.body
  
   try {
-  //   let distance= getDistanciaMetros(orig,destination);
-  //  const valor = 10; /// valor de tonelada por km recorrido
-  //  let price = valor * (weight * distance);
-  	   let TravelId= uuid()
-		var newViaje = {
-			id: TravelId,
-			orig,
-			destination,
-			weight,
-			price,
-			description,
-			userId: id
-		}
+    let TravelId = uuid()
+    var newViaje = {
+      id: TravelId,
+      orig,
+      destination,
+      weight,
+      price,
+      description,
+      userId: id
+    }
 
+    
+    let traveles = await Travel.create(newViaje)
+    
+    /* let vehicles = await Vehicle.findAll({
+      where: {
+        capacity: { [Op.or]: { [Op.eq]: weight, [Op.gt]: weight } }
+      }
+    })
+    let obj = [];
+    let tam = vehicles.length;
+    for (let i = 0; i < tam; i++) {
+      obj[i] =
+      { TravelId: TravelId, CarrierId: vehicles[1].CarrierId }
+    }
+    let alertServices = await ServiceAlert.bulkCreate(obj); */
+  /*   res.send(newViaje) */
+    res.send({ id: TravelId })
 
-		    let traveles = await Travel.create(newViaje)
-               
-	         let vehicles = await Vehicle.findAll({where:{
-                    capacity:{[Op.or]:{[Op.eq]: weight,[Op.gt]: weight}}
-         } }) 
-           let obj = [];
-           let tam = vehicles.length;
-           for(let i=0; i<tam; i++){
-                       obj[i]=
-                           {TravelId: TravelId, CarrierId:vehicles[1].CarrierId}
-                   } 
-                  let alertServices = await ServiceAlert.bulkCreate(obj);
-    	    res.send('Viaje Solicitado');	
-      
- 	
-		
-
-	} catch (err) {
-		next(err)
-	}
+  } catch (err) {
+    next(err)
+  }
 
 });
 router.get('/Travel', async (req: Request, res: Response, next: NextFunction) => {

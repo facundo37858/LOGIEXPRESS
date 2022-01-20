@@ -36,7 +36,7 @@ const Payment = () => {
       //   },
       // });
 
-      const response = await axios.post(`http://192.168.0.111:3001/api/pay`, {
+      const response = await axios.post(`http://192.168.1.33:3001/api/pay`, {
         name,
       });
       //.then(res=>res.data)

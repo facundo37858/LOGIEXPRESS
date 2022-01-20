@@ -166,6 +166,7 @@ const CompleteProfileUser = () => {
   function handleSubmit(e) {
     e.preventDefault();
     const obj = {
+      id:datosCarrier.id,
       documentID: carrier.documentID,
       license: carrier.license,
       location: carrier.location,
@@ -178,7 +179,7 @@ const CompleteProfileUser = () => {
       capacity: carrier.capacity,
     };
     dispatch(completeProfileCarrier(obj));
-    console.log("soy lo que se envia", obj);
+    console.log("soy lo que se envia carrier", obj);
     // setCarrier({
     //   //Datos del carrier//
     //   documentID: "",

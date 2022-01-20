@@ -7,27 +7,24 @@ import {
   StyleSheet,
   ScrollView,
   SafeAreaView,
+  Modal,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/core";
 import { logiarUsuario } from "./../actions/index";
 import { useSelector } from "react-redux";
 
-import StarRating from "./StarRating";
-
 const ProfileUserScreen = () => {
   const resptoken = useSelector((store) => store.respToken);
   const data = useSelector((store) => store.responseLog);
-  const rating = 4;
-
   const navigation = useNavigation();
-  // const data = useSelector((store) => store.responseLog);
 
-  // useEffect(() => {
-  //   //console.log("data", data);
-  // }, [data]);
-  console.log("AQUI RESPONLOG EN PROFILEUSERScreen", data);
-  console.log("AQUI RESPTOKEN en PROFILEUSERScreen", resptoken);
+  useEffect(() => {
+    // console.log("data", data);
+  }, [data]);
+
+  // console.log("AQUI RESPONLOG EN PROFILEUSERScreen", data);
+  // console.log("AQUI RESPTOKEN en PROFILEUSERScreen", resptoken);
 
   return (
     <View style={{ flex: 1 }}>
@@ -50,7 +47,7 @@ const ProfileUserScreen = () => {
           <TouchableOpacity
             style={styles.btnText}
             onPress={() => {
-              navigation.navigate("DatosPersonalesCarrier");
+              navigation.navigate("DatosPersonalesUser");
             }}
           >
             <Icon name="person-circle-outline" style={styles.icons} />
@@ -62,7 +59,7 @@ const ProfileUserScreen = () => {
 
           <TouchableOpacity style={styles.btnText}>
             <Icon name="bus-outline" style={styles.icons} />
-            <Text style={styles.userBtnTxt}>Historial de viaje</Text>
+            <Text style={styles.userBtnTxt}>Historial de viajes</Text>
             <View style={{ marginLeft: 110 }}>
               <Icon name="chevron-forward-outline" style={styles.icons3} />
             </View>
@@ -76,7 +73,10 @@ const ProfileUserScreen = () => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btnText}>
+          <TouchableOpacity
+            style={styles.btnText}
+            onPress={() => navigation.navigate("CotizarViaje")}
+          >
             <Icon name="calculator-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Cotizar viaje</Text>
             <Icon name="chevron-forward-outline" style={styles.icons2} />

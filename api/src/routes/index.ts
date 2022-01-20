@@ -12,6 +12,7 @@ import payments from './payments'
 
 const router = Router();
 
+// router.use('/', dataFake)
 router.use('/', userRoutes);
 router.use('/', LoginRoutes);
 router.use('/', ProfileRoutes);

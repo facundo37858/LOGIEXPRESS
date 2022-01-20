@@ -17,14 +17,15 @@ import StarRating from "./StarRating";
 
 const ProfileScreen = () => {
   const resptoken = useSelector((store) => store.respToken);
-  const responLog = useSelector((store) => store.responseLog);
-
-  console.log("AQUI RESPONLOG EN PROFILEUSERScreen", responLog);
-  console.log("AQUI RESPTOKEN en PROFILEUSERScreen", resptoken);
-  const rating = 4;
-
-  const navigation = useNavigation();
   const data = useSelector((store) => store.responseLog);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    //console.log("data", data);
+  }, [data]);
+
+  console.log("AQUI RESPONLOG EN PROFILEUSERScreen", data);
+  console.log("AQUI RESPTOKEN en PROFILEUSERScreen", resptoken);
 
   useEffect(() => {
     //console.log("data", data);
@@ -83,6 +84,14 @@ const ProfileScreen = () => {
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btnText}>
+            <Icon name="location-outline" style={styles.icons} />
+            <Text style={styles.userBtnTxt}>Historial de viajes</Text>
+            <View style={{ marginLeft: 100 }}>
+              <Icon name="chevron-forward-outline" style={styles.icons3} />
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.btnText}>
             <Icon name="cash-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Transacciones</Text>
             <View style={{ marginLeft: 128 }}>
@@ -90,7 +99,10 @@ const ProfileScreen = () => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btnText}>
+          <TouchableOpacity
+            style={styles.btnText}
+            onPress={() => navigation.navigate("CotizarViaje")}
+          >
             <Icon name="calculator-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Cotizar viaje</Text>
             <Icon name="chevron-forward-outline" style={styles.icons2} />
@@ -149,7 +161,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     shadowOpacity: 80,
     elevation: 15,
-    marginTop: 27,
+    marginTop: 20,
     borderColor: "#E1E8EB",
     borderWidth: 1.5,
   },

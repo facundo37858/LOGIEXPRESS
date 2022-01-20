@@ -20,6 +20,7 @@ const initialState = {
   travel: null,
   token: "",
   respToken: {},
+  editPassword: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -71,6 +72,11 @@ export default function rootReducer(state = initialState, action) {
         respToken: action.payload,
         responseLog: action.payload,
       };
+    case "CHANGE_PASSWORD":
+      return {
+        ...state,
+        editPassword: action.payload
+      }
     default:
       return state;
   }

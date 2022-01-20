@@ -151,7 +151,7 @@ export function enviarToken(payload) {
   return async function (dispatch) {
     try {
       const response = await axios
-        .post("http://192.168.1.6:3001/api/verifytoken", payload) //aca cada uno pone su ip
+        .post("http://192.168.0.105:3001/api/verifytoken", payload) //aca cada uno pone su ip
         .then((r) => {
           console.log("Token llegando a la action enviarToken", payload);
           dispatch({
@@ -168,3 +168,24 @@ export function enviarToken(payload) {
     }
   };
 }
+
+//// --> ACTION PARA EL CAMBIO DE CONTRASEÑA USUARIO <-- ////
+
+export function changePassword(payload) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(
+        "http://192.168.0.105:3001/api/changePassword",
+        payload
+      );
+      // console.log('Soy el console.log de response', response)
+      return dispatch({
+        type: "CHANGE_PASSWORD",
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+}
+

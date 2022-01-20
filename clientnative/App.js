@@ -23,6 +23,7 @@ import StartUser from "./Components/ComenzarViaje/StartUser";
 import EditVehicule from "./Components/Editares/EditVehicule";
 import CotizarViaje from "./Components/CotizarViaje";
 import Home from "./Components/home";
+import CambiarContraseña from "./Components/CambiodeContraseña/CambiarContraseña";
 
 const Stack = createStackNavigator();
 
@@ -112,6 +113,11 @@ const App = () => {
              <Stack.Screen
               name="CotizarViaje"
               component={CotizarViaje}
+              options={{ headerShown: false }}
+            />
+             <Stack.Screen
+              name="CambiarContraseña"
+              component={CambiarContraseña}
               options={{ headerShown: false }}
             />
             <Stack.Screen name="ScreenWaiting" component={ScreenWaiting} />

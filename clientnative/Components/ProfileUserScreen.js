@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
   SafeAreaView,
+  Modal
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/core";
@@ -23,9 +24,9 @@ const navigation = useNavigation();
   useEffect(() => {
    // console.log("data", data);
   }, [data]);
-  
-  console.log("AQUI RESPONLOG EN PROFILEUSERScreen", data);
-  console.log("AQUI RESPTOKEN en PROFILEUSERScreen", resptoken);
+
+  // console.log("AQUI RESPONLOG EN PROFILEUSERScreen", data);
+  // console.log("AQUI RESPTOKEN en PROFILEUSERScreen", resptoken);
 
   return (
     <View style={{ flex: 1 }}>

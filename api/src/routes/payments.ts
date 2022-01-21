@@ -2,6 +2,10 @@ import { Response, Request, Router, NextFunction } from 'express';
 
 import Stripe from 'stripe';
 import dotenv from 'dotenv'
+import jwt from 'jsonwebtoken'
+import config from "../../config/config"
+import { Travel } from '../models/Travel';
+import { User } from '../models/User';
 dotenv.config();
 const router = Router()
 
@@ -18,10 +22,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_51KHp41KDcJ8
   typescript: true,
 })
 
-
-
-
-
 // require("dotenv").config();
 // const express = require("express");
 // const cors = require("cors");
@@ -36,11 +36,21 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_51KHp41KDcJ8
 
 router.post("/pay", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log(req.body)
-    const { name, amount } = req.body;
+
+    const { name, tokenn } = req.body;
+    console.log('aca llega el token','token',tokenn);
+    let decoded: any = jwt.verify(tokenn, config.jwtSecret)
+
+    let user = await User.findAll({ where: { idUserReg: decoded.id } })
+
+    let travel = await Travel.findAll({ where: { userId: user[0].id } })
+
+    console.log("AQUI ESTA TRAVEl PRICE", travel[0].price);
+
     if (!name) return res.json({ key: 400, message: "Please enter a name" });
+
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(25 * 1000),
+      amount: Math.round(parseInt(travel[0].price)),
       currency: "usd",
       payment_method_types: ["card"],
       metadata: { name },

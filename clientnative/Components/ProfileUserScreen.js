@@ -20,7 +20,7 @@ const ProfileUserScreen = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    // console.log("data", data);
+    //console.log("data", data);
   }, [data]);
 
   // console.log("AQUI RESPONLOG EN PROFILEUSERScreen", data);

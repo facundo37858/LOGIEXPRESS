@@ -15,6 +15,16 @@ import {
   Modal,
   Button,
 } from "react-native";
+import SimpleModal1 from "./AlertasReg/SimpleModalok.js";
+import SimpleModal2 from "./AlertasReg/SimpleModalok2.js";
+import SimpleModal3 from "./AlertasReg/SimpleModalname.js";
+import SimpleModal4 from "./AlertasReg/SimpleModalLastname.js";
+import SimpleModal5 from "./AlertasReg/SimpleModalmail.js";
+import SimpleModal6 from "./AlertasReg/SimpleModalpass.js";
+import SimpleModal7 from "./AlertasReg/SimpleModalphone.js";
+import SimpleModal8 from "./AlertasReg/SimpleModalterms.js";
+import SimpleModal9 from "./AlertasReg/SimpleModalrole.js";
+
 
 import CheckBox from "expo-checkbox";
 
@@ -28,14 +38,132 @@ const SignUp = () => {
 
   const respuesta = useSelector((store) => store.responseReg)
 
+
+
+
+  // ALERTAS:
+
+  //REGISTRO USUARIO OK
+  const [isModalVisible1, setisModalVisible1] = useState(false);
+  const [chooseData1, setchooseData1] = useState();
+
+  const changeModalVisible1 = (bool) => {
+    setisModalVisible1(bool);
+  };
+
+  const setData1 = (data) => {
+    setchooseData1(data);
+  };
+
+  // REGISTRO TRANSPORTISTA OK
+  const [isModalVisible2, setisModalVisible2] = useState(false);
+  const [chooseData2, setchooseData2] = useState();
+
+  const changeModalVisible2 = (bool) => {
+    setisModalVisible2(bool);
+  };
+
+  const setData2 = (data) => {
+    setchooseData2(data);
+  };
+
+
+  // NOMBRE MAL INGRESADO
+  const [isModalVisible3, setisModalVisible3] = useState(false);
+  const [chooseData3, setchooseData3] = useState();
+
+  const changeModalVisible3 = (bool) => {
+    setisModalVisible3(bool);
+  };
+
+  const setData3 = (data) => {
+    setchooseData3(data);
+  };
+
+  // APELLIDO MAL INGRESADO
+
+  const [isModalVisible4, setisModalVisible4] = useState(false);
+  const [chooseData4, setchooseData4] = useState();
+
+  const changeModalVisible4 = (bool) => {
+    setisModalVisible4(bool);
+  };
+
+  const setData4 = (data) => {
+    setchooseData4(data);
+  };
+
+  //MAIL MAL INGRESADO
+  const [isModalVisible5, setisModalVisible5] = useState(false);
+  const [chooseData5, setchooseData5] = useState();
+
+  const changeModalVisible5 = (bool) => {
+    setisModalVisible5(bool);
+  };
+
+  const setData5 = (data) => {
+    setchooseData5(data);
+  };
+
+  // CONTRASEÑA MAL INGRESADA
+
+  const [isModalVisible6, setisModalVisible6] = useState(false);
+  const [chooseData6, setchooseData6] = useState();
+
+  const changeModalVisible6 = (bool) => {
+    setisModalVisible6(bool);
+  };
+
+  const setData6 = (data) => {
+    setchooseData6(data);
+  };
+  // TELEFONO MAL INGRESADO
+
+  const [isModalVisible7, setisModalVisible7] = useState(false);
+  const [chooseData7, setchooseData7] = useState();
+
+  const changeModalVisible7 = (bool) => {
+    setisModalVisible7(bool);
+  };
+
+  const setData7 = (data) => {
+    setchooseData7(data);
+  };
+  // NO ACEPTA TERMINOS
+  const [isModalVisible8, setisModalVisible8] = useState(false);
+  const [chooseData8, setchooseData8] = useState();
+
+  const changeModalVisible8 = (bool) => {
+    setisModalVisible8(bool);
+  };
+
+  const setData8 = (data) => {
+    setchooseData8(data);
+  };
+
+  // NO ELIJE ROL
+  const [isModalVisible9, setisModalVisible9] = useState(false);
+  const [chooseData9, setchooseData9] = useState();
+
+  const changeModalVisible9 = (bool) => {
+    setisModalVisible9(bool);
+  };
+
+  const setData9 = (data) => {
+    setchooseData9(data);
+  };
+
+
   useEffect(()=>{
     //console.log('aqui esta la respuestaaaa:',respuesta);
     if(respuesta?.role === true){
-      alert('Te has registrado exitosamente!')
-      navigation.navigate("CompleteProfileUser");
+      // alert('Te has registrado exitosamente!')
+      // navigation.navigate("CompleteProfileUser");
+      changeModalVisible1(true)
     }if(respuesta?.role === false){
-      alert('Te has registrado exitosamente!')
-      navigation.navigate("CompleteProfileCarrier");
+      // alert('Te has registrado exitosamente!')
+      // navigation.navigate("CompleteProfileCarrier");
+      changeModalVisible2(true)
     }if(respuesta?.role === 1){
       alert('El mail ingresado ya se encuentra en uso!')
     }
@@ -88,28 +216,34 @@ const SignUp = () => {
 
     //validaciones 
     if (!obj.name ) {
-      alert("Por favor escribe el Nombre correctamente!")
+      changeModalVisible3(true)
       return
   }
   if (!obj.lastName) {
-      alert("Por favor escribe el Apellido correctamente!")
+      // alert("Por favor escribe el Apellido correctamente!")
+      changeModalVisible4(true)
       return
   }
   if (!obj.eMail.includes('.com') || !obj.eMail.includes('@')  ) {
-    alert("Por favor escribe un correo electrónico válido!")
+    changeModalVisible5(true)
+    // alert("Por favor escribe un correo electrónico válido!")
     return
 } if (!obj.password) {
-  alert("Por favor escribe una Contraseña válida!")
+  changeModalVisible6(true)
+  // alert("Por favor escribe una Contraseña válida!")
   return
 }
 if (!obj.phone) {
-      alert("Por favor escribe un número de telefono válido!")
+  changeModalVisible7(true)
+      // alert("Por favor escribe un número de telefono válido!")
       return
   }if (obj.terminosCondiciones === false) {
-    alert("Debes aceptar los términos para poder registrarte!")
+    changeModalVisible8(true)
+    // alert("Debes aceptar los términos para poder registrarte!")
     return
   }if (obj.role === undefined) {
-  alert("Por favor elije un Rol!")
+    changeModalVisible9(true)
+  // alert("Por favor elije un Rol!")
   return
 }
 
@@ -279,6 +413,110 @@ if (!obj.phone) {
             <Text style={styles.ButtonText} onPress={handleSubmit}>
               Registrarme!
             </Text>
+            <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible1}
+                  nRequestClose={() => changeModalVisible1(false)}
+                >
+                  <SimpleModal1
+                    changeModalVisible1={changeModalVisible1}
+                    setData1={setData1}
+                  />
+                  
+                  </Modal>
+                  <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible2}
+                  nRequestClose={() => changeModalVisible2(false)}
+                >
+                  <SimpleModal2
+                    changeModalVisible2={changeModalVisible2}
+                    setData2={setData2}
+                  />
+                  
+                  </Modal>
+                  <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible3}
+                  nRequestClose={() => changeModalVisible3(false)}
+                >
+                  <SimpleModal3
+                    changeModalVisible3={changeModalVisible3}
+                    setData3={setData3}
+                  />
+                  
+                  </Modal>
+                  <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible4}
+                  nRequestClose={() => changeModalVisible4(false)}
+                >
+                  <SimpleModal4
+                    changeModalVisible4={changeModalVisible4}
+                    setData4={setData4}
+                  />
+                  
+                  </Modal>
+                  <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible5}
+                  nRequestClose={() => changeModalVisible5(false)}
+                >
+                  <SimpleModal5
+                    changeModalVisible5={changeModalVisible5}
+                    setData5={setData5}
+                  />                  
+                  </Modal>
+                  <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible6}
+                  nRequestClose={() => changeModalVisible6(false)}
+                >
+                  <SimpleModal6
+                    changeModalVisible6={changeModalVisible6}
+                    setData6={setData6}
+                  />                  
+                  </Modal>
+                  <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible7}
+                  nRequestClose={() => changeModalVisible7(false)}
+                >
+                  <SimpleModal7
+                    changeModalVisible7={changeModalVisible7}
+                    setData7={setData7}
+                  />                  
+                  </Modal>
+                  <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible8}
+                  nRequestClose={() => changeModalVisible8(false)}
+                >
+                  <SimpleModal8
+                    changeModalVisible8={changeModalVisible8}
+                    setData8={setData8}
+                  />                  
+                  </Modal>
+                  <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible9}
+                  nRequestClose={() => changeModalVisible9(false)}
+                >
+                  <SimpleModal9
+                    changeModalVisible9={changeModalVisible9}
+                    setData9={setData9}
+                  />
+                  
+                  </Modal>
           </TouchableOpacity>
           <Button
           title="RequestTravel"

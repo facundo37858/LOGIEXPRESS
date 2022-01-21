@@ -10,6 +10,7 @@ import {
 import { useNavigation } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
 import { changePassword } from "../../actions/index";
+import * as SecureStore from "expo-secure-store";
 
 const WIDTH = Dimensions.get("window").width;
 const HEIGTH_MODAL = 240;
@@ -23,13 +24,14 @@ const SimpleModalCarrier = (props) => {
     props.setData(data);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const pass = {
-      contraseña: props.contraseña,
-      id: props.id,
+      newPassword: props.contraseña,
+      idUser: props.id,
     };
     dispatch(changePassword(pass));
     console.log("Estoy enviando:", pass);
+    await SecureStore.deleteItemAsync("token");
   };
 
   return (
@@ -53,7 +55,6 @@ const SimpleModalCarrier = (props) => {
         <View style={styles.viewBotones}>
           <View style={styles.containerBtn}>
             <TouchableOpacity
-            
               onPress={() => closeModal(false, "Aceptar")}
               onPressIn={handleSubmit}
               style={styles.btnAceptar}

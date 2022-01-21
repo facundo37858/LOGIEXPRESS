@@ -32,9 +32,7 @@ router.post('/login', async (req: Request, res: Response) => {
 		const dataCarrier = await Carrier.findOne({ where: { idUserReg: user[0].id } })
 		// console.log(photoCarrier!.photo, "fotoCarrier")
 
-
 		const compare = await bcryptjs.compare(password, user[0].password)
-
 
 		if (compare) {
 			const payload = {
@@ -47,7 +45,7 @@ router.post('/login', async (req: Request, res: Response) => {
 				photo: dataCarrier ? dataCarrier!.photo : dataUser!.photo,
 				location: dataCarrier ? dataCarrier!.location : dataUser!.zone,
 				idRole: dataCarrier ? dataCarrier!.id : dataUser!.id,
-			}; 
+			};
 
 			return res.json({
 				token: createToken(payload),

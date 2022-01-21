@@ -3,9 +3,9 @@ export const GET_PRICE_QUOTE = "GET_PRICE_QUOTE";
 export const GET_TRAVELS = "GET_TRAVELS";
 export const POST_REQUEST_TRAVE = "POST_REQUEST_TRAVE";
 export const URL_PRICE_QUOTE = "http:/192.168.0.105:3001/api/calculatePrice";
-export const URL_REQUEST_TRAVEL = "http://192.168.0.105:3001/api/requestTravel";
-export const URL_TRAVEL = "http://192.168.0.105:3001/api/Travel";
-export const URL_TRAVEL_ID = "http://192.168.0.105:3001/api/oneTravel";
+export const URL_REQUEST_TRAVEL = "http://192.168.1.6:3001/api/requestTravel";
+export const URL_TRAVEL = "http://192.168.1.6:3001/api/Travel";
+export const URL_TRAVEL_ID = "http://192.168.1.6:3001/api/oneTravel";
 export const GET_TRAVEL_ID = "GET_TRAVEL_ID";
 
 export function getTravelID(payload) {
@@ -68,7 +68,7 @@ export function registrarUsuario(payload) {
   return async function (dispatch) {
     try {
       const response = await axios
-        .post("http://192.168.0.105:3001/api/user", payload) //aca cada uno pone su ip
+        .post("http://192.168.2.102:3001/api/user", payload) //aca cada uno pone su ip
         .then((r) => {
           dispatch({
             type: "REGISTROO",
@@ -88,7 +88,7 @@ export function logiarUsuario(payload) {
   return async function (dispatch) {
     try {
       const response = await axios
-        .post("http://192.168.0.105:3001/api/login", payload) //aca cada uno pone su ip
+        .post("http://192.168.2.102:3001/api/login", payload) //aca cada uno pone su ip
         .then((r) => {
           dispatch({
             type: "LOGEOO",
@@ -100,7 +100,7 @@ export function logiarUsuario(payload) {
             "Aqui esta el token llegando en la action logiarusuario:",
             r.data.token
           );
-          console.log('viene de login', r.data.payload)
+          console.log("viene de login", r.data.payload);
         });
       // console.log(r);
       // return response;
@@ -115,7 +115,7 @@ export function completeProfileUser(payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        "http://192.168.0.105:3001/api/userProfile",
+        "http://192.168.2.102:3001/api/userProfile",
         payload
       );
       //console.log('Soy el console.log de response', response)
@@ -134,7 +134,7 @@ export function completeProfileCarrier(payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        "http://192.168.0.105:3001/api/carrierProfile",
+        "http://192.168.2.102:3001/api/carrierProfile",
         payload
       );
       // console.log('Soy el console.log de response', response)
@@ -152,7 +152,7 @@ export function enviarToken(payload) {
   return async function (dispatch) {
     try {
       const response = await axios
-        .post("http://192.168.0.105:3001/api/verifytoken", payload) //aca cada uno pone su ip
+        .post("http://192.168.2.102:3001/api/verifytoken", payload) //aca cada uno pone su ip
         .then((r) => {
           console.log("Token llegando a la action enviarToken", payload);
           dispatch({
@@ -176,7 +176,7 @@ export function changePassword(payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        "http://192.168.0.105:3001/api/changePassword",
+        "http://192.168.2.102:3001/api/changePassword",
         payload
       );
       // console.log('Soy el console.log de response', response)
@@ -189,4 +189,3 @@ export function changePassword(payload) {
     }
   };
 }
-

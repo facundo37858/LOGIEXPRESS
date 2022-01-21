@@ -9,8 +9,7 @@ import StarRating from "../StarRating";
 const DatosPersonalesCarrier = () => {
   const data = useSelector((store) => store.responseLog);
   const navigation = useNavigation();
-  const rating = 4
-    v
+  const rating = 4;
   useEffect(() => {
     //console.log("data", data)
   }, [data]);
@@ -26,7 +25,7 @@ const DatosPersonalesCarrier = () => {
             marginLeft: 25,
           }}
         >
-         <View style={{ marginTop: 25 }}>
+          <View style={{ marginTop: 25 }}>
             <Image
               source={{
                 uri:
@@ -43,7 +42,7 @@ const DatosPersonalesCarrier = () => {
             </Text>
             <Text style={{ fontSize: 15 }}>{data.eMail}</Text>
             <Text style={{ fontSize: 15 }}>{data.location}</Text>
-            <View style={{ marginTop: 2}}>
+            <View style={{ marginTop: 2 }}>
               <StarRating
                 ratings={rating}
                 reviews={rating}
@@ -53,11 +52,17 @@ const DatosPersonalesCarrier = () => {
           </View>
         </View>
         <View style={styles.botones}>
-          <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('EditProfileCarrier')}>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => navigation.navigate("EditProfileCarrier")}
+          >
             <Text style={styles.textBtn}>Editar perfil</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('CambiarContraseña')}>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => navigation.navigate("CambiarContraseña")}
+          >
             <Text style={styles.textBtn}>Cambiar contraseña</Text>
           </TouchableOpacity>
 

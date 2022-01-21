@@ -20,6 +20,7 @@ import { Input } from "react-native-elements";
 import { useSelector, useDispatch } from "react-redux";
 import { cotizarViaje, requestTravel } from "../actions/index.js";
 import { LogBox } from "react-native";
+import HeaderBar from "./Utils/HeaderBar";
 
 const CotizarViaje = () => {
   ////--> HOOK PARA LA NAVEGACION <-- ////
@@ -61,6 +62,7 @@ const CotizarViaje = () => {
   //// --> Inicio de componente <-- ////
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <HeaderBar/>
       <ScrollView keyboardShouldPersistTaps={"handled"}>
         <View style={styles.container}>
           <Text style={styles.textCotiza}>¡Cotiza tu viaje!</Text>
@@ -143,7 +145,7 @@ const CotizarViaje = () => {
             <Text style={styles.textPeso}>Peso estimativo de la carga</Text>
             <View style={styles.viewsInputs}>
               <TextInput
-                placeholder="Peso estimativo de la carga"
+                placeholder="Peso en Toneladas"
                 name="weight"
                 style={styles.textPlaceholder}
                 onChangeText={(text) => setWeight(text)}
@@ -181,7 +183,7 @@ const styles = StyleSheet.create({
   textCotiza: {
     fontWeight: "bold",
     fontSize: 27,
-    marginTop: 30,
+    // marginTop: 30,
     marginBottom: 20,
     textAlign: "center",
   },
@@ -241,6 +243,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginTop: 6,
     fontSize: 15,
+    alignSelf:'center'
   },
   btnEditar: {
     backgroundColor:"#FFC107",

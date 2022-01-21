@@ -89,7 +89,7 @@ export function logiarUsuario(payload) {
   return async function (dispatch) {
     try {
       const response = await axios
-        .post(`http://192.168.1.6:3001/api/login`, payload) //aca cada uno pone su ip
+        .post(`http://${config.ip}:3001/api/login`, payload) //aca cada uno pone su ip
         .then((r) => {
           dispatch({
             type: "LOGEOO",

@@ -325,6 +325,7 @@ const CompleteProfileUser = () => {
 
     dispatch(completeProfileCarrier(obj));
     console.log("soy lo que se envia", obj);
+    changeModalVisible(true)
   }
 
   //// --> Inicio de componente <-- ////
@@ -472,7 +473,7 @@ const CompleteProfileUser = () => {
                     onChangeText={(model) => handleChangeModel(model)}
                     placeholder="Modelo y año"
                     name="model"
-                    keyboardType="decimal-pad"
+                    // keyboardType="decimal-pad"
                     style={styles.textPlaceholder}
                   />
                 </View>

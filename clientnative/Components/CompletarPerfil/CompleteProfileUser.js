@@ -18,11 +18,37 @@ import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from "@react-navigation/core";
 import { completeProfileUser } from "../../actions/index.js";
 import SimpleModal from "./SimpleModal.js";
+import SimpleModal10 from "../AlertasComplete/SimpleModaldni.js";
+import SimpleModal11 from "../AlertasComplete/SimpleModalzone.js";
 
 const CompleteProfileUser = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
+    // validaciones dni
+  const [isModalVisible10, setisModalVisible10] = useState(false);
+  const [chooseData10, setchooseData10] = useState();
+
+  const changeModalVisible10 = (bool) => {
+    setisModalVisible10(bool);
+  };
+
+  const setData10 = (data) => {
+    setchooseData10(data);
+  };
+
+  // validaciones zona
+
+  const [isModalVisible11, setisModalVisible11] = useState(false);
+  const [chooseData11, setchooseData11] = useState();
+
+  const changeModalVisible11 = (bool) => {
+    setisModalVisible11(bool);
+  };
+
+  const setData11 = (data) => {
+    setchooseData11(data);
+  };
   const datosUser = useSelector((store) => store.responseReg);
   useEffect(() => {
     //console.log("SOY DATOS DEL USER", datosUser);
@@ -117,8 +143,20 @@ const CompleteProfileUser = () => {
       photo: selectedImage,
       id: datosUser.id
     };
+
+    if (!obj.identification ) {
+      changeModalVisible10(true)
+      return
+  }
+
+  if (!obj.zone ) {
+    changeModalVisible11(true)
+    return
+}
+
     dispatch(completeProfileUser(obj));
     console.log("soy lo que se envia", obj);
+    changeModalVisible(true)
   }
 
   return (
@@ -194,7 +232,7 @@ const CompleteProfileUser = () => {
                 />
                 <TextInput
                   value={user.identification}
-                  placeholder="Documento de identidad SIN PUNTOS"
+                  placeholder="Documento de identidad sin puntos"
                   name="identification"
                   style={styles.textPlaceholder}
                   onChangeText={(identification) =>
@@ -213,7 +251,7 @@ const CompleteProfileUser = () => {
                 <TextInput
                   value={user.zone}
                   onChangeText={(zone) => handleChangeZone(zone)}
-                  placeholder="Lugar de residencia actual"
+                  placeholder="Ubicación de residencia actual"
                   name="zone"
                   style={styles.textPlaceholder}
                 />
@@ -234,7 +272,7 @@ const CompleteProfileUser = () => {
               <TouchableOpacity
                 style={styles.btnEditar}
                 onPress={handleSubmit}
-                onPressIn={() => changeModalVisible(true)}
+                // onPressIn={() => changeModalVisible(true)}
               >
                 <Text style={styles.textBtn}>Aceptar</Text>
                 {/* MODAL */}
@@ -247,6 +285,28 @@ const CompleteProfileUser = () => {
                   <SimpleModal
                     changeModalVisible={changeModalVisible}
                     setData={setData}
+                  />
+                </Modal>
+                <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible10}
+                  nRequestClose={() => changeModalVisible10(false)}
+                >
+                  <SimpleModal10
+                    changeModalVisible10={changeModalVisible10}
+                    setData10={setData10}
+                  />
+                </Modal>
+                <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible11}
+                  nRequestClose={() => changeModalVisible11(false)}
+                >
+                  <SimpleModal11
+                    changeModalVisible11={changeModalVisible11}
+                    setData11={setData11}
                   />
                 </Modal>
               </TouchableOpacity>

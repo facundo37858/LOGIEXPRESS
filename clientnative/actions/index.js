@@ -1,13 +1,12 @@
 import axios from "axios";
-require("dotenv").config();
-const { IP_HOST } = process.env;
+import config from "../config/config";
 export const GET_PRICE_QUOTE = "GET_PRICE_QUOTE";
 export const GET_TRAVELS = "GET_TRAVELS";
 export const POST_REQUEST_TRAVE = "POST_REQUEST_TRAVE";
-export const URL_PRICE_QUOTE = `http://${IP_HOST}:3001/api/calculatePrice`;
-export const URL_REQUEST_TRAVEL = `http://${IP_HOST}:3001/api/requestTravel`;
-export const URL_TRAVEL = `http://${IP_HOST}:3001/api/Travel`;
-export const URL_TRAVEL_ID = `http://${IP_HOST}:3001/api/oneTravel`;
+export const URL_PRICE_QUOTE = `http://${config.ip}:3001/api/calculatePrice`;
+export const URL_REQUEST_TRAVEL = `http://${config.ip}:3001/api/requestTravel`;
+export const URL_TRAVEL = `http://${config.ip}:3001/api/Travel`;
+export const URL_TRAVEL_ID = `http://${config.ip}:3001/api/oneTravel`;
 export const GET_TRAVEL_ID = "GET_TRAVEL_ID";
 
 export function getTravelID(payload) {
@@ -70,7 +69,7 @@ export function registrarUsuario(payload) {
   return async function (dispatch) {
     try {
       const response = await axios
-        .post(`http://${IP_HOST}:3001/api/user`, payload) //aca cada uno pone su ip
+        .post(`http://${config.ip}:3001/api/user`, payload) //aca cada uno pone su ip
         .then((r) => {
           dispatch({
             type: "REGISTROO",
@@ -90,7 +89,7 @@ export function logiarUsuario(payload) {
   return async function (dispatch) {
     try {
       const response = await axios
-        .post(`http://${IP_HOST}:3001/api/login`, payload) //aca cada uno pone su ip
+        .post(`http://192.168.1.6:3001/api/login`, payload) //aca cada uno pone su ip
         .then((r) => {
           dispatch({
             type: "LOGEOO",
@@ -117,7 +116,7 @@ export function completeProfileUser(payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        `http://${IP_HOST}:3001/api/userProfile`,
+        `http://${config.ip}:3001/api/userProfile`,
         payload
       );
       //console.log('Soy el console.log de response', response)
@@ -136,7 +135,7 @@ export function completeProfileCarrier(payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        `http://${IP_HOST}:3001/api/carrierProfile`,
+        `http://${config.ip}:3001/api/carrierProfile`,
         payload
       );
       // console.log('Soy el console.log de response', response)
@@ -154,7 +153,7 @@ export function enviarToken(payload) {
   return async function (dispatch) {
     try {
       const response = await axios
-        .post(`http://${IP_HOST}:3001/api/verifytoken`, payload) //aca cada uno pone su ip
+        .post(`http://${config.ip}:3001/api/verifytoken`, payload) //aca cada uno pone su ip
         .then((r) => {
           console.log("Token llegando a la action enviarToken", payload);
           dispatch({
@@ -178,7 +177,7 @@ export function changePassword(payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        `http://${IP_HOST}:3001/api/changePassword`,
+        `http://${config.ip}:3001/api/changePassword`,
         payload
       );
       // console.log('Soy el console.log de response', response)

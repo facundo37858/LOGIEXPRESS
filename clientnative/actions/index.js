@@ -95,11 +95,12 @@ export function logiarUsuario(payload) {
             payload: r.data.payload,
             token: r.data.token,
           });
-          console.log("hace el dispatch");
+          //console.log("hace el dispatch");
           console.log(
             "Aqui esta el token llegando en la action logiarusuario:",
             r.data.token
           );
+          console.log('viene de login', r.data.payload)
         });
       // console.log(r);
       // return response;

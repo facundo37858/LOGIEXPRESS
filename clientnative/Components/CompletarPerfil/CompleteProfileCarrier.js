@@ -166,6 +166,7 @@ const CompleteProfileUser = () => {
   function handleSubmit(e) {
     e.preventDefault();
     const obj = {
+      id:datosCarrier.id,
       documentID: carrier.documentID,
       license: carrier.license,
       location: carrier.location,
@@ -179,19 +180,6 @@ const CompleteProfileUser = () => {
     };
     dispatch(completeProfileCarrier(obj));
     console.log("soy lo que se envia", obj);
-    // setCarrier({
-    //   //Datos del carrier//
-    //   documentID: "",
-    //   license: "",
-    //   location: "",
-    //   Cuenta: "",
-    //   //Datos del vehiculo//
-    //   brand: "",
-    //   patent: "",
-    //   model: "",
-    //   color: "",
-    //   capacity: "",
-    // });
   }
 
   //// --> Inicio de componente <-- ////

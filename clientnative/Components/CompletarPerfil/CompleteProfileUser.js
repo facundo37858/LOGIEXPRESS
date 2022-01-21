@@ -288,10 +288,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   textBtn: {
-    color: "black",
-    fontSize: 17,
+    fontWeight: 'bold',
+    color: "white",
+    fontSize: 19,
     alignSelf: "center",
-    marginTop: 12,
+    marginTop: 10,
   },
   viewsInputs: {
     borderColor: "#D5D5D5",

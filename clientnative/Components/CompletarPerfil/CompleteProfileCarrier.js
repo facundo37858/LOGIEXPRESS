@@ -9,7 +9,7 @@ import {
   Alert,
   TextInput,
   TouchableOpacity,
-  Modal
+  Modal,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 //Agarrar imagen del celu
@@ -70,9 +70,9 @@ const CompleteProfileUser = () => {
     setchooseData12(data);
   };
 
-// validacion marca
+  // validacion marca
 
-const [isModalVisible13, setisModalVisible13] = useState(false);
+  const [isModalVisible13, setisModalVisible13] = useState(false);
   const [chooseData13, setchooseData13] = useState();
 
   const changeModalVisible13 = (bool) => {
@@ -82,7 +82,6 @@ const [isModalVisible13, setisModalVisible13] = useState(false);
   const setData13 = (data) => {
     setchooseData13(data);
   };
-
 
   // validacion patente
 
@@ -97,9 +96,9 @@ const [isModalVisible13, setisModalVisible13] = useState(false);
     setchooseData14(data);
   };
 
-// validacion modelo
+  // validacion modelo
 
-const [isModalVisible15, setisModalVisible15] = useState(false);
+  const [isModalVisible15, setisModalVisible15] = useState(false);
   const [chooseData15, setchooseData15] = useState();
 
   const changeModalVisible15 = (bool) => {
@@ -109,9 +108,9 @@ const [isModalVisible15, setisModalVisible15] = useState(false);
   const setData15 = (data) => {
     setchooseData15(data);
   };
-// validacion color
+  // validacion color
 
-const [isModalVisible16, setisModalVisible16] = useState(false);
+  const [isModalVisible16, setisModalVisible16] = useState(false);
   const [chooseData16, setchooseData16] = useState();
 
   const changeModalVisible16 = (bool) => {
@@ -139,18 +138,18 @@ const [isModalVisible16, setisModalVisible16] = useState(false);
     console.log("SOY DATOS DEL CARRIER", datosCarrier);
   }, [datosCarrier]);
 
-   /// --> ESTADO PARA EL MODAL <-- ///
-   const [isModalVisible, setisModalVisible] = useState(false)
-   const [chooseData, setchooseData] = useState();
- 
-   const changeModalVisible = (bool) => {
-     setisModalVisible(bool)
-   }
- 
-   const setData = (data) => {
-     setchooseData(data)
-   }
-   
+  /// --> ESTADO PARA EL MODAL <-- ///
+  const [isModalVisible, setisModalVisible] = useState(false);
+  const [chooseData, setchooseData] = useState();
+
+  const changeModalVisible = (bool) => {
+    setisModalVisible(bool);
+  };
+
+  const setData = (data) => {
+    setchooseData(data);
+  };
+
   //// --> ESTADO PARA LOS INPUTS <-- ////
 
   const [carrier, setCarrier] = useState({
@@ -230,19 +229,18 @@ const [isModalVisible16, setisModalVisible16] = useState(false);
     });
   };
 
-
   const handleChangeLocation = (location) => {
     setCarrier({
       ...carrier,
       location: location,
     });
   };
-   
+
   //Vehicule//
   const handleChangeBrand = (brand) => {
     setCarrier({
       ...carrier,
-      brand: brand, 
+      brand: brand,
     });
   };
 
@@ -277,6 +275,7 @@ const [isModalVisible16, setisModalVisible16] = useState(false);
   function handleSubmit(e) {
     e.preventDefault();
     const obj = {
+      id: datosCarrier.id,
       documentID: carrier.documentID,
       license: carrier.license,
       location: carrier.location,
@@ -288,60 +287,44 @@ const [isModalVisible16, setisModalVisible16] = useState(false);
       color: carrier.color,
       capacity: carrier.capacity,
     };
-    
-    // VALIDACIONES 
-    if (!obj.documentID ) {
-      changeModalVisible10(true)
-      return
+
+    // VALIDACIONES
+    if (!obj.documentID) {
+      changeModalVisible10(true);
+      return;
     }
 
-    if (!obj.location ) {
-    changeModalVisible11(true)
-    return
+    if (!obj.location) {
+      changeModalVisible11(true);
+      return;
     }
     if (!obj.license) {
-      changeModalVisible12(true)
-      return
-      }
+      changeModalVisible12(true);
+      return;
+    }
     if (!obj.brand) {
-    changeModalVisible13(true)
-    return
+      changeModalVisible13(true);
+      return;
     }
     if (!obj.patent) {
-    changeModalVisible14(true)
-    return
+      changeModalVisible14(true);
+      return;
     }
-    if (!obj.model ) {
-      changeModalVisible15(true)
-      return
-      }
-    if (!obj.color ) {
-    changeModalVisible16(true)
-    return
+    if (!obj.model) {
+      changeModalVisible15(true);
+      return;
     }
-    if (!obj.capacity ) {
-      changeModalVisible17(true)
-      return
-      }
+    if (!obj.color) {
+      changeModalVisible16(true);
+      return;
+    }
+    if (!obj.capacity) {
+      changeModalVisible17(true);
+      return;
+    }
 
     dispatch(completeProfileCarrier(obj));
     console.log("soy lo que se envia", obj);
-    // setCarrier({
-    //   //Datos del carrier//
-    //   documentID: "",
-    //   license: "",
-    //   location: "",
-    //   Cuenta: "",
-    //   //Datos del vehiculo//
-    //   brand: "",
-    //   patent: "",
-    //   model: "",
-    //   color: "",
-    //   capacity: "",
-    // });
-
-
-    changeModalVisible(true)
   }
 
   //// --> Inicio de componente <-- ////
@@ -443,7 +426,7 @@ const [isModalVisible16, setisModalVisible16] = useState(false);
                   style={styles.textPlaceholder}
                 />
               </View>
-              
+
               {/* Inicio de los input de completar vehiculo */}
 
               <View style={{ marginTop: 30 }}>
@@ -515,23 +498,21 @@ const [isModalVisible16, setisModalVisible16] = useState(false);
                   />
                 </View>
               </View>
-              <TouchableOpacity style={styles.btnEditar}  onPress={handleSubmit} >
-                <Text style={styles.textBtn}>
-                  Enviar
-                </Text>
-                 {/* MODAL */}
-                 <Modal
-                   transparent={true}
-                   animationType="fade"
-                   visible={isModalVisible}
-                   nRequestClose={()=> changeModalVisible(false)}
-                   >
-                      <SimpleModal 
-                      changeModalVisible={changeModalVisible}
-                      setData={setData}
-                      />
-                   </Modal>
-                   <Modal
+              <TouchableOpacity style={styles.btnEditar} onPress={handleSubmit}>
+                <Text style={styles.textBtn}>Enviar</Text>
+                {/* MODAL */}
+                <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible}
+                  nRequestClose={() => changeModalVisible(false)}
+                >
+                  <SimpleModal
+                    changeModalVisible={changeModalVisible}
+                    setData={setData}
+                  />
+                </Modal>
+                <Modal
                   transparent={true}
                   animationType="fade"
                   visible={isModalVisible10}
@@ -619,7 +600,6 @@ const [isModalVisible16, setisModalVisible16] = useState(false);
                     setData17={setData17}
                   />
                 </Modal>
-
               </TouchableOpacity>
             </View>
           </View>

@@ -20,7 +20,7 @@ const ProfileUserScreen = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    // console.log("data", data);
+    //console.log("data", data);
   }, [data]);
 
   // console.log("AQUI RESPONLOG EN PROFILEUSERScreen", data);
@@ -35,8 +35,13 @@ const ProfileUserScreen = () => {
         >
           <View style={{ marginTop: 25 }}>
             <Image
+              source={{
+                uri:
+                  data.photo !== null
+                    ? data.photo
+                    : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
+              }}
               style={styles.userImg}
-              source={require("./Utils/foto1.jpg")}
             />
           </View>
           <Text style={styles.userName}>
@@ -84,7 +89,7 @@ const ProfileUserScreen = () => {
 
           <TouchableOpacity
             style={styles.btn2}
-            onPress={() => navigation.navigate("RequestTravel", data)}
+            onPress={() => navigation.navigate("RequestTravel", data?.idRole)}
           >
             <Image
               style={{ width: 70, height: 55, marginLeft: -4 }}

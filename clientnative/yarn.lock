@@ -2515,11 +2515,6 @@
   "resolved" "https://registry.npmjs.org/destroy/-/destroy-1.0.4.tgz"
   "version" "1.0.4"
 
-"dotenv@^14.1.1":
-  "integrity" "sha512-g7ptu0p9gCDIWTLY62fTYT+PasFLNj9FRGg8Wmjr0v/dOL2LEe8guNjpkY59OX91fwIFU7qth4RO89pDSTTG2g=="
-  "resolved" "https://registry.npmjs.org/dotenv/-/dotenv-14.1.1.tgz"
-  "version" "14.1.1"
-
 "ee-first@1.1.1":
   "integrity" "sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0="
   "resolved" "https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz"

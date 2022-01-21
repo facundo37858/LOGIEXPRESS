@@ -169,7 +169,7 @@ const [isModalVisible22, setisModalVisible22] = useState(false);
             weight: parseFloat(weight),
             price: price.price,
             description: description,
-            id: "d4053632-8539-46d6-be65-066212006b99"
+            id: data,
         };
 
 

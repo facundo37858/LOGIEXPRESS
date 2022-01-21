@@ -89,7 +89,7 @@ const ProfileUserScreen = () => {
 
           <TouchableOpacity
             style={styles.btn2}
-            onPress={() => navigation.navigate("RequestTravel", data)}
+            onPress={() => navigation.navigate("RequestTravel", data?.idRole)}
           >
             <Image
               style={{ width: 70, height: 55, marginLeft: -4 }}

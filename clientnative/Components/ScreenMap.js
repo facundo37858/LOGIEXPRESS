@@ -1,8 +1,7 @@
 import * as React from 'react';
 import MapView from 'react-native-maps';
 import { Marker, Callout } from 'react-native-maps';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Image, Animated, Platform, ActivityIndicator } from 'react-native';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Image, Animated, Platform, ActivityIndicator,  } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { getTravels } from '../actions/index.js'
@@ -24,9 +23,12 @@ const ScreenMap = () => {
 
     const navigation = useNavigation();
     const dispatch = useDispatch();
-
-    let mapIndex = 0;
-    let mapAnimation = new Animated.Value(0);
+    const travels = useSelector((state) => state.travels)
+    
+    const [pin, setPin] = useState({
+        latitude: 0,
+        longitude: 0,
+    })
 
     const [region, setRegion] = useState({
         latitude: 37.78825,
@@ -34,6 +36,12 @@ const ScreenMap = () => {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
     })
+
+  let mapIndex = 0;
+  let mapAnimation = new Animated.Value(0);
+
+  
+
 
     useEffect(() => {
         (async () => {
@@ -50,56 +58,57 @@ const ScreenMap = () => {
             })
         })();
         dispatch(getTravels());
+        console.log("ESTO SON LOS VIAJES", travels)
+    }, []);
+
+    useEffect(() => {
         mapAnimation.addListener(({ value }) => {
-            let index = Math.floor(value / CARD_WIDTH + 0.3);
-            if (index >= travels.length) {
-                index = travels.length - 1;
+          let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
+          if (index >= travels.length) {
+            index = travels.length - 1;
+          }
+          if (index <= 0) {
+            index = 0;
+          }
+    
+          clearTimeout(regionTimeout);
+    
+          const regionTimeout = setTimeout(() => {
+            if( mapIndex !== index ) {
+              mapIndex = index;
+              const { orig } = travels[index]?.travel
+              const origen = orig.split('/')
+              const coordinate = {
+                  latitude: Number(origen[0]),
+                  longitude: Number(origen[1])
+              }
+              _map.current.animateToRegion(
+                {
+                  ...coordinate,
+                  latitudeDelta: region.latitudeDelta,
+                  longitudeDelta: region.longitudeDelta,
+                },
+                350
+              );
             }
-            if (index <= 0) {
-                index = 0;
-            }
-
-            clearTimeout(regionTimeout)
-
-            const regionTimeout = setTimeout(() => {
-                if (mapIndex !== index) {
-                    mapIndex = index;
-                    const { orig } = travels[index]?.travel
-                    const origen = orig.split('/');
-                    const coordinate = {
-                        latitude: origen[0],
-                        longitude: origen[1]
-                    }
-                    _map.current.animateToRegion(
-                        {
-                            ...coordinate,
-                            latitudeDelta: region.latitudeDelta,
-                            longitudeDelta: region.longitudeDelta,
-                        }, 350)
-                }
-            }, 10)
-        })
-    }, [pin]);
-
-    const travels = useSelector((state) => state.travels)
+          }, 10);
+        });
+      });
+    
     const onMarkerPress = (mapEventData) => {
         const markerID = mapEventData._targetInst.return.key;
-
         let x = (markerID * CARD_WIDTH) + (markerID * 20);
+        console.log("ESTO SON TRAVELS", mapEventData._targetInst.return.key, x)
         if (Platform.OS === 'ios') {
             x = x - SPACING_FOR_CARD_INSET;
         }
 
-        _scrollView.current.scrollTo({ x: x, y: 0, animated: true });
+        _scrollView.current.scrollTo({ x: x , y: 0, animated: true });
     }
 
-    console.log("ESTO SON TRAVELS", travels)
+    
 
 
-    const [pin, setPin] = useState({
-        latitude: 0,
-        longitude: 0,
-    })
     console.log("ESTO ES EL PIN DE LA UBI", pin)
     const _map = React.useRef(null)
     const _scrollView = React.useRef(null);
@@ -121,8 +130,11 @@ const ScreenMap = () => {
                     style={styles.container}
                     provider="google"
                 >
+                    <View style={ {marginTop: 35, position: 'absolute'}}>
+                    
+                    </View>
                     {
-                        travels?.map((point, index) => {
+                        travels !== 0 ? travels?.map((point, index) => {
                             const orig = point.travel.orig.split("/")
                             const dest = point.travel.destination.split("/")
                             const lat = Number(orig[0])
@@ -146,71 +158,72 @@ const ScreenMap = () => {
                                 </MapView.Marker>
                             )
                         }
-                        )
+                        ) : <ActivityIndicator size="large" color="#0000ff" />
                     }
                 </MapView> : <ActivityIndicator size="large" color="#0000ff" />
             }
-
-            <Animated.ScrollView
-                ref={_scrollView}
-                horizontal
-                scrollEventThrottle={1}
-                showHorizontalScrollIndicator={false}
-                style={styles.scrollView}
-                pagingEnabled
-                snapToInterval={CARD_WIDTH + 20}
-                snapToAlignment="center"
-                contentInset={{
-                    top: 0,
-                    left: SPACING_FOR_CARD_INSET,
-                    bot: 0,
-                    right: SPACING_FOR_CARD_INSET,
-                }}
-                contentContainerStyle={{
-                    paddingHorizontal: Platform.OS === 'android' ? SPACING_FOR_CARD_INSET : 0,
-                }}
-                onScroll={Animated.event(
-                    [
-                        {
-                            nativeEvent: {
-                                contentOffset: {
-                                    x: mapAnimation,
-                                }
+            {
+                travels.length !== 0 ? <Animated.ScrollView
+                    ref={_scrollView}
+                    horizontal
+                    scrollEventThrottle={1}
+                    showHorizontalScrollIndicator={false}
+                    style={styles.scrollView}
+                    pagingEnabled
+                    snapToInterval={CARD_WIDTH + 20}
+                    snapToAlignment="center"
+                    contentInset={{
+                        top: 0,
+                        left: SPACING_FOR_CARD_INSET,
+                        bot: 0,
+                        right: SPACING_FOR_CARD_INSET,
+                    }}
+                    contentContainerStyle={{
+                        paddingHorizontal: Platform.OS === 'android' ? SPACING_FOR_CARD_INSET : 0,
+                    }}
+                    onScroll={Animated.event(
+                        [
+                            {
+                                nativeEvent: {
+                                    contentOffset: {
+                                        x: mapAnimation,
+                                    }
+                                },
                             },
-                        },
-                    ],
-                    { useNativeDriver: true }
-                )}
-            >
-                {travels?.map((resp, index) => {
-                    const orig = resp.travel.orig.split("/")
-                    const dest = resp.travel.destination.split("/")
-                    return (
-                        <View style={styles.card} key={index}>
-                            <View style={{ alignItems: "center", flexDirection: "column" }}>
-                                <Image source={require('./Utils/foto1.jpg')} style={styles.cardImage} />
-                                <StarRating ratings={rating} reviews={rating} />
-                                <Text>User: {resp.user.identification}</Text>
-                            </View>
-                            <View style={styles.textContent}>
-                                <Text>ID: {resp.travel.id}</Text>
-                                <Text>DESCRIPCION: {resp.travel.description}</Text>
-                                <Text>ORIGEN:{orig[2]}</Text>
-                                <Text>DESTINO:{dest[2]}</Text>
-                                <Text>PESO:{resp.travel.weight}</Text>
-                                <Text>PRECIO:{resp.travel.price}</Text>
-                                <View style={styles.btn2}>
-                                    <TouchableOpacity style={styles.btnEditar} onPress={() => navigation.navigate("StartCarrier", resp)} >
-                                        <Text style={styles.textBtn}> Ofrecer Servicio</Text>
-                                    </TouchableOpacity>
+                        ],
+                        { useNativeDriver: true }
+                    )}
+                >
+                    {travels?.map((resp, index) => {
+                        const orig = resp.travel.orig.split("/")
+                        const dest = resp.travel.destination.split("/")
+                        return (
+                            <View style={styles.card} key={index}>
+                                <View style={{ alignItems: "center", flexDirection: "column" }}>
+                                    <Image source={require('./Utils/foto1.jpg')} style={styles.cardImage} />
+                                    <StarRating ratings={rating} reviews={rating} />
+                                    <Text>User: {resp.user.identification}</Text>
+                                </View>
+                                <View style={styles.textContent}>
+                                    <Text>ID: {resp.travel.id}</Text>
+                                    <Text>DESCRIPCION: {resp.travel.description}</Text>
+                                    <Text>ORIGEN:{orig[2]}</Text>
+                                    <Text>DESTINO:{dest[2]}</Text>
+                                    <Text>PESO:{resp.travel.weight}</Text>
+                                    <Text>PRECIO:{resp.travel.price}</Text>
+                                    <View style={styles.btn2}>
+                                        <TouchableOpacity style={styles.btnEditar} onPress={() => navigation.navigate("StartCarrier", resp)} >
+                                            <Text style={styles.textBtn}> Ofrecer Servicio</Text>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                    )
-                })}
+                        )
+                    })}
 
-            </Animated.ScrollView>
-
+                </Animated.ScrollView> : <ActivityIndicator size="large" color="#0000ff" />
+                    
+            }
         </View >
     );
 }

@@ -9,7 +9,7 @@ import StarRating from "../StarRating";
 const DatosPersonalesCarrier = () => {
   const data = useSelector((store) => store.responseLog);
   const navigation = useNavigation();
-  
+  const rating = 4
   useEffect(() => {
     //console.log("data", data)
   }, [data]);

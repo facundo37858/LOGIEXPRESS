@@ -7,7 +7,7 @@ export class User extends Model {
     @PrimaryKey
     @Column
     id!: string 
-
+ 
     @Column
     identification!: number
 

@@ -9,7 +9,7 @@ import StarRating from "../StarRating";
 const DatosPersonalesCarrier = () => {
   const data = useSelector((store) => store.responseLog);
   const navigation = useNavigation();
-  const rating = 3;
+  const rating = 4;
   useEffect(() => {
     //console.log("data", data)
   }, [data]);
@@ -27,8 +27,13 @@ const DatosPersonalesCarrier = () => {
         >
           <View style={{ marginTop: 25 }}>
             <Image
+              source={{
+                uri:
+                  data.photo !== null
+                    ? data.photo
+                    : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
+              }}
               style={styles.userImg}
-              source={require("./default-user.jpg")}
             />
           </View>
           <View style={styles.boxDatos}>
@@ -36,8 +41,8 @@ const DatosPersonalesCarrier = () => {
               {data.name} {data.lastname}
             </Text>
             <Text style={{ fontSize: 15 }}>{data.eMail}</Text>
-            <Text style={{ fontSize: 15 }}>Villa Angela</Text>
-            <View style={{ marginTop: 2}}>
+            <Text style={{ fontSize: 15 }}>{data.location}</Text>
+            <View style={{ marginTop: 2 }}>
               <StarRating
                 ratings={rating}
                 reviews={rating}
@@ -47,16 +52,22 @@ const DatosPersonalesCarrier = () => {
           </View>
         </View>
         <View style={styles.botones}>
-          <TouchableOpacity style={styles.btn} >
-            <Text style={styles.textBtn} onPress={() => navigation.navigate('EditProfileCarrier')}>Editar perfil</Text>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => navigation.navigate("EditProfileCarrier")}
+          >
+            <Text style={styles.textBtn}>Editar perfil</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btn}>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => navigation.navigate("CambiarContraseña")}
+          >
             <Text style={styles.textBtn}>Cambiar contraseña</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btn}>
-            <Text style={styles.textBtn}>Desloguearse</Text>
+            <Text style={styles.textBtn}>Cerrar sesión</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

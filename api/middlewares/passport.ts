@@ -6,7 +6,6 @@ const opts: StrategyOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: config.jwtSecret
 }
-
 export default new Strategy(opts, async (payload: any, done: any) => {
 
     try {

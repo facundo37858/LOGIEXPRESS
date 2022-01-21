@@ -9,12 +9,14 @@ import {
   ImageBackground,
   Dimensions,
   StyleSheet,
+  Modal
 } from "react-native";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import config from "../../config/config";
-
+import SimpleModal60 from "../AlertasPago/SimpleModalpagok";
+import SimpleModal61 from "../AlertasPago/SimpleModalpagok";
 const Payment = () => {
   const info = useSelector((store) => store.responseLog);
   const token = useSelector((store) => store.token);
@@ -22,6 +24,34 @@ const Payment = () => {
   const [name, setName] = useState(info.eMail);
   const [tokenn, setToken] = useState(token);
   const stripe = useStripe();
+
+
+   // validaciones
+
+    // pago ok
+    const [isModalVisible60, setisModalVisible60] = useState(false);
+    const [chooseData60, setchooseData60] = useState();
+  
+    const changeModalVisible60 = (bool) => {
+      setisModalVisible60(bool);
+    };
+  
+    const setData60 = (data) => {
+      setchooseData60(data);
+    };
+
+    // pago mal
+
+    const [isModalVisible61, setisModalVisible61] = useState(false);
+    const [chooseData61, setchooseData61] = useState();
+  
+    const changeModalVisible61 = (bool) => {
+      setisModalVisible61(bool);
+    };
+  
+    const setData61 = (data) => {
+      setchooseData61(data);
+    };
 
   useEffect(() => {
     console.log("llega bien el mail?", info.eMail, tokenn);
@@ -66,10 +96,12 @@ const Payment = () => {
       });
       if (presentSheet.error)
         return Alert.alert("error3", presentSheet.error.message);
-      Alert.alert("Payment complete, thank you!");
+        changeModalVisible60(true)
+      // Alert.alert("Payment complete, thank you!");
     } catch (err) {
       console.error(err);
-      Alert.alert("Something went wrong, try again later!");
+      changeModalVisible61(true)
+      // Alert.alert("Something went wrong, try again later!");
     }
   };
 
@@ -91,6 +123,30 @@ const Payment = () => {
             style={{ color: "#FFC107", fontSize: 100 }}
           />
           <Text style={styles.brandViewText}>LOGIEXPRESS</Text>
+          <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible60}
+                  nRequestClose={() => changeModalVisible60(false)}
+                >
+                  <SimpleModal60
+                    changeModalVisible60={changeModalVisible60}
+                    setData60={setData60}
+                  />
+                  
+                  </Modal>
+                  <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible61}
+                  nRequestClose={() => changeModalVisible61(false)}
+                >
+                  <SimpleModal61
+                    changeModalVisible61={changeModalVisible61}
+                    setData61={setData61}
+                  />
+                  
+                  </Modal>
         </View>
       </ImageBackground>
     </ScrollView>

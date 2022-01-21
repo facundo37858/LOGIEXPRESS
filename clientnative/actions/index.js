@@ -165,7 +165,7 @@ export function enviarToken(payload) {
       // console.log(r);
       // return response;
     } catch (error) {
-      console.error(error.response);
+      console.log(error.response);
     }
   };
 }

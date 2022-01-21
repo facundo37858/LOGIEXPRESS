@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/core";
 const WIDTH = Dimensions.get("window").width;
 const HEIGTH_MODAL = 220;
 
-const SimpleModalok3 = (props) => {
+const SimpleModalLastname = (props) => {
   const navigation = useNavigation();
 
   let closeModal = (bool, data) => {
@@ -51,7 +51,7 @@ const SimpleModalok3 = (props) => {
   );
 };
 
-export default SimpleModalok3;
+export default SimpleModalLastname;
 
 const styles = StyleSheet.create({
   container: {

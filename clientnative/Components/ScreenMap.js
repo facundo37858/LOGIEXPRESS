@@ -13,10 +13,6 @@ import {
   Platform,
   ActivityIndicator,
 } from "react-native";
-<<<<<<< HEAD
-=======
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
->>>>>>> Eliana
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTravels } from "../actions/index.js";
@@ -33,18 +29,12 @@ const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 const ScreenMap = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-<<<<<<< HEAD
   const travels = useSelector((state) => state.travels);
 
   const [pin, setPin] = useState({
     latitude: 0,
     longitude: 0,
   });
-=======
-
-  let mapIndex = 0;
-  let mapAnimation = new Animated.Value(0);
->>>>>>> Eliana
 
   const [region, setRegion] = useState({
     latitude: 37.78825,
@@ -53,12 +43,9 @@ const ScreenMap = () => {
     longitudeDelta: 0.0421,
   });
 
-<<<<<<< HEAD
   let mapIndex = 0;
   let mapAnimation = new Animated.Value(0);
 
-=======
->>>>>>> Eliana
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -74,17 +61,12 @@ const ScreenMap = () => {
       });
     })();
     dispatch(getTravels());
-<<<<<<< HEAD
     console.log("ESTO SON LOS VIAJES", travels);
   }, []);
 
   useEffect(() => {
     mapAnimation.addListener(({ value }) => {
       let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
-=======
-    mapAnimation.addListener(({ value }) => {
-      let index = Math.floor(value / CARD_WIDTH + 0.3);
->>>>>>> Eliana
       if (index >= travels.length) {
         index = travels.length - 1;
       }
@@ -100,13 +82,8 @@ const ScreenMap = () => {
           const { orig } = travels[index]?.travel;
           const origen = orig.split("/");
           const coordinate = {
-<<<<<<< HEAD
             latitude: Number(origen[0]),
             longitude: Number(origen[1]),
-=======
-            latitude: origen[0],
-            longitude: origen[1],
->>>>>>> Eliana
           };
           _map.current.animateToRegion(
             {
@@ -119,22 +96,12 @@ const ScreenMap = () => {
         }
       }, 10);
     });
-<<<<<<< HEAD
   });
 
   const onMarkerPress = (mapEventData) => {
     const markerID = mapEventData._targetInst.return.key;
     let x = markerID * CARD_WIDTH + markerID * 20;
     console.log("ESTO SON TRAVELS", mapEventData._targetInst.return.key, x);
-=======
-  }, [pin]);
-
-  const travels = useSelector((state) => state.travels);
-  const onMarkerPress = (mapEventData) => {
-    const markerID = mapEventData._targetInst.return.key;
-
-    let x = markerID * CARD_WIDTH + markerID * 20;
->>>>>>> Eliana
     if (Platform.OS === "ios") {
       x = x - SPACING_FOR_CARD_INSET;
     }
@@ -142,24 +109,12 @@ const ScreenMap = () => {
     _scrollView.current.scrollTo({ x: x, y: 0, animated: true });
   };
 
-<<<<<<< HEAD
-=======
-  console.log("ESTO SON TRAVELS", travels);
-
-  const [pin, setPin] = useState({
-    latitude: 0,
-    longitude: 0,
-  });
->>>>>>> Eliana
   console.log("ESTO ES EL PIN DE LA UBI", pin);
   const _map = React.useRef(null);
   const _scrollView = React.useRef(null);
 
-<<<<<<< HEAD
   console.log(_map);
 
-=======
->>>>>>> Eliana
   const rating = 3;
 
   return (
@@ -174,7 +129,6 @@ const ScreenMap = () => {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
-<<<<<<< HEAD
           provider="google"
         >
           <View style={{ marginTop: 35, position: "absolute" }}></View>
@@ -206,40 +160,10 @@ const ScreenMap = () => {
           ) : (
             <ActivityIndicator size="large" color="#0000ff" />
           )}
-=======
-          // style={styles.container}
-          provider="google"
-        >
-          {travels?.map((point, index) => {
-            const orig = point.travel.orig.split("/");
-            const dest = point.travel.destination.split("/");
-            const lat = Number(orig[0]);
-            const lon = Number(orig[1]);
-            return (
-              <MapView.Marker
-                key={index}
-                coordinate={{
-                  latitude: lat,
-                  longitude: lon,
-                }}
-                onPress={(e) => onMarkerPress(e)}
-              >
-                <Animated.View style={styles.markerWrap}>
-                  <Animated.Image
-                    source={require("../Components/Utils/puntero.png")}
-                    style={styles.marker}
-                    resizeMode="cover"
-                  />
-                </Animated.View>
-              </MapView.Marker>
-            );
-          })}
->>>>>>> Eliana
         </MapView>
       ) : (
         <ActivityIndicator size="large" color="#0000ff" />
       )}
-<<<<<<< HEAD
       {travels.length !== 0 ? (
         <Animated.ScrollView
           ref={_scrollView}
@@ -309,74 +233,6 @@ const ScreenMap = () => {
       ) : (
         <ActivityIndicator size="large" color="#0000ff" />
       )}
-=======
-
-      <Animated.ScrollView
-        ref={_scrollView}
-        horizontal
-        scrollEventThrottle={1}
-        showHorizontalScrollIndicator={false}
-        style={styles.scrollView}
-        pagingEnabled
-        snapToInterval={CARD_WIDTH + 20}
-        snapToAlignment="center"
-        contentInset={{
-          top: 0,
-          left: SPACING_FOR_CARD_INSET,
-          bot: 0,
-          right: SPACING_FOR_CARD_INSET,
-        }}
-        contentContainerStyle={{
-          paddingHorizontal:
-            Platform.OS === "android" ? SPACING_FOR_CARD_INSET : 0,
-        }}
-        onScroll={Animated.event(
-          [
-            {
-              nativeEvent: {
-                contentOffset: {
-                  x: mapAnimation,
-                },
-              },
-            },
-          ],
-          { useNativeDriver: true }
-        )}
-      >
-        {travels?.map((resp, index) => {
-          const orig = resp.travel.orig.split("/");
-          const dest = resp.travel.destination.split("/");
-          return (
-            <View style={styles.card} key={index}>
-              <View style={{ alignItems: "center", flexDirection: "column" }}>
-                <Image
-                  source={require("./Utils/foto1.jpg")}
-                  style={styles.cardImage}
-                />
-                <StarRating ratings={rating} reviews={rating} />
-                <Text>User: {resp.user.identification}</Text>
-              </View>
-              <View style={styles.textContent}>
-                <Text>ID: {resp.travel.id}</Text>
-                <Text>DESCRIPCION: {resp.travel.description}</Text>
-                <Text>ORIGEN:{orig[2]}</Text>
-                <Text>DESTINO:{dest[2]}</Text>
-                <Text>PESO:{resp.travel.weight}</Text>
-                <Text>PRECIO:{resp.travel.price}</Text>
-                <View style={styles.btn2}>
-                  <TouchableOpacity
-                    style={styles.btnEditar}
-                    onPress={() => navigation.navigate("StartCarrier", resp)}
-                  >
-                    <Text style={styles.textBtn}> Ofrecer Servicio</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          );
-        })}
-      </Animated.ScrollView>
->>>>>>> Eliana
     </View>
   );
 };

@@ -20,7 +20,7 @@ const SingIn = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const respuesta = useSelector((store) => store.responseLog);
-
+  const respToken = useSelector((store) => store.respToken)
   async function save(key, value) {
     //FUNCION PARA GUARDAR LA INFO EN EL STORE, KEY = token , VALUE=el string del token
     await SecureStore.setItemAsync(key, value);
@@ -41,10 +41,10 @@ const SingIn = ({ navigation }) => {
       respuesta
     );
     if (respuesta?.role === true) {
-      navigation.navigate("ProfileUserScreen", respuesta);
+      navigation.navigate("ProfileUserScreen");
     }
     if (respuesta?.role === false) {
-      navigation.navigate("ProfileScreenCarrier", respuesta);
+      navigation.navigate("ProfileScreenCarrier");
     }
     if (respuesta?.role === 1) {
       alert(
@@ -53,6 +53,21 @@ const SingIn = ({ navigation }) => {
     }
   }, [respuesta]);
 
+  /* useEffect(() => {
+    console.log("ESTO ES EL TOKEEEEEEEEEN", respToken)
+    if (respToken?.role === true) {
+      navigation.navigate("ProfileUserScreen");
+    }
+    if (respToken?.role === false) {
+      navigation.navigate("ProfileScreenCarrier");
+    }
+    if (respToken?.role === 1) {
+      alert(
+        "La dirección de correo electrónico o la contraseña que ingresaste no son válidas!"
+      );
+    }
+  },[respToken])
+ */
   const [log, setLog] = useState({
     mail: "",
     contraseña: "",
@@ -70,6 +85,8 @@ const SingIn = ({ navigation }) => {
       contraseña: pass,
     });
   };
+
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();

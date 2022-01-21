@@ -2,6 +2,8 @@ import { Response, Request, Router, NextFunction } from 'express';
 import { uuid } from 'uuidv4';
 import passport from 'passport';
 import { User_Reg } from '../models/User_Reg';
+import { User } from '../models/User';
+import { Carrier } from '../models/Carrier';
 import jwt from 'jsonwebtoken'
 import config from "../../config/config"
 const bcrypt = require("bcryptjs");
@@ -27,6 +29,11 @@ router.post('/verifytoken', async (req: Request, res: Response, next: NextFuncti
     try {
         const decoded = jwt.verify(token, config.jwtSecret)
         const dataUser = await User_Reg.findByPk(decoded.id)
+        
+        if(dataUser) {
+            const objUser = await User.findOne({ where: { idUserReg: dataUser.id } })
+            const objCarrier = await Carrier.findOne({ where: { idUserReg: dataUser.id } })
+        
 
         const payload = {
             id: dataUser?.id,
@@ -35,6 +42,9 @@ router.post('/verifytoken', async (req: Request, res: Response, next: NextFuncti
             phone: dataUser?.phone,
             eMail: dataUser?.eMail,
             role: dataUser?.role,
+            photo: objUser? objUser!.photo : objCarrier!.photo,
+            location:objUser? objUser!.zone : objCarrier!.location,
+            idRole: objUser ? objUser!.id : objCarrier!.id,
             mensaje: true
         }
 
@@ -42,6 +52,7 @@ router.post('/verifytoken', async (req: Request, res: Response, next: NextFuncti
 
         return res.json({ payload, mensaje: 'the access token is valid' })
     }
+}
     catch (err) {
         next(err)
     }

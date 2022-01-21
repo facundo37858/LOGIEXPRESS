@@ -53,8 +53,9 @@ const SimpleModalCarrier = (props) => {
         <View style={styles.viewBotones}>
           <View style={styles.containerBtn}>
             <TouchableOpacity
+            
               onPress={() => closeModal(false, "Aceptar")}
-              onPress={handleSubmit}
+              onPressIn={handleSubmit}
               style={styles.btnAceptar}
             >
               <Text

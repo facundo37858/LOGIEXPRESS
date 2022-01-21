@@ -24,6 +24,12 @@ import SimpleModal20 from "./AlertasTravel/SimpleModalorigin";
 import SimpleModal21 from "./AlertasTravel/SimpleModaldest";
 import SimpleModal22 from "./AlertasTravel/SimpleModalweight";
 import SimpleModal23 from "./AlertasTravel/SimpleModalprice";
+import SocketIOClient from 'socket.io-client'
+import config from "../config/config.js";
+
+
+
+
 
 
 // funcion para calcular la distancia en km
@@ -47,6 +53,17 @@ function getDistanciaMetros(origen, destino) {
 
 
 const RequestTravel = (props) => {
+
+                                     
+
+
+    const socket = SocketIOClient.connect("http://192.168.2.102:3001");
+    socket.on('connection')
+    
+    
+    
+    
+    
     ////--> HOOK PARA LA NAVEGACION <-- ////
     const navigation = useNavigation();
     const dispatch = useDispatch();
@@ -109,7 +126,11 @@ const [isModalVisible22, setisModalVisible22] = useState(false);
     setchooseData23(data);
   };
 
+  const sendMessage = (props) =>{
+ 
+    socket.emit('message', props);
 
+ }
 
 
      /// --> ESTO ES PARA ELIMINAR EL WARNING QUE SALE EN LA PANTALLA <-- ///
@@ -174,7 +195,7 @@ const [isModalVisible22, setisModalVisible22] = useState(false);
 
 
         //VALIDACIONES
-
+/* 
         if (travel.orig === `0/0/null`) {
             changeModalVisible20(true)
             return
@@ -193,8 +214,8 @@ const [isModalVisible22, setisModalVisible22] = useState(false);
             changeModalVisible23(true)
             return
         }
-
-        dispatch(requestTravel(travel))
+ */
+        dispatch(sendMessage(travel))
 
         console.log("Estoy enviando:", travel)
     }

@@ -26,9 +26,8 @@ router.get('/user', passport.authenticate("jwt", { session: false }), async (req
 
 router.post('/verifytoken', async (req: Request, res: Response, next: NextFunction) => {
     const { token } = req.body;
-<<<<<<< HEAD
     try {
-        const decoded = jwt.verify(token, config.jwtSecret)
+        const decoded: any = jwt.verify(token, config.jwtSecret)
         const dataUser = await User_Reg.findByPk(decoded.id)
         if (dataUser) {
 
@@ -56,29 +55,6 @@ router.post('/verifytoken', async (req: Request, res: Response, next: NextFuncti
     catch (err) {
         next(err)
     }
-=======
-    // try {
-    //     const decoded = jwt.verify(token, config.jwtSecret)
-    //     const dataUser = await User_Reg.findByPk(decoded?.id)
-
-    //     const payload = {
-    //         id: dataUser?.id,
-    //         name: dataUser?.name,
-    //         lastname: dataUser?.lastName,
-    //         phone: dataUser?.phone,
-    //         eMail: dataUser?.eMail,
-    //         role: dataUser?.role,
-    //         mensaje: true
-    //     }
-
-    //     console.log("PAYLOAD en verifytoken", payload);
-
-    //     return res.json({ payload, mensaje: 'the access token is valid' })
-    // }
-    // catch (err) {
-    //     next(err)
-    // }
->>>>>>> AllanTorres
 });
 
 

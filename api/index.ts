@@ -61,13 +61,10 @@ io.on("connection", (socket:any)=>{
  
 sequelize
 	.sync({ force: false, logging: false })
-<<<<<<< HEAD
 	// .then(async () => {
 	// 	// await resApiUsers()
 		
 	// })
-=======
->>>>>>> AllanTorres
 	.then(() => {
 		console.log('base de datos conectada! :D')
 		server.listen(3001, function () {

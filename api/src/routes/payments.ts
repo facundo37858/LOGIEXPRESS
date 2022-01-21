@@ -39,7 +39,7 @@ router.post("/pay", async (req: Request, res: Response, next: NextFunction) => {
 
     const { name, tokenn } = req.body;
     console.log('aca llega el token','token',tokenn);
-    let decoded = jwt.verify(tokenn, config.jwtSecret)
+    let decoded: any = jwt.verify(tokenn, config.jwtSecret)
 
     let user = await User.findAll({ where: { idUserReg: decoded.id } })
 

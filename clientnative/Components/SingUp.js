@@ -24,6 +24,7 @@ import SimpleModal6 from "./AlertasReg/SimpleModalpass.js";
 import SimpleModal7 from "./AlertasReg/SimpleModalphone.js";
 import SimpleModal8 from "./AlertasReg/SimpleModalterms.js";
 import SimpleModal9 from "./AlertasReg/SimpleModalrole.js";
+import SimpleModal40 from "./AlertasReg/SimpleModalsamemail.js";
 
 
 import CheckBox from "expo-checkbox";
@@ -153,6 +154,20 @@ const SignUp = () => {
     setchooseData9(data);
   };
 
+  // MAIL REPETIDO
+  const [isModalVisible40, setisModalVisible40] = useState(false);
+  const [chooseData40, setchooseData40] = useState();
+
+  const changeModalVisible40 = (bool) => {
+    setisModalVisible40(bool);
+  };
+
+  const setData40 = (data) => {
+    setchooseData40(data);
+  };
+
+  
+
 
   useEffect(()=>{
     //console.log('aqui esta la respuestaaaa:',respuesta);
@@ -165,7 +180,8 @@ const SignUp = () => {
       // navigation.navigate("CompleteProfileCarrier");
       changeModalVisible2(true)
     }if(respuesta?.role === 1){
-      alert('El mail ingresado ya se encuentra en uso!')
+      // alert('El mail ingresado ya se encuentra en uso!')
+      changeModalVisible40(true)
     }
   },[respuesta]);
 
@@ -514,6 +530,18 @@ if (!obj.phone) {
                   <SimpleModal9
                     changeModalVisible9={changeModalVisible9}
                     setData9={setData9}
+                  />
+                  
+                  </Modal>
+                  <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible40}
+                  nRequestClose={() => changeModalVisible40(false)}
+                >
+                  <SimpleModal40
+                    changeModalVisible40={changeModalVisible40}
+                    setData40={setData40}
                   />
                   
                   </Modal>

@@ -3,7 +3,7 @@ import React from 'react';
 
 const DetallesVehicule = () => {
   return (
-    <View>
+    <View styles={{flex: 1, backgroundColor: "white"}}>
       <Text>Detalle del vehículo</Text>
     </View>
   );

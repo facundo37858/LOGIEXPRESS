@@ -29,14 +29,14 @@ const DatosPersonalesCarrier = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <HeaderBar/>
       <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={{ marginTop: 35}}>
-        <HeaderBar/>
-      </View>
+      <View style={{marginTop: 35}}>
+      <HeaderBar/>
         <Text style={styles.perfilTex}>Datos personales</Text>
-        <View
+       
+      </View>
         
+        <View    
           style={{
             flexDirection: "row",
             alignContent: "flex-start",
@@ -58,13 +58,13 @@ const DatosPersonalesCarrier = () => {
             <Text style={styles.userName}>
               {data.name} {data.lastname}
             </Text>
-            <Text style={{ fontSize: 17 }}>{data.eMail}</Text>
-            <Text style={{ fontSize: 17 }}>{data.location}</Text>
+            <Text style={{ fontSize: 15 }}>{data.eMail}</Text>
+            <Text style={{ fontSize: 15 }}>{data.location}</Text>
             <View style={{ marginTop: 2, marginStart:-7 }}>
               <StarRating
                 ratings={rating}
                 reviews={rating}
-                size={30}
+                size={26}
               ></StarRating>
             </View>
           </View>
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   userImg: {
-    marginTop: 10,
+    marginTop: 17,
     height: 110,
     width: 110,
     borderRadius: 55,
@@ -119,14 +119,14 @@ const styles = StyleSheet.create({
     borderColor: "#7952B3",
   },
   userName: {
-    fontSize: 25,
+    fontSize: 24,
     fontWeight: "bold",
     marginBottom: 1,
   },
   boxDatos: {
     flexDirection: "column",
     marginTop: 40,
-    marginLeft: 15,
+    marginLeft: 20,
   },
   estrellitas: {
     marginTop: 30,
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   textBtn: {
     textAlign: "center",
     // marginTop: 5,
-    fontSize: 21,
+    fontSize: 19,
     fontWeight: "bold",
   },
 });

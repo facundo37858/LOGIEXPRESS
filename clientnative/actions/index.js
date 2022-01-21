@@ -106,7 +106,7 @@ export function logiarUsuario(payload) {
       // console.log(r);
       // return response;
     } catch (error) {
-      console.error(error.response);
+      console.log(error.response);
     }
   };
 }

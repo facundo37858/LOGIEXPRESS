@@ -1,4 +1,3 @@
-
 import { Response, Request, Router, NextFunction } from 'express';
 
 import Stripe from 'stripe';
@@ -9,14 +8,14 @@ const router = Router()
 
 
 
-const stripe= new Stripe(process.env.STRIPE_SECRET_KEY||"sk_test_51KHp41KDcJ8UiNxjhZPL9vNckvDi98mXuAEZAntgDhRSRe8ieczfK1u27oBRgj1ekxONHjpRev5oPjk3qqXiSJ4q00qs7thVnx",{
-    apiVersion: "2020-08-27",
-    appInfo: { // For sample support and debugging, not required for production:
-      name: "stripe-samples/accept-a-payment",
-      url: "https://github.com/stripe-samples",
-      version: "0.0.2",
-    },
-    typescript: true,
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_51KHp41KDcJ8UiNxjhZPL9vNckvDi98mXuAEZAntgDhRSRe8ieczfK1u27oBRgj1ekxONHjpRev5oPjk3qqXiSJ4q00qs7thVnx", {
+  apiVersion: "2020-08-27",
+  appInfo: { // For sample support and debugging, not required for production:
+    name: "stripe-samples/accept-a-payment",
+    url: "https://github.com/stripe-samples",
+    version: "0.0.2",
+  },
+  typescript: true,
 })
 
 
@@ -35,18 +34,17 @@ const stripe= new Stripe(process.env.STRIPE_SECRET_KEY||"sk_test_51KHp41KDcJ8UiN
 // app.use(express.json());
 // app.use(cors());
 
-router.post("/pay", async (req:Request, res:Response,next:NextFunction) => {
+router.post("/pay", async (req: Request, res: Response, next: NextFunction) => {
   try {
-      console.log(req.body)
-    const { name, amount} = req.body;
-    if (!name) return res.json({key:400, message: "Please enter a name" });
+    console.log(req.body)
+    const { name, amount } = req.body;
+    if (!name) return res.json({ key: 400, message: "Please enter a name" });
     const paymentIntent = await stripe.paymentIntents.create({
-        amount: Math.round(25 * 1000),
-        // amount,
+      amount: Math.round(25 * 1000),
       currency: "usd",
       payment_method_types: ["card"],
       metadata: { name },
-      description:'logiexpress',
+      description: 'logiexpress',
     });
     const clientSecret = paymentIntent.client_secret;
     res.json({ message: "Payment initiated", clientSecret });

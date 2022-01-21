@@ -25,7 +25,7 @@ const CompleteProfileUser = () => {
 
   const datosUser = useSelector((store) => store.responseReg);
   useEffect(() => {
-    console.log("SOY DATOS DEL USER", datosUser);
+    //console.log("SOY DATOS DEL USER", datosUser);
   }, [datosUser]);
 
 

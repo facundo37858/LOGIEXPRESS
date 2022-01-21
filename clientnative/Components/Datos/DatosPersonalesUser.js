@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
-import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View, ScrollView, Image, Modal } from "react-native";
 import { logiarUsuario } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/core";
 import StarRating from "../StarRating";
+
 
 const DatosPersonalesCarrier = (props) => {
   const data = useSelector((store) => store.responseLog);
@@ -15,6 +16,7 @@ const DatosPersonalesCarrier = (props) => {
     //console.log("data", data)
   }, [data]);
 
+  
   return (
     <View style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -27,9 +29,14 @@ const DatosPersonalesCarrier = (props) => {
           }}
         >
           <View style={{ marginTop: 25 }}>
-            <Image
+          <Image
+              source={{
+                uri:
+                  data.photo !== null
+                    ? data.photo
+                    : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
+              }}
               style={styles.userImg}
-              source={require("./default-user.jpg")}
             />
           </View>
           <View style={styles.boxDatos}>
@@ -37,7 +44,7 @@ const DatosPersonalesCarrier = (props) => {
               {data.name} {data.lastname}
             </Text>
             <Text style={{ fontSize: 15 }}>{data.eMail}</Text>
-            <Text style={{ fontSize: 15 }}>Villa Angela</Text>
+            <Text style={{ fontSize: 15 }}>{data.location}</Text>
             <View style={{ marginTop: 2}}>
               <StarRating
                 ratings={rating}
@@ -58,12 +65,14 @@ const DatosPersonalesCarrier = (props) => {
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btn}>
+          <TouchableOpacity style={styles.btn} 
+           onPress={() => navigation.navigate("CambiarContraseña")}
+            >
             <Text style={styles.textBtn}>Cambiar contraseña</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btn}>
-            <Text style={styles.textBtn}>Desloguearse</Text>
+            <Text style={styles.textBtn}>Cerrar sesión</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

@@ -1,19 +1,30 @@
-import { useStripe} from "@stripe/stripe-react-native";
-import React, { useState } from "react";
-import { View, Text, TextInput, Button, Alert } from "react-native";
-import axios from 'axios'
-
-
-
-
+import { useStripe } from "@stripe/stripe-react-native";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  Alert,
+  ImageBackground,
+  Dimensions,
+  StyleSheet,
+} from "react-native";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { Ionicons } from "@expo/vector-icons";
 
 const Payment = () => {
- 
- 
-  
-  const [name, setName] = useState("");
+  const info = useSelector((store) => store.responseLog);
+
+  const [name, setName] = useState(info.eMail);
   const stripe = useStripe();
-  
+
+  useEffect(() => {
+    console.log("llega bien el mail?", info.eMail);
+    subscribe();
+  }, []);
+
   const subscribe = async () => {
     try {
       // sending request
@@ -24,60 +35,79 @@ const Payment = () => {
       //     "Content-Type": "application/json",
       //   },
       // });
-     
-      const response = await axios.post(`http://192.168.2.104:3001/api/pay`, { name })
+
+      const response = await axios.post(`http://192.168.0.111:3001/api/pay`, {
+        name,
+      });
       //.then(res=>res.data)
 
-      console.log(response.data.key)
-      console.log(response.status)
-      
-      
-  
+      console.log(response.data.key);
+      console.log(response.status);
+
       //const data = await response.data;
       // if (!response.ok) return Alert.alert('error1',data.message);
-      if (response.data.key=='400') return Alert.alert('error1',`${response.data.message}`);
-      
-      
+      if (response.data.key == "400")
+        return Alert.alert("error1", `${response.data.message}`);
 
-    const clientSecret = response.data.clientSecret;
-    console.log(clientSecret)
+      const clientSecret = response.data.clientSecret;
+      console.log(clientSecret);
       const initSheet = await stripe.initPaymentSheet({
         paymentIntentClientSecret: clientSecret,
-        merchantDisplayName: 'Merchant Name',
+        merchantDisplayName: "Merchant Name",
       });
-      
-    if (initSheet.error) return Alert.alert('error2',initSheet.error.message);
+
+      if (initSheet.error)
+        return Alert.alert("error2", initSheet.error.message);
       const presentSheet = await stripe.presentPaymentSheet({
         clientSecret,
       });
-      if (presentSheet.error) return Alert.alert('error3',presentSheet.error.message);
+      if (presentSheet.error)
+        return Alert.alert("error3", presentSheet.error.message);
       Alert.alert("Payment complete, thank you!");
-
-
-      
-     } catch (err) {
-    console.error(err);
-    Alert.alert("Something went wrong, try again later!");
+    } catch (err) {
+      console.error(err);
+      Alert.alert("Something went wrong, try again later!");
     }
   };
 
   return (
-    <View>
-      <TextInput
-        value={name}
-        onChangeText={(text) => setName(text)}
-        placeholder="e-mail"
+    <ScrollView
+      style={{ flex: 1, backgroundColor: "#ffffffff", alignSelf: "stretch" }}
+      showsVerticalScrollIndicator={false}
+    >
+      <ImageBackground
+        source={require("../ruta.png")}
         style={{
-          width: 300,
-          fontSize: 20,
-          padding: 10,
-          borderWidth: 1,
+          height: Dimensions.get("window").height / 1.1,
+          width: "100%",
         }}
-      />
-      
-      <Button title="Pay Carrier" onPress={subscribe} />
-    </View>
+      >
+        <View style={styles.brandView}>
+          <Ionicons
+            name="location-sharp"
+            style={{ color: "#FFC107", fontSize: 100 }}
+          />
+          <Text style={styles.brandViewText}>LOGIEXPRESS</Text>
+        </View>
+      </ImageBackground>
+    </ScrollView>
   );
 };
 
 export default Payment;
+
+const styles = StyleSheet.create({
+  brandView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  brandViewText: {
+    color: "#FFC107",
+    fontSize: 45,
+    fontWeight: "bold",
+    textTransform: "uppercase",
+
+    // justifyContent:'flex-start'
+  },
+});

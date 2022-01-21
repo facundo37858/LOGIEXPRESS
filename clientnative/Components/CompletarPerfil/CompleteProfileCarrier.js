@@ -27,7 +27,7 @@ import SimpleModal15 from "../AlertasComplete/SimpleModalmodel.js";
 import SimpleModal16 from "../AlertasComplete/SimpleModalcolor.js";
 import SimpleModal17 from "../AlertasComplete/SimpleModalcapacity.js";
 
-const CompleteProfileUser = () => {
+const CompleteProfileCarrier = () => {
   const dispatch = useDispatch();
 
   const datosCarrier = useSelector((store) => store.responseReg);
@@ -325,6 +325,7 @@ const CompleteProfileUser = () => {
 
     dispatch(completeProfileCarrier(obj));
     console.log("soy lo que se envia", obj);
+    changeModalVisible(true)
   }
 
   //// --> Inicio de componente <-- ////
@@ -498,6 +499,7 @@ const CompleteProfileUser = () => {
                   />
                 </View>
               </View>
+
               <TouchableOpacity style={styles.btnEditar} onPress={handleSubmit}>
                 <Text style={styles.textBtn}>Enviar</Text>
                 {/* MODAL */}
@@ -609,7 +611,7 @@ const CompleteProfileUser = () => {
   );
 };
 
-export default CompleteProfileUser;
+export default CompleteProfileCarrier;
 
 const styles = StyleSheet.create({
   iconBar: {

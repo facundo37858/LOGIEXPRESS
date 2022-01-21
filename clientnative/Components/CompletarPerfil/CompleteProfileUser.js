@@ -18,7 +18,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from "@react-navigation/core";
 import { completeProfileUser } from "../../actions/index.js";
 import SimpleModal from "./SimpleModal.js";
-import SimpleModal10 from "../AlertasComplete/SimpleModaldni.js";
+import SimpleModal10 from '../AlertasComplete/SimpleModaldni.js'
 import SimpleModal11 from "../AlertasComplete/SimpleModalzone.js";
 
 const CompleteProfileUser = () => {

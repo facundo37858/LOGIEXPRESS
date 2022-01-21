@@ -16,7 +16,7 @@ import { useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import config from "../../config/config";
 import SimpleModal60 from "../AlertasPago/SimpleModalpagok";
-import SimpleModal61 from "../AlertasPago/SimpleModalpagok";
+import SimpleModal61 from "../AlertasPago/SimpleModalpagobad";
 const Payment = () => {
   const info = useSelector((store) => store.responseLog);
   const token = useSelector((store) => store.token);

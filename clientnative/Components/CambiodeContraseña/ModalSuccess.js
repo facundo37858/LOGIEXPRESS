@@ -8,28 +8,16 @@ import {
   Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
-import { useDispatch, useSelector } from "react-redux";
-import { changePassword } from "../../actions/index";
 
 const WIDTH = Dimensions.get("window").width;
 const HEIGTH_MODAL = 240;
 
 const SimpleModalCarrier = (props) => {
-  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   let closeModal = (bool, data) => {
-    props.changeModalVisible(bool);
-    props.setData(data);
-  };
-
-  const handleSubmit = () => {
-    const pass = {
-      newPassword: props.contraseña,
-      idUser: props.id,
-    };
-    dispatch(changePassword(pass));
-    console.log("Estoy enviando:", pass);
+    props.changeModalVisible2(bool);
+    props.setData2(data);
   };
 
   return (
@@ -38,42 +26,28 @@ const SimpleModalCarrier = (props) => {
         <View style={styles.textView}>
           <View>
             <Image
-              source={require("./warning.png")}
+              source={require("./entrada-de-contrasena.png")}
               style={{ height: 100, width: 100, marginTop: -5 }}
             />
           </View>
-          <Text style={{ fontSize: 22, fontWeight: "bold" }}>
-            ¿ESTÁS SEGURO?
+          <Text style={{ fontSize: 22, fontWeight: "bold", marginTop: 10 }}>
+            ¡INCREIBLE!
           </Text>
-          <Text style={{ fontSize: 16, margin: 3 }}>
-            ¡Tu contraseña será cambiada!
+          <Text style={{ fontSize: 16, margin: 2 }}>
+            ¡Contraseña cambiada con exito!
           </Text>
         </View>
-        {/* BOTONES DE CANCELAR Y ACEPTAR */}
         <View style={styles.viewBotones}>
           <View style={styles.containerBtn}>
             <TouchableOpacity
-            
-              onPress={() => closeModal(false, "Aceptar")}
-              onPressIn={handleSubmit}
+              onPress={() => closeModal(false, "Continuar")}
+              onPressIn={() => navigation.navigate('singIn')}
               style={styles.btnAceptar}
             >
               <Text
                 style={{ fontSize: 17, fontWeight: "bold", color: "white" }}
               >
-                Aceptar
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.containerBtn}>
-            <TouchableOpacity
-              onPress={() => closeModal(false, "Cancelar")}
-              style={styles.btnAceptar}
-            >
-              <Text
-                style={{ fontSize: 17, fontWeight: "bold", color: "white" }}
-              >
-                Cancelar
+                Continuar
               </Text>
             </TouchableOpacity>
           </View>
@@ -88,7 +62,7 @@ export default SimpleModalCarrier;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.7)",
+    backgroundColor: "rgba(0,0,0,0.6)",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -111,7 +85,7 @@ const styles = StyleSheet.create({
   btnAceptar: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "black",
+    backgroundColor: "#1EAE98",
     height: 45,
     width: 120,
     borderRadius: 11,

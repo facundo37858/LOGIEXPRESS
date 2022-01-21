@@ -9,7 +9,8 @@ import StarRating from "../StarRating";
 const DatosPersonalesCarrier = () => {
   const data = useSelector((store) => store.responseLog);
   const navigation = useNavigation();
-  
+  const rating = 4
+    v
   useEffect(() => {
     //console.log("data", data)
   }, [data]);
@@ -61,7 +62,7 @@ const DatosPersonalesCarrier = () => {
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btn}>
-            <Text style={styles.textBtn}>Desloguearse</Text>
+            <Text style={styles.textBtn}>Cerrar sesión</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

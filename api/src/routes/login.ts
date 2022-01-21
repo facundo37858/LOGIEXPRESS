@@ -45,21 +45,21 @@ router.post('/login', async (req: Request, res: Response) => {
 				lastname: user[0].lastName,
 				phone: user[0].phone,
 				photo: dataCarrier ? dataCarrier!.photo : dataUser!.photo,
-				location: dataCarrier ? dataCarrier!.location : dataUser!.zone
-
+				location: dataCarrier ? dataCarrier!.location : dataUser!.zone,
+				idRole:  dataCarrier ? dataCarrier!.id : dataUser!.id,
 			}; 
 
 			return res.json({
 				token: createToken(payload),
 				mensaje: 'Autenticación correcta', payload
-			}).status(300);
+			}).status(200);
 
 
 		} else {
 			const payload = {
 				eMail,
 				id: user[0].id,
-				role: user[0].role,
+				role: 1, 
 				name: user[0].name,
 				lastname: user[0].lastName,
 				phone: user[0].phone,

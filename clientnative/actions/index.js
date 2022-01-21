@@ -190,3 +190,19 @@ export function changePassword(payload) {
     }
   };
 }
+
+
+//// ---> ACTION PARA TRAER INFO VEHICULOS <--- ///
+export function getVehicules(payload) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`http://${config.ip}:3001/api/urldeLuis`, payload);
+      return dispatch({
+        type: 'GET_VEHICULES',
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
+}

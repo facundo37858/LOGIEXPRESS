@@ -24,6 +24,7 @@ import EditVehicule from "./Components/Editares/EditVehicule";
 import CotizarViaje from "./Components/CotizarViaje";
 import Home from "./Components/home";
 import CambiarContraseña from "./Components/CambiodeContraseña/CambiarContraseña";
+import DetallesVehicule from "./Components/Detalles/DetallesVehicule";
 import { LogBox } from 'react-native';
 
 
@@ -124,6 +125,11 @@ const App = () => {
              <Stack.Screen
               name="CambiarContraseña"
               component={CambiarContraseña}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="DetallesVehicule"
+              component={DetallesVehicule}
               options={{ headerShown: false }}
             />
             <Stack.Screen name="ScreenWaiting" component={ScreenWaiting} />

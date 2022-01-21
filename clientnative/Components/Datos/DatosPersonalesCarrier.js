@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/core";
 import StarRating from "../StarRating";
+import HeaderBar from "../Utils/HeaderBar";
 
 const DatosPersonalesCarrier = () => {
   const data = useSelector((store) => store.responseLog);
@@ -17,7 +18,10 @@ const DatosPersonalesCarrier = () => {
   return (
     <View style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={styles.perfilTex}>Perfil</Text>
+      <View style={{ marginTop: 35}}>
+        <HeaderBar/>
+      </View>
+        <Text style={styles.perfilTex}>Datos personales</Text>
         <View
           style={{
             flexDirection: "row",
@@ -61,6 +65,13 @@ const DatosPersonalesCarrier = () => {
 
           <TouchableOpacity
             style={styles.btn}
+            onPress={() => navigation.navigate("DetallesVehicule")}
+          >
+            <Text style={styles.textBtn}>Vehículos</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.btn}
             onPress={() => navigation.navigate("CambiarContraseña")}
           >
             <Text style={styles.textBtn}>Cambiar contraseña</Text>
@@ -82,7 +93,7 @@ const styles = StyleSheet.create({
     fontSize: 21,
     fontWeight: "bold",
     alignItems: "flex-start",
-    marginTop: 40,
+    marginTop: 25,
     marginLeft: 20,
   },
   userImg: {

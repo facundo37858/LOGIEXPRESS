@@ -16,19 +16,24 @@ import Icon from "react-native-vector-icons/Ionicons";
 //Hook para la navegacion
 import { useNavigation } from "@react-navigation/core";
 import ModalContraseña from "./ModalContraseña";
+import HeaderBar from '../Utils/HeaderBar.js';
+import ModalSuccess from './ModalSuccess';
 
 const CambiarContraseña = () => {
   const data = useSelector((store) => store.responseLog);
   const editPassword = useSelector((store) => store. editPassword);
 
   useEffect(() => {
-    console.log("data",  editPassword)
+    //console.log("cambio de pass",  editPassword);
+    if(editPassword?.menssage) {
+      changeModalVisible2(true)
+    }
   }, [data,  editPassword]);
 
   /// --> ESTADO PARA EL INPUT <-- ///
   const [contraseña, setContraseña] = useState("");
 
-  /// --> ESTADO PARA EL MODAL <-- ///
+  /// --> ESTADO PARA EL MODAL DE WARNING <-- ///
   const [isModalVisible, setisModalVisible] = useState(false);
   const [chooseData, setchooseData] = useState();
 
@@ -40,16 +45,29 @@ const CambiarContraseña = () => {
     setchooseData(data);
   };
 
+  /// --> ESTADO PARA EL MODAL DE SUCCESS <-- ///
+  const [isModalVisible2, setisModalVisible2] = useState(false);
+  const [chooseData2, setchooseData2] = useState();
+
+  const changeModalVisible2 = (bool) => {
+    setisModalVisible2(bool);
+  };
+
+  const setData2 = (data) => {
+    setchooseData2(data);
+  };
   return (
     <View style={styles.container}>
+    
       {/* <BOTON DE VOLVER ATRÁS */}
-      <View style={{ alignSelf: "flex-end", margin: 35 }}>
-        <Image source={require("../Utils/salida.png")} />
+      <View style={{ marginTop :35}}>
+        {/* <Image source={require("../Utils/salida.png")} /> */}
+        <HeaderBar/>
       </View>
       <View style={styles.containerImg}>
         <Image
           source={require("./contrasena2.png")}
-          style={{ height: 170, width: 170 }}
+          style={{ height: 200, width: 200 }}
         />
         <Text style={styles.textPass}>Cambiar contraseña</Text>
       </View>
@@ -83,6 +101,16 @@ const CambiarContraseña = () => {
             contraseña={contraseña}
           />
         </Modal>
+        <Modal
+         transparent={true}
+         animationType="fade"
+         visible={isModalVisible2}
+         nRequestClose={() => changeModalVisible2(false)}
+        >
+        <ModalSuccess
+          changeModalVisible2={changeModalVisible2}
+          setData2={setData2} />
+        </Modal>
       </TouchableOpacity>
     </View>
   );
@@ -95,7 +123,7 @@ const styles = StyleSheet.create({
   },
   viewsInputs: {
     marginTop: 10,
-    backgroundColor: "#DDDDDD",
+    backgroundColor: "#EAEAEA",
     height: 55,
     width: "85%",
     marginBottom: 15,
@@ -104,8 +132,8 @@ const styles = StyleSheet.create({
   },
   textPlaceholder: {
     fontSize: 17,
-    marginLeft: 15,
     marginTop: 12,
+    textAlign: 'center'
   },
   containerImg: {
     alignContent: "center",
@@ -115,12 +143,11 @@ const styles = StyleSheet.create({
   textNewContra: {
     textAlign: "center",
     fontSize: 20,
-    marginLeft: 15,
     fontWeight: "bold",
   },
   textPass: {
-    marginTop: 35,
-    marginBottom: 40,
+    marginTop: 27,
+    marginBottom: 45,
     fontSize: 25,
     fontWeight: "bold",
   },

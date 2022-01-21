@@ -2,10 +2,10 @@ import axios from "axios";
 export const GET_PRICE_QUOTE = "GET_PRICE_QUOTE";
 export const GET_TRAVELS = "GET_TRAVELS";
 export const POST_REQUEST_TRAVE = "POST_REQUEST_TRAVE";
-export const URL_PRICE_QUOTE = "http:/192.168.2.102:3001/api/calculatePrice";
-export const URL_REQUEST_TRAVEL = "http://192.168.2.102:3001/api/requestTravel";
-export const URL_TRAVEL = "http://192.168.2.102:3001/api/Travel";
-export const URL_TRAVEL_ID = "http://192.168.2.102:3001/api/oneTravel";
+export const URL_PRICE_QUOTE = "http:/192.168.0.105:3001/api/calculatePrice";
+export const URL_REQUEST_TRAVEL = "http://192.168.1.6:3001/api/requestTravel";
+export const URL_TRAVEL = "http://192.168.1.6:3001/api/Travel";
+export const URL_TRAVEL_ID = "http://192.168.1.6:3001/api/oneTravel";
 export const GET_TRAVEL_ID = "GET_TRAVEL_ID";
 
 export function getTravelID(payload) {
@@ -100,7 +100,7 @@ export function logiarUsuario(payload) {
             "Aqui esta el token llegando en la action logiarusuario:",
             r.data.token
           );
-          console.log('viene de login', r.data.payload)
+          console.log("viene de login", r.data.payload);
         });
       // console.log(r);
       // return response;
@@ -189,4 +189,3 @@ export function changePassword(payload) {
     }
   };
 }
-

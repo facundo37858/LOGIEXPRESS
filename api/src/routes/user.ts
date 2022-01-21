@@ -29,30 +29,29 @@ router.post('/verifytoken', async (req: Request, res: Response, next: NextFuncti
     try {
         const decoded = jwt.verify(token, config.jwtSecret)
         const dataUser = await User_Reg.findByPk(decoded.id)
-        
-        if(dataUser) {
+        if (dataUser) {
+
             const objUser = await User.findOne({ where: { idUserReg: dataUser.id } })
             const objCarrier = await Carrier.findOne({ where: { idUserReg: dataUser.id } })
-        
 
-        const payload = {
-            id: dataUser?.id,
-            name: dataUser?.name,
-            lastname: dataUser?.lastName,
-            phone: dataUser?.phone,
-            eMail: dataUser?.eMail,
-            role: dataUser?.role,
-            photo: objUser? objUser!.photo : objCarrier!.photo,
-            location:objUser? objUser!.zone : objCarrier!.location,
-            idRole: objUser ? objUser!.id : objCarrier!.id,
-            mensaje: true
+            const payload = {
+                id: dataUser?.id,
+                name: dataUser?.name,
+                lastname: dataUser?.lastName,
+                phone: dataUser?.phone,
+                eMail: dataUser?.eMail,
+                role: dataUser?.role,
+                photo: objUser ? objUser!.photo : objCarrier!.photo,
+                location: objUser ? objUser!.zone : objCarrier!.location,
+                idRole: objUser ? objUser!.id : objCarrier!.id,
+                mensaje: true
+            }
+
+            console.log("PAYLOAD en verifytoken", payload);
+
+            return res.json({ payload, mensaje: 'the access token is valid' })
         }
-
-        console.log("PAYLOAD en verifytoken", payload);
-
-        return res.json({ payload, mensaje: 'the access token is valid' })
     }
-}
     catch (err) {
         next(err)
     }

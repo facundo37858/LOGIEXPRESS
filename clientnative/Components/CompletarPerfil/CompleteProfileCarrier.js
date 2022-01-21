@@ -18,11 +18,122 @@ import { useNavigation } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
 import { completeProfileCarrier } from "../../actions/index.js";
 import SimpleModal from "./SimpleModal.js";
+import SimpleModal10 from "../AlertasComplete/SimpleModaldni.js";
+import SimpleModal11 from "../AlertasComplete/SimpleModalzone.js";
+import SimpleModal12 from "../AlertasComplete/SimpleModallicense.js";
+import SimpleModal13 from "../AlertasComplete/SimpleModalbrand.js";
+import SimpleModal14 from "../AlertasComplete/SimpleModalpatent.js";
+import SimpleModal15 from "../AlertasComplete/SimpleModalmodel.js";
+import SimpleModal16 from "../AlertasComplete/SimpleModalcolor.js";
+import SimpleModal17 from "../AlertasComplete/SimpleModalcapacity.js";
 
 const CompleteProfileUser = () => {
   const dispatch = useDispatch();
 
   const datosCarrier = useSelector((store) => store.responseReg);
+
+  // validaciones dni
+  const [isModalVisible10, setisModalVisible10] = useState(false);
+  const [chooseData10, setchooseData10] = useState();
+
+  const changeModalVisible10 = (bool) => {
+    setisModalVisible10(bool);
+  };
+
+  const setData10 = (data) => {
+    setchooseData10(data);
+  };
+
+  // validaciones zona
+
+  const [isModalVisible11, setisModalVisible11] = useState(false);
+  const [chooseData11, setchooseData11] = useState();
+
+  const changeModalVisible11 = (bool) => {
+    setisModalVisible11(bool);
+  };
+
+  const setData11 = (data) => {
+    setchooseData11(data);
+  };
+
+  // validaciones licencia
+
+  const [isModalVisible12, setisModalVisible12] = useState(false);
+  const [chooseData12, setchooseData12] = useState();
+
+  const changeModalVisible12 = (bool) => {
+    setisModalVisible12(bool);
+  };
+
+  const setData12 = (data) => {
+    setchooseData12(data);
+  };
+
+// validacion marca
+
+const [isModalVisible13, setisModalVisible13] = useState(false);
+  const [chooseData13, setchooseData13] = useState();
+
+  const changeModalVisible13 = (bool) => {
+    setisModalVisible13(bool);
+  };
+
+  const setData13 = (data) => {
+    setchooseData13(data);
+  };
+
+
+  // validacion patente
+
+  const [isModalVisible14, setisModalVisible14] = useState(false);
+  const [chooseData14, setchooseData14] = useState();
+
+  const changeModalVisible14 = (bool) => {
+    setisModalVisible14(bool);
+  };
+
+  const setData14 = (data) => {
+    setchooseData14(data);
+  };
+
+// validacion modelo
+
+const [isModalVisible15, setisModalVisible15] = useState(false);
+  const [chooseData15, setchooseData15] = useState();
+
+  const changeModalVisible15 = (bool) => {
+    setisModalVisible15(bool);
+  };
+
+  const setData15 = (data) => {
+    setchooseData15(data);
+  };
+// validacion color
+
+const [isModalVisible16, setisModalVisible16] = useState(false);
+  const [chooseData16, setchooseData16] = useState();
+
+  const changeModalVisible16 = (bool) => {
+    setisModalVisible16(bool);
+  };
+
+  const setData16 = (data) => {
+    setchooseData16(data);
+  };
+
+  // validacion capacidad
+
+  const [isModalVisible17, setisModalVisible17] = useState(false);
+  const [chooseData17, setchooseData17] = useState();
+
+  const changeModalVisible17 = (bool) => {
+    setisModalVisible17(bool);
+  };
+
+  const setData17 = (data) => {
+    setchooseData17(data);
+  };
 
   useEffect(() => {
     console.log("SOY DATOS DEL CARRIER", datosCarrier);
@@ -177,6 +288,42 @@ const CompleteProfileUser = () => {
       color: carrier.color,
       capacity: carrier.capacity,
     };
+    
+    // VALIDACIONES 
+    if (!obj.documentID ) {
+      changeModalVisible10(true)
+      return
+    }
+
+    if (!obj.location ) {
+    changeModalVisible11(true)
+    return
+    }
+    if (!obj.license) {
+      changeModalVisible12(true)
+      return
+      }
+    if (!obj.brand) {
+    changeModalVisible13(true)
+    return
+    }
+    if (!obj.patent) {
+    changeModalVisible14(true)
+    return
+    }
+    if (!obj.model ) {
+      changeModalVisible15(true)
+      return
+      }
+    if (!obj.color ) {
+    changeModalVisible16(true)
+    return
+    }
+    if (!obj.capacity ) {
+      changeModalVisible17(true)
+      return
+      }
+
     dispatch(completeProfileCarrier(obj));
     console.log("soy lo que se envia", obj);
     // setCarrier({
@@ -192,6 +339,9 @@ const CompleteProfileUser = () => {
     //   color: "",
     //   capacity: "",
     // });
+
+
+    changeModalVisible(true)
   }
 
   //// --> Inicio de componente <-- ////
@@ -267,7 +417,7 @@ const CompleteProfileUser = () => {
                 <Icon name="reader-outline" size={26} />
                 <TextInput
                   value={carrier.documentID}
-                  placeholder="Documento de identidad SIN PUNTOS"
+                  placeholder="Documento de identidad sin puntos"
                   name="documentID"
                   style={styles.textPlaceholder}
                   onChangeText={(documentID) =>
@@ -288,7 +438,7 @@ const CompleteProfileUser = () => {
                 <TextInput
                   value={carrier.location}
                   onChangeText={(location) => handleChangeLocation(location)}
-                  placeholder="Lugar de residencia actual"
+                  placeholder="Ubicación de residencia actual"
                   name="location"
                   style={styles.textPlaceholder}
                 />
@@ -307,7 +457,7 @@ const CompleteProfileUser = () => {
                   <TextInput
                     value={carrier.license}
                     onChangeText={(license) => handleChangeLicense(license)}
-                    placeholder="Licencia actualizada"
+                    placeholder="Tipo de licencia"
                     name="license"
                     style={styles.textPlaceholder}
                   />
@@ -317,7 +467,7 @@ const CompleteProfileUser = () => {
                   <TextInput
                     value={carrier.brand}
                     onChangeText={(brand) => handleChangeBrand(brand)}
-                    placeholder="Scania, Mercedes-Benz, etc."
+                    placeholder="Marca"
                     name="brand"
                     style={styles.textPlaceholder}
                   />
@@ -327,7 +477,7 @@ const CompleteProfileUser = () => {
                   <TextInput
                     value={carrier.patent}
                     onChangeText={(patent) => handleChangePatent(patent)}
-                    placeholder="Patente del vehiculo"
+                    placeholder="Patente"
                     name="patent"
                     style={styles.textPlaceholder}
                   />
@@ -337,7 +487,7 @@ const CompleteProfileUser = () => {
                   <TextInput
                     value={carrier.model}
                     onChangeText={(model) => handleChangeModel(model)}
-                    placeholder="Modelo, año de salida al mercado"
+                    placeholder="Modelo y año"
                     name="model"
                     keyboardType="decimal-pad"
                     style={styles.textPlaceholder}
@@ -348,7 +498,7 @@ const CompleteProfileUser = () => {
                   <TextInput
                     value={carrier.color}
                     onChangeText={(color) => handleChangeColor(color)}
-                    placeholder="Rojo, gris, negro, óxido"
+                    placeholder="Color exterior"
                     name="color"
                     style={styles.textPlaceholder}
                   />
@@ -358,14 +508,14 @@ const CompleteProfileUser = () => {
                   <TextInput
                     value={carrier.capacity}
                     onChangeText={(capacity) => handleChangeCapacity(capacity)}
-                    placeholder="Capacidad de carga vehiculo"
+                    placeholder="Capacidad máx en toneladas"
                     name="capacity"
                     style={styles.textPlaceholder}
                     keyboardType="decimal-pad"
                   />
                 </View>
               </View>
-              <TouchableOpacity style={styles.btnEditar}  onPress={handleSubmit} onPressIn={() => changeModalVisible(true)}>
+              <TouchableOpacity style={styles.btnEditar}  onPress={handleSubmit} >
                 <Text style={styles.textBtn}>
                   Enviar
                 </Text>
@@ -381,6 +531,95 @@ const CompleteProfileUser = () => {
                       setData={setData}
                       />
                    </Modal>
+                   <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible10}
+                  nRequestClose={() => changeModalVisible10(false)}
+                >
+                  <SimpleModal10
+                    changeModalVisible10={changeModalVisible10}
+                    setData10={setData10}
+                  />
+                </Modal>
+                <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible11}
+                  nRequestClose={() => changeModalVisible11(false)}
+                >
+                  <SimpleModal11
+                    changeModalVisible11={changeModalVisible11}
+                    setData11={setData11}
+                  />
+                </Modal>
+                <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible12}
+                  nRequestClose={() => changeModalVisible12(false)}
+                >
+                  <SimpleModal12
+                    changeModalVisible12={changeModalVisible12}
+                    setData12={setData12}
+                  />
+                </Modal>
+                <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible13}
+                  nRequestClose={() => changeModalVisible13(false)}
+                >
+                  <SimpleModal13
+                    changeModalVisible13={changeModalVisible13}
+                    setData13={setData13}
+                  />
+                </Modal>
+                <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible14}
+                  nRequestClose={() => changeModalVisible14(false)}
+                >
+                  <SimpleModal14
+                    changeModalVisible14={changeModalVisible14}
+                    setData14={setData14}
+                  />
+                </Modal>
+                <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible15}
+                  nRequestClose={() => changeModalVisible15(false)}
+                >
+                  <SimpleModal15
+                    changeModalVisible15={changeModalVisible15}
+                    setData15={setData15}
+                  />
+                </Modal>
+                <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible16}
+                  nRequestClose={() => changeModalVisible16(false)}
+                >
+                  <SimpleModal16
+                    changeModalVisible16={changeModalVisible16}
+                    setData16={setData16}
+                  />
+                </Modal>
+                <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible17}
+                  nRequestClose={() => changeModalVisible17(false)}
+                >
+                  <SimpleModal17
+                    changeModalVisible17={changeModalVisible17}
+                    setData17={setData17}
+                  />
+                </Modal>
+
               </TouchableOpacity>
             </View>
           </View>

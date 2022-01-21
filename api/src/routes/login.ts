@@ -33,9 +33,7 @@ router.post('/login', async (req: Request, res: Response) => {
 		const dataCarrier = await Carrier.findOne({ where: { idUserReg: user[0].id } })
 		// console.log(photoCarrier!.photo, "fotoCarrier")
 
-
 		const compare = await bcryptjs.compare(password, user[0].password)
-
 
 		if (compare) {
 			const payload = {

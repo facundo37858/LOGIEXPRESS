@@ -46,8 +46,8 @@ router.post('/login', async (req: Request, res: Response) => {
 				phone: user[0].phone,
 				photo: dataCarrier ? dataCarrier!.photo : dataUser!.photo,
 				location: dataCarrier ? dataCarrier!.location : dataUser!.zone,
-				idRole:  dataCarrier ? dataCarrier!.id : dataUser!.id,
-			}; 
+				idRole: dataCarrier ? dataCarrier!.id : dataUser!.id,
+			};
 
 			return res.json({
 				token: createToken(payload),
@@ -59,7 +59,7 @@ router.post('/login', async (req: Request, res: Response) => {
 			const payload = {
 				eMail,
 				id: user[0].id,
-				role: 1, 
+				role: 1,
 				name: user[0].name,
 				lastname: user[0].lastName,
 				phone: user[0].phone,

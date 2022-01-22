@@ -194,7 +194,7 @@ router.put('/updateUser', async (req: Request, res: Response, next: NextFunction
 	} 
 
 	res.status(404).json({msg: 'No se encontro usuario registrado'})
-}
+})
 
 
 router.put('/editCarrier', async (req: Request, res: Response, next: NextFunction)=>{
@@ -204,7 +204,7 @@ router.put('/editCarrier', async (req: Request, res: Response, next: NextFunctio
 
 	const carrierData = await Carrier.findOne({where:{idUserReg:id}})
 
-	const Vehicle = await Vehicle.findOne({where:{CarrierId:carrierData.id}})
+	const Vehicle1 = await Vehicle.findOne({where:{CarrierId:carrierData.id}})
 
 	if (carrier && carrierData){
 
@@ -222,9 +222,9 @@ router.put('/editCarrier', async (req: Request, res: Response, next: NextFunctio
 		}})
 
 		
-		if (Vehicle){
+		if (Vehicle1){
 			
-			const vehicleDataUpdate = carrierData.update(Vehicle, {where:{
+			const vehicleDataUpdate = Vehicle1.update(Vehicle, {where:{
 				brand: brand,
 				patent: patent,
 				model: model,
@@ -239,9 +239,7 @@ router.put('/editCarrier', async (req: Request, res: Response, next: NextFunctio
 	
 
 	res.status(404).json({msg: 'No se encontro usuario registrado'})
-}
-
-
+})
 
 router.put('/changepassword', async (req: Request, res: Response, next: NextFunction)=>{
 

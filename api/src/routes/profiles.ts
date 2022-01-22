@@ -160,87 +160,107 @@ router.get('/profile', async (req: Request, res: Response) => {
 
 });
 
-router.put('/updateUser', async (req: Request, res: Response, next: NextFunction) => {
+router.post('/updateUser', async (req: Request, res: Response, next: NextFunction) => {
 	const { id, name, lastName, phone, photo, zone, account } = req.body
 
-	const user = await User_Reg.findOne({ where: { id } })
+	let userUpdate;
 
-	const userData = await User.findOne({ where: { idUserReg: id } })
+	let userDataUpdate;
 
-	if (user && userData) {
+	try{
 
-		const userUpdate = user.update(User_Reg, {
-			where: {
-				name: name,
-				lastName: lastName,
-				phone: phone,
-			}
-		})
-
-		const userDataUpdate = userData.update(User, {
-			where: {
-				photo: photo,
-				zone: zone,
-				account: account,
-			}
-		})
-
-		res.status(200).json({ userUpdate, userDataUpdate })
-	}
-
-	res.status(404).json({ msg: 'No se encontro usuario registrado' })
-})
-
-
-router.put('/editCarrier', async (req: Request, res: Response, next: NextFunction) => {
-	const { id, name, lastName, phone, documentID, license, location, Cuenta, brand, patent, model, color, capacity } = req.body
-
-	const carrier = await User_Reg.findOne({ where: { id } })
-
-	const carrierData = await Carrier.findOne({ where: { idUserReg: id } })
-
-	const Vehicle1 = await Vehicle.findOne({ where: { CarrierId: carrierData?.id } })
-
-	if (carrier && carrierData) {
-
-		const carrierUpdate = carrier.update(User_Reg, {
-			where: {
-				name: name,
-				lastName: lastName,
-				phone: phone,
-			}
-		})
-
-		const carrierDataUpdate = carrierData.update(Carrier, {
-			where: {
-				documentID: documentID,
-				license: license,
-				location: location,
-				Cuenta: Cuenta
-			}
-		})
-
-
-		if (Vehicle1) {
-
-			const vehicleDataUpdate = Vehicle1.update(Vehicle, {
+		if (name || lastName || phone) {
+	
+			userUpdate = await User_Reg.update({name: name, lastName: lastName, phone: phone}, {
 				where: {
-					brand: brand,
-					patent: patent,
-					model: model,
-					color: color,
-					capacity: capacity
-				}
+					id
+				},
+				returning: true,
 			})
-			return res.status(200).json({ vehicleDataUpdate, carrierUpdate, carrierDataUpdate })
 		}
+		
+		if (photo || zone || account) {
+			userDataUpdate = await User.update({photo: photo, zone: zone, account: account}, {
+				where: {
+					idUserReg: id
+				},
+				returning: true,
+			})
+		}
+			
+		if (userUpdate && userDataUpdate){
+			res.status(200).json({"userReg": userUpdate[1][0], "user": userDataUpdate[1][0]}) 
+		} else if (userUpdate){
+			res.status(200).json(userUpdate[1][0])
+			// console.log(userUpdate[1])
+		} else if (userDataUpdate){
+			res.status(200).json(userDataUpdate[1][0])
+		}else{
+		
+			res.status(404).json({ msg: 'No se encontro usuario registrado' })
+		}
+	} catch (err){
 
-		return res.status(200).json({ carrierUpdate, carrierDataUpdate })
+		res.status(404).json({msg:"rompio"})
+		
+		console.log(err)
 	}
+	
 
 
-	res.status(404).json({ msg: 'No se encontro usuario registrado' })
+
 })
+
+
+// router.put('/editCarrier', async (req: Request, res: Response, next: NextFunction) => {
+	// const { id, name, lastName, phone, documentID, license, location, Cuenta, brand, patent, model, color, capacity } = req.body
+
+	// const carrier = await User_Reg.findOne({ where: { id } })
+
+	// const carrierData = await Carrier.findOne({ where: { idUserReg: id } })
+
+	// const Vehicle1 = await Vehicle.findOne({ where: { CarrierId: carrierData?.id } })
+
+	// if (carrier && carrierData) {
+
+	// 	const carrierUpdate = carrier.update(User_Reg, {
+	// 		where: {
+	// 			name: name,
+	// 			lastName: lastName,
+	// 			phone: phone,
+	// 		}
+	// 	})
+
+	// 	const carrierDataUpdate = carrierData.update(Carrier, {
+	// 		where: {
+	// 			documentID: documentID,
+	// 			license: license,
+	// 			location: location,
+	// 			Cuenta: Cuenta
+	// 		}
+	// 	})
+
+
+	// 	if (Vehicle1) {
+
+	// 		const vehicleDataUpdate = Vehicle1.update(Vehicle, {
+	// 			where: {
+	// 				brand: brand,
+	// 				patent: patent,
+	// 				model: model,
+	// 				color: color,
+	// 				capacity: capacity
+	// 			}
+	// 		})
+	// 		return res.status(200).json({ vehicleDataUpdate, carrierUpdate, carrierDataUpdate })
+	// 	}
+
+	// 	return res.status(200).json({ carrierUpdate, carrierDataUpdate })
+	// }
+
+
+// 	res.status(404).json({ msg: 'No se encontro usuario registrado' })
+// })
 
 
 

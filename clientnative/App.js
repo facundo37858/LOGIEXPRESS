@@ -25,6 +25,7 @@ import CotizarViaje from "./Components/CotizarViaje";
 import Home from "./Components/home";
 import CambiarContraseña from "./Components/CambiodeContraseña/CambiarContraseña";
 import DetallesVehicule from "./Components/Detalles/DetallesVehicule";
+import HistorialDeViaje from "./Components/HistorialDeViaje/HistorialDeViaje";
 import { LogBox } from 'react-native';
 
 
@@ -130,6 +131,11 @@ const App = () => {
             <Stack.Screen
               name="DetallesVehicule"
               component={DetallesVehicule}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="HistorialDeViaje"
+              component={HistorialDeViaje}
               options={{ headerShown: false }}
             />
             <Stack.Screen name="ScreenWaiting" component={ScreenWaiting} />

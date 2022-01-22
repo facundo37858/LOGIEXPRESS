@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -16,8 +16,17 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/core";
 //Agarrar imagen del celu
 import * as ImagePicker from "expo-image-picker";
+import { useDispatch, useSelector } from "react-redux";
+import { editProfileCarrier } from "../../actions";
+
 
 const EditProfileCarrier = () => {
+  const dispatch = useDispatch();
+  const datosCarrier = useSelector((store) => store.responseLog)
+  useEffect(() => {
+    //console.log("SOY DATOS DEL USER", datosUser);
+  }, [datosCarrier]);
+
   ////--> HOOK PARA LA NAVEGACION <-- ////
   const navigation = useNavigation();
 
@@ -67,6 +76,70 @@ const EditProfileCarrier = () => {
         setSelectedImage(data.url);
       });
   };
+
+//// --> ESTADO PARA LOS INPUTS <-- ////
+const [user, setUser] = useState({
+  name: '',
+  lastName: '',
+  documentID: '',
+  location: '', 
+  phone: '',
+
+});
+
+
+//// ---> HANDLERS INPUTS <--- ////
+const handleChangeName = (name) => {
+  setUser({
+    ...user,
+    name : name,
+  });
+};
+
+const handleChangeLastName = (lastName) => {
+  setUser({
+    ...user,
+    lastName : lastName,
+  });
+};
+
+const handleChangeDocumentID = (documentID) => {
+  setUser({
+    ...user,
+    documentID : documentID,
+  });
+};
+
+const handleChangelocation = (location) => {
+  setUser({
+    ...user,
+   location : location,
+  });
+};
+
+const handleChangePhone = (phone) => {
+  setUser({
+    ...user,
+    phone: phone,
+  });
+};
+
+//// --> HANDLE SUBMIT <-- ////
+function handleSubmit(e) {
+ e.preventDefault();
+ const edit= {
+   name : user.name,
+   lastName: user.lastName,
+   documentID: user.documentID,
+   location: user.location,
+   phone: user.phone,
+   photo: selectedImage,
+    id: datosCarrier.id
+ }
+ dispatch(editProfileCarrier(edit))
+ console.log("soy lo que se envia el front", edit);
+}
+
   //// --> Inicio de componente <-- ////
 
   return (
@@ -108,48 +181,66 @@ const EditProfileCarrier = () => {
         </View>
 
         {/* Inicio de inputs formulario */}
-        <View style={styles.containerInputs}>
+        <View style={styles.containerInputs}  onSubmit={(e) => handleSubmit(e)}>
           <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
             Datos personales
           </Text>
           <View style={styles.viewsInputs}>
             <Icon name="person-outline" size={26} />
             <TextInput
+             value={user.name}
               placeholder="Nombre"
               name="name"
               style={styles.textPlaceholder}
+              onChangeText={(name) =>
+                handleChangeName(name)
+              }
             />
           </View>
           <View style={styles.viewsInputs}>
             <Icon name="person-outline" size={26} />
             <TextInput
+             value={user.lastName}
               placeholder="Apellido"
               name="lastname"
               style={styles.textPlaceholder}
+              onChangeText={(lastName) =>
+                handleChangeLastName(lastName)
+              }
             />
           </View>
           <View style={styles.viewsInputs}>
             <Icon name="reader-outline" size={26} />
             <TextInput
+             value={user.documentID}
               placeholder="Documento de identidad"
               name="documentID"
               style={styles.textPlaceholder}
+              onChangeText={(documentID) =>
+                handleChangeDocumentID(documentID)
+              }
+              keyboardType="decimal-pad"
             />
           </View>
           <View style={styles.viewsInputs}>
             <Icon name="phone-portrait-outline" size={26} />
             <TextInput
+              value={user.phone}
               placeholder="Celular válido"
               name="phone"
               style={styles.textPlaceholder}
+              onChangeText={(phone) =>
+                handleChangePhone(phone)}
             />
           </View>
           <View style={styles.viewsInputs}>
             <Icon name="earth-outline" size={26} />
             <TextInput
+              value={user.location}
               placeholder="Lugar de residencia actual"
               name="location"
               style={styles.textPlaceholder}
+              onChangeText={(location) => handleChangelocation(location)}
             />
           </View>
          
@@ -164,7 +255,7 @@ const EditProfileCarrier = () => {
                 ///---> PONER A DONDE TIENE QUE VOLVER <--- ///
                 style={styles.btnEditar}
               >
-                <Text style={styles.textBtn}>Editar</Text>
+                <Text style={styles.textBtn}  onPress={handleSubmit}>Editar</Text>
               </TouchableOpacity>
             </View>
         </View>

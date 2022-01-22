@@ -32,11 +32,7 @@ const SingIn = ({ navigation }) => {
     } catch(error){
       console.log('error', error.response)
     }
-    }
-    
-
-
-
+    }  
   const nuevotoken = useSelector((store) => store.token);
   useEffect(() => {
     console.log("verificando, que se envia", nuevotoken);

@@ -101,7 +101,7 @@ export function logiarUsuario(payload) {
             "Aqui esta el token llegando en la action logiarusuario:",
             r.data.token
           );
-          console.log("viene de login", r.data.payload);
+        //  console.log("viene de login", r.data.payload);
         });
       // console.log(r);
       // return response;
@@ -203,6 +203,51 @@ export function getVehicules(payload) {
       });
     } catch (error) {
       console.log("Error", error);
+    }
+  };
+};
+
+//// --> ACTION PARA DESMONTAR EL ESTADO <-- ////
+export function desmount() {
+  return {
+    type: 'DESMOUNT',
+  };
+};
+
+//// --> Ruta para editar el perfil de user<-- ////
+export function editProfileUser(payload) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(
+        `http://${config.ip}:3001/api/updateUser`,
+        payload
+      );
+       //console.log('Soy el console.log de response', response)
+      return dispatch({
+        type: "EDIT_PROFILE_USER",
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+}
+
+//// --> Ruta para editar el perfil de carrier<-- ////
+export function editProfileCarrier(payload) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(
+        `http://${config.ip}:3001/api/editCarrier`,
+        payload
+      );
+       //console.log('Soy el console.log de response', response)
+      return dispatch({
+        type: "EDIT_PROFILE_CARRIER",
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error.response);
     }
   };
 }

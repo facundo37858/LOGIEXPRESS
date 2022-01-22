@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -15,8 +15,18 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/core";
 //Agarrar imagen del celu
 import * as ImagePicker from "expo-image-picker";
+import { useDispatch, useSelector } from "react-redux";
+import { editProfileUser } from "../../actions";
+// prueba para las screens responsive
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const EditProfile = () => {
+  const dispatch = useDispatch();
+  const datosUser = useSelector((store) => store.responseLog)
+  useEffect(() => {
+    //console.log("SOY DATOS DEL USER", datosUser);
+  }, [datosUser]);
+
   ////--> HOOK PARA LA NAVEGACION <-- ////
   const navigation = useNavigation();
 
@@ -32,16 +42,107 @@ const EditProfile = () => {
       return;
     }
 
-    const pickerResult = await ImagePicker.launchImageLibraryAsync();
-    if (pickerResult.cancelled === true) {
-      return;
+    //Si es true va a venir a pickerResult
+    const pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (pickerResult.cancelled !== true) {
+      let newFile = {
+        uri: pickerResult.uri,
+        type: `logi/${pickerResult.uri.split(".")[1]}`,
+        name: `logi.${pickerResult.uri.split(".")[1]}`,
+      };
+      handleUpload(newFile);
     }
-    setSelectedImage({ localUri: pickerResult.uri });
   };
+
+  const handleUpload = (image) => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "logiexpress");
+    data.append("cloud_name", "elialvarez");
+
+    fetch("https://api.cloudinary.com/v1_1/elialvarez/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        //console.log(data)
+        setSelectedImage(data.url);
+      });
+  };
+
+  //// --> ESTADO PARA LOS INPUTS <-- ////
+  const [user, setUser] = useState({
+    name: '',
+    lastName: '',
+    identification: '',
+    zone: '', 
+    phone: '',
+
+  });
+
+  
+  //// ---> HANDLERS INPUTS <--- ////
+  const handleChangeName = (name) => {
+    setUser({
+      ...user,
+      name : name,
+    });
+  };
+
+  const handleChangeLastName = (lastName) => {
+    setUser({
+      ...user,
+      lastName : lastName,
+    });
+  };
+
+  const handleChangeIdentification = (identification) => {
+    setUser({
+      ...user,
+      identification: identification,
+    });
+  };
+
+  const handleChangeZone = (zone) => {
+    setUser({
+      ...user,
+      zone: zone,
+    });
+  };
+
+  const handleChangePhone = (phone) => {
+    setUser({
+      ...user,
+      phone: phone,
+    });
+  };
+
+  //// --> HANDLE SUBMIT <-- ////
+ function handleSubmit(e) {
+   e.preventDefault();
+   const edit= {
+     name : user.name,
+     lastName: user.lastName,
+     identification: user.identification,
+     zone: user.zone,
+     phone: user.phone,
+     photo: selectedImage,
+      id: datosUser.id
+   }
+   dispatch(editProfileUser(edit))
+   console.log("soy lo que se envia el front", edit);
+ }
 
   //// --> Inicio de componente <-- ////
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
+    <View style={{ flex: 1, backgroundColor: "white" }}  onSubmit={(e) => handleSubmit(e)}>
       <ScrollView
         style={{ backgroundColor: "white" }}
         showsVerticalScrollIndicator={false}
@@ -77,6 +178,7 @@ const EditProfile = () => {
             </TouchableWithoutFeedback>
           </View>
         </View>
+
         {/* INICIO DEL FORMULARIO */}
         <View style={styles.containerInputs}>
           <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
@@ -85,41 +187,59 @@ const EditProfile = () => {
           <View style={styles.viewsInputs}>
             <Icon name="person-outline" size={26} />
             <TextInput
+             value={user.name}
               placeholder="Nombre"
               name="name"
               style={styles.textPlaceholder}
+              onChangeText={(name) =>
+                handleChangeName(name)
+              }
             />
           </View>
           <View style={styles.viewsInputs}>
             <Icon name="person-outline" size={26} />
             <TextInput
+            value={user.lastName}
               placeholder="Apellido"
               name="lastname"
               style={styles.textPlaceholder}
+              onChangeText={(lastName) =>
+                handleChangeLastName(lastName)
+              }
             />
           </View>
           <View style={styles.viewsInputs}>
             <Icon name="reader-outline" size={26} />
             <TextInput
+            value={user.identification}
               placeholder="Documento de identidad"
-              name="documentID"
+              name="identification"
               style={styles.textPlaceholder}
+              onChangeText={(identification) =>
+                handleChangeIdentification(identification)
+              }
             />
           </View>
           <View style={styles.viewsInputs}>
             <Icon name="phone-portrait-outline" size={26} />
             <TextInput
+            value={user.phone}
               placeholder="Celular válido"
               name="phone"
               style={styles.textPlaceholder}
+              onChangeText={(phone) =>
+                handleChangePhone(phone)
+              }
             />
           </View>
           <View style={styles.viewsInputs}>
             <Icon name="map-outline" size={26} />
             <TextInput
+            value={user.zone}
               placeholder="Lugar de residencia actual"
-              name="location"
+              name="zone"
               style={styles.textPlaceholder}
+              onChangeText={(zone) => handleChangeZone(zone)}
             />
           </View>
           <View style={styles.btn2}>
@@ -131,7 +251,7 @@ const EditProfile = () => {
               <Text style={styles.textBtn}>Cancelar</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.btnEditar}>
-              <Text style={styles.textBtn}>Editar</Text>
+              <Text style={styles.textBtn} onPress={handleSubmit}>Editar</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -180,7 +300,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     flexDirection: "row",
     justifyContent: "flex-start",
-    width: 360,
+    width: wp('85%'),
     alignItems: "flex-start",
     marginBottom: 15,
   },

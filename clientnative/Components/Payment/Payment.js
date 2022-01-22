@@ -18,7 +18,7 @@ import config from "../../config/config";
 import SimpleModal60 from "../AlertasPago/SimpleModalpagok";
 import SimpleModal61 from "../AlertasPago/SimpleModalpagobad";
 const Payment = () => {
-  const info = useSelector((store) => store.responseLog);
+  const info = useSelector((store) => store.responseLog); /// -> id idRole
   const token = useSelector((store) => store.token);
 
   const [name, setName] = useState(info.eMail);

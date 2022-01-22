@@ -21,7 +21,9 @@ const initialState = {
   token: "",
   respToken: {},
   editPassword: [],
-  vehicules: []
+  vehicules: [],
+  editarPerfilUser: [],
+  editarPerfilCarrier: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -80,9 +82,24 @@ export default function rootReducer(state = initialState, action) {
       };
     case 'GET_VEHICULES':
       return {
-        state,
+        ...state,
         vehicules: action.payload
-      }
+      };
+    case 'DESMOUNT':
+      return {
+        ...state,
+        editPassword: [],
+      };
+      case "EDIT_PROFILE_USER":
+        return {
+          ...state,
+          editarPerfilUser: action.payload,
+        };
+       case "EDIT_PROFILE_CARRIER":
+          return {
+            ...state,
+            editarPerfilCarrier: action.payload,
+          };
     default:
       return state;
   }

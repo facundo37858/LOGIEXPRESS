@@ -37,7 +37,7 @@ const ProfileUserScreen = () => {
             <Image
               source={{
                 uri:
-                  data.photo !== null
+                  data?.photo !== null
                     ? data.photo
                     : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
               }}
@@ -62,7 +62,12 @@ const ProfileUserScreen = () => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btnText}>
+          <TouchableOpacity
+            style={styles.btnText}
+            onPress={() => {
+              navigation.navigate("HistorialDeViaje");
+            }}
+          >
             <Icon name="bus-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Historial de viajes</Text>
             <View style={{ marginLeft: 110 }}>

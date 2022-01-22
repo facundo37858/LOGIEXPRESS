@@ -38,14 +38,14 @@ router.post("/pay", async (req: Request, res: Response, next: NextFunction) => {
   try {
 
     const { name, tokenn } = req.body;
-    console.log('aca llega el token','token',tokenn);
+    // console.log('aca llega el token','token',tokenn);
     let decoded = jwt.verify(tokenn, config.jwtSecret)
 
     let user = await User.findAll({ where: { idUserReg: decoded.id } })
 
     let travel = await Travel.findAll({ where: { userId: user[0].id } })
 
-    console.log("AQUI ESTA TRAVEl PRICE", travel[0].price);
+    // console.log("AQUI ESTA TRAVEl PRICE", travel[0].price);
 
     if (!name) return res.json({ key: 400, message: "Please enter a name" });
 

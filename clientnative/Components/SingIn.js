@@ -11,20 +11,31 @@ import {
   TextInput,
   TouchableOpacity,
   Button,
+  Modal
 } from "react-native";
 import { logiarUsuario } from "./../actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import * as SecureStore from "expo-secure-store";
+import SimpleModal5 from "./AlertasReg/SimpleModalmail.js";
+import SimpleModal6 from "./AlertasReg/SimpleModalpass.js";
+import SimpleModal30 from "./AlertasLog/SimpleModallog.js";
 
 const SingIn = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const respuesta = useSelector((store) => store.responseLog);
-
+  const respToken = useSelector((store) => store.respToken)
   async function save(key, value) {
     //FUNCION PARA GUARDAR LA INFO EN EL STORE, KEY = token , VALUE=el string del token
-    await SecureStore.setItemAsync(key, value);
-  }
+    try{
+      await SecureStore.setItemAsync(key, value);
+    } catch(error){
+      console.log('error', error.response)
+    }
+    }
+    
+
+
 
   const nuevotoken = useSelector((store) => store.token);
   useEffect(() => {
@@ -32,8 +43,40 @@ const SingIn = ({ navigation }) => {
     save("token", nuevotoken);
   }, [nuevotoken]);
 
-  const guardarToken = () => {
-    console.log("el nuevo token", nuevotoken);
+    // COMBINACION MAIL Y PASS MAL
+  const [isModalVisible30, setisModalVisible30] = useState(false);
+  const [chooseData30, setchooseData30] = useState();
+
+  const changeModalVisible30 = (bool) => {
+    setisModalVisible30(bool);
+  };
+
+  const setData30 = (data) => {
+    setchooseData30(data);
+  };
+
+   //MAIL MAL INGRESADO
+   const [isModalVisible5, setisModalVisible5] = useState(false);
+   const [chooseData5, setchooseData5] = useState();
+ 
+   const changeModalVisible5 = (bool) => {
+     setisModalVisible5(bool);
+   };
+ 
+   const setData5 = (data) => {
+     setchooseData5(data);
+   };
+ 
+   // CONTRASEÑA MAL INGRESADA
+ 
+   const [isModalVisible6, setisModalVisible6] = useState(false);
+   const [chooseData6, setchooseData6] = useState();
+ 
+   const changeModalVisible6 = (bool) => {
+     setisModalVisible6(bool);
+   };
+   const setData6 = (data) => {
+    setchooseData6(data);
   };
 
   useEffect(() => {
@@ -42,18 +85,34 @@ const SingIn = ({ navigation }) => {
       respuesta
     );
     if (respuesta?.role === true) {
-      navigation.navigate("ProfileUserScreen", respuesta);
+      navigation.navigate("ProfileUserScreen");
     }
     if (respuesta?.role === false) {
-      navigation.navigate("ProfileScreenCarrier", respuesta);
+      navigation.navigate("ProfileScreenCarrier");
     }
     if (respuesta?.role === 1) {
+      changeModalVisible30(true)
+      // alert(
+      //   "La dirección de correo electrónico o la contraseña que ingresaste no son válidas!"
+      // );
+    }
+  }, [respuesta]);
+
+  /* useEffect(() => {
+    console.log("ESTO ES EL TOKEEEEEEEEEN", respToken)
+    if (respToken?.role === true) {
+      navigation.navigate("ProfileUserScreen");
+    }
+    if (respToken?.role === false) {
+      navigation.navigate("ProfileScreenCarrier");
+    }
+    if (respToken?.role === 1) {
       alert(
         "La dirección de correo electrónico o la contraseña que ingresaste no son válidas!"
       );
     }
-  }, [respuesta]);
-
+  },[respToken])
+ */
   const [log, setLog] = useState({
     mail: "",
     contraseña: "",
@@ -72,6 +131,8 @@ const SingIn = ({ navigation }) => {
     });
   };
 
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // en un objeto pongo lo que tengo en el estado inicial
@@ -83,11 +144,11 @@ const SingIn = ({ navigation }) => {
     //Validaciones:
 
     if (!obj.eMail.includes(".com") || !obj.eMail.includes("@")) {
-      alert("Por favor escribe un correo electrónico válido!");
+      changeModalVisible5(true)
       return;
     }
     if (!obj.password) {
-      alert("Por favor escribe una Contraseña válida!");
+      changeModalVisible6(true)
       return;
     }
 
@@ -101,7 +162,7 @@ const SingIn = ({ navigation }) => {
     //cuando se cumpla que respuesta != null
     //haga un console.log(respuesta)
 
-    guardarToken();
+  
   };
 
   function navigate() {
@@ -160,6 +221,40 @@ const SingIn = ({ navigation }) => {
             <Text style={styles.ButtonText} onPress={handleSubmit}>
               Iniciar Sesión
             </Text>
+            <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible5}
+                  nRequestClose={() => changeModalVisible5(false)}
+                >
+                  <SimpleModal5
+                    changeModalVisible5={changeModalVisible5}
+                    setData5={setData5}
+                  />                  
+                  </Modal>
+                  <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible6}
+                  nRequestClose={() => changeModalVisible6(false)}
+                >
+                  <SimpleModal6
+                    changeModalVisible6={changeModalVisible6}
+                    setData6={setData6}
+                  />                  
+                  </Modal>
+            <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible30}
+                  nRequestClose={() => changeModalVisible30(false)}
+                >
+                  <SimpleModal30
+                    changeModalVisible30={changeModalVisible30}
+                    setData30={setData30}
+                  />
+                  
+                  </Modal>
           </TouchableOpacity>
         </View>
         <View style={styles.preg}>

@@ -20,10 +20,6 @@ const ProfileScreen = () => {
   const data = useSelector((store) => store.responseLog);
   const navigation = useNavigation();
 
-  useEffect(() => {
-    //console.log("data", data);
-  }, [data]);
-
   console.log("AQUI RESPONLOG EN PROFILEUSERScreen", data);
   console.log("AQUI RESPTOKEN en PROFILEUSERScreen", resptoken);
 
@@ -38,10 +34,15 @@ const ProfileScreen = () => {
         <View
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >
-          <View style={{ marginTop: 25 }}>
+           <View style={{ marginTop: 25 }}>
             <Image
+              source={{
+                uri:
+                  data.photo !== null
+                    ? data.photo
+                    : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
+              }}
               style={styles.userImg}
-              source={require("./Utils/foto1.jpg")}
             />
           </View>
           <Text style={styles.userName}>
@@ -71,14 +72,6 @@ const ProfileScreen = () => {
             <Icon name="bus-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Datos del vehículo</Text>
             <View style={{ marginLeft: 95 }}>
-              <Icon name="chevron-forward-outline" style={styles.icons3} />
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.btnText}>
-            <Icon name="location-outline" style={styles.icons} />
-            <Text style={styles.userBtnTxt}>Historial de viajes</Text>
-            <View style={{ marginLeft: 100 }}>
               <Icon name="chevron-forward-outline" style={styles.icons3} />
             </View>
           </TouchableOpacity>

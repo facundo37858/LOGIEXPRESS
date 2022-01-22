@@ -7,6 +7,7 @@ import {
     Image,
     TouchableOpacity,
     TextInput,
+    Modal
 } from "react-native";
 //iconos
 import Icon from "react-native-vector-icons/Ionicons";
@@ -19,6 +20,10 @@ import { Input } from "react-native-elements"
 import { useSelector, useDispatch } from "react-redux";
 import { cotizarViaje, requestTravel } from "../actions/index.js"
 import { LogBox } from 'react-native';
+import SimpleModal20 from "./AlertasTravel/SimpleModalorigin";
+import SimpleModal21 from "./AlertasTravel/SimpleModaldest";
+import SimpleModal22 from "./AlertasTravel/SimpleModalweight";
+import SimpleModal23 from "./AlertasTravel/SimpleModalprice";
 
 
 // funcion para calcular la distancia en km
@@ -49,6 +54,63 @@ const RequestTravel = (props) => {
     const data = props.route.params
 
     console.log("esto me llega ", data)
+
+
+    //Estados para las validaciones:
+
+      // validacion Origen
+
+  const [isModalVisible20, setisModalVisible20] = useState(false);
+  const [chooseData20, setchooseData20] = useState();
+
+  const changeModalVisible20 = (bool) => {
+    setisModalVisible20(bool);
+  };
+
+  const setData20 = (data) => {
+    setchooseData20(data);
+  };
+
+// validacion modelo
+
+const [isModalVisible21, setisModalVisible21] = useState(false);
+  const [chooseData21, setchooseData21] = useState();
+
+  const changeModalVisible21 = (bool) => {
+    setisModalVisible21(bool);
+  };
+
+  const setData21 = (data) => {
+    setchooseData21(data);
+  };
+// validacion color
+
+const [isModalVisible22, setisModalVisible22] = useState(false);
+  const [chooseData22, setchooseData22] = useState();
+
+  const changeModalVisible22 = (bool) => {
+    setisModalVisible22(bool);
+  };
+
+  const setData22 = (data) => {
+    setchooseData22(data);
+  };
+
+  // validacion capacidad
+
+  const [isModalVisible23, setisModalVisible23] = useState(false);
+  const [chooseData23, setchooseData23] = useState();
+
+  const changeModalVisible23 = (bool) => {
+    setisModalVisible23(bool);
+  };
+
+  const setData23 = (data) => {
+    setchooseData23(data);
+  };
+
+
+
 
      /// --> ESTO ES PARA ELIMINAR EL WARNING QUE SALE EN LA PANTALLA <-- ///
     useEffect(() => {
@@ -107,8 +169,31 @@ const RequestTravel = (props) => {
             weight: parseFloat(weight),
             price: price.price,
             description: description,
-            id: "d4053632-8539-46d6-be65-066212006b99"
+            id: data,
         };
+
+
+        //VALIDACIONES
+
+        if (travel.orig === `0/0/null`) {
+            changeModalVisible20(true)
+            return
+        }
+
+        if (travel.destination === `0/0/null`) {
+            changeModalVisible21(true)
+            return
+        }
+
+        if (!travel.weight) {
+            changeModalVisible22(true)
+            return
+        }
+        if (travel.price === 0) {
+            changeModalVisible23(true)
+            return
+        }
+
         dispatch(requestTravel(travel))
 
         console.log("Estoy enviando:", travel)
@@ -174,7 +259,7 @@ const RequestTravel = (props) => {
                             </Text>
                             <ScrollView keyboardShouldPersistTaps={'handled'} style={{ flex: 1 }}>
                                 <GooglePlacesAutocomplete
-                                    placeholder='Search'
+                                    placeholder='Buscar'
                                     fetchDetails={true}
                                     GooglePlacesSearchQuery={{
                                         rankby: "distance"
@@ -211,7 +296,7 @@ const RequestTravel = (props) => {
                             <View style={styles.viewsInputs}>
                                 <Icon name="push-outline" size={26} />
                                 <TextInput
-                                    placeholder="Ingrese peso de la carga..."
+                                    placeholder="Carga en toneladas"
                                     name="weight"
                                     style={styles.textPlaceholder}
                                     onChangeText={(text) => setWeight(text)}
@@ -244,6 +329,51 @@ const RequestTravel = (props) => {
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.btnEditar} onPress={handleSubmit}>
                                     <Text style={styles.textBtn}>Solicitar</Text>
+                                    {/* validaciones */}
+                                    <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible20}
+                  nRequestClose={() => changeModalVisible20(false)}
+                >
+                  <SimpleModal20
+                    changeModalVisible20={changeModalVisible20}
+                    setData20={setData20}
+                  />
+                </Modal>
+                <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible21}
+                  nRequestClose={() => changeModalVisible21(false)}
+                >
+                  <SimpleModal21
+                    changeModalVisible21={changeModalVisible21}
+                    setData21={setData21}
+                  />
+                </Modal>
+                <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible22}
+                  nRequestClose={() => changeModalVisible22(false)}
+                >
+                  <SimpleModal22
+                    changeModalVisible22={changeModalVisible22}
+                    setData22={setData22}
+                  />
+                </Modal>
+                <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible23}
+                  nRequestClose={() => changeModalVisible23(false)}
+                >
+                  <SimpleModal23
+                    changeModalVisible23={changeModalVisible23}
+                    setData23={setData23}
+                  />
+                </Modal>
                                 </TouchableOpacity>
                             </View>
                         </View>

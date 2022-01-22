@@ -2,6 +2,10 @@ import { Response, Request, Router, NextFunction } from 'express';
 
 import Stripe from 'stripe';
 import dotenv from 'dotenv'
+import jwt from 'jsonwebtoken'
+import config from "../../config/config"
+import { Travel } from '../models/Travel';
+import { User } from '../models/User';
 dotenv.config();
 const router = Router()
 
@@ -18,10 +22,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_51KHp41KDcJ8
   typescript: true,
 })
 
-
-
-
-
 // require("dotenv").config();
 // const express = require("express");
 // const cors = require("cors");
@@ -36,14 +36,31 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_51KHp41KDcJ8
 
 router.post("/pay", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log(req.body)
-    const { name, amount } = req.body;
-    if (!name) return res.json({ key: 400, message: "Please enter a name" });
+
+    // const { id } = req.body;
+
+    console.log(req.body.info.route.params.travel.price)
+    let name='facundo'
+
+    // console.log('aca llega el token','token',tokenn);
+
+    // let decoded = jwt.verify(tokenn, config.jwtSecret)
+
+    // let user = await User.findAll({ where: { idUserReg: decoded.id } })
+
+    // let travel = await Travel.findAll({ where: { id: id} })
+    // console.log('instan travel: ',travel)
+    // res.send(travel)
+
+    // console.log("AQUI ESTA TRAVEl PRICE", travel[0].price);
+
+    // if (!eMail) return res.json({ key: 400, message: "Please enter a eMail" });
+
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(25 * 1000),
+      amount: parseInt(req.body.info.route.params.travel.price)*100,
       currency: "usd",
       payment_method_types: ["card"],
-      metadata: { name },
+      metadata: {name},
       description: 'logiexpress',
     });
     const clientSecret = paymentIntent.client_secret;

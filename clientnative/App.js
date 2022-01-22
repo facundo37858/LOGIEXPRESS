@@ -21,11 +21,19 @@ import ScreenWaiting from "./Components/ScreenWaiting";
 import PaymentApp from "./Components/Payment/PaymentApp";
 import StartUser from "./Components/ComenzarViaje/StartUser";
 import EditVehicule from "./Components/Editares/EditVehicule";
+import CotizarViaje from "./Components/CotizarViaje";
 import Home from "./Components/home";
+import CambiarContraseña from "./Components/CambiodeContraseña/CambiarContraseña";
+import { LogBox } from 'react-native';
+
 
 const Stack = createStackNavigator();
 
 const App = () => {
+  LogBox.ignoreLogs([
+    "[react-native-gesture-handler] Seems like you\'re using an old API with gesture components, check out new Gestures system!",
+  ]);
+  
   return (
     <StripeProvider publishableKey="pk_test_51KHwMJH58Ljah9wGjMPQ9Os5fhEj5awCKf7ARtjrqcwUFGAVniXX5CTP3fP492gqrJv3MerKLDbnAByXzpPkYWsC00P8X1yX8l">
       <Provider store={store}>
@@ -106,6 +114,16 @@ const App = () => {
             <Stack.Screen
               name="StartUser"
               component={StartUser}
+              options={{ headerShown: false }}
+            />
+             <Stack.Screen
+              name="CotizarViaje"
+              component={CotizarViaje}
+              options={{ headerShown: false }}
+            />
+             <Stack.Screen
+              name="CambiarContraseña"
+              component={CambiarContraseña}
               options={{ headerShown: false }}
             />
             <Stack.Screen name="ScreenWaiting" component={ScreenWaiting} />

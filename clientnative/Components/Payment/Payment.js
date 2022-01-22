@@ -17,12 +17,16 @@ import { Ionicons } from "@expo/vector-icons";
 import config from "../../config/config";
 import SimpleModal60 from "../AlertasPago/SimpleModalpagok";
 import SimpleModal61 from "../AlertasPago/SimpleModalpagobad";
-const Payment = () => {
-  const info = useSelector((store) => store.responseLog);
-  const token = useSelector((store) => store.token);
+const Payment = (props) => {
 
-  const [name, setName] = useState(info.eMail);
-  const [tokenn, setToken] = useState(token);
+  console.log('Payment props: ',props)
+
+  const info = useSelector((store) => store.responseLog);
+  console.log('INFO: ',info)
+  // const token = useSelector((store) => store.token);
+
+  // const [name, setName] = useState(info.eMail);
+  // const [tokenn, setToken] = useState(token);
   const stripe = useStripe();
 
 
@@ -54,7 +58,7 @@ const Payment = () => {
     };
 
   useEffect(() => {
-    console.log("llega bien el mail?", info.eMail, tokenn);
+    console.log("llega bien el mail?", info.eMail);
     subscribe();
   }, []);
 
@@ -69,13 +73,14 @@ const Payment = () => {
       //   },
       // });
 
-      const response = await axios.post(`http://${config.ip}:3001/api/pay`, {
-        name,tokenn,
-      });
+      // const response = await axios.post(`http://${config.ip}:3001/api/pay`, {
+      //   name,tokenn,
+      // });
+      const response = await axios.post(`http://${config.ip}:3001/api/pay`, props);
       //.then(res=>res.data)
 
-      console.log(response.data.key);
-      console.log(response.status);
+      // console.log(response.data.key);
+      // console.log(response.status);
 
       //const data = await response.data;
       // if (!response.ok) return Alert.alert('error1',data.message);

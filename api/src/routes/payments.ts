@@ -37,23 +37,30 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_51KHp41KDcJ8
 router.post("/pay", async (req: Request, res: Response, next: NextFunction) => {
   try {
 
-    const { name, tokenn } = req.body;
-    console.log('aca llega el token','token',tokenn);
-    let decoded = jwt.verify(tokenn, config.jwtSecret)
+    // const { id } = req.body;
 
-    let user = await User.findAll({ where: { idUserReg: decoded.id } })
+    console.log(req.body.info.route.params.travel.price)
+    let name='facundo'
 
-    let travel = await Travel.findAll({ where: { userId: user[0].id } })
+    // console.log('aca llega el token','token',tokenn);
 
-    console.log("AQUI ESTA TRAVEl PRICE", travel[0].price);
+    // let decoded = jwt.verify(tokenn, config.jwtSecret)
 
-    if (!name) return res.json({ key: 400, message: "Please enter a name" });
+    // let user = await User.findAll({ where: { idUserReg: decoded.id } })
+
+    // let travel = await Travel.findAll({ where: { id: id} })
+    // console.log('instan travel: ',travel)
+    // res.send(travel)
+
+    // console.log("AQUI ESTA TRAVEl PRICE", travel[0].price);
+
+    // if (!eMail) return res.json({ key: 400, message: "Please enter a eMail" });
 
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(parseInt(travel[0].price)),
+      amount: parseInt(req.body.info.route.params.travel.price)*100,
       currency: "usd",
       payment_method_types: ["card"],
-      metadata: { name },
+      metadata: {name},
       description: 'logiexpress',
     });
     const clientSecret = paymentIntent.client_secret;

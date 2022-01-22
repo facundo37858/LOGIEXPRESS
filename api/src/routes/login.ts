@@ -10,11 +10,17 @@ import { Carrier } from '../models/Carrier';
 
 const router = Router()
 
+// function createToken(payload: any) {
+
+// 	return jwt.sign({ id: payload.id, email: payload.eMail }, config.jwtSecret, {
+// 		expiresIn: 86400
+// 	})
+// }
 function createToken(payload: any) {
 
-	return jwt.sign({ id: payload.id, email: payload.eMail }, config.jwtSecret, {
-		expiresIn: 86400
-	})
+    return jwt.sign({ id: payload.id, email: payload.eMail }, config.jwtSecret, {
+        expiresIn: 60
+    })
 }
 
 router.post('/login', async (req: Request, res: Response) => {

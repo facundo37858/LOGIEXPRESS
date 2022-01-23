@@ -24,8 +24,6 @@ import SimpleModal20 from "./AlertasTravel/SimpleModalorigin";
 import SimpleModal21 from "./AlertasTravel/SimpleModaldest";
 import SimpleModal22 from "./AlertasTravel/SimpleModalweight";
 import SimpleModal23 from "./AlertasTravel/SimpleModalprice";
-import SocketIOClient from 'socket.io-client'
-import config from "../config/config.js";
 
 
 
@@ -52,22 +50,18 @@ function getDistanciaMetros(origen, destino) {
 }
 
 
+
+
 const RequestTravel = (props) => {
 
-                                     
+
+    const socket = useSelector((store) => store.socket)
 
 
-    const socket = SocketIOClient.connect("http://192.168.2.102:3001");
-    socket.on('connection')
-    
-    
-    
-    
-    
     ////--> HOOK PARA LA NAVEGACION <-- ////
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    const response = useSelector((store) => store.responseTravel)
+    /* const response = useSelector((store) => store.responseTravel) */
     const data = props.route.params
 
     console.log("esto me llega ", data)
@@ -75,65 +69,70 @@ const RequestTravel = (props) => {
 
     //Estados para las validaciones:
 
-      // validacion Origen
+    // validacion Origen
 
-  const [isModalVisible20, setisModalVisible20] = useState(false);
-  const [chooseData20, setchooseData20] = useState();
+    const [isModalVisible20, setisModalVisible20] = useState(false);
+    const [chooseData20, setchooseData20] = useState();
 
-  const changeModalVisible20 = (bool) => {
-    setisModalVisible20(bool);
-  };
+    const changeModalVisible20 = (bool) => {
+        setisModalVisible20(bool);
+    };
 
-  const setData20 = (data) => {
-    setchooseData20(data);
-  };
+    const setData20 = (data) => {
+        setchooseData20(data);
+    };
 
-// validacion modelo
+    // validacion modelo
 
-const [isModalVisible21, setisModalVisible21] = useState(false);
-  const [chooseData21, setchooseData21] = useState();
+    const [isModalVisible21, setisModalVisible21] = useState(false);
+    const [chooseData21, setchooseData21] = useState();
 
-  const changeModalVisible21 = (bool) => {
-    setisModalVisible21(bool);
-  };
+    const changeModalVisible21 = (bool) => {
+        setisModalVisible21(bool);
+    };
 
-  const setData21 = (data) => {
-    setchooseData21(data);
-  };
-// validacion color
+    const setData21 = (data) => {
+        setchooseData21(data);
+    };
+    // validacion color
 
-const [isModalVisible22, setisModalVisible22] = useState(false);
-  const [chooseData22, setchooseData22] = useState();
+    const [isModalVisible22, setisModalVisible22] = useState(false);
+    const [chooseData22, setchooseData22] = useState();
 
-  const changeModalVisible22 = (bool) => {
-    setisModalVisible22(bool);
-  };
+    const changeModalVisible22 = (bool) => {
+        setisModalVisible22(bool);
+    };
 
-  const setData22 = (data) => {
-    setchooseData22(data);
-  };
+    const setData22 = (data) => {
+        setchooseData22(data);
+    };
 
-  // validacion capacidad
+    // validacion capacidad
 
-  const [isModalVisible23, setisModalVisible23] = useState(false);
-  const [chooseData23, setchooseData23] = useState();
+    const [isModalVisible23, setisModalVisible23] = useState(false);
+    const [chooseData23, setchooseData23] = useState();
 
-  const changeModalVisible23 = (bool) => {
-    setisModalVisible23(bool);
-  };
+    const changeModalVisible23 = (bool) => {
+        setisModalVisible23(bool);
+    };
 
-  const setData23 = (data) => {
-    setchooseData23(data);
-  };
+    const setData23 = (data) => {
+        setchooseData23(data);
+    };
 
-  const sendMessage = (props) =>{
- 
-    socket.emit('message', props);
+    const sendMessage = (props) => {
 
- }
+        socket.emit('message', props, (resp) => {
+            console.log(resp.status); // ok
+            setResponse(resp.status);
+        });
+    }
 
 
-     /// --> ESTO ES PARA ELIMINAR EL WARNING QUE SALE EN LA PANTALLA <-- ///
+    let [response, setResponse] = useState(null);
+
+    console.log('ESTA ES LA RESPUESTAAAAAAA', response)
+    /// --> ESTO ES PARA ELIMINAR EL WARNING QUE SALE EN LA PANTALLA <-- ///
     useEffect(() => {
         LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     }, []);
@@ -147,13 +146,18 @@ const [isModalVisible22, setisModalVisible22] = useState(false);
             }
 
             let location = await Location.getCurrentPositionAsync({});
-            console.log(location.coords);
+            /* console.log(location.coords); */
         })();
-        if (response !== null) {
-            navigation.navigate('ScreenWaiting', response)
+        if (response) {
+            if(response[0] === 'Ya tiene un viaje en proceso') {
+                alert('YA TIENE UN VIAJE EN PROCESO')
+                navigation.navigate('ScreenWaiting', response[1])
+            }
         }
     }, [response]);
-
+/* 
+    console.log("ESTO ES LA RESPUESTA DEL PEDIDO", response)
+ */
 
     const [origen, setOrigen] = useState({
         latitude: 0,
@@ -195,28 +199,28 @@ const [isModalVisible22, setisModalVisible22] = useState(false);
 
 
         //VALIDACIONES
-/* 
-        if (travel.orig === `0/0/null`) {
-            changeModalVisible20(true)
-            return
-        }
-
-        if (travel.destination === `0/0/null`) {
-            changeModalVisible21(true)
-            return
-        }
-
-        if (!travel.weight) {
-            changeModalVisible22(true)
-            return
-        }
-        if (travel.price === 0) {
-            changeModalVisible23(true)
-            return
-        }
- */
-        dispatch(sendMessage(travel))
-
+        /* 
+                if (travel.orig === `0/0/null`) {
+                    changeModalVisible20(true)
+                    return
+                }
+        
+                if (travel.destination === `0/0/null`) {
+                    changeModalVisible21(true)
+                    return
+                }
+        
+                if (!travel.weight) {
+                    changeModalVisible22(true)
+                    return
+                }
+                if (travel.price === 0) {
+                    changeModalVisible23(true)
+                    return
+                }
+         */
+        sendMessage(travel)
+        
         console.log("Estoy enviando:", travel)
     }
 
@@ -352,63 +356,52 @@ const [isModalVisible22, setisModalVisible22] = useState(false);
                                     <Text style={styles.textBtn}>Solicitar</Text>
                                     {/* validaciones */}
                                     <Modal
-                  transparent={true}
-                  animationType="fade"
-                  visible={isModalVisible20}
-                  nRequestClose={() => changeModalVisible20(false)}
-                >
-                  <SimpleModal20
-                    changeModalVisible20={changeModalVisible20}
-                    setData20={setData20}
-                  />
-                </Modal>
-                <Modal
-                  transparent={true}
-                  animationType="fade"
-                  visible={isModalVisible21}
-                  nRequestClose={() => changeModalVisible21(false)}
-                >
-                  <SimpleModal21
-                    changeModalVisible21={changeModalVisible21}
-                    setData21={setData21}
-                  />
-                </Modal>
-                <Modal
-                  transparent={true}
-                  animationType="fade"
-                  visible={isModalVisible22}
-                  nRequestClose={() => changeModalVisible22(false)}
-                >
-                  <SimpleModal22
-                    changeModalVisible22={changeModalVisible22}
-                    setData22={setData22}
-                  />
-                </Modal>
-                <Modal
-                  transparent={true}
-                  animationType="fade"
-                  visible={isModalVisible23}
-                  nRequestClose={() => changeModalVisible23(false)}
-                >
-                  <SimpleModal23
-                    changeModalVisible23={changeModalVisible23}
-                    setData23={setData23}
-                  />
-                </Modal>
+                                        transparent={true}
+                                        animationType="fade"
+                                        visible={isModalVisible20}
+                                        nRequestClose={() => changeModalVisible20(false)}
+                                    >
+                                        <SimpleModal20
+                                            changeModalVisible20={changeModalVisible20}
+                                            setData20={setData20}
+                                        />
+                                    </Modal>
+                                    <Modal
+                                        transparent={true}
+                                        animationType="fade"
+                                        visible={isModalVisible21}
+                                        nRequestClose={() => changeModalVisible21(false)}
+                                    >
+                                        <SimpleModal21
+                                            changeModalVisible21={changeModalVisible21}
+                                            setData21={setData21}
+                                        />
+                                    </Modal>
+                                    <Modal
+                                        transparent={true}
+                                        animationType="fade"
+                                        visible={isModalVisible22}
+                                        nRequestClose={() => changeModalVisible22(false)}
+                                    >
+                                        <SimpleModal22
+                                            changeModalVisible22={changeModalVisible22}
+                                            setData22={setData22}
+                                        />
+                                    </Modal>
+                                    <Modal
+                                        transparent={true}
+                                        animationType="fade"
+                                        visible={isModalVisible23}
+                                        nRequestClose={() => changeModalVisible23(false)}
+                                    >
+                                        <SimpleModal23
+                                            changeModalVisible23={changeModalVisible23}
+                                            setData23={setData23}
+                                        />
+                                    </Modal>
                                 </TouchableOpacity>
                             </View>
                         </View>
-
-                        {/*     <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
-                            Origen {`${origen.latitude}, ${origen.longitude}`}
-
-                        </Text>
-                        <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
-                            Destino {`${destino.latitude}, ${destino.longitude}`}
-                        </Text>
-                        <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
-                            Kilometros = {getDistanciaMetros(origen, destino)}
-                        </Text> */}
                     </View>
                 </View>
             </ScrollView>

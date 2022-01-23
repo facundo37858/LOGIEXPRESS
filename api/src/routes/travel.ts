@@ -9,9 +9,9 @@ import { Carrier } from '../models/Carrier';
 import { Vehicle } from '../models/Vehicle';
 import { ServiceAlert } from '../models/ServiceAlert';
 
- const router = Router()
-router.get('/allan', async(req: Request, res: Response) => {
-      res.send('Allan Torres');
+const router = Router()
+router.get('/allan', async (req: Request, res: Response) => {
+  res.send('Allan Torres');
 });
 
 
@@ -57,9 +57,9 @@ router.post('/calculatePrice', (req: Request, res: Response) => {
 
 
 router.post('/requestTravel', async (req: Request, res: Response, next: NextFunction) => {
-	 
-	 const { id, orig, destination, weight, price, description } = req.body
- 
+
+  const { id, orig, destination, weight, price, description } = req.body
+
   try {
     let TravelId = uuid()
     var newViaje = {
@@ -72,9 +72,9 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
       userId: id
     }
 
-    
+
     let traveles = await Travel.create(newViaje)
-    
+
     /* let vehicles = await Vehicle.findAll({
       where: {
         capacity: { [Op.or]: { [Op.eq]: weight, [Op.gt]: weight } }
@@ -87,7 +87,7 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
       { TravelId: TravelId, CarrierId: vehicles[1].CarrierId }
     }
     let alertServices = await ServiceAlert.bulkCreate(obj); */
-  /*   res.send(newViaje) */
+    /*   res.send(newViaje) */
     res.send({ id: TravelId })
 
   } catch (err) {
@@ -95,6 +95,26 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
   }
 
 });
+
+router.post('/oneTravel', async (req: Request, res: Response, next: NextFunction) => {
+
+  const { id } = req.body
+  let getTravel = await Travel.findAll({ where: { id: id } })
+  let varUser = await User.findAll({ where: { id: getTravel[0].userId } })
+  let varUserReg = await User_Reg.findOne({ where: { id: varUser[0].idUserReg } });
+  const travelFullData = { travel: getTravel[0], user: varUser[0], userReg: varUserReg }
+  if (getTravel.length === 0){
+    return res.send('Travel not found');
+  } 
+  else {
+    return res.send(travelFullData);}
+    /* res.send({varUser}) */
+});
+
+
+
+
+
 router.get('/Travel', async (req: Request, res: Response, next: NextFunction) => {
 
 
@@ -102,26 +122,26 @@ router.get('/Travel', async (req: Request, res: Response, next: NextFunction) =>
   try {
     //Importante en el modelo de travel hay un error en declaración de la relacion con user User_Reg
     //hay que corregir que es de tipo string 
-		let travel = await Travel.findAll()
-   // res.send(travel);
-		if (travel.length > 0) {
-               let tam = travel.length;
-              var travelFullData=[];
-               for(let i=0;i<tam;i++){
-         
-                       let varUser= await User.findAll({where:{id:travel[i].userId}})
-                       let varUserReg = await User_Reg.findOne({where:{id:varUser[0].idUserReg}});
-                       travelFullData[i]={travel:travel[i],user:varUser[0],userReg:varUserReg}
-               }
-			return res.send(travelFullData)
-		}
-		//res.send('data not found')
-		//por consola me aparece:"Executing (default): SELECT "id", "ducumentoIdentidad", "eMail", "ubicacion", "cel", "tel", "fotoPerfil", "medioPago", "name", "lastName", "paswword", "terminosCondiciones", "createdAt", "updatedAt" FROM "Users" AS "User";"
-		//no pude corregirlo!!
-	}
-	catch (err) {
-		next(err)
-	}
+    let travel = await Travel.findAll()
+    // res.send(travel);
+    if (travel.length > 0) {
+      let tam = travel.length;
+      var travelFullData = [];
+      for (let i = 0; i < tam; i++) {
+
+        let varUser = await User.findAll({ where: { id: travel[i].userId } })
+        let varUserReg = await User_Reg.findOne({ where: { id: varUser[0].idUserReg } });
+        travelFullData[i] = { travel: travel[i], user: varUser[0], userReg: varUserReg }
+      }
+      return res.send(travelFullData)
+    }
+    //res.send('data not found')
+    //por consola me aparece:"Executing (default): SELECT "id", "ducumentoIdentidad", "eMail", "ubicacion", "cel", "tel", "fotoPerfil", "medioPago", "name", "lastName", "paswword", "terminosCondiciones", "createdAt", "updatedAt" FROM "Users" AS "User";"
+    //no pude corregirlo!!
+  }
+  catch (err) {
+    next(err)
+  }
 });
 
 router.post('/requestAlert', async (req: Request, res: Response, next: NextFunction) => {
@@ -145,11 +165,11 @@ router.post('/requestAlert', async (req: Request, res: Response, next: NextFunct
 
 });
 router.post('/waitTravel', async (req: Request, res: Response, next: NextFunction) => {
-   
-   const { id} = req.body
-   let getTravel = await Travel.findAll({where:{userId:id, carrierId:{[Op.eq]: null}, finishedTravel:{[Op.is]: null}}})
-      if(getTravel.length===0) res.send({data:0});
-       else res.send(getTravel);
+
+  const { id } = req.body
+  let getTravel = await Travel.findAll({ where: { userId: id, carrierId: { [Op.eq]: null }, finishedTravel: { [Op.is]: null } } })
+  if (getTravel.length === 0) res.send({ data: 0 });
+  else res.send(getTravel);
 
 });
 router.put('/acceptTravel', async (req: Request, res: Response, next: NextFunction) => {
@@ -168,10 +188,10 @@ router.put('/acceptTravel', async (req: Request, res: Response, next: NextFuncti
       User_Reg: getUserReg
     }
 
-     	  res.send(dataFull);
-     	}
-     else res.send('id travel incorrecto');
- 
+    res.send(dataFull);
+  }
+  else res.send('id travel incorrecto');
+
 });
 
 

@@ -57,7 +57,6 @@ router.post('/carrierProfile', async (req: Request, res: Response, next: NextFun
 	// res.send('llega al carrier profile')
 	const { id, documentID, license, location, Cuenta,
 		brand, patent, model, color, capacity, photo } = req.body
-
 	try {
 
 		let idCarrier = uuid()

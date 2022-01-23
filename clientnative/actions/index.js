@@ -8,6 +8,25 @@ export const URL_REQUEST_TRAVEL = `http://${config.ip}:3001/api/requestTravel`;
 export const URL_TRAVEL = `http://${config.ip}:3001/api/Travel`;
 export const URL_TRAVEL_ID = `http://${config.ip}:3001/api/oneTravel`;
 export const GET_TRAVEL_ID = "GET_TRAVEL_ID";
+export const SOCKET = "SOCKET";
+
+
+
+
+export function getSocket(props) {
+  return async function (dispatch) {
+    try {
+      return dispatch({
+        type: SOCKET,
+        payload: props
+      })
+    } catch (error) {
+      console.log("Error", error)
+    }
+  }
+}
+
+
 
 export function getTravelID(payload) {
   return async function (dispatch) {

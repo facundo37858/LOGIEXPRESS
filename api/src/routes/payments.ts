@@ -40,7 +40,8 @@ router.post("/pay", async (req: Request, res: Response, next: NextFunction) => {
     // const { id } = req.body;
 
     console.log(req.body.info.route.params.travel.price)
-    let name='facundo'
+    
+    const {eMail,lastName,name,id}=req.body.info.route.params.userReg
 
     // console.log('aca llega el token','token',tokenn);
 
@@ -57,10 +58,10 @@ router.post("/pay", async (req: Request, res: Response, next: NextFunction) => {
     // if (!eMail) return res.json({ key: 400, message: "Please enter a eMail" });
 
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: parseInt(req.body.info.route.params.travel.price)*100,
+      amount: parseInt(req.body.info.route.params.travel.price),
       currency: "usd",
       payment_method_types: ["card"],
-      metadata: {name},
+      metadata: {eMail,lastName,name,id},
       description: 'logiexpress',
     });
     const clientSecret = paymentIntent.client_secret;

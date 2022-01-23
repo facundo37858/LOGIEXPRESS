@@ -9,6 +9,7 @@ import {
   Alert,
   TextInput,
   TouchableOpacity,
+  Modal
 } from "react-native";
 //iconos
 import Icon from "react-native-vector-icons/Ionicons";
@@ -18,6 +19,7 @@ import { useNavigation } from "@react-navigation/core";
 import * as ImagePicker from "expo-image-picker";
 import { useDispatch, useSelector } from "react-redux";
 import { editProfileCarrier } from "../../actions";
+import SimpleModal from "./SimpleModal";
 
 
 const EditProfileCarrier = () => {
@@ -26,6 +28,18 @@ const EditProfileCarrier = () => {
   useEffect(() => {
     //console.log("SOY DATOS DEL USER", datosUser);
   }, [datosCarrier]);
+
+  /// --> ESTADO PARA EL MODAL <-- ///
+  const [isModalVisible, setisModalVisible] = useState(false);
+  const [chooseData, setchooseData] = useState();
+
+  const changeModalVisible = (bool) => {
+    setisModalVisible(bool);
+  };
+
+  const setData = (data) => {
+    setchooseData(data);
+  };
 
   ////--> HOOK PARA LA NAVEGACION <-- ////
   const navigation = useNavigation();
@@ -138,6 +152,7 @@ function handleSubmit(e) {
  }
  dispatch(editProfileCarrier(edit))
  console.log("soy lo que se envia el front", edit);
+ changeModalVisible(true)
 }
 
   //// --> Inicio de componente <-- ////
@@ -256,6 +271,18 @@ function handleSubmit(e) {
                 style={styles.btnEditar}
               >
                 <Text style={styles.textBtn}  onPress={handleSubmit}>Editar</Text>
+                {/* MODAL */}
+                <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible}
+                  nRequestClose={() => changeModalVisible(false)}
+                >
+                  <SimpleModal
+                    changeModalVisible={changeModalVisible}
+                    setData={setData}
+                  />
+                </Modal>
               </TouchableOpacity>
             </View>
         </View>

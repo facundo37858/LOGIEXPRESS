@@ -24,6 +24,7 @@ const initialState = {
   vehicules: [],
   editarPerfilUser: [],
   editarPerfilCarrier: [],
+  travelsUser : []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -100,6 +101,11 @@ export default function rootReducer(state = initialState, action) {
             ...state,
             editarPerfilCarrier: action.payload,
           };
+        case 'GET_TRAVEL_USER': 
+        return {
+          ...state,
+          travelsUser: action.payload,
+        };
     default:
       return state;
   }

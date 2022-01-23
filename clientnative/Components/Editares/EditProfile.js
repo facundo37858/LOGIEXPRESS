@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   TextInput,
+  Modal
 } from "react-native";
 //iconos
 import Icon from "react-native-vector-icons/Ionicons";
@@ -19,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editProfileUser } from "../../actions";
 // prueba para las screens responsive
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import SimpleModal from "./SimpleModal";
 
 const EditProfile = () => {
   const dispatch = useDispatch();
@@ -26,6 +28,18 @@ const EditProfile = () => {
   useEffect(() => {
     //console.log("SOY DATOS DEL USER", datosUser);
   }, [datosUser]);
+
+  /// --> ESTADO PARA EL MODAL <-- ///
+  const [isModalVisible, setisModalVisible] = useState(false);
+  const [chooseData, setchooseData] = useState();
+
+  const changeModalVisible = (bool) => {
+    setisModalVisible(bool);
+  };
+
+  const setData = (data) => {
+    setchooseData(data);
+  };
 
   ////--> HOOK PARA LA NAVEGACION <-- ////
   const navigation = useNavigation();
@@ -138,6 +152,7 @@ const EditProfile = () => {
    }
    dispatch(editProfileUser(edit))
    console.log("soy lo que se envia el front", edit);
+   changeModalVisible(true)
  }
 
   //// --> Inicio de componente <-- ////
@@ -250,8 +265,20 @@ const EditProfile = () => {
             >
               <Text style={styles.textBtn}>Cancelar</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.btnEditar}>
-              <Text style={styles.textBtn} onPress={handleSubmit}>Editar</Text>
+            <TouchableOpacity style={styles.btnEditar} onPress={handleSubmit}>
+              <Text style={styles.textBtn} >Editar</Text>
+               {/* MODAL */}
+               <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible}
+                  nRequestClose={() => changeModalVisible(false)}
+                >
+                  <SimpleModal
+                    changeModalVisible={changeModalVisible}
+                    setData={setData}
+                  />
+                </Modal>
             </TouchableOpacity>
           </View>
         </View>

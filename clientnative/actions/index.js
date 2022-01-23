@@ -75,7 +75,7 @@ export function registrarUsuario(payload) {
             type: "REGISTROO",
             payload: r.data.payload,
           });
-          console.log("aqui response registro: ", r);
+         // console.log("aqui response registro: ", r);
         });
       console.log(response);
       return response;
@@ -218,7 +218,7 @@ export function desmount() {
 export function editProfileUser(payload) {
   return async function (dispatch) {
     try {
-      const response = await axios.put(
+      const response = await axios.post(
         `http://${config.ip}:3001/api/updateUser`,
         payload
       );
@@ -237,7 +237,7 @@ export function editProfileUser(payload) {
 export function editProfileCarrier(payload) {
   return async function (dispatch) {
     try {
-      const response = await axios.put(
+      const response = await axios.post(
         `http://${config.ip}:3001/api/editCarrier`,
         payload
       );
@@ -248,6 +248,23 @@ export function editProfileCarrier(payload) {
       });
     } catch (error) {
       console.log(error.response);
+    }
+  };
+}
+
+////--> ACTION PARA TRAER LOS TRAVELS POR ID <--////
+export function getTravelUser(idUserReg) {
+  return async function (dispatch) {
+    try {
+      var json = await axios(`http://${config.ip}:3001/api/historyTravelUser/${idUserReg}`);
+      dispatch({
+        type: "GET_TRAVEL_USER",
+        payload: json.data,
+      });
+      //console.log('Esto llega a getTravelUser', json)
+    } catch (error) {
+      console.log(error);
+     // alert("Error obteniendo datos del videojuego", error);
     }
   };
 }

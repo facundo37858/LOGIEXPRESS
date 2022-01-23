@@ -160,35 +160,55 @@ router.get('/profile', async (req: Request, res: Response) => {
 
 });
 
-router.put('/updateUser', async (req: Request, res: Response, next: NextFunction) => {
+router.post('/updateUser', async (req: Request, res: Response, next: NextFunction) => {
 	const { id, name, lastName, phone, photo, zone, account } = req.body
 
-	const user = await User_Reg.findOne({ where: { id } })
+	let userUpdate;
 
-	const userData = await User.findOne({ where: { idUserReg: id } })
+	let userDataUpdate;
 
-	if (user && userData) {
+	try{
 
-		const userUpdate = user.update(User_Reg, {
-			where: {
-				name: name,
-				lastName: lastName,
-				phone: phone,
-			}
-		})
+		if (name || lastName || phone) {
+	
+			userUpdate = await User_Reg.update({name: name, lastName: lastName, phone: phone}, {
+				where: {
+					id
+				},
+				returning: true,
+			})
+		}
+		
+		if (photo || zone || account) {
+			userDataUpdate = await User.update({photo: photo, zone: zone, account: account}, {
+				where: {
+					idUserReg: id
+				},
+				returning: true,
+			})
+		}
+			
+		if (userUpdate && userDataUpdate){
+			res.status(200).json({"userReg": userUpdate[1][0], "user": userDataUpdate[1][0]}) 
+		} else if (userUpdate){
+			res.status(200).json(userUpdate[1][0])
+			// console.log(userUpdate[1])
+		} else if (userDataUpdate){
+			res.status(200).json(userDataUpdate[1][0])
+		}else{
+		
+			res.status(404).json({ msg: 'No se encontro usuario registrado' })
+		}
+	} catch (err){
 
-		const userDataUpdate = userData.update(User, {
-			where: {
-				photo: photo,
-				zone: zone,
-				account: account,
-			}
-		})
-
-		res.status(200).json({ userUpdate, userDataUpdate })
+		res.status(404).json({msg:"rompio"})
+		
+		console.log(err)
 	}
+	
 
-	res.status(404).json({ msg: 'No se encontro usuario registrado' })
+
+
 })
 
 

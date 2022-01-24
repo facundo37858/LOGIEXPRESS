@@ -17,9 +17,23 @@ import {
 import StarRating from "react-native-star-rating";
 import SimpleModalCarrier from './SimpleModalCarrier';
 import { useNavigation } from "@react-navigation/core";
+import io from 'socket.io-client'
+import { useSelector } from "react-redux";
+
+
+
+
+
 
 const StartCarrier = (props) => {
 
+
+// ACEPTAR VIAJE 
+
+
+
+
+ 
   /// --> ESTADO PARA EL MODAL <-- ///
   const [isModalVisible, setisModalVisible] = useState(false);
   const [chooseData, setchooseData] = useState();
@@ -33,12 +47,32 @@ const StartCarrier = (props) => {
   };
 
 
+  const handleSubmit = () => {
+    const respMessage = () =>{
+      const aceparTravel={
+        carrierId: response?.idRole,
+        userId: data?.travel.userId
+      }
+      console.log("ESTO ENVIANDO ESTOOOOO", aceparTravel)
+      socket.emit('response',aceparTravel);
+    }
+    respMessage()
+    changeModalVisible(true)
+  }
+
+
+
+  // socket
+  const socket = useSelector((store) => store.socket)
+  const response = useSelector((store) => store.responseLog)
+
   const navigation = useNavigation();
   const data = props.route.params
   const orig = data.travel.orig.split("/")
   const dest = data.travel.destination.split("/")
 
   console.log("Esto es lo que llega: ", data)
+  console.log("ESTE ES EL SOCKET", socket.id)
   return (
     //Container Start
 
@@ -236,7 +270,7 @@ const StartCarrier = (props) => {
               justifyContent: "space-around",
             }}
           >
-            <TouchableOpacity style={styles.btn} onPressIn={() => changeModalVisible(true)}>
+            <TouchableOpacity style={styles.btn} onPress={handleSubmit}>
               <Text style={styles.aceptar}>Aceptar</Text>
               {/* MODAL */}
               <Modal

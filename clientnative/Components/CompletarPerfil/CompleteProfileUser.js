@@ -49,6 +49,7 @@ const CompleteProfileUser = () => {
   const setData11 = (data) => {
     setchooseData11(data);
   };
+  
   const datosUser = useSelector((store) => store.responseReg);
   useEffect(() => {
     //console.log("SOY DATOS DEL USER", datosUser);

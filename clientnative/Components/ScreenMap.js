@@ -31,6 +31,8 @@ const ScreenMap = () => {
   const dispatch = useDispatch();
   const travels = useSelector((state) => state.travels);
 
+  
+
   const [pin, setPin] = useState({
     latitude: 0,
     longitude: 0,

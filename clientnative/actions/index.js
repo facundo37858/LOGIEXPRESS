@@ -8,6 +8,25 @@ export const URL_REQUEST_TRAVEL = `http://${config.ip}:3001/api/requestTravel`;
 export const URL_TRAVEL = `http://${config.ip}:3001/api/Travel`;
 export const URL_TRAVEL_ID = `http://${config.ip}:3001/api/oneTravel`;
 export const GET_TRAVEL_ID = "GET_TRAVEL_ID";
+export const SOCKET = "SOCKET";
+
+
+
+
+export function getSocket(props) {
+  return async function (dispatch) {
+    try {
+      return dispatch({
+        type: SOCKET,
+        payload: props
+      })
+    } catch (error) {
+      console.log("Error", error)
+    }
+  }
+}
+
+
 
 export function getTravelID(payload) {
   return async function (dispatch) {
@@ -75,7 +94,7 @@ export function registrarUsuario(payload) {
             type: "REGISTROO",
             payload: r.data.payload,
           });
-          console.log("aqui response registro: ", r);
+         // console.log("aqui response registro: ", r);
         });
       console.log(response);
       return response;
@@ -101,12 +120,12 @@ export function logiarUsuario(payload) {
             "Aqui esta el token llegando en la action logiarusuario:",
             r.data.token
           );
-          console.log("viene de login", r.data.payload);
+        //  console.log("viene de login", r.data.payload);
         });
       // console.log(r);
       // return response;
     } catch (error) {
-      console.error(error.response);
+      console.log(error.response);
     }
   };
 }
@@ -190,3 +209,101 @@ export function changePassword(payload) {
     }
   };
 }
+
+
+//// --> ACTION PARA DESMONTAR EL ESTADO <-- ////
+export function desmount() {
+  return {
+    type: 'DESMOUNT',
+  };
+};
+
+//// --> Ruta para editar el perfil de user<-- ////
+export function editProfileUser(payload) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(
+        `http://${config.ip}:3001/api/updateUser`,
+        payload
+      );
+       //console.log('Soy el console.log de response', response)
+      return dispatch({
+        type: "EDIT_PROFILE_USER",
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+}
+
+//// --> Ruta para editar el perfil de carrier<-- ////
+export function editProfileCarrier(payload) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(
+        `http://${config.ip}:3001/api/editCarrier`,
+        payload
+      );
+       //console.log('Soy el console.log de response', response)
+      return dispatch({
+        type: "EDIT_PROFILE_CARRIER",
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+}
+
+//// --> Ruta para editar el perfil de carrier<-- ////
+export function editVehicule(payload) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(
+        `http://${config.ip}:3001/api/updateVehicle`,
+        payload
+      );
+       //console.log('Soy el console.log de response', response)
+      return dispatch({
+        type: "EDIT_VEHICULE",
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+}
+
+////--> ACTION PARA TRAER LOS TRAVELS POR ID <--////
+export function getTravelUser(idUserReg) {
+  return async function (dispatch) {
+    try {
+      var json = await axios(`http://${config.ip}:3001/api/historyTravelUser/${idUserReg}`);
+      dispatch({
+        type: "GET_TRAVEL_USER",
+        payload: json.data,
+      });
+      //console.log('Esto llega a getTravelUser', json)
+    } catch (error) {
+      console.log(error);
+     // alert("Error obteniendo datos del videojuego", error);
+    }
+  };
+}
+
+//// ---> ACTION PARA TRAER INFO VEHICULOS <--- ///
+export function getVehicules(idRole) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`http://${config.ip}:3001/api/vehicleDetails/${idRole}`);
+      // console.log('Soy el console.log de response', response)
+      return dispatch({
+        type: 'GET_VEHICULES',
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
+};

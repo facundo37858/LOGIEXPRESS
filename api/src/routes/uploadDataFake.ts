@@ -136,7 +136,7 @@ var carrierFake = [{
 			phone: 121211212,
 			location: "0000000, 111111",
 			CBU: "225114",
-			UserRegId: '0029abfb-cc79-4624-aede-aeff02ca4968'
+		 idUserReg: '0029abfb-cc79-4624-aede-aeff02ca4968'
  },{			
             id:"1b8ed2d7-1660-4fd0-a7e7-049a533d543d",
 			documentID: "3033333",
@@ -145,7 +145,7 @@ var carrierFake = [{
 			phone: 121211212,
 			location: "2222222, 33333",
 			CBU: "1324234",
-			UserRegId: '0fe1f9b6-a3d5-4d34-8026-1e239c5a3ef9'
+			idUserReg: '0fe1f9b6-a3d5-4d34-8026-1e239c5a3ef9'
 		},{			
             id:"1cdf84c7-4096-4136-9783-463ea992b637",
 			documentID: "1e123d1",
@@ -154,7 +154,7 @@ var carrierFake = [{
 			phone: 0,
 			location: "4444444, 33333",
 			CBU: "03039393",
-			UserRegId: '3840c5ad-a72d-40b7-bd27-46db1e27d481'
+			idUserReg: '3840c5ad-a72d-40b7-bd27-46db1e27d481'
 		},{			
             id:"236af201-b546-4b8c-bf21-28c96d5970f1",
 			documentID: "documentoIDGonza",
@@ -163,7 +163,7 @@ var carrierFake = [{
 			phone: 0,
 			location: "444224,121212",
 			CBU: "0303939asd",
-			UserRegId: '3b44d0d9-615f-4ea3-bd81-8557b739ce00'
+			idUserReg: '3b44d0d9-615f-4ea3-bd81-8557b739ce00'
 		},{			
             id:"49824efe-37c5-4389-8a72-14822899dd9c",
 			documentID: "documentoIDFranco",
@@ -172,7 +172,7 @@ var carrierFake = [{
 			phone: 0,
 			location: "44asda4,0000212",
 			CBU: "0303939asd",
-			UserRegId: '503296d5-4da6-4d22-a591-4a9d647ee4b4'
+			idUserReg: '503296d5-4da6-4d22-a591-4a9d647ee4b4'
 		},{			
             id:"7fd536f3-f760-4372-8894-044c1e99a872",
 			documentID: "documentoIDLuis",
@@ -181,7 +181,7 @@ var carrierFake = [{
 			phone: 0,
 			location: "33433434,0000212",
 			CBU: "3343434q43",
-			UserRegId: '86b689c8-6a1a-4e93-aed9-2d60b89b51ad'
+			idUserReg: '86b689c8-6a1a-4e93-aed9-2d60b89b51ad'
 		},{			
             id:"a015ed83-8692-4c4f-af1e-c4a6df4e1fb9",
 			documentID: "documentoIDMAtias",
@@ -190,7 +190,7 @@ var carrierFake = [{
 			phone: 0,
 			location: "Ubicacion,Matias",
 			CBU: "CBUMatias",
-			UserRegId: 'b17aacfa-0bd6-4ef8-8825-4ad417082715'
+			idUserReg: 'b17aacfa-0bd6-4ef8-8825-4ad417082715'
 		},{			
             id:"b85f6147-3482-42a0-b00c-266710367275",
 			documentID: "documentoIDMartina",
@@ -199,7 +199,7 @@ var carrierFake = [{
 			phone: 0,
 			location: "Ubicacion,Martina",
 			CBU: "CBUMartina",
-			UserRegId: 'b42586c3-02b3-4966-95a0-89b0b35c958d'
+			idUserReg: 'b42586c3-02b3-4966-95a0-89b0b35c958d'
 		},{			
             id:"d281c6f7-29c6-4c9c-8b03-6fc90e4282ba",
 			documentID: "documentoIDEliana",
@@ -208,7 +208,7 @@ var carrierFake = [{
 			phone: 0,
 			location: "Ubicacion,Eliana",
 			CBU: "CBUEliana",
-			UserRegId: 'e30eef12-d9e6-4eb3-82e5-3d4277ebd92c'
+			idUserReg: 'e30eef12-d9e6-4eb3-82e5-3d4277ebd92c'
 		},{			
             id:"e2bc48a0-cb4c-48a4-ad08-cf13f5079b6e",
 			documentID: "documentoIDFacu",
@@ -217,7 +217,7 @@ var carrierFake = [{
 			phone: 0,
 			location: "Ubicacion,Facu",
 			CBU: "CBUFacu",
-			UserRegId: 'e4457da8-be02-4757-864a-ee8a551c63c1'
+			idUserReg: 'e4457da8-be02-4757-864a-ee8a551c63c1'
 		}]
 		var vehicleFake = [{
 			id: uuid(),

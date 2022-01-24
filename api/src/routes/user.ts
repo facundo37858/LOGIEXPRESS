@@ -27,7 +27,7 @@ router.get('/user', passport.authenticate("jwt", { session: false }), async (req
 router.post('/verifytoken', async (req: Request, res: Response, next: NextFunction) => {
     const { token } = req.body;
     try {
-        const decoded = jwt.verify(token, config.jwtSecret)
+        const decoded: any = jwt.verify(token, config.jwtSecret)
         const dataUser = await User_Reg.findByPk(decoded.id)
         if (dataUser) {
 

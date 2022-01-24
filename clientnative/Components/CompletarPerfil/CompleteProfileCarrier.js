@@ -473,7 +473,7 @@ const CompleteProfileCarrier = () => {
                     onChangeText={(model) => handleChangeModel(model)}
                     placeholder="Modelo y año"
                     name="model"
-                    keyboardType="decimal-pad"
+                    // keyboardType="decimal-pad"
                     style={styles.textPlaceholder}
                   />
                 </View>

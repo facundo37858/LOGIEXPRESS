@@ -18,17 +18,26 @@ import { useNavigation } from "@react-navigation/core";
 import ModalContraseña from "./ModalContraseña";
 import HeaderBar from '../Utils/HeaderBar.js';
 import ModalSuccess from './ModalSuccess';
+import { desmount } from '../../actions/index.js'
 
 const CambiarContraseña = () => {
+  const dispatch = useDispatch();
   const data = useSelector((store) => store.responseLog);
   const editPassword = useSelector((store) => store. editPassword);
 
   useEffect(() => {
-    //console.log("cambio de pass",  editPassword);
+    console.log("cambio de pass",  editPassword);
     if(editPassword?.menssage) {
       changeModalVisible2(true)
     }
   }, [data,  editPassword]);
+
+ useEffect(() => {
+   return () => {
+    dispatch(desmount())
+   };
+ }, [dispatch]);
+ 
 
   /// --> ESTADO PARA EL INPUT <-- ///
   const [contraseña, setContraseña] = useState("");

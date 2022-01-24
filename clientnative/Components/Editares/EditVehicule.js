@@ -22,7 +22,7 @@ import {
 } from "react-native-responsive-screen";
 import { useDispatch, useSelector } from "react-redux";
 import { editVehicule } from "../../actions";
-import SimpleModal from "./SimpleModal";
+import ModalVehicule from "./ModalVehicule";
 import { desmount  } from "../../actions";
 
 
@@ -46,6 +46,27 @@ const EditVehicule = () => {
     };
   }, [dispatch]);
 
+  /// --> ESTADO PARA EL MODAL <-- ///
+  const [isModalVisible, setisModalVisible] = useState(false);
+  const [chooseData, setchooseData] = useState();
+
+  const changeModalVisible = (bool) => {
+    setisModalVisible(bool);
+  };
+
+  const setData = (data) => {
+    setchooseData(data);
+  };
+
+  //// --> ESTADO PARA LOS INPUTS <-- ////
+  const [vehiculo, setVehiculo] = useState({
+    name: '',
+    lastName: '',
+    identification: '',
+    zone: '', 
+    phone: '',
+
+  });
 
   return (
     <View style={styles.container}>

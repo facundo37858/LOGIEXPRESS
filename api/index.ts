@@ -1,74 +1,108 @@
-
 import app from "./src/app";
+import { Travel } from './src/models/Travel';
 import { sequelize } from "./src/db";
-import axios from 'axios'
-import { User_Reg } from "./src/models/User_Reg";
-import { uuid } from "uuidv4";
-import bcrypt from 'bcryptjs'
-import { v4 } from "uuid";
-
+import { uuid } from 'uuidv4';
+import { callbackify } from "util";
+const { Op } = require("sequelize");
+const server = require('http').createServer(app);
+const io = require('socket.io')(server, { cors: { origin: "*" } });
 interface error {
-	err: string
+    err: string
 }
-
-// .replace(/[()]/g, '').replace(/[-]/g, '')
-
-const resApiUsers = async () => {
-
-	try {
-		let users = await axios.get('https://randomuser.me/api/?results=10')
-			.then(res => { return res.data })
-			.then(async (users) => {
-				let usersFilter = users.results.map((us: { name: { first: string; last: string }; phone: any, email: string, login: { password: string } }) => {
-
-					// let passCrypt=await bcrypt.hash(us.login.password,8)
-
-					return {
-						id: v4(),
-						name: us.name.first,
-						lastName: us.name.last,
-						phone: Number(us.phone.replace(/[()]/g, '').replace(/[-]/g, '')) ? Number(us.phone.replace(/[()]/g, '').replace(/[-]/g, '')) : null,
-						eMail: us.email,
-						password: bcrypt.hashSync(us.login.password, 8),//problemas cuando sean muchos datos!!!
-						terminosCondiciones: true,
-						role: true
-					}
-				})
-				return usersFilter
-			})
-
-
-		await User_Reg.bulkCreate(users)
-		//.then((u) => { console.log(u) })
-
-		return users
+///begin Sokets
 
 
 
+io.on("connection", (socket: any) => {
+    console.log("User conneted: " + socket.id)
+
+    socket.on("message", async (data: any, callback: any) => {
+        console.log(data)
+
+        const { id, orig, destination, weight, price, description } = data
+
+
+        /* const requestTravel = await Travel.findAll() */
+        const requestTravel = await Travel.findAll({ where: { userId: id , carrierId:{[Op.eq]: null} }})
+       
+        /* console.log("ESTO ES REQUEST TRAVEL", requestTravel[0]?.carrierId ) */
+        if( requestTravel.length === 0 || requestTravel[0]?.carrierId !== null) {
+            
+            let TravelId = uuid();
+            var newViaje = {
+                id: TravelId,
+                orig,
+                destination,
+                weight,
+                price,
+                description,
+                userId: id
+            }
+            let traveles = await Travel.create(newViaje)
+            // console.log('traveles: ',traveles);
+            socket.broadcast.emit('message', newViaje)
+            let travel = await Travel.findAll()
+            socket.broadcast.emit('Travel', travel)
+    
+            callback({
+                status: TravelId
+            });
+        } else {
+            console.log("ESTO ES,", requestTravel[0].id )
+            callback({
+                status: ["Ya tiene un viaje en proceso", requestTravel[0].id]
+            })
+        }
+
+
+    })
+    socket.on("response", async (data: any) => {
+        console.log(data)
+        const upTravel = await Travel.update({ carrierId: data.carrierId }, { where: { userId: data.userId, carrierId: { [Op.eq]: null } } });
+        socket.broadcast.emit('response', data)
+    })
+
+
+    socket.on("delete", async (data: any , callback: any) => {
+        console.log('Esto es lo que se debe borrar', data)
+        const deltTravel = await Travel.destroy({ where: { id: data.id }});
+      
+    })
+ 
+
+
+    socket.on("disconnect", () => {
+        console.log("User Disconnected", socket.id)
+    })
+})
 
 
 
-	} catch (e) {
 
-		console.log(`error ${e}`)
-	}
 
-}
 
+
+
+
+
+
+
+
+////end sokets
 
 sequelize
-	.sync({ force: false, logging: false })
-	// .then(async () => {
-	// 	// await resApiUsers()
-		
-	// })
-	.then(() => {
-		console.log('base de datos conectada! :D')
-		app.listen(3001, function () {
-			console.log('App is listening on port 3001!');
-		});
-	})
-	.catch((err: error) => console.error(err));
+    .sync({ force: false, logging: false })
+    // .then(async () => {
+    // 	// await resApiUsers()
+
+    // })
+    .then(() => {
+        console.log('base de datos conectada! :D')
+        server.listen(3001, function () {
+            console.log('App is listening on port 3001!');
+        });
+    })
+    .catch((err: error) => console.error(err));
 
 
 

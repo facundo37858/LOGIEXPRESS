@@ -14,18 +14,37 @@ import { getTravelID, desmount } from "../actions/index";
 import { useSelector, useDispatch } from "react-redux";
 
 const ScreenWaiting = (payload) => {
+  
+  
+  
+  const socket = useSelector((store) => store.socket)
   const dispatch = useDispatch();
-  const data = payload.route.params;
+  const id = {
+    id: payload.route.params
+  }
   const navigation = useNavigation();
   const travel = useSelector((store) => store.travel);
-  console.log("Esto es data", data);
+  console.log("Esto es data", id);
 
   useEffect(() => {
-    dispatch(getTravelID(data));
-
+    dispatch(getTravelID(id));
   }, [dispatch]);
 
-  console.log("ESTO ES TRAVEL", travel);
+
+
+   const handleDelete = () => {
+    const deleteTravel = () =>{
+      id
+      socket.emit('delete',id);
+    };
+    console.log(id);
+    deleteTravel();
+  }
+ 
+
+
+
+  console.log("ESTO es LA respuesta:", id);
   /* 
     console.log("Esto es lo que llegan en ScreenWaiting", travel[0].id) */
   /* const orig = travel[0]?.orig.split("/")
@@ -87,13 +106,23 @@ const ScreenWaiting = (payload) => {
           <View style={(styles.container, styles.horizontal)}>
             <ActivityIndicator size="large" color="#0000ff" />
           </View>
-          <View style={styles.btn2}>
-            <TouchableOpacity
-              style={styles.btnEditar}
-              onPress={() => navigation.navigate("StartUser", travel)}
-            >
-              <Text style={styles.textBtn}>Aceptar</Text>
-            </TouchableOpacity>
+          <View style={styles.horizontal}>
+            <View style={styles.btn2}>
+              <TouchableOpacity
+                style={styles.btnEditar}
+                onPress={() => navigation.navigate("StartUser", travel)}
+              >
+                <Text style={styles.textBtn}>Aceptar</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.btn2}>
+              <TouchableOpacity
+                style={styles.btnEditar}
+                onPress={handleDelete}
+              >
+                <Text style={styles.textBtn}>Cancelar Viaje</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </ScrollView>

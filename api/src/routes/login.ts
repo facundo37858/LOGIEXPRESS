@@ -10,11 +10,17 @@ import { Carrier } from '../models/Carrier';
 
 const router = Router()
 
+// function createToken(payload: any) {
+
+// 	return jwt.sign({ id: payload.id, email: payload.eMail }, config.jwtSecret, {
+// 		expiresIn: 86400
+// 	})
+// }
 function createToken(payload: any) {
 
-	return jwt.sign({ id: payload.id, email: payload.eMail }, config.jwtSecret, {
-		expiresIn: 86400
-	})
+    return jwt.sign({ id: payload.id, email: payload.eMail }, config.jwtSecret, {
+        expiresIn: 60
+    })
 }
 
 router.post('/login', async (req: Request, res: Response) => {
@@ -22,6 +28,7 @@ router.post('/login', async (req: Request, res: Response) => {
 
 	const user = await User_Reg.findAll({ where: { eMail: eMail } })
 	/* const objUser = await User.findOne({where: { idUserReg : user[0].id}}) */
+
 
 
 	if (user.length > 0) {
@@ -57,7 +64,8 @@ router.post('/login', async (req: Request, res: Response) => {
 			const payload = {
 				eMail,
 				id: user[0].id,
-				role: 1,
+				role:1,
+				// role: user[0].role,
 				name: user[0].name,
 				lastname: user[0].lastName,
 				phone: user[0].phone,

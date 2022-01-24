@@ -23,7 +23,7 @@ const ProfileUserScreen = () => {
     //console.log("data", data);
   }, [data]);
 
-  // console.log("AQUI RESPONLOG EN PROFILEUSERScreen", data);
+  console.log("AQUI RESPONLOG EN PROFILEUSERScreen", data);
   // console.log("AQUI RESPTOKEN en PROFILEUSERScreen", resptoken);
 
   return (

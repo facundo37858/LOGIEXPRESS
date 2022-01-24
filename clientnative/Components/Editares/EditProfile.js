@@ -28,7 +28,7 @@ const EditProfile = () => {
   const datosUser = useSelector((store) => store.responseLog)
 
   const editUser = useSelector((store) => store.editarPerfilUser)
-  //console.log(editUser)
+  console.log("ESTO LLEGA", editUser)
 
   useEffect(() => {
     if(editUser?.msg) {
@@ -150,6 +150,10 @@ const EditProfile = () => {
       phone: phone,
     });
   };
+
+
+
+
 
   //// --> HANDLE SUBMIT <-- ////
  function handleSubmit(e) {

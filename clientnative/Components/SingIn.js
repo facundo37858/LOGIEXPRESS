@@ -13,12 +13,24 @@ import {
   Button,
   Modal
 } from "react-native";
-import { logiarUsuario } from "./../actions/index";
+import { logiarUsuario, getSocket } from "./../actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import * as SecureStore from "expo-secure-store";
 import SimpleModal5 from "./AlertasReg/SimpleModalmail.js";
 import SimpleModal6 from "./AlertasReg/SimpleModalpass.js";
 import SimpleModal30 from "./AlertasLog/SimpleModallog.js";
+import io from 'socket.io-client'
+import config from '../config/config.js'
+
+
+
+const socket = io.connect(`http://${config.ip}:3001`);
+socket.on('connection')
+
+
+
+
+
 
 const SingIn = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -92,6 +104,7 @@ const SingIn = ({ navigation }) => {
       //   "La dirección de correo electrónico o la contraseña que ingresaste no son válidas!"
       // );
     }
+    dispatch(getSocket(socket))
   }, [respuesta]);
 
   /* useEffect(() => {

@@ -40,7 +40,6 @@ router.post('/carrierProfile', async (req: Request, res: Response, next: NextFun
 	// res.send('llega al carrier profile')
 	const { id, documentID, license, location, Cuenta,
 		brand, patent, model, color, capacity, photo } = req.body
-
 	try {
 
 		let idCarrier = uuid()
@@ -120,13 +119,13 @@ router.get('/profile', async (req: Request, res: Response) => {
 });
 
 router.post('/updateUser', async (req: Request, res: Response, next: NextFunction) => {
-	
+	const { id, name, lastName, phone, photo, zone, account } = req.body
+
+	let userUpdate;
+
+	let userDataUpdate;
+
 	try{
-		const { id, name, lastName, phone, photo, zone, account } = req.body
-	
-		let userUpdate;
-	
-		let userDataUpdate;
 
 		if (name || lastName || phone) {
 	
@@ -164,6 +163,7 @@ router.post('/updateUser', async (req: Request, res: Response, next: NextFunctio
 		
 		console.log(err)
 	}
+	
 
 })
 

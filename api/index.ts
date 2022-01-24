@@ -23,11 +23,11 @@ io.on("connection", (socket: any) => {
 
 
         /* const requestTravel = await Travel.findAll() */
-        const requestTravel = await Travel.findAll({ where: { userId: id , carrierId:{[Op.eq]: null} }})
-       
+        const requestTravel = await Travel.findAll({ where: { userId: id, carrierId: { [Op.eq]: null } } })
+
         /* console.log("ESTO ES REQUEST TRAVEL", requestTravel[0]?.carrierId ) */
-        if( requestTravel.length === 0 || requestTravel[0]?.carrierId !== null) {
-            
+        if (requestTravel.length === 0 || requestTravel[0]?.carrierId !== null) {
+
             let TravelId = uuid();
             var newViaje = {
                 id: TravelId,
@@ -43,12 +43,12 @@ io.on("connection", (socket: any) => {
             socket.broadcast.emit('message', newViaje)
             let travel = await Travel.findAll()
             socket.broadcast.emit('Travel', travel)
-    
+
             callback({
                 status: TravelId
             });
         } else {
-            console.log("ESTO ES,", requestTravel[0].id )
+            console.log("ESTO ES,", requestTravel[0].id)
             callback({
                 status: ["Ya tiene un viaje en proceso", requestTravel[0].id]
             })
@@ -63,14 +63,14 @@ io.on("connection", (socket: any) => {
     })
 
 
-    /* socket.on("delete", async (data: any , callback: any) => {
+    socket.on("delete", async (data: any, callback: any) => {
         console.log(data)
-        const deltTravel = await Travel.destroy({ where: { id: data.id }});
+        const deltTravel = await Travel.destroy({ where: { id: data.id } });
         callback({
             status: 'Viaje eliminado'
         })
     })
- */
+
 
 
     socket.on("disconnect", () => {

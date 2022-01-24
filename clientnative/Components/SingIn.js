@@ -20,8 +20,11 @@ import SimpleModal5 from "./AlertasReg/SimpleModalmail.js";
 import SimpleModal6 from "./AlertasReg/SimpleModalpass.js";
 import SimpleModal30 from "./AlertasLog/SimpleModallog.js";
 import io from 'socket.io-client'
+import config from '../config/config.js'
 
-const socket = io.connect("http://192.168.2.102:3001");
+
+
+const socket = io.connect(`http://${config.ip}:3001`);
 socket.on('connection')
 
 
@@ -36,8 +39,12 @@ const SingIn = ({ navigation }) => {
   const respToken = useSelector((store) => store.respToken)
   async function save(key, value) {
     //FUNCION PARA GUARDAR LA INFO EN EL STORE, KEY = token , VALUE=el string del token
-    await SecureStore.setItemAsync(key, value);
-  }
+    try{
+      await SecureStore.setItemAsync(key, value);
+    } catch(error){
+      console.log('error', error.response)
+    }
+    }  
   const nuevotoken = useSelector((store) => store.token);
   useEffect(() => {
     console.log("verificando, que se envia", nuevotoken);

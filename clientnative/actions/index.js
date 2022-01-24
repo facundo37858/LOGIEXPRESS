@@ -88,13 +88,13 @@ export function registrarUsuario(payload) {
   return async function (dispatch) {
     try {
       const response = await axios
-        .post(`http://${config.ip}:3001/api/user`, payload) //aca cada uno pone su ip
+        .post(`http://192.168.2.103:3001/api/user`, payload) //aca cada uno pone su ip
         .then((r) => {
           dispatch({
             type: "REGISTROO",
             payload: r.data.payload,
           });
-          console.log("aqui response registro: ", r);
+         // console.log("aqui response registro: ", r);
         });
       console.log(response);
       return response;
@@ -120,12 +120,12 @@ export function logiarUsuario(payload) {
             "Aqui esta el token llegando en la action logiarusuario:",
             r.data.token
           );
-          console.log("viene de login", r.data.payload);
+        //  console.log("viene de login", r.data.payload);
         });
       // console.log(r);
       // return response;
     } catch (error) {
-      console.error(error.response);
+      console.log(error.response);
     }
   };
 }
@@ -185,7 +185,7 @@ export function enviarToken(payload) {
       // console.log(r);
       // return response;
     } catch (error) {
-      console.error(error.response);
+      console.log(error.response);
     }
   };
 }
@@ -209,3 +209,101 @@ export function changePassword(payload) {
     }
   };
 }
+
+
+//// --> ACTION PARA DESMONTAR EL ESTADO <-- ////
+export function desmount() {
+  return {
+    type: 'DESMOUNT',
+  };
+};
+
+//// --> Ruta para editar el perfil de user<-- ////
+export function editProfileUser(payload) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(
+        `http://${config.ip}:3001/api/updateUser`,
+        payload
+      );
+       //console.log('Soy el console.log de response', response)
+      return dispatch({
+        type: "EDIT_PROFILE_USER",
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+}
+
+//// --> Ruta para editar el perfil de carrier<-- ////
+export function editProfileCarrier(payload) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(
+        `http://${config.ip}:3001/api/editCarrier`,
+        payload
+      );
+       //console.log('Soy el console.log de response', response)
+      return dispatch({
+        type: "EDIT_PROFILE_CARRIER",
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+}
+
+//// --> Ruta para editar el perfil de carrier<-- ////
+export function editVehicule(payload) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(
+        `http://${config.ip}:3001/api/updateVehicle`,
+        payload
+      );
+       //console.log('Soy el console.log de response', response)
+      return dispatch({
+        type: "EDIT_VEHICULE",
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+}
+
+////--> ACTION PARA TRAER LOS TRAVELS POR ID <--////
+export function getTravelUser(idUserReg) {
+  return async function (dispatch) {
+    try {
+      var json = await axios(`http://${config.ip}:3001/api/historyTravelUser/${idUserReg}`);
+      dispatch({
+        type: "GET_TRAVEL_USER",
+        payload: json.data,
+      });
+      //console.log('Esto llega a getTravelUser', json)
+    } catch (error) {
+      console.log(error);
+     // alert("Error obteniendo datos del videojuego", error);
+    }
+  };
+}
+
+//// ---> ACTION PARA TRAER INFO VEHICULOS <--- ///
+export function getVehicules(idRole) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`http://${config.ip}:3001/api/vehicleDetails/${idRole}`);
+      // console.log('Soy el console.log de response', response)
+      return dispatch({
+        type: 'GET_VEHICULES',
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
+};

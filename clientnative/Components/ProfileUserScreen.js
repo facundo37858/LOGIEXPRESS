@@ -23,7 +23,7 @@ const ProfileUserScreen = () => {
     //console.log("data", data);
   }, [data]);
 
-  // console.log("AQUI RESPONLOG EN PROFILEUSERScreen", data);
+  console.log("AQUI RESPONLOG EN PROFILEUSERScreen", data);
   // console.log("AQUI RESPTOKEN en PROFILEUSERScreen", resptoken);
 
   return (
@@ -37,7 +37,7 @@ const ProfileUserScreen = () => {
             <Image
               source={{
                 uri:
-                  data.photo !== null
+                  data?.photo !== null
                     ? data.photo
                     : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
               }}
@@ -62,18 +62,15 @@ const ProfileUserScreen = () => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btnText}>
+          <TouchableOpacity
+            style={styles.btnText}
+            onPress={() => {
+              navigation.navigate("HistorialDeViaje");
+            }}
+          >
             <Icon name="bus-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Historial de viajes</Text>
             <View style={{ marginLeft: 110 }}>
-              <Icon name="chevron-forward-outline" style={styles.icons3} />
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.btnText}>
-            <Icon name="cash-outline" style={styles.icons} />
-            <Text style={styles.userBtnTxt}>Transacciones</Text>
-            <View style={{ marginLeft: 128 }}>
               <Icon name="chevron-forward-outline" style={styles.icons3} />
             </View>
           </TouchableOpacity>
@@ -134,7 +131,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     backgroundColor: "#fff",
     width: "85%",
-    height: "13%",
+    height: "14%",
     padding: 10,
     paddingBottom: 10,
     borderRadius: 15,
@@ -151,7 +148,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#FFC107",
     width: "85%",
-    height: "17%",
+    height: "18%",
     padding: 10,
     paddingBottom: 10,
     borderRadius: 15,

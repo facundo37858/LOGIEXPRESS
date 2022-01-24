@@ -10,7 +10,7 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import HeaderBar from "./Utils/HeaderBar";
 import { useNavigation } from "@react-navigation/core";
-import { getTravelID } from "../actions/index";
+import { getTravelID, desmount } from "../actions/index";
 import { useSelector, useDispatch } from "react-redux";
 
 const ScreenWaiting = (payload) => {
@@ -32,7 +32,7 @@ const ScreenWaiting = (payload) => {
 
 
 
- /*  const handleDelete = () => {
+   const handleDelete = () => {
     const deleteTravel = () =>{
       id
       socket.emit('delete',id);
@@ -40,7 +40,7 @@ const ScreenWaiting = (payload) => {
     console.log(id);
     deleteTravel();
   }
- */
+ 
 
 
 
@@ -118,7 +118,7 @@ const ScreenWaiting = (payload) => {
             <View style={styles.btn2}>
               <TouchableOpacity
                 style={styles.btnEditar}
-               /*  onPress={handleDelete} */
+                onPress={handleDelete}
               >
                 <Text style={styles.textBtn}>Cancelar Viaje</Text>
               </TouchableOpacity>

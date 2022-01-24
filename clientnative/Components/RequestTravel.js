@@ -149,15 +149,15 @@ const RequestTravel = (props) => {
             /* console.log(location.coords); */
         })();
         if (response) {
-            if(response[0] === 'Ya tiene un viaje en proceso') {
+            if (response[0] === 'Ya tiene un viaje en proceso') {
                 alert('YA TIENE UN VIAJE EN PROCESO')
                 navigation.navigate('ScreenWaiting', response[1])
             }
         }
     }, [response]);
-/* 
-    console.log("ESTO ES LA RESPUESTA DEL PEDIDO", response)
- */
+    /* 
+        console.log("ESTO ES LA RESPUESTA DEL PEDIDO", response)
+     */
 
     const [origen, setOrigen] = useState({
         latitude: 0,
@@ -197,30 +197,29 @@ const RequestTravel = (props) => {
             id: data,
         };
 
-
         //VALIDACIONES
-        /* 
-                if (travel.orig === `0/0/null`) {
-                    changeModalVisible20(true)
-                    return
-                }
-        
-                if (travel.destination === `0/0/null`) {
-                    changeModalVisible21(true)
-                    return
-                }
-        
-                if (!travel.weight) {
-                    changeModalVisible22(true)
-                    return
-                }
-                if (travel.price === 0) {
-                    changeModalVisible23(true)
-                    return
-                }
-         */
+
+        if (travel.orig === `0/0/null`) {
+            changeModalVisible20(true)
+            return
+        }
+
+        if (travel.destination === `0/0/null`) {
+            changeModalVisible21(true)
+            return
+        }
+
+        if (!travel.weight) {
+            changeModalVisible22(true)
+            return
+        }
+        if (travel.price === 0) {
+            changeModalVisible23(true)
+            return
+        }
+
         sendMessage(travel)
-        
+
         console.log("Estoy enviando:", travel)
     }
 

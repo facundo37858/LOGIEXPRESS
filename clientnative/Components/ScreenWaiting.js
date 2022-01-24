@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -28,23 +28,39 @@ const ScreenWaiting = (payload) => {
 
   useEffect(() => {
     dispatch(getTravelID(id));
+    
   }, [dispatch]);
 
 
+/*   useEffect(() => {
+    if(respDelete) {
+      alert('Viaje elimando');
+      navigation.navigate('ProfileUserScreen')
+    }
+    return () => {
+      setRespDelete(null)
+    };
+  }, [respDelete]); */
+  
 
- /*  const handleDelete = () => {
-    const deleteTravel = () =>{
+  const [respDelete , setRespDelete] = useState(null)
+
+  const handleDelete = () => {
+    const deleteTravel = (props) =>{
       id
-      socket.emit('delete',id);
+      socket.emit('delete', id, (resp) => {
+        console.log(resp.status)
+        setRespDelete(resp.status)
+      });
     };
     console.log(id);
     deleteTravel();
   }
- */
+
+  
 
 
-
-  console.log("ESTO es LA respuesta:", id);
+  console.log("ESTO es LA respuesta:", respDelete);
   /* 
     console.log("Esto es lo que llegan en ScreenWaiting", travel[0].id) */
   /* const orig = travel[0]?.orig.split("/")
@@ -118,7 +134,7 @@ const ScreenWaiting = (payload) => {
             <View style={styles.btn2}>
               <TouchableOpacity
                 style={styles.btnEditar}
-               /*  onPress={handleDelete} */
+                onPress={handleDelete}
               >
                 <Text style={styles.textBtn}>Cancelar Viaje</Text>
               </TouchableOpacity>

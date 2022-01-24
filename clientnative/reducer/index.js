@@ -4,6 +4,7 @@ import {
   POST_REQUEST_TRAVE,
   GET_TRAVELS,
   GET_TRAVEL_ID,
+  SOCKET,
 } from "../actions/index.js";
 
 const initialState = {
@@ -26,6 +27,7 @@ const initialState = {
   editarPerfilCarrier: [],
   editVehicule: [],
   travelsUser: [],
+  socket: null,
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -80,7 +82,7 @@ export default function rootReducer(state = initialState, action) {
     case "CHANGE_PASSWORD":
       return {
         ...state,
-        editPassword: action.payload,
+        editPassword: action.payload
       };
     case "GET_VEHICULES":
       return {
@@ -114,7 +116,13 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         travelsUser: action.payload,
-      };
+      };      
+    case SOCKET:
+      return {
+        ...state,
+        socket: action.payload
+      }
+
     default:
       return state;
   }

@@ -10,6 +10,8 @@ const router=Router()
 router.post('/changePassword',async(req:Request,res:Response,next:NextFunction)=>{
 
     const {idUser,newPassword}=req.body
+    console.log('id user: ',idUser)
+    console.log('newPass: ',newPassword)
 
    try{
 

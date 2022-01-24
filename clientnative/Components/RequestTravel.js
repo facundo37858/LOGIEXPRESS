@@ -24,7 +24,7 @@ import SimpleModal20 from "./AlertasTravel/SimpleModalorigin";
 import SimpleModal21 from "./AlertasTravel/SimpleModaldest";
 import SimpleModal22 from "./AlertasTravel/SimpleModalweight";
 import SimpleModal23 from "./AlertasTravel/SimpleModalprice";
-
+import HeaderBar from "./Utils/HeaderBar.js";
 
 
 
@@ -233,7 +233,8 @@ const RequestTravel = (props) => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
             <ScrollView keyboardShouldPersistTaps={'handled'}>
-                <View style={{ alignItems: "center", marginTop: "20%", marginLeft: 10, marginRight: 10 }}>
+                <View style={{ alignItems: "center", marginRight: 10 }}>
+                <HeaderBar />
                     <View style={styles.title}>
                         <Text style={{ fontWeight: "bold", fontSize: 40, marginBottom: 10, }}>
                             Solicitar Carga

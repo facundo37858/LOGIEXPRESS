@@ -39,8 +39,12 @@ const SingIn = ({ navigation }) => {
   const respToken = useSelector((store) => store.respToken)
   async function save(key, value) {
     //FUNCION PARA GUARDAR LA INFO EN EL STORE, KEY = token , VALUE=el string del token
-    await SecureStore.setItemAsync(key, value);
-  }
+    try{
+      await SecureStore.setItemAsync(key, value);
+    } catch(error){
+      console.log('error', error.response)
+    }
+    }  
   const nuevotoken = useSelector((store) => store.token);
   useEffect(() => {
     console.log("verificando, que se envia", nuevotoken);

@@ -1,12 +1,18 @@
 import { Response, Request, Router, NextFunction } from 'express';
+import { Carrier } from '../models/Carrier';
 import { Vehicle } from '../models/Vehicle';
 
 const router = Router()
 
-router.get("/vehicleDetails", async (req: Request, res: Response, next: NextFunction) => {
-    const { idRole } = req.body
+router.get("/vehicleDetails/:idRole", async (req: Request, res: Response, next: NextFunction) => {
+    const { idRole } = req.params
+    //console.log('soy idRole back', req.params)
     try {
-        let vehicleDetails = await Vehicle.findAll({ where: { idRole: idRole } })
+
+        let userCarrier = await Carrier.findAll({ where: { id : idRole } })
+        //console.log('soy lo que encuentra el idRole', userCarrier)
+        let vehicleDetails = await Vehicle.findAll({ where: { CarrierId: userCarrier[0].id } })
+       
         const payload = {
             brand: vehicleDetails[0].brand,
             patent: vehicleDetails[0].patent,
@@ -21,4 +27,5 @@ router.get("/vehicleDetails", async (req: Request, res: Response, next: NextFunc
     }
 })
 
-export default router;
+export default router;	
+

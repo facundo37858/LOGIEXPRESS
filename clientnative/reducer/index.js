@@ -24,7 +24,8 @@ const initialState = {
   vehicules: [],
   editarPerfilUser: [],
   editarPerfilCarrier: [],
-  travelsUser : []
+  editVehicule: [],
+  travelsUser: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -79,33 +80,41 @@ export default function rootReducer(state = initialState, action) {
     case "CHANGE_PASSWORD":
       return {
         ...state,
-        editPassword: action.payload
+        editPassword: action.payload,
       };
-    case 'GET_VEHICULES':
+    case "GET_VEHICULES":
       return {
         ...state,
-        vehicules: action.payload
+        vehicules: action.payload,
       };
-    case 'DESMOUNT':
+    case "DESMOUNT":
       return {
         ...state,
         editPassword: [],
+        editarPerfilUser: [],
+        editarPerfilCarrier: [],
+        editVehicule: [],
       };
-      case "EDIT_PROFILE_USER":
-        return {
-          ...state,
-          editarPerfilUser: action.payload,
-        };
-       case "EDIT_PROFILE_CARRIER":
-          return {
-            ...state,
-            editarPerfilCarrier: action.payload,
-          };
-        case 'GET_TRAVEL_USER': 
-        return {
-          ...state,
-          travelsUser: action.payload,
-        };
+    case "EDIT_PROFILE_USER":
+      return {
+        ...state,
+        editarPerfilUser: action.payload,
+      };
+    case "EDIT_PROFILE_CARRIER":
+      return {
+        ...state,
+        editarPerfilCarrier: action.payload,
+      };
+    case "EDIT_VEHICULE":
+      return {
+        ...state,
+        editVehicule: action.payload,
+      };
+    case "GET_TRAVEL_USER":
+      return {
+        ...state,
+        travelsUser: action.payload,
+      };
     default:
       return state;
   }

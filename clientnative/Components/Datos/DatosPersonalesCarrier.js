@@ -30,7 +30,7 @@ const DatosPersonalesCarrier = () => {
   return (
     <View style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={{marginTop: 35}}>
+      <View>
       <HeaderBar/>
         <Text style={styles.perfilTex}>Datos personales</Text>
        

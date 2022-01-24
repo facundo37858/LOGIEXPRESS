@@ -21,13 +21,26 @@ import { editProfileUser } from "../../actions";
 // prueba para las screens responsive
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import SimpleModal from "./SimpleModal";
+import { desmount  } from "../../actions";
 
 const EditProfile = () => {
   const dispatch = useDispatch();
   const datosUser = useSelector((store) => store.responseLog)
+
+  const editUser = useSelector((store) => store.editarPerfilUser)
+  //console.log(editUser)
+
   useEffect(() => {
-    //console.log("SOY DATOS DEL USER", datosUser);
-  }, [datosUser]);
+    if(editUser?.msg) {
+      changeModalVisible(true)
+    }
+  }, [datosUser, editUser]);
+
+  useEffect(() => {
+    return () => {
+     dispatch(desmount())
+    };
+  }, [dispatch]);
 
   /// --> ESTADO PARA EL MODAL <-- ///
   const [isModalVisible, setisModalVisible] = useState(false);
@@ -152,7 +165,7 @@ const EditProfile = () => {
    }
    dispatch(editProfileUser(edit))
    console.log("soy lo que se envia el front", edit);
-   changeModalVisible(true)
+  // changeModalVisible(true)
  }
 
   //// --> Inicio de componente <-- ////

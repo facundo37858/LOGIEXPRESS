@@ -20,14 +20,28 @@ import * as ImagePicker from "expo-image-picker";
 import { useDispatch, useSelector } from "react-redux";
 import { editProfileCarrier } from "../../actions";
 import SimpleModal from "./SimpleModal";
+import { desmount } from "../../actions";
 
 
 const EditProfileCarrier = () => {
   const dispatch = useDispatch();
   const datosCarrier = useSelector((store) => store.responseLog)
+ 
+  const editCarrier = useSelector((store) => store.editarPerfilCarrier)
+  //console.log(editCarrier)
+  
   useEffect(() => {
     //console.log("SOY DATOS DEL USER", datosUser);
-  }, [datosCarrier]);
+    if(editCarrier?.msg) {
+      changeModalVisible(true)
+    }
+  }, [datosCarrier, editCarrier]);
+
+  useEffect(() => {
+    return () => {
+     dispatch(desmount())
+    };
+  }, [dispatch]);
 
   /// --> ESTADO PARA EL MODAL <-- ///
   const [isModalVisible, setisModalVisible] = useState(false);
@@ -152,7 +166,7 @@ function handleSubmit(e) {
  }
  dispatch(editProfileCarrier(edit))
  console.log("soy lo que se envia el front", edit);
- changeModalVisible(true)
+// changeModalVisible(true)
 }
 
   //// --> Inicio de componente <-- ////

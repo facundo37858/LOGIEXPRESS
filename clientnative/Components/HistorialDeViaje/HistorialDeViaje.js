@@ -27,33 +27,37 @@ const HistorialDeViaje = () => {
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ flex: 1, marginTop: wp("10%"), marginLeft: wp("5%") }}>
+        <View style={styles.containerHeaders}>
           <HeaderBar />
-          <Text style={{ fontSize: hp("2.5%")}}>Historial de viajes</Text>
-        </View>
-        {/* <View>
-          <Text
-            style={{
-              marginLeft: wp("5%"),
-              // backgroundColor: "#DDDDDD",
-              padding: wp("3"),
-            }}
-          >
-            Anteriores
+          <Text style={{ fontSize: hp("2.5%"), fontWeight: "bold" }}>
+            Historial de viajes
           </Text>
-        </View> */}
+          <Text style={{ fontSize: hp("1.75%") }}>
+            Tus viajes realizados con sus detalles.
+          </Text>
+        </View>
+        <View style={styles.viewAnterior}>
+          <Text style={styles.textAnterior}>EN CURSO</Text>
+        </View>
+        <View style={styles.viewAnterior}>
+          <Text style={styles.textAnterior}>ANTERIORES</Text>
+        </View>
         {dataTravels?.map((datos, index) => {
           const orig = datos.orig.split("/");
           const dest = datos.destination.split("/");
           return (
             <View key={index}>
-              <View style={styles.containerCards}>               
-                <Text>{datos.description}</Text>
-                <Text>{datos.weight}</Text>
-                <Text>{orig[2]}</Text>
-                <Text>{dest[2]}</Text>
-                <Text>{datos.finishedTravel}</Text>
-                <Text>${datos.price}</Text>
+              <View style={styles.containerCards}>
+                <View style={styles.cards}>
+                  <View style={styles.insideCard}>
+                    <Text>Descripcion del viaje: {datos.description}</Text>
+                    <Text>Peso en toneladas: {datos.weight}</Text>
+                    <Text>{orig[2]}</Text>
+                    <Text>{dest[2]}</Text>
+                    <Text>{datos.finishedTravel}</Text>
+                    <Text style={styles.price}>$ {datos.price}</Text>
+                  </View>
+                </View>
               </View>
             </View>
           );
@@ -68,14 +72,45 @@ export default HistorialDeViaje;
 const styles = StyleSheet.create({
   containerCards: {
     flex: 1,
-    width: wp("91%"),
+    width: wp("95%"),
+    marginHorizontal: wp("2.5%"),
+    marginTop: wp("1%"),
+    paddingBottom: wp("2.75%"),
+  },
+  containerHeaders: {
+    flex: 1,
+    marginLeft: wp("5%"),
+    paddingBottom: wp("2%"),
+  },
+  viewAnterior: {
+    padding: wp("2%"),
+    backgroundColor: "#DDDDDD", //"#FFC107",
+    width: wp("95%"),
+    marginLeft: wp("2%"),
+    marginTop: wp("1%"),
+    marginBottom: wp("2.5%"),
+    borderColor: "#DDDDDD",
+    borderBottomWidth: wp("0.55%"),
+    borderTopWidth: wp("0.55%"),
+  },
+  textAnterior: {
+    fontSize: hp("1.60%"),
+    marginLeft: wp("2%"),
+    fontWeight: "bold",
+  },
+  cards: {
+    backgroundColor: "#F6F6F6",
+    borderRadius: wp("3%"),
+  },
+  insideCard: {
+    width: wp('91%'), 
+    padding: wp('3%')
+  },
+  price: {
+    textAlign: "center",
     justifyContent: "center",
-    alignItems: "flex-start",
-    margin: wp("5%"),
-    backgroundColor: '#EEEEEE',
-    borderColor: 'black',
-    borderWidth: hp('0.1%'),
-  
+    fontWeight: "bold",
+    fontSize: hp("2%"),
   },
 });
 
@@ -88,5 +123,3 @@ const styles = StyleSheet.create({
     fontSize: hp('5%') // End result looks like the provided UI mockup
   }
 });*/
-
-

@@ -192,21 +192,6 @@ export function changePassword(payload) {
 }
 
 
-//// ---> ACTION PARA TRAER INFO VEHICULOS <--- ///
-export function getVehicules(payload) {
-  return async function (dispatch) {
-    try {
-      const response = await axios.get(`http://${config.ip}:3001/api/urldeLuis`, payload);
-      return dispatch({
-        type: 'GET_VEHICULES',
-        payload: response.data,
-      });
-    } catch (error) {
-      console.log("Error", error);
-    }
-  };
-};
-
 //// --> ACTION PARA DESMONTAR EL ESTADO <-- ////
 export function desmount() {
   return {
@@ -252,6 +237,25 @@ export function editProfileCarrier(payload) {
   };
 }
 
+//// --> Ruta para editar el perfil de carrier<-- ////
+export function editVehicule(payload) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(
+        `http://${config.ip}:3001/api/updateVehicle`,
+        payload
+      );
+       //console.log('Soy el console.log de response', response)
+      return dispatch({
+        type: "EDIT_VEHICULE",
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+}
+
 ////--> ACTION PARA TRAER LOS TRAVELS POR ID <--////
 export function getTravelUser(idUserReg) {
   return async function (dispatch) {
@@ -268,3 +272,19 @@ export function getTravelUser(idUserReg) {
     }
   };
 }
+
+//// ---> ACTION PARA TRAER INFO VEHICULOS <--- ///
+export function getVehicules(idRole) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`http://${config.ip}:3001/api/vehicleDetails/${idRole}`);
+      // console.log('Soy el console.log de response', response)
+      return dispatch({
+        type: 'GET_VEHICULES',
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
+};

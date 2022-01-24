@@ -74,14 +74,6 @@ const ProfileScreen = () => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btnText}>
-            <Icon name="cash-outline" style={styles.icons} />
-            <Text style={styles.userBtnTxt}>Datos Bancarios</Text>
-            <View style={{ marginLeft: 128 }}>
-              <Icon name="chevron-forward-outline" style={styles.icons3} />
-            </View>
-          </TouchableOpacity>
-
           <TouchableOpacity
             style={styles.btnText}
             onPress={() => navigation.navigate("CotizarViaje")}

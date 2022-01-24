@@ -88,7 +88,7 @@ export function registrarUsuario(payload) {
   return async function (dispatch) {
     try {
       const response = await axios
-        .post(`http://192.168.2.103:3001/api/user`, payload) //aca cada uno pone su ip
+        .post(`http://${config.ip}:3001/api/user`, payload) //aca cada uno pone su ip
         .then((r) => {
           dispatch({
             type: "REGISTROO",

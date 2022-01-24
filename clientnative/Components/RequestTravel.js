@@ -128,7 +128,7 @@ const RequestTravel = (props) => {
         });
     }
 
-
+    /* console.log("ESTO ES EL SOCKET", socket) */
     let [response, setResponse] = useState(null);
 
     console.log('ESTA ES LA RESPUESTAAAAAAA', response)

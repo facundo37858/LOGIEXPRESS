@@ -355,3 +355,50 @@ export function getVehicules(idRole) {
     }
   };
 };
+
+  //REVIEW
+
+  export function reviewUsuario(payload) {
+    return async function (dispatch) {
+      console.log('llego la action', payload)
+      try {
+        const response = await axios
+        
+          .post(`http://192.168.0.111:3001/api/review/user`, payload) //aca cada uno pone su ip
+          .then((r) => {
+            dispatch({
+              type: "REVIEW_USUARIO",
+              payload: r.data.payload,
+            });
+            //console.log("hace el dispatch");
+          //  console.log("viene de login", r.data.payload);
+          });
+        // console.log(r);
+        // return response;
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
+  }
+
+  export function reviewCarrier(payload) {
+    console.log('llego action', payload)
+    return async function (dispatch) {
+      try {
+        const response = await axios
+          .post(`http://192.168.0.111:3001/api/review/carrier`, payload) //aca cada uno pone su ip
+          .then((r) => {
+            dispatch({
+              type: "REVIEW_CARRIER",
+              payload: r.data.payload,
+            });
+            //console.log("hace el dispatch");
+          //  console.log("viene de login", r.data.payload);
+          });
+        // console.log(r);
+        // return response;
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
+  }

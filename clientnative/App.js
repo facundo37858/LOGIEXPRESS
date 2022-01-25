@@ -26,6 +26,8 @@ import Home from "./Components/home";
 import CambiarContraseña from "./Components/CambiodeContraseña/CambiarContraseña";
 import DetallesVehicule from "./Components/Detalles/DetallesVehicule";
 import HistorialDeViaje from "./Components/HistorialDeViaje/HistorialDeViaje";
+import reviewUser from "./Components/Review/ReviewUser"
+import reviewCarrier from "./Components/Review/ReviewCarrier"
 import { LogBox } from 'react-native';
 
 
@@ -41,7 +43,17 @@ const App = () => {
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen
+          {/* <Stack.Screen
+              name="ReviewUser"
+              component={reviewUser}
+              options={{ headerShown: false }}
+            /> */}
+              <Stack.Screen
+              name="ReviewCarrier"
+              component={reviewCarrier}
+              options={{ headerShown: false }}
+            />
+            {/* <Stack.Screen
               name="Home"
               component={Home}
               options={{ headerShown: false }}
@@ -139,7 +151,7 @@ const App = () => {
               options={{ headerShown: false }}
             />
             <Stack.Screen name="ScreenWaiting" component={ScreenWaiting} />
-            <Stack.Screen name="StartCarrier" component={StartCarrier} />
+            <Stack.Screen name="StartCarrier" component={StartCarrier} /> */}
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

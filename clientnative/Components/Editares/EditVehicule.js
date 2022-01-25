@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import {
   StyleSheet,
   Text,
@@ -34,11 +34,11 @@ const EditVehicule = () => {
   const vehicule = useSelector((store) => store.editVehicule)
   //console.log(editUser)
 
-  // useEffect(() => {
-  //   if(editUser?.msg) {
-  //    // changeModalVisible(true)
-  //   }
-  // }, [vehicule]);
+  useEffect(() => {
+    if(vehicule?.msg) {
+     changeModalVisible(true)
+    }
+  }, [vehicule]);
 
   useEffect(() => {
     return () => {
@@ -60,13 +60,72 @@ const EditVehicule = () => {
 
   //// --> ESTADO PARA LOS INPUTS <-- ////
   const [vehiculo, setVehiculo] = useState({
-    name: '',
-    lastName: '',
-    identification: '',
-    zone: '', 
-    phone: '',
-
+    brand: '',
+    patent: '',
+    model: '',
+    color: '',
+    capacity: '',
+    license: ''
   });
+
+  //// ---> HANDLERS INPUTS <--- ////
+  const handleChangeBrand = (brand) => {
+    setVehiculo({
+      ...vehiculo,
+      brand : brand
+    })
+  };
+
+  const handleChangePatent = (patent) => {
+    setVehiculo({
+      ...vehiculo,
+      patent : patent
+    })
+  };
+
+  const handleChangeModel = (model) => {
+    setVehiculo({
+      ...vehiculo,
+      model : model
+    })
+  };
+
+  const handleChangeColor = (color) => {
+    setVehiculo({
+      ...vehiculo,
+      color : color
+    })
+  };
+
+  const handleChangeCapacity = (capacity) => {
+    setVehiculo({
+      ...vehiculo,
+      capacity : capacity
+    })
+  }
+
+  const handleChangelicense = (license) => {
+    setVehiculo({
+      ...vehiculo,
+      license : license
+    })
+  }
+
+   //// --> HANDLE SUBMIT <-- ////
+ function handleSubmit(e) {
+  e.preventDefault();
+  const edit= {
+    brand : vehiculo.brand,
+    patent : vehiculo.patent,
+    model : vehiculo.model,
+    color : vehiculo.color,
+    capacity : vehiculo.capacity,
+    license : vehiculo.license,
+  }
+  dispatch(editVehicule(edit))
+  console.log("soy lo que se envia el front", edit);
+ // changeModalVisible(true)
+}
 
   return (
     <View style={styles.container}>
@@ -77,49 +136,61 @@ const EditVehicule = () => {
           <View style={styles.viewsInputs}>
             <Icon name="newspaper-outline" style={styles.icons} />
             <TextInput
+              value = {vehicule.license}
               placeholder="Licencia actualizada"
               name="license"
               style={styles.textPlaceholder}
+              onChangeText = {(license) => handleChangelicense(license)}
             />
           </View>
           <View style={styles.viewsInputs}>
             <Icon name="car-outline" style={styles.icons} />
             <TextInput
+              value = {vehicule.brand}
               placeholder="Scania, Mercedes-Benz, etc."
               name="brand"
               style={styles.textPlaceholder}
+              onChangeText={(brand) => handleChangeBrand(brand)}
             />
           </View>
           <View style={styles.viewsInputs}>
             <Icon name="document-outline" style={styles.icons} />
             <TextInput
+              value = {vehicule.patent}
               placeholder="Número de patente"
               name="patent"
               style={styles.textPlaceholder}
+              onChangeText={(patent) => handleChangePatent(patent)}
             />
           </View>
           <View style={styles.viewsInputs}>
             <Icon name="car-sport-outline" style={styles.icons} />
             <TextInput
+              value = {vehicule.model}
               placeholder="Modelo de vehículo"
               name="model"
               style={styles.textPlaceholder}
+              onChangeText={(model) => handleChangeModel(model)}
             />
           </View>
           <View style={styles.viewsInputs}>
             <Icon name="color-palette-outline" style={styles.icons} />
             <TextInput
+             value = {vehicule.color}
               placeholder="Color del vehículo"
               name="color"
               style={styles.textPlaceholder}
+              onChangeText={(color) => handleChangeColor(color)}
             />
           </View>
           <View style={styles.viewsInputs}>
             <Icon name="construct-outline" style={styles.icons} />
             <TextInput
+            value = {vehicule.capacity}
               placeholder="Capacidad de carga en toneladas"
               name="capacity"
               style={styles.textPlaceholder}
+              onChangeText={(capacity) => handleChangeCapacity(capacity)}
             />
           </View>
         </View>
@@ -134,8 +205,21 @@ const EditVehicule = () => {
 
           <TouchableOpacity
             style={styles.btnEditar}
+            onPress={handleSubmit}
           >
             <Text style={styles.textBtn}>Editar</Text>
+            {/* MODAL */}
+            <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible}
+                  nRequestClose={() => changeModalVisible(false)}
+                >
+                  <SimpleModal
+                    changeModalVisible={changeModalVisible}
+                    setData={setData}
+                  />
+                </Modal>
           </TouchableOpacity>
         </View>
       </View>

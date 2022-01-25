@@ -65,7 +65,7 @@ const ProfileScreen = () => {
 
           <TouchableOpacity style={styles.btnText}
           onPress={() => {
-            navigation.navigate("HistorialDeViaje");
+            navigation.navigate("HistorialDeViajeCarrier");
           }}>
             <Icon name="location-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Historial de viajes</Text>

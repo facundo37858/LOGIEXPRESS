@@ -6,8 +6,7 @@ import { Carrier } from './src/models/Carrier';
 import { sequelize } from "./src/db";
 import { uuid } from 'uuidv4';
 import { callbackify } from "util";
-import { Carrier } from "./src/models/Carrier";
-import { User_Reg } from "./src/models/User_Reg";
+
 const { Op } = require("sequelize");
 const server = require('http').createServer(app);
 const io = require('socket.io')(server, { cors: { origin: "*" } });

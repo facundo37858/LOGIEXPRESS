@@ -27,6 +27,7 @@ import CambiarContraseña from "./Components/CambiodeContraseña/CambiarContrase
 import DetallesVehicule from "./Components/Detalles/DetallesVehicule";
 import HistorialDeViaje from "./Components/HistorialDeViaje/HistorialDeViaje";
 import Chat from './Components/Chat/Chat.js'
+import HistorialDeViajeCarrier from "./Components/HistorialDeViaje/HistorialDeViajeCarrier";
 import { LogBox } from 'react-native';
 
 
@@ -137,6 +138,11 @@ const App = () => {
             <Stack.Screen
               name="HistorialDeViaje"
               component={HistorialDeViaje}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="HistorialDeViajeCarrier"
+              component={HistorialDeViajeCarrier}
               options={{ headerShown: false }}
             />
             <Stack.Screen

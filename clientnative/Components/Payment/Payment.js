@@ -18,6 +18,7 @@ import config from "../../config/config";
 import SimpleModal60 from "../AlertasPago/SimpleModalpagok";
 import SimpleModal61 from "../AlertasPago/SimpleModalpagobad";
 import { reqTravelConfirm } from "../../actions/index.js"
+import { API_URL } from "@env"
 
 
 
@@ -25,7 +26,7 @@ const Payment = (props) => {
 
   const travelData = props.info.route.params;
   
-  console.log('Payment props: ',travelData)
+  console.log('Payment prooooooooooooooooooooooooooooops: 2',travelData)
   const dispatch = useDispatch();
   const info = useSelector((store) => store.responseLog);
   console.log('INFO: ',info)
@@ -74,6 +75,7 @@ const Payment = (props) => {
     id:  travelData.travel.id,
   }
 
+  console.log("ESTO ES EL OBJETO", obj)
   const subscribe = async () => {
     try {
       // sending request
@@ -87,8 +89,8 @@ const Payment = (props) => {
 
       // const response = await axios.post(`http://${config.ip}:3001/api/pay`, {
       //   name,tokenn,
-      // });
-      const response = await axios.post(`http://${config.ip}:3001/api/pay`, props);
+      // });      `${ API_URL }/api/confirmTravel`
+      const response = await axios.post(`${ API_URL }/api/pay`, props);
       //.then(res=>res.data)
 
       // console.log(response.data.key);

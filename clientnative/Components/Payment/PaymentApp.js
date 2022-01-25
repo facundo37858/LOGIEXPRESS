@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import Payment from './Payment';
 
 export default function App(props) {
-  console.log('data paymentData: ',props.route.params.userReg.id)
+  console.log('data paymentDataaaaaaaaaaaaaa: ',props.route.params)
   return (
     
     <View style={styles.container}>

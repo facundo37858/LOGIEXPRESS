@@ -8,7 +8,6 @@ import {
   REQUEST_PERMISSE,
   DELETE_PERMISSE,
   CONFIRME_REQUEST,
-  REQ_DATA_CARRIER,
 } from "../actions/index.js";
 
 const initialState = {
@@ -34,7 +33,6 @@ const initialState = {
   socket: null,
   respPermisse: null,
   confirmTravel: null,
-  dataCarrier: null,
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -143,11 +141,6 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         confirmTravel: action.payload
-      }
-    case REQ_DATA_CARRIER:
-      return {
-       ...state,
-
       }
     default:
       return state;

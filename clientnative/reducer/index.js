@@ -30,6 +30,7 @@ const initialState = {
   socket: null,
 };
 
+
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
     case "REGISTRO":

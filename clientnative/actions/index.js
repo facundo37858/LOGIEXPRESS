@@ -174,13 +174,13 @@ export function enviarToken(payload) {
       const response = await axios
         .post(`http://${config.ip}:3001/api/verifytoken`, payload) //aca cada uno pone su ip
         .then((r) => {
-          console.log("Token llegando a la action enviarToken", payload);
+          //console.log("Token llegando a la action enviarToken", payload);
           dispatch({
             type: "TOKEN",
             payload: r.data.payload,
           });
-          console.log("hace el dispatch");
-          console.log("Aqui esta el payload:", r.data.payload);
+          // console.log("hace el dispatch");
+          // console.log("Aqui esta el payload:", r.data.payload);
         });
       // console.log(r);
       // return response;

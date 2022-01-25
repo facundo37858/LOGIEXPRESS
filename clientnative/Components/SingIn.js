@@ -27,11 +27,6 @@ import config from '../config/config.js'
 const socket = io.connect(`http://${config.ip}:3001`);
 socket.on('connection')
 
-
-
-
-
-
 const SingIn = ({ navigation }) => {
   const dispatch = useDispatch();
 

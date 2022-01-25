@@ -8,7 +8,6 @@ export const SOCKET = "SOCKET";
 export const REQUEST_PERMISSE = 'REQUEST_PERMISSE';
 export const DELETE_PERMISSE = 'DELETE_PERMISSE';
 export const CONFIRME_REQUEST = 'CONFIRME_REQUEST';
-export const REQ_DATA_CARRIER = 'REQ_DATA_CARRIER';
 import { API_URL } from "@env"
 
 
@@ -42,21 +41,6 @@ export function deletePermisse () {
 }
 }
 
-
-export function reqDataCarrier (props) {
-  return async function (dispatch) {
-    try {
-      const resp = await axios.get(`${ API_URL }/api/user/${props}`)
-      return dispatch({
-        type: REQ_DATA_CARRIER,
-        payload: resp.data
-
-      })
-    } catch (error) {
-      console.log("Error", error)
-    }
-  }
-}
 
 
 export function requestPermisse (props) {

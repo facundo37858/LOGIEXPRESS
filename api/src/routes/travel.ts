@@ -96,13 +96,17 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
 
 });
 
+// usuario -> userId -> Travel -> id del viaje -> sin viajes 
+
+
 router.post('/oneTravel', async (req: Request, res: Response, next: NextFunction) => {
 
   const { id } = req.body
   let getTravel = await Travel.findAll({ where: { id: id } })
-  let varUser = await User.findAll({ where: { id: getTravel[0].userId } })
-  let varUserReg = await User_Reg.findOne({ where: { id: varUser[0].idUserReg } });
-  const travelFullData = { travel: getTravel[0], user: varUser[0], userReg: varUserReg }
+  let varUser = await User.findAll({ where: { id: getTravel[0].userId } , include:[{ model: User_Reg }]  })
+ /*  let varUserReg = await User_Reg.findOne({ where: { id: varUser[0].idUserReg } }); */
+  let varCarrier = await Carrier.findAll({where: { id: getTravel[0].carrierId}, include:[{ model: User_Reg }] })
+  const travelFullData = { travel: getTravel[0], user: varUser[0], carrier: varCarrier[0] }
   if (getTravel.length === 0){
     return res.send('Travel not found');
   } 
@@ -193,6 +197,45 @@ router.put('/acceptTravel', async (req: Request, res: Response, next: NextFuncti
   else res.send('id travel incorrecto');
 
 });
+
+router.get('/userTravel/:idRole',async(req:Request,res:Response,next:NextFunction)=>{
+
+  const { idRole }=req.params
+  console.log("ESTO ES REQUEST PARAM",req.params)
+  try{
+
+    let userTravel=await Travel.findAll({
+      where:{
+        [Op.and]: [{userId:idRole }, { finishedTravel: null }],
+
+      }
+    })
+
+    if(!userTravel.length){
+      return res.send('user sin travel')
+    }
+    res.json({menssage:'user travel',payload:userTravel})
+
+
+
+  }catch(e){
+    next(e)
+  }
+
+})
+
+
+router.post('/confirmTravel', async (req:Request,res:Response,next:NextFunction) => {
+  const { userId, id } = req.body;
+  try {
+    let confirm = await Travel.update({finishedTravel: 'process'}, {where: { id: id , userId : { [Op.eq]: userId } }})
+    console.log("ESTO DEVUELVE CONFIRM TRAVEL,", confirm )
+  } catch (error) {
+    next(error)
+  }
+})
+
+
 
 
 export default router;

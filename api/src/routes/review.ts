@@ -84,6 +84,81 @@ router.post('/review/user',async(req:Request,res:Response,next:NextFunction)=>{
 
 })
 
+
+// router.post('/review/user',async(req:Request,res:Response,next:NextFunction)=>{
+
+
+//     const {idTravel,Carrrier_raiting,Carrier_comment,User_raiting,User_comment}=req.body
+ 
+//     try{
+//         let newReviewCarrier={
+//             id:v4(),
+//             Carrrier_raiting,
+//             Carrier_comment,
+//             travelId:idTravel
+//         };
+    
+//         let newReviewUser={
+//             id:v4(),
+//             User_raiting,
+//             User_comment,
+//             travelId:idTravel
+//         };
+
+//         if(newReviewCarrier && !newReviewUser){
+
+//             let reviewe=await Review.create(newReviewCarrier);
+
+//             let upDating=await Review.update({User_raiting,User_comment},{
+//                 where:{
+//                     idTravel
+//                 },
+//                 returning: true,
+//             })
+
+//             reviewe ? res.status(200).send({mensaje:'Review creada Carrier',data:upDating}): res.status(404).send({mensaje:'Fallo Review'})
+
+//         }else if(newReviewUser && !newReviewCarrier){
+
+//             let reviewe=await Review.create(newReviewUser);
+
+//             let upDating=await Review.update({Carrrier_raiting,Carrier_comment},{
+//                 where:{
+//                     idTravel
+//                 },
+//                 returning: true,
+//             })
+
+//             reviewe ? res.status(200).send({mensaje:'Review creada User',data:upDating}): res.status(404).send({mensaje:'Fallo Review'})
+//         }
+//         if(newReviewCarrier && newReviewUser){
+
+//             let reviewe=await Review.create(newReviewCarrier);
+
+//             let upDating=await Review.update({User_raiting,User_comment},{
+//                 where:{
+//                     idTravel
+//                 },
+//                 returning: true,
+//             })
+
+//             reviewe ? res.status(200).send({mensaje:'Review creada',data:upDating}): res.status(404).send({mensaje:'Fallo Review'})
+            
+//             console.log(upDating)
+            
+
+//         }
+
+//     }catch(err){
+//         res.json('no hay review de este viaje')
+//         next(err)
+//     }
+     
+
+// })
+
+
+
 router.post('/review/carrier',async(req:Request,res:Response,next:NextFunction)=>{
 
     //luego q el user hace una review la pude hacer el trasportista???

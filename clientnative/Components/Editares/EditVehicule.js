@@ -215,7 +215,7 @@ const EditVehicule = () => {
                   visible={isModalVisible}
                   nRequestClose={() => changeModalVisible(false)}
                 >
-                  <SimpleModal
+                  <ModalVehicule
                     changeModalVisible={changeModalVisible}
                     setData={setData}
                   />

@@ -85,15 +85,6 @@ const ProfileUserScreen = () => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.btnText}
-            onPress={() => navigation.navigate("Chat")}
-          >
-            <Icon name="calculator-outline" style={styles.icons} />
-            <Text style={styles.userBtnTxt}>PRUEBA Chat</Text>
-            <Icon name="chevron-forward-outline" style={styles.icons2} />
-          </TouchableOpacity>
-
-          <TouchableOpacity
             style={styles.btn2}
             onPress={() => navigation.navigate("RequestTravel", data?.idRole)}
           >

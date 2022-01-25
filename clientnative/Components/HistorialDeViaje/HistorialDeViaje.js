@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View, Button } from "react-native";
+import { ScrollView, StyleSheet, Text, View, Button, Image } from "react-native";
 import { useEffect } from "react";
 import React from "react";
 import HeaderBar from "../Utils/HeaderBar";
@@ -9,8 +9,12 @@ import {
 } from "react-native-responsive-screen";
 import { useSelector, useDispatch } from "react-redux";
 import { getTravelUser } from "../../actions";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/core";
 
 const HistorialDeViaje = () => {
+  const navigation = useNavigation();
+
   const dispatch = useDispatch();
   const datosUser = useSelector((store) => store.responseLog);
 
@@ -27,7 +31,7 @@ const HistorialDeViaje = () => {
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-      <HeaderBar />
+        <HeaderBar />
         <View style={styles.containerHeaders}>
           <Text style={{ fontSize: hp("2.5%"), fontWeight: "bold" }}>
             Historial de viajes
@@ -39,6 +43,30 @@ const HistorialDeViaje = () => {
         <View style={styles.viewAnterior}>
           <Text style={styles.textAnterior}>EN CURSO</Text>
         </View>
+        <View style={styles.containerCards}>
+          <View style={styles.cards}>
+            <View style={styles.insideCard1}>
+              
+             <View>
+             <Text>Descripcion del viaje: Medicamentos</Text>
+              <Text>Villa Angela, Chaco, Argentina</Text>
+              <Text>Buenos Aires, Argentina</Text>
+              <Text style={{ color: "green", fontWeight: "bold" }}>
+                En proceso
+              </Text>
+              <Text style={styles.price}>$ 10000</Text>
+             </View>
+             <View>
+               <TouchableWithoutFeedback onPress={() => {navigation.navigate('Chat')}}>
+               <Image source={require('./burbuja-de-dialogo.png')}
+              style={{width: wp('10%'), height: hp('5%')}} />
+               </TouchableWithoutFeedback>
+             
+              </View>
+            </View>
+          </View>
+        </View>
+
         <View style={styles.viewAnterior}>
           <Text style={styles.textAnterior}>ANTERIORES</Text>
         </View>
@@ -103,8 +131,14 @@ const styles = StyleSheet.create({
     borderRadius: wp("3%"),
   },
   insideCard: {
-    width: wp('91%'), 
-    padding: wp('3%')
+    width: wp("91%"),
+    padding: wp("5%"),
+    
+  },
+  insideCard1: {
+    width: wp("91%"),
+    padding: wp("5%"),
+    flexDirection: 'row'
   },
   price: {
     textAlign: "center",

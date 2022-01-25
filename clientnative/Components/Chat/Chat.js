@@ -6,6 +6,7 @@ import {
   Button,
   TouchableOpacity,
   Image,
+
 } from "react-native";
 import React, { useState, useEffect } from "react";
 // prueba para las screens responsive
@@ -14,11 +15,16 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { useDispatch, useSelector } from "react-redux";
-import { ScrollView } from "react-native-gesture-handler";
+import {
+  ScrollView,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/Ionicons";
-import { editProfileCarrier } from "../../actions";
+import { useNavigation } from "@react-navigation/core";
+
 
 const Chat = () => {
+  const navigation = useNavigation();
   //Lo traemos del store
   const socket = useSelector((store) => store.socket);
   //console.log('soy sockets', socket)
@@ -115,6 +121,9 @@ const Chat = () => {
   return (
     <View style={styles.container}>
       <View style={styles.containerHeader}>
+        <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
+          <Icon name="arrow-back-outline" style={styles.icons} />
+        </TouchableWithoutFeedback>
         <Text style={styles.text}>ExpressChat</Text>
       </View>
       <ScrollView>
@@ -134,8 +143,9 @@ const Chat = () => {
                     <Text>{messageContent.message}</Text>
                   </View>
                   <View>
-                    <Text>{messageContent.time}</Text>
-                    <Text>{messageContent.author}</Text>
+                    <Text>
+                      {messageContent.author} {messageContent.time}
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -149,7 +159,7 @@ const Chat = () => {
             style={styles.textInputs}
             type="text"
             value={currentMessage}
-            placeholder="Hey..."
+            placeholder="Escribe tu mensaje aqui..."
             onChangeText={(text) => {
               setCurrentMessage(text);
             }}
@@ -187,15 +197,19 @@ const styles = StyleSheet.create({
   },
   containerHeader: {
     backgroundColor: "#7952B3",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: wp("4%"),
   },
   text: {
-    fontSize: hp("3%"),
+    fontSize: hp("2.75%"),
     fontWeight: "bold",
     textAlign: "center",
     padding: wp("4%"),
     backgroundColor: "#7952B3",
     marginTop: wp("9%"),
     color: "white",
+    marginLeft: wp("20%"),
   },
   btn: {
     backgroundColor: "#FFC107",
@@ -214,19 +228,23 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: wp("2.5%"),
     width: wp("100%"),
-    justifyContent: 'center',
-    borderTopWidth: wp('1%'),
-    borderColor:  "#F0F0F0"
-    
+    justifyContent: "center",
+    borderTopWidth: wp("1%"),
+    borderColor: "#F0F0F0",
   },
-  viewsInputs:{
-    width: wp('70%'),
-    padding: wp('4%'),
+  viewsInputs: {
+    width: wp("70%"),
+    padding: wp("4%"),
     backgroundColor: "#EEEEEE",
-    borderRadius: wp('10%'),
-    marginRight: wp('2%')
+    borderRadius: wp("10%"),
+    marginRight: wp("2%"),
   },
-  textInputs:{
-    fontSize: hp('2%')
-  }
+  textInputs: {
+    fontSize: hp("2%"),
+  },
+  icons: {
+    fontSize: hp("3.25%"),
+    color: "white",
+    marginTop: wp("10%"),
+  },
 });

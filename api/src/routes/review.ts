@@ -11,7 +11,12 @@ import { User } from "../models/User";
 const router =Router()
 
 
+//idCarrrier + idUser ---> tabla travel ---> busco el idTravel 
 
+// idTravel = await travel.findAll{ where:{
+//     idUser: idUser
+//     idCarrier:idCarrier
+//     }}
 
 router.post('/review/user',async(req:Request,res:Response,next:NextFunction)=>{
     //necesito el id de trave
@@ -34,26 +39,42 @@ router.post('/review/user',async(req:Request,res:Response,next:NextFunction)=>{
     //     }
     // })
 
+    let review= await Review.findAll({where:{travelId:idTravel}})
 
+    if(!review.length){
 
+        let newReviewCarrier={
+            id:v4(),
+            Carrrier_raiting,
+            Carrier_comment,
+            travelId:idTravel//travel[0].id//necesito el id del travel lo poasen desde el front
+        }
+        try{
 
-    let newReviewCarrier={
-        id:v4(),
-        Carrrier_raiting,
-        Carrier_comment,
-        travelId:idTravel//travel[0].id//necesito el id del travel lo poasen desde el front
-    }
-
-    try{
-        let reviewe=await Review.create(newReviewCarrier)
-        if(reviewe){
+            let reviewe=await Review.create(newReviewCarrier)
+                
             return res.status(200).send({mensaje:'Review creada',data:reviewe})
-    
+                
+                
+
+        }catch(err){
+
+            next(err)
         }
 
-    }catch(err){
-        next(err)
+
+    }else{
+        let upDataRewie= await review[0].update({Carrrier_raiting,Carrier_comment})
+
+        return res.status(200).send({mensaje:'Review update',data:upDataRewie})
     }
+
+
+
+
+    
+
+   
 
     
 
@@ -68,24 +89,65 @@ router.post('/review/carrier',async(req:Request,res:Response,next:NextFunction)=
     //luego q el user hace una review la pude hacer el trasportista???
 
     const {User_raiting,User_comment,idTravel}=req.body//review del carrier--->user
-    try{
-        let reviewUser= await Review.findAll({where:{travelId:idTravel}})//deberia tomar travelId 
-        if(!reviewUser.length){
-           return res.status(400).json({mensaje:'Rewiew not found'})
-        }else{
-            let upDating=await reviewUser[0].update({User_raiting,User_comment})
+    // try{
+    //     let reviewUser= await Review.findAll({where:{travelId:idTravel}})//deberia tomar travelId 
+    //     if(!reviewUser.length){
+    //        return res.status(400).json({mensaje:'Rewiew not found'})
+    //     }else{
+    //         let upDating=await reviewUser[0].update({User_raiting,User_comment})
 
-           res.status(200).json({mensaje:'Review',data:upDating}) 
+    //        res.status(200).json({mensaje:'Review',data:upDating}) 
+    //     }
+        
+    
+        
+    
+    // }catch(err){
+    //     next(err)
+    // }
+    ///////////////////////////////////////////////////
+    
+    let review= await Review.findAll({where:{travelId:idTravel}})
+
+    if(!review.length){
+
+        let newReviewCarrier={
+            id:v4(),
+            User_raiting,
+            User_comment,
+            travelId:idTravel//travel[0].id//necesito el id del travel lo poasen desde el front
         }
-        
-    
-        
-    
-    }catch(err){
-        next(err)
+        try{
+
+            let reviewe=await Review.create(newReviewCarrier)
+                
+            return res.status(200).send({mensaje:'Review creada',data:reviewe})
+                
+                
+
+        }catch(err){
+
+            next(err)
+        }
+
+
+    }else{
+        let upDataRewie= await review[0].update({User_raiting,User_comment})
+
+        return res.status(200).send({mensaje:'Review update',data:upDataRewie})
     }
+
+
+
+
     
+
+   
+
     
+
+  
+
     
 
 
@@ -162,6 +224,9 @@ router.get('/reviewCarrier/:idUser_Reg',async(req:Request,res:Response,next:Next
 
 
 })
+
+
+
 router.get('/reviewUser/:idUser_Reg',async(req:Request,res:Response,next:NextFunction)=>{
 
     const{idUser_Reg}=req.params

@@ -132,7 +132,7 @@ const ScreenWaiting = (payload) => {
           <Image source={{
             uri:
               objCarrier?.photo !== null
-                ? data.photo
+                ? objCarrier?.photo
                 : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg"
           }} style={styles.cardImage} />
         </View>

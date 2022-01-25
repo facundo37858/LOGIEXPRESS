@@ -5,6 +5,9 @@ import {
   GET_TRAVELS,
   GET_TRAVEL_ID,
   SOCKET,
+  REQUEST_PERMISSE,
+  DELETE_PERMISSE,
+  CONFIRME_REQUEST,
 } from "../actions/index.js";
 
 const initialState = {
@@ -28,6 +31,8 @@ const initialState = {
   editVehicule: [],
   travelsUser: [],
   socket: null,
+  respPermisse: null,
+  confirmTravel: null,
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -122,7 +127,21 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         socket: action.payload
       }
-
+    case REQUEST_PERMISSE: 
+      return {
+        ...state,
+        respPermisse: action.payload
+      }
+    case DELETE_PERMISSE:  
+      return {
+        ...state,
+        respPermisse: null
+      }
+    case CONFIRME_REQUEST:
+      return {
+        ...state,
+        confirmTravel: action.payload
+      }
     default:
       return state;
   }

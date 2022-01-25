@@ -3,12 +3,60 @@ import config from "../config/config";
 export const GET_PRICE_QUOTE = "GET_PRICE_QUOTE";
 export const GET_TRAVELS = "GET_TRAVELS";
 export const POST_REQUEST_TRAVE = "POST_REQUEST_TRAVE";
-export const URL_PRICE_QUOTE = `http://${config.ip}:3001/api/calculatePrice`;
-export const URL_REQUEST_TRAVEL = `http://${config.ip}:3001/api/requestTravel`;
-export const URL_TRAVEL = `http://${config.ip}:3001/api/Travel`;
-export const URL_TRAVEL_ID = `http://${config.ip}:3001/api/oneTravel`;
 export const GET_TRAVEL_ID = "GET_TRAVEL_ID";
 export const SOCKET = "SOCKET";
+export const REQUEST_PERMISSE = 'REQUEST_PERMISSE';
+export const DELETE_PERMISSE = 'DELETE_PERMISSE';
+export const CONFIRME_REQUEST = 'CONFIRME_REQUEST';
+import { API_URL } from "@env"
+
+
+
+
+export function reqTravelConfirm (payload) {
+  return async function (dispatch) {
+    try {
+      const confirm = await axios.post(`${ API_URL }/api/confirmTravel`, payload);
+      return dispatch({
+        type: CONFIRME_REQUEST,
+        payload: confirm.data
+      })
+    } catch (error) {
+      console.log("Error", error)
+    }
+  }
+}
+
+
+
+export function deletePermisse () {
+  return async function (dispatch) {
+    try {
+      return dispatch({
+        type: DELETE_PERMISSE
+      })
+    } catch (error) {
+      console.log("Error", error)
+    }
+}
+}
+
+
+
+export function requestPermisse (props) {
+  return async function (dispatch) {
+    try {
+      console.log("ESTA SON LAS PROPS QUE PASO X ACTIOOOOOOOON", props)
+      const resp = await axios.get(`${ API_URL }/api/userTravel/${props}`)
+      return dispatch({
+        type: REQUEST_PERMISSE,
+        payload: resp.data,
+      })
+    } catch (error) {
+      console.log("Error", error)
+    }
+  }
+}
 
 
 
@@ -31,7 +79,7 @@ export function getSocket(props) {
 export function getTravelID(payload) {
   return async function (dispatch) {
     try {
-      const travelID = await axios.post(URL_TRAVEL_ID, payload);
+      const travelID = await axios.post(`${ API_URL }/api/oneTravel`, payload);
       return dispatch({
         type: GET_TRAVEL_ID,
         payload: travelID.data,
@@ -45,7 +93,7 @@ export function getTravelID(payload) {
 export function getTravels() {
   return async function (dispatch) {
     try {
-      const request = await axios.get(URL_TRAVEL);
+      const request = await axios.get(`${ API_URL }/api/Travel`);
       return dispatch({
         type: GET_TRAVELS,
         payload: request.data,
@@ -59,7 +107,7 @@ export function getTravels() {
 export function requestTravel(payload) {
   return async function (dispatch) {
     try {
-      const travel = await axios.post(URL_REQUEST_TRAVEL, payload);
+      const travel = await axios.post(`${ API_URL }/api/requestTravel`, payload);
       return dispatch({
         type: POST_REQUEST_TRAVE,
         payload: travel.data,
@@ -73,7 +121,7 @@ export function requestTravel(payload) {
 export function cotizarViaje(payload) {
   return async function (dispatch) {
     try {
-      const quote = await axios.post(URL_PRICE_QUOTE, payload);
+      const quote = await axios.post(`${ API_URL }/api/calculatePrice`, payload);
       return dispatch({
         type: GET_PRICE_QUOTE,
         payload: quote.data.price,
@@ -88,7 +136,7 @@ export function registrarUsuario(payload) {
   return async function (dispatch) {
     try {
       const response = await axios
-        .post(`http://${config.ip}:3001/api/user`, payload) //aca cada uno pone su ip
+        .post(`${ API_URL }/api/user`, payload) //aca cada uno pone su ip
         .then((r) => {
           dispatch({
             type: "REGISTROO",
@@ -108,7 +156,7 @@ export function logiarUsuario(payload) {
   return async function (dispatch) {
     try {
       const response = await axios
-        .post(`http://${config.ip}:3001/api/login`, payload) //aca cada uno pone su ip
+        .post(`${API_URL}/api/login`, payload) //aca cada uno pone su ip
         .then((r) => {
           dispatch({
             type: "LOGEOO",
@@ -135,7 +183,7 @@ export function completeProfileUser(payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        `http://${config.ip}:3001/api/userProfile`,
+        `${API_URL}/api/userProfile`,
         payload
       );
       //console.log('Soy el console.log de response', response)
@@ -154,7 +202,7 @@ export function completeProfileCarrier(payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        `http://${config.ip}:3001/api/carrierProfile`,
+        `${API_URL}/api/carrierProfile`,
         payload
       );
       // console.log('Soy el console.log de response', response)
@@ -172,7 +220,7 @@ export function enviarToken(payload) {
   return async function (dispatch) {
     try {
       const response = await axios
-        .post(`http://${config.ip}:3001/api/verifytoken`, payload) //aca cada uno pone su ip
+        .post(`${API_URL}/api/verifytoken`, payload) //aca cada uno pone su ip
         .then((r) => {
           console.log("Token llegando a la action enviarToken", payload);
           dispatch({
@@ -196,7 +244,7 @@ export function changePassword(payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        `http://${config.ip}:3001/api/changePassword`,
+        `${API_URL}/api/changePassword`,
         payload
       );
       // console.log('Soy el console.log de response', response)
@@ -223,7 +271,7 @@ export function editProfileUser(payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        `http://${config.ip}:3001/api/updateUser`,
+        `${API_URL}/api/updateUser`,
         payload
       );
        //console.log('Soy el console.log de response', response)
@@ -242,7 +290,7 @@ export function editProfileCarrier(payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        `http://${config.ip}:3001/api/editCarrier`,
+        `${API_URL}/api/editCarrier`,
         payload
       );
        //console.log('Soy el console.log de response', response)
@@ -261,7 +309,7 @@ export function editVehicule(payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        `http://${config.ip}:3001/api/updateVehicle`,
+        `${API_URL}/api/updateVehicle`,
         payload
       );
        //console.log('Soy el console.log de response', response)
@@ -279,7 +327,7 @@ export function editVehicule(payload) {
 export function getTravelUser(idUserReg) {
   return async function (dispatch) {
     try {
-      var json = await axios(`http://${config.ip}:3001/api/historyTravelUser/${idUserReg}`);
+      var json = await axios(`${API_URL}/api/historyTravelUser/${idUserReg}`);
       dispatch({
         type: "GET_TRAVEL_USER",
         payload: json.data,
@@ -296,7 +344,7 @@ export function getTravelUser(idUserReg) {
 export function getVehicules(idRole) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`http://${config.ip}:3001/api/vehicleDetails/${idRole}`);
+      const response = await axios.get(`${API_URL}/api/vehicleDetails/${idRole}`);
       // console.log('Soy el console.log de response', response)
       return dispatch({
         type: 'GET_VEHICULES',

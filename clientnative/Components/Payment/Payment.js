@@ -12,15 +12,21 @@ import {
   Modal
 } from "react-native";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import config from "../../config/config";
 import SimpleModal60 from "../AlertasPago/SimpleModalpagok";
 import SimpleModal61 from "../AlertasPago/SimpleModalpagobad";
+import { reqTravelConfirm } from "../../actions/index.js"
+
+
+
 const Payment = (props) => {
 
-  console.log('Payment props: ',props)
-
+  const travelData = props.info.route.params;
+  
+  console.log('Payment props: ',travelData)
+  const dispatch = useDispatch();
   const info = useSelector((store) => store.responseLog);
   console.log('INFO: ',info)
   // const token = useSelector((store) => store.token);
@@ -28,7 +34,7 @@ const Payment = (props) => {
   // const [name, setName] = useState(info.eMail);
   // const [tokenn, setToken] = useState(token);
   const stripe = useStripe();
-
+  
 
    // validaciones
 
@@ -61,6 +67,12 @@ const Payment = (props) => {
     console.log("llega bien el mail?", info.eMail);
     subscribe();
   }, []);
+
+
+  const obj = {
+    userId: travelData.travel.userId,
+    id:  travelData.travel.id,
+  }
 
   const subscribe = async () => {
     try {
@@ -102,6 +114,7 @@ const Payment = (props) => {
       if (presentSheet.error)
         return Alert.alert("error3", presentSheet.error.message);
         changeModalVisible60(true)
+        dispatch(reqTravelConfirm(obj))
       // Alert.alert("Payment complete, thank you!");
     } catch (err) {
       console.error(err);

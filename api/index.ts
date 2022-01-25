@@ -6,6 +6,8 @@ import { Carrier } from './src/models/Carrier';
 import { sequelize } from "./src/db";
 import { uuid } from 'uuidv4';
 import { callbackify } from "util";
+import { Carrier } from "./src/models/Carrier";
+import { User_Reg } from "./src/models/User_Reg";
 const { Op } = require("sequelize");
 const server = require('http').createServer(app);
 const io = require('socket.io')(server, { cors: { origin: "*" } });
@@ -118,10 +120,22 @@ socket.on("join_room",async (data:any, callback:any) => {
     })
     socket.on("response", async (data: any) => {
         console.log(data)
-        const upTravel = await Travel.update({ carrierId: data.carrierId }, { where: { userId: data.userId, carrierId: { [Op.eq]: null } } });
-        socket.broadcast.emit('response', data)
+        const dateCarrier = await Carrier.findAll({where: { id: data.carrierId}})
+        const userReg = await User_Reg.findAll({where: { id : dateCarrier[0].idUserReg}})
+        const resp = {
+            userReg: userReg[0],
+            dateCarrier: dateCarrier[0]
+        }
+        
+        let upTravel = await Travel.update({ carrierId: data.carrierId  } , { where: { userId: data.userId, carrierId: { [Op.eq]: null } } , returning: true });
+        /* let upTravel2 = await Travel.update({ finishedTravel: "process" } , { where: { userId: data.userId, carrierId:  data.carrierId } }); */
+        console.log("Esto es upTravel", upTravel )
+     /*    const upTravel2 = await Travel.update({ finishedTravel: "process"} , { where: { userId: data.userId, finishedTravel: { [Op.eq]: null } } }); */
+        socket.broadcast.emit('response', resp)
     })
 
+
+    
 
     socket.on("delete", async (data: any , callback: any) => {
         console.log('Esto es lo que se debe borrar', data)

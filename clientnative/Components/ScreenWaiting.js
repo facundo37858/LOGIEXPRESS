@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -10,41 +10,60 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import HeaderBar from "./Utils/HeaderBar";
 import { useNavigation } from "@react-navigation/core";
-import { getTravelID, desmount } from "../actions/index";
+import { getTravelID, desmount, reqDataCarrier } from "../actions/index";
 import { useSelector, useDispatch } from "react-redux";
 
 const ScreenWaiting = (payload) => {
-  
-  
-  
+
+
+ 
   const socket = useSelector((store) => store.socket)
   const dispatch = useDispatch();
   const id = {
     id: payload.route.params
   }
+
+  const user_Reg = payload.route.params
+  const dataCarrier = useSelector((store) => store.dataCarrier)
   const navigation = useNavigation();
   const travel = useSelector((store) => store.travel);
-  console.log("Esto es data", id);
+  console.log("Esto LLEGA POR PAYLOADDDDDDD", travel);
 
   useEffect(() => {
     dispatch(getTravelID(id));
   }, [dispatch]);
 
 
+  
 
-   const handleDelete = () => {
-    const deleteTravel = () =>{
+/* 
+  useEffect(() => {
+    dispatch(reqDataCarrier(user_Reg));
+  }, [response]);
+ */
+
+  const handleDelete = () => {
+    const deleteTravel = () => {
       id
-      socket.emit('delete',id);
+      socket.emit('delete', id);
     };
     console.log(id);
     deleteTravel();
   }
+
+  const [response, setResponse] = useState(null)
+
+
+  useEffect(() => {
+    socket.on('response', (data) => {
+      console.log(data);
+      setResponse(data);
+    });
+  }, [socket]);
+
  
 
-
-
-  console.log("ESTO es LA respuesta:", id);
+  console.log("ESTO es LA respuesta:", dataCarrier);
   /* 
     console.log("Esto es lo que llegan en ScreenWaiting", travel[0].id) */
   /* const orig = travel[0]?.orig.split("/")

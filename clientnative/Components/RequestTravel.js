@@ -199,7 +199,7 @@ const RequestTravel = (props) => {
 
 
         //VALIDACIONES
-        /* 
+
                 if (travel.orig === `0/0/null`) {
                     changeModalVisible20(true)
                     return
@@ -218,7 +218,7 @@ const RequestTravel = (props) => {
                     changeModalVisible23(true)
                     return
                 }
-         */
+         
         sendMessage(travel)
         
         console.log("Estoy enviando:", travel)

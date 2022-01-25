@@ -20,11 +20,12 @@ import SimpleModal5 from "./AlertasReg/SimpleModalmail.js";
 import SimpleModal6 from "./AlertasReg/SimpleModalpass.js";
 import SimpleModal30 from "./AlertasLog/SimpleModallog.js";
 import io from 'socket.io-client'
-import config from '../config/config.js'
 
 
+import { API_URL } from "@env"
 
-const socket = io.connect(`http://${config.ip}:3001`);
+
+const socket = io.connect(`${API_URL}`);
 socket.on('connection')
 
 const SingIn = ({ navigation }) => {
@@ -42,7 +43,7 @@ const SingIn = ({ navigation }) => {
     }  
   const nuevotoken = useSelector((store) => store.token);
   useEffect(() => {
-    console.log("verificando, que se envia", nuevotoken);
+    /* console.log("verificando, que se envia", nuevotoken); */
     save("token", nuevotoken);
   }, [nuevotoken]);
 

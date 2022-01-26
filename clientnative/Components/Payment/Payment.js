@@ -12,15 +12,22 @@ import {
   Modal
 } from "react-native";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import config from "../../config/config";
 import SimpleModal60 from "../AlertasPago/SimpleModalpagok";
 import SimpleModal61 from "../AlertasPago/SimpleModalpagobad";
+import { reqTravelConfirm } from "../../actions/index.js"
+import { API_URL } from "@env"
+
+
+
 const Payment = (props) => {
 
-  console.log('Payment props: ',props)
-
+  const travelData = props.info.route.params;
+  
+  console.log('Payment prooooooooooooooooooooooooooooops: 2',travelData)
+  const dispatch = useDispatch();
   const info = useSelector((store) => store.responseLog);
   console.log('INFO: ',info)
   // const token = useSelector((store) => store.token);
@@ -28,7 +35,7 @@ const Payment = (props) => {
   // const [name, setName] = useState(info.eMail);
   // const [tokenn, setToken] = useState(token);
   const stripe = useStripe();
-
+  
 
    // validaciones
 
@@ -62,6 +69,13 @@ const Payment = (props) => {
     subscribe();
   }, []);
 
+
+  const obj = {
+    userId: travelData.travel.userId,
+    id:  travelData.travel.id,
+  }
+
+  console.log("ESTO ES EL OBJETO", obj)
   const subscribe = async () => {
     try {
       // sending request
@@ -75,8 +89,8 @@ const Payment = (props) => {
 
       // const response = await axios.post(`http://${config.ip}:3001/api/pay`, {
       //   name,tokenn,
-      // });
-      const response = await axios.post(`http://${config.ip}:3001/api/pay`, props);
+      // });      `${ API_URL }/api/confirmTravel`
+      const response = await axios.post(`${ API_URL }/api/pay`, props);
       //.then(res=>res.data)
 
       // console.log(response.data.key);
@@ -102,6 +116,7 @@ const Payment = (props) => {
       if (presentSheet.error)
         return Alert.alert("error3", presentSheet.error.message);
         changeModalVisible60(true)
+        dispatch(reqTravelConfirm(obj))
       // Alert.alert("Payment complete, thank you!");
     } catch (err) {
       console.error(err);

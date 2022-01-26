@@ -21,13 +21,12 @@ import SimpleModal6 from "./AlertasReg/SimpleModalpass.js";
 import SimpleModal30 from "./AlertasLog/SimpleModallog.js";
 import io from 'socket.io-client'
 
-const socket = io.connect("http://192.168.2.102:3001");
+
+import { API_URL } from "@env"
+
+
+const socket = io.connect(`${API_URL}`);
 socket.on('connection')
-
-
-
-
-
 
 const SingIn = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -41,14 +40,10 @@ const SingIn = ({ navigation }) => {
     } catch(error){
       console.log('error', error.response)
     }
-    }
-    
-
-
-
+    }  
   const nuevotoken = useSelector((store) => store.token);
   useEffect(() => {
-    console.log("verificando, que se envia", nuevotoken);
+    /* console.log("verificando, que se envia", nuevotoken); */
     save("token", nuevotoken);
   }, [nuevotoken]);
 

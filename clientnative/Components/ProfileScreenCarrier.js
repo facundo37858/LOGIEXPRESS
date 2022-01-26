@@ -20,8 +20,8 @@ const ProfileScreen = () => {
   const data = useSelector((store) => store.responseLog);
   const navigation = useNavigation();
 
-  console.log("AQUI RESPONLOG EN PROFILEUSERScreen", data);
-  console.log("AQUI RESPTOKEN en PROFILEUSERScreen", resptoken);
+  // console.log("AQUI RESPONLOG EN PROFILEUSERScreen", data);
+  // console.log("AQUI RESPTOKEN en PROFILEUSERScreen", resptoken);
 
   useEffect(() => {
     //console.log("data", data);
@@ -30,7 +30,7 @@ const ProfileScreen = () => {
   return (
     <View style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={styles.perfilTex}>¡Bienvenid@s!</Text>
+        <Text style={styles.perfilTex}>¡Bienvenid@!</Text>
         <View
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >
@@ -49,7 +49,7 @@ const ProfileScreen = () => {
             {data.name} {data.lastname}
           </Text>
         </View>
-        <View style={{ flex: 1, marginBottom: 90 }}>
+        <View style={{ flex: 1, marginBottom: 150 }}>
           <TouchableOpacity
             style={styles.btnText}
             onPress={() => {
@@ -63,31 +63,13 @@ const ProfileScreen = () => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.btnText}
-            onPress={() => {
-              navigation.navigate("EditVehicule");
-            }}
-          >
-            <Icon name="bus-outline" style={styles.icons} />
-            <Text style={styles.userBtnTxt}>Datos del vehículo</Text>
-            <View style={{ marginLeft: 95 }}>
-              <Icon name="chevron-forward-outline" style={styles.icons3} />
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.btnText}>
+          <TouchableOpacity style={styles.btnText}
+          onPress={() => {
+            navigation.navigate("HistorialDeViajeCarrier");
+          }}>
             <Icon name="location-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Historial de viajes</Text>
             <View style={{ marginLeft: 100 }}>
-              <Icon name="chevron-forward-outline" style={styles.icons3} />
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.btnText}>
-            <Icon name="cash-outline" style={styles.icons} />
-            <Text style={styles.userBtnTxt}>Transacciones</Text>
-            <View style={{ marginLeft: 128 }}>
               <Icon name="chevron-forward-outline" style={styles.icons3} />
             </View>
           </TouchableOpacity>
@@ -148,7 +130,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     backgroundColor: "#fff",
     width: "85%",
-    height: "11%",
+    height: "14%",
     padding: 10,
     paddingBottom: 10,
     borderRadius: 15,
@@ -164,7 +146,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#7952B3",
     width: "85%",
-    height: "15%",
+    height: "18%",
     padding: 10,
     paddingBottom: 10,
     borderRadius: 15,

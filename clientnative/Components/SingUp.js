@@ -546,10 +546,6 @@ if (!obj.phone) {
                   
                   </Modal>
           </TouchableOpacity>
-          <Button
-          title="RequestTravel"
-          onPress={() => navigation.navigate("RequestTravel")}/>
-
          
         </View>
 

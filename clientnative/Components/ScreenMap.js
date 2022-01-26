@@ -31,7 +31,7 @@ const ScreenMap = () => {
   const dispatch = useDispatch();
   const travels = useSelector((state) => state.travels);
 
-  
+
 
   const [pin, setPin] = useState({
     latitude: 0,
@@ -115,7 +115,7 @@ const ScreenMap = () => {
   const _map = React.useRef(null);
   const _scrollView = React.useRef(null);
 
-  console.log(_map);
+  console.log(travels);
 
   const rating = 3;
 
@@ -207,7 +207,12 @@ const ScreenMap = () => {
               <View style={styles.card} key={index}>
                 <View style={{ alignItems: "center", flexDirection: "column" }}>
                   <Image
-                     source={{ uri: resp.user.photo }}
+                    source={{
+                      uri:
+                        resp.user.photo !== null
+                          ? resp.user.photo
+                          : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg"
+                    }}
                     style={styles.cardImage}
                   />
                   <StarRating ratings={rating} reviews={rating} />

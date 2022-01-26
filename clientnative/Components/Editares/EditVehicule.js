@@ -235,6 +235,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    backgroundColor: 'white'
   },
   textEditar: {
     fontSize: hp("2.5%"),

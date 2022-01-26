@@ -35,7 +35,7 @@ const DatosPersonalesCarrier = () => {
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
       <View>
-      <HeaderBar/>
+      <HeaderBar  screen={'null'}/>
         <Text style={styles.perfilTex}>Datos personales</Text>
       </View>
         

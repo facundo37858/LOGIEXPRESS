@@ -36,7 +36,12 @@ const HistorialDeViaje = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <HeaderBar />
         <View style={styles.containerHeaders}>
+<<<<<<< HEAD
           <Text style={styles.textHistorial}>
+=======
+          <HeaderBar  screen={'null'}/>
+          <Text style={{ fontSize: hp("2.5%"), fontWeight: "bold" }}>
+>>>>>>> 3dbca000566e84edc63dfc2d592623a01eca2ced
             Historial de viajes
           </Text>
           <Text style={styles.textViajes}>
@@ -90,7 +95,11 @@ const HistorialDeViaje = () => {
                     <Text>Peso en toneladas: {datos.weight}</Text>
                     <Text>{orig[2]}</Text>
                     <Text>{dest[2]}</Text>
+<<<<<<< HEAD
                     <Text style={styles.textFinished}>{datos.finishedTravel}</Text>
+=======
+                    <Text style={{color: 'red', fontWeight: 'bold'}}>{datos.finishedTravel}</Text>
+>>>>>>> 3dbca000566e84edc63dfc2d592623a01eca2ced
                     <Text style={styles.price}>$ {datos.price}</Text>
                   </View>
                 </View>

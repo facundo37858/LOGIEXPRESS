@@ -71,7 +71,7 @@ const CambiarContraseña = () => {
       {/* <BOTON DE VOLVER ATRÁS */}
       <View style={{ marginTop :35}}>
         {/* <Image source={require("../Utils/salida.png")} /> */}
-        <HeaderBar/>
+        <HeaderBar  screen={'null'}/>
       </View>
       <View style={styles.containerImg}>
         <Image

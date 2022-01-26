@@ -62,7 +62,7 @@ const CotizarViaje = () => {
   //// --> Inicio de componente <-- ////
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <HeaderBar/>
+      <HeaderBar  screen={'null'}/>
       <ScrollView keyboardShouldPersistTaps={"handled"}>
         <View style={styles.container}>
           <Text style={styles.textCotiza}>¡Cotiza tu viaje!</Text>

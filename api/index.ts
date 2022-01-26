@@ -80,7 +80,9 @@ io.on("connection", (socket: any) => {
     socket.on("delete", async (data: any , callback: any) => {
         console.log('Esto es lo que se debe borrar', data)
         const deltTravel = await Travel.destroy({ where: { id: data.id }});
-      
+        callback({
+            status: 'Viaje eliminado exitosamente'
+        })
     })
  
 

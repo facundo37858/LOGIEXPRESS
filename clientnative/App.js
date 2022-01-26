@@ -138,8 +138,15 @@ const App = () => {
               component={HistorialDeViaje}
               options={{ headerShown: false }}
             />
-            <Stack.Screen name="ScreenWaiting" component={ScreenWaiting} />
-            <Stack.Screen name="StartCarrier" component={StartCarrier} />
+            <Stack.Screen 
+            name="ScreenWaiting" 
+            component={ScreenWaiting} 
+            options={{ headerShown: false }}
+            />
+            <Stack.Screen 
+            name="StartCarrier" 
+            component={StartCarrier} 
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editProfileCarrier } from "../../actions";
 import SimpleModal from "./SimpleModal";
 import { desmount } from "../../actions";
+import HeaderBar from "../Utils/HeaderBar";
 
 
 const EditProfileCarrier = () => {
@@ -177,14 +178,15 @@ function handleSubmit(e) {
         style={{ backgroundColor: "white" }}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.iconBar}>
+      {/*   <View style={styles.iconBar}>
           <TouchableOpacity
             //no esta conectado a ningun lugar
             onPress={() => navigation.navigate("DatosPersonalesCarrier")}
           >
             <Icon name="chevron-back-outline" size={30} />
           </TouchableOpacity>
-        </View>
+        </View> */}
+      <HeaderBar screen={'null'} />
         <Text style={{ fontWeight: "bold", marginLeft: 15, fontSize: 25 }}>
           Editar perfil
         </Text>

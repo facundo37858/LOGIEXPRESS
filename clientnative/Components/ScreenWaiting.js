@@ -67,24 +67,38 @@ const ScreenWaiting = (payload) => {
   const handleDelete = () => {
     const deleteTravel = () => {
       id
-      socket.emit('delete', id);
+      socket.emit('delete', id, (response) => {
+        console.log("ESTA SERIA LA RESPUESTA",response.status)
+        setRespDelete(response) 
+      });
     };
     console.log(id);
     deleteTravel();
   }
 
   const [response, setResponse] = useState(null)
-
+  const [respDelete, setRespDelete] = useState(null)
 
   useEffect(() => {
     socket.on('response', (data) => {
       console.log(data);
       setResponse(data);
     });
-  }, [socket]);
+    if(respDelete) {
+      if(respDelete.status === 'Viaje eliminado exitosamente') {
+        alert('Viaje eliminado exitosamente')
+        navigation.navigate('ProfileUserScreen')
+      }
+      console.log("ESTO ES LA RESPUESTA DE DELETE",respDelete.status);
+    }
+    return () => {
+     setRespDelete(null)
+    };
+  }, [socket, respDelete]);
 
-
-
+ 
+  
+  
   /* 
     console.log("Esto es lo que llegan en ScreenWaiting", travel[0].id) */
   /* const orig = travel[0]?.orig.split("/")
@@ -152,8 +166,8 @@ const ScreenWaiting = (payload) => {
         backgroundColor: "#fff",
         marginTop: 30,
       }}
-    >
-      <HeaderBar />
+    >  
+      <HeaderBar screen={'ProfileUserScreen'}/>
       <ScrollView>
         <View style={{ flex: 1, paddingBottom: 24 }}>
           <View style={{ alignItems: "center" }}>

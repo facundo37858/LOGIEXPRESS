@@ -130,7 +130,7 @@ const EditVehicule = () => {
   return (
     <View style={styles.container}>
       <View>
-        <HeaderBar />
+        <HeaderBar  screen={'null'}/>
         <Text style={styles.textEditar}>Editar datos del vehiculo</Text>
         <View style={styles.containerInputs}>
           <View style={styles.viewsInputs}>

@@ -45,17 +45,8 @@ const App = () => {
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator>
-          {/* <Stack.Screen
-              name="ReviewUser"
-              component={reviewUser}
-              options={{ headerShown: false }}
-            /> */}
-              <Stack.Screen
-              name="ReviewCarrier"
-              component={reviewCarrier}
-              options={{ headerShown: false }}
-            />
-            {/* <Stack.Screen
+       
+            <Stack.Screen
               name="Home"
               component={Home}
               options={{ headerShown: false }}
@@ -162,8 +153,26 @@ const App = () => {
               component={Chat}
               options={{ headerShown: false }}
             />
-            <Stack.Screen name="ScreenWaiting" component={ScreenWaiting} />
-            <Stack.Screen name="StartCarrier" component={StartCarrier} /> */}
+            <Stack.Screen 
+            name="ScreenWaiting" 
+            component={ScreenWaiting} 
+            options={{ headerShown: false }}
+            />
+            <Stack.Screen 
+            name="StartCarrier" 
+            component={StartCarrier} 
+            options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="ReviewUser"
+              component={reviewUser}
+              options={{ headerShown: false }}
+            />
+              <Stack.Screen
+              name="ReviewCarrier"
+              component={reviewCarrier}
+              options={{ headerShown: false }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

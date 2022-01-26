@@ -116,7 +116,7 @@ const StartUser = (props) => {
         <StarRating
         disabled={false}
         maxStars={5}
-        rating={review.rating}
+        rating={Number(review.rating)}
         selectedStar={(rating) => handelChangeRating(rating)}
         fullStarColor='purple'
       />

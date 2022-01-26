@@ -171,7 +171,8 @@ router.get('/Travel', async (req: Request, res: Response, next: NextFunction) =>
   try {
     //Importante en el modelo de travel hay un error en declaración de la relacion con user User_Reg
     //hay que corregir que es de tipo string 
-    let travel = await Travel.findAll({where: { carrierId: null}})
+    /* let travel = await Travel.findAll() */
+    const travel = await Travel.findAll({ where: { carrierId:{[Op.eq]: null} }})
     // res.send(travel);
     if (travel.length > 0) {
       let tam = travel.length;

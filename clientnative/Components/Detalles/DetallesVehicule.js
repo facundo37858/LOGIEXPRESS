@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   btnEditar: {
     backgroundColor: "#511281",
     borderRadius: 10,
-    width: wp("80%"),
+    width: wp("88%"),
     height: hp("7%"),
     marginTop: wp("10%"),
     alignSelf: "center",

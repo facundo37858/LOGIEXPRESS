@@ -12,8 +12,11 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/core";
 import { logiarUsuario } from "./../actions/index";
 import { useSelector } from "react-redux";
-
-import StarRating from "./StarRating";
+// prueba para las screens responsive
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const ProfileScreen = () => {
   const resptoken = useSelector((store) => store.respToken);
@@ -28,13 +31,13 @@ const ProfileScreen = () => {
   }, [data]);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1,  backgroundColor: 'white'  }}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={styles.perfilTex}>¡Bienvenid@!</Text>
         <View
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >
-           <View style={{ marginTop: 25 }}>
+           <View style={{ marginTop: wp("10%")  }}>
             <Image
               source={{
                 uri:
@@ -49,7 +52,7 @@ const ProfileScreen = () => {
             {data.name} {data.lastname}
           </Text>
         </View>
-        <View style={{ flex: 1, marginBottom: 150 }}>
+        <View style={{ flex: 1, marginBottom: wp("60%"), padding: wp("5.5%")  }}>
           <TouchableOpacity
             style={styles.btnText}
             onPress={() => {
@@ -58,9 +61,7 @@ const ProfileScreen = () => {
           >
             <Icon name="person-circle-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Datos Personales</Text>
-            <View style={{ marginLeft: 103 }}>
               <Icon name="chevron-forward-outline" style={styles.icons3} />
-            </View>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btnText}
@@ -69,9 +70,7 @@ const ProfileScreen = () => {
           }}>
             <Icon name="location-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Historial de viajes</Text>
-            <View style={{ marginLeft: 100 }}>
               <Icon name="chevron-forward-outline" style={styles.icons3} />
-            </View>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -80,7 +79,7 @@ const ProfileScreen = () => {
           >
             <Icon name="calculator-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Cotizar viaje</Text>
-            <Icon name="chevron-forward-outline" style={styles.icons2} />
+            <Icon name="chevron-forward-outline" style={styles.icons4} />
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -89,7 +88,7 @@ const ProfileScreen = () => {
           >
             <Text style={styles.userBtnTxt2}>Comenzar viaje</Text>
             <Image
-              style={{ width: 50, height: 35 }}
+              style={{ width: wp('15%'), height: hp('6%'), marginLeft: wp('2%'), marginTop: wp('-2%') }}
               source={require("./Utils/camion.png")}
             />
           </TouchableOpacity>
@@ -103,86 +102,94 @@ export default ProfileScreen;
 
 const styles = StyleSheet.create({
   icons: {
-    marginRight: 10,
-    marginTop: 4,
-    fontSize: 22,
-  },
-  icons2: {
-    fontSize: 22,
-    marginLeft: "45%",
-    marginTop: 4,
+    alignContent: "center",
+    fontSize: hp("3.5%"),
+    color: "#F8B500",
+    padding: wp("1.30%"),
+    marginRight: wp("4%"),
+    marginLeft: wp('1%'),
+    backgroundColor: '#F2F4FB',
+    borderRadius: wp('7%'),
+    width: wp('10%'),
+    height: hp('5.2%'),
+    marginTop: wp('-1%')
   },
   icons3: {
-    fontSize: 22,
-    alignSelf: "stretch",
-    marginTop: 4,
+    fontSize: hp("2.70%"),
+    alignContent: "flex-end",
+    alignItems: "flex-end",
+    marginTop: wp('1%'),
+    marginLeft: wp('22%')
+  },
+  icons4: {
+    fontSize: hp("2.70%"),
+    alignContent: "flex-end",
+    alignItems: "flex-end",
+    marginTop: wp('1%'),
+    marginLeft: wp('34%')
   },
   perfilTex: {
-    fontSize: 19,
+    fontSize: hp("2.6%"),
     fontWeight: "bold",
     alignItems: "flex-start",
     marginTop: 40,
     marginLeft: 20,
   },
   btnText: {
-    alignSelf: "center",
     flexDirection: "row",
-    justifyContent: "flex-start",
     backgroundColor: "#fff",
-    width: "85%",
-    height: "14%",
-    padding: 10,
-    paddingBottom: 10,
-    borderRadius: 15,
+    width: wp("88%"),
+    height: hp("7%"),
+    padding: wp('2.5%'),
+    borderRadius: wp('3%'),
     shadowOpacity: 80,
-    elevation: 15,
-    marginTop: 20,
+    elevation: 16,
+    marginTop: wp("7%"),
     borderColor: "#E1E8EB",
-    borderWidth: 1.5,
+    borderWidth: 1.75,
   },
   btn2: {
+    alignContent: "center",
     alignSelf: "center",
     flexDirection: "row",
     justifyContent: "center",
     backgroundColor: "#7952B3",
-    width: "85%",
-    height: "18%",
-    padding: 10,
-    paddingBottom: 10,
-    borderRadius: 15,
+    width: wp("88%"),
+    height: hp("8.5%"),
+    padding: wp('5%'),
+    borderRadius: wp('4%'),
     shadowOpacity: 80,
     elevation: 15,
-    marginTop: 25,
+    marginTop: wp('7.5%'),
   },
-
   userImg: {
-    marginTop: 10,
-    height: 170,
-    width: 170,
-    borderRadius: 85,
-    borderWidth: 5,
+    marginTop: wp('3%'),
+    height: hp('20%'),
+    width: wp('40%'),
+    borderRadius: wp('40%'),
+    borderWidth: wp('1.20%'),
     borderColor: "#7952B3",
   },
   userName: {
     fontSize: 24,
     fontWeight: "bold",
     marginTop: 7,
-    marginBottom: 20,
+    marginBottom: wp("3%"),
   },
   userBtnTxt: {
-    marginTop: 2,
+    marginTop: wp('1%'),
     color: "black",
     textAlign: "center",
-    fontSize: 18,
-    marginTop: 3,
+    fontSize: hp('2.2%'),
+    marginTop: wp('0.9%'),
   },
   userBtnTxt2: {
-    color: "#E5E1E1",
+    paddingLeft: wp('2%'),
+    color: "white",
     textAlign: "center",
-    fontSize: 20,
+    fontSize: hp('2.65%'),
+    height: hp('7%'),
     fontWeight: "bold",
-    marginTop: 9,
-    marginRight: 15,
   },
   userInfoWrapper: {
     flexDirection: "row",

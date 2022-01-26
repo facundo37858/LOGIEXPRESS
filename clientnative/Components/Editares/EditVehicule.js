@@ -9,6 +9,7 @@ import {
   Alert,
   TextInput,
   TouchableOpacity,
+  Modal
 } from "react-native";
 //iconos
 import Icon from "react-native-vector-icons/Ionicons";
@@ -29,8 +30,10 @@ import { desmount  } from "../../actions";
 const EditVehicule = () => {
   ////--> HOOK PARA LA NAVEGACION <-- ////
   const navigation = useNavigation();
-
   const dispatch = useDispatch();
+
+  const datosCarrier = useSelector((store) => store.responseLog)
+
   const vehicule = useSelector((store) => store.editVehicule)
   //console.log(editUser)
 
@@ -38,7 +41,7 @@ const EditVehicule = () => {
     if(vehicule?.msg) {
      changeModalVisible(true)
     }
-  }, [vehicule]);
+  }, [vehicule, datosCarrier]);
 
   useEffect(() => {
     return () => {
@@ -121,6 +124,7 @@ const EditVehicule = () => {
     color : vehiculo.color,
     capacity : vehiculo.capacity,
     license : vehiculo.license,
+    id: datosCarrier.id
   }
   dispatch(editVehicule(edit))
   console.log("soy lo que se envia el front", edit);

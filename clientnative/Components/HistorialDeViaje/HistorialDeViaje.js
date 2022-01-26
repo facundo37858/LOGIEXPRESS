@@ -20,10 +20,10 @@ const HistorialDeViaje = () => {
 
   //nos traemos el estado para saber si lo hicimos bien
   const dataTravels = useSelector((store) => store.travelsUser.payload);
-  // console.log('ey, lo hicimos bien?', dataTravels)
+   console.log('ey, lo hicimos bien?', dataTravels)
 
-  const travelsCarrier = useSelector((store) => store.travelsCarrier)
-  console.log('viajes carrier', travelsCarrier)
+  // // const travelsCarrier = useSelector((store) => store.travelsCarrier)
+  // // console.log('viajes carrier', travelsCarrier)
 
   const idUserReg = datosUser.id;
   useEffect(() => {
@@ -36,10 +36,10 @@ const HistorialDeViaje = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <HeaderBar />
         <View style={styles.containerHeaders}>
-          <Text style={{ fontSize: hp("2.5%"), fontWeight: "bold" }}>
+          <Text style={styles.textHistorial}>
             Historial de viajes
           </Text>
-          <Text style={{ fontSize: hp("1.75%") }}>
+          <Text style={styles.textViajes}>
             Tus viajes realizados con sus detalles.
           </Text>
         </View>
@@ -90,7 +90,7 @@ const HistorialDeViaje = () => {
                     <Text>Peso en toneladas: {datos.weight}</Text>
                     <Text>{orig[2]}</Text>
                     <Text>{dest[2]}</Text>
-                    <Text style={{color: 'red', fontSize: 'bold'}}>{datos.finishedTravel}</Text>
+                    <Text style={styles.textFinished}>{datos.finishedTravel}</Text>
                     <Text style={styles.price}>$ {datos.price}</Text>
                   </View>
                 </View>
@@ -118,6 +118,13 @@ const styles = StyleSheet.create({
     marginLeft: wp("5%"),
     paddingBottom: wp("2%"),
   },
+  textHistorial: {
+     fontSize: hp("2.5%"), 
+     fontWeight: "bold" 
+    },
+    textViajes: { 
+      fontSize: hp("1.75%") 
+    },
   viewAnterior: {
     padding: wp("2%"),
     backgroundColor: "#DDDDDD", //"#FFC107",
@@ -161,6 +168,7 @@ const styles = StyleSheet.create({
     fontSize: hp("2%"),
     marginLeft: wp('18%')
   },
+  textFinished: {color: 'red', fontWeight: 'bold'}
 });
 
 /*container: { flex: 1 },

@@ -11,20 +11,45 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/core";
-import { logiarUsuario } from "./../actions/index";
-import { useSelector } from "react-redux";
+import { requestPermisse , deletePermisse } from "./../actions/index";
+import { useSelector, useDispatch } from "react-redux";
 
 const ProfileUserScreen = () => {
   const resptoken = useSelector((store) => store.respToken);
   const data = useSelector((store) => store.responseLog);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const respPermisse = useSelector((store) => store.respPermisse) 
+
+
+
 
   useEffect(() => {
-    //console.log("data", data);
-  }, [data]);
 
-  // console.log("AQUI RESPONLOG EN PROFILEUSERScreen", data);
+      if(respPermisse === 'user sin travel') {
+        console.log("AQUI ESTA LA RESPUESTA DEL HANDLeeEEEEEEEEEEE", respPermisse)
+        navigation.navigate('RequestTravel', data?.idRole)
+       }  
+      if(respPermisse?.menssage === 'user travel') {
+        console.log("llege aca", respPermisse.payload[0].id)
+        navigation.navigate('ScreenWaiting', respPermisse.payload[0].id)
+      }  
+    return () => {
+      dispatch(deletePermisse())
+    };
+  }, [data, respPermisse]);
+  
+
+  console.log("AQUI ESTA LA RESPUESTA DEL HANDLE", respPermisse);
   // console.log("AQUI RESPTOKEN en PROFILEUSERScreen", resptoken);
+
+
+  const handleRequest = (props) => {
+    console.log(props)
+    dispatch(requestPermisse(props))
+  }
+
+
 
   return (
     <View style={{ flex: 1 }}>
@@ -86,10 +111,10 @@ const ProfileUserScreen = () => {
 
           <TouchableOpacity
             style={styles.btn2}
-            onPress={() => navigation.navigate("RequestTravel", data?.idRole)}
+            onPress={() => handleRequest(data?.idRole)}
           >
             <Image
-              style={{ width: 70, height: 55, marginLeft: -4 }}
+              style={{ width: 60, height: 40, marginLeft: -4 }}
               source={require("./Utils/UserProfile.png")}
             />
             <Text style={styles.userBtnTxt2}>Solicitar Viaje</Text>

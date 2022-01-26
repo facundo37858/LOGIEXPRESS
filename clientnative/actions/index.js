@@ -150,6 +150,7 @@ export function cotizarViaje(payload) {
 export function registrarUsuario(payload) {
   return async function (dispatch) {
     try {
+      console.log('API URL',API_URL)
       const response = await axios
         .post(`${ API_URL }/api/user`, payload) //aca cada uno pone su ip
         .then((r) => {
@@ -170,6 +171,7 @@ export function registrarUsuario(payload) {
 export function logiarUsuario(payload) {
   return async function (dispatch) {
     try {
+      
       const response = await axios
         .post(`${API_URL}/api/login`, payload) //aca cada uno pone su ip
         .then((r) => {

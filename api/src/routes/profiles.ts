@@ -217,7 +217,7 @@ router.post('/editCarrier', async (req: Request, res: Response, next: NextFuncti
             if(license){upDateThis.license = license}
             if(location){upDateThis.location = location}
             if(Cuenta){upDateThis.Cuenta = Cuenta}
-			if(photo){upDateThis.photo = photo}
+			if(photo){upDateThis.photo = photo} 
 
              carrierData = await Carrier.update(upDateThis/*{documentID: documentID, license: license, location: location, Cuenta: Cuenta}*/, {
                 where: {
@@ -241,7 +241,7 @@ router.post('/editCarrier', async (req: Request, res: Response, next: NextFuncti
 
     }catch (err){
 
-        res.status(404).json({msg:"rompio"})
+        res.status(404).json({msg:"bum"})
         
         console.log(err)
     }

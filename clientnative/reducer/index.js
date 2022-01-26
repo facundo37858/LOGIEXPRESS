@@ -30,10 +30,14 @@ const initialState = {
   editarPerfilCarrier: [],
   editVehicule: [],
   travelsUser: [],
+  travelsCarrier: [],
   socket: null,
   respPermisse: null,
   confirmTravel: null,
+  dataCarrier: null,
+  actualTravel : []
 };
+
 
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -122,6 +126,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         travelsUser: action.payload,
       };      
+    case "GET_TRAVEL_CARRIER":
+      return {
+        ...state,
+        travelsCarrier: action.payload,
+      }
     case SOCKET:
       return {
         ...state,
@@ -141,6 +150,17 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         confirmTravel: action.payload
+      }
+    case REQ_DATA_CARRIER:
+      return {
+       ...state,
+
+      }
+    case 'GET_ACTUAL_TRAVEL':
+      return {
+        ...state,
+        actualTravel: action.payload 
+        
       }
     default:
       return state;

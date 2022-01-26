@@ -152,9 +152,6 @@ const EditProfile = () => {
   };
 
 
-
-
-
   //// --> HANDLE SUBMIT <-- ////
  function handleSubmit(e) {
    e.preventDefault();

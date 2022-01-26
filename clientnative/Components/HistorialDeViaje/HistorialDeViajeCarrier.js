@@ -1,4 +1,11 @@
-import { ScrollView, StyleSheet, Text, View, Button, Image } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Image,
+} from "react-native";
 import { useEffect } from "react";
 import React from "react";
 import HeaderBar from "../Utils/HeaderBar";
@@ -8,26 +15,26 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { useSelector, useDispatch } from "react-redux";
-import { getTravelUser } from "../../actions";
+import { getTravelCarrier } from "../../actions";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/core";
 
-const HistorialDeViaje = () => {
+const HistorialDeViajeCarrier = () => {
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
-  const datosUser = useSelector((store) => store.responseLog);
+  const datosCarrier = useSelector((store) => store.responseLog);
 
-  //nos traemos el estado para saber si lo hicimos bien
-  const dataTravels = useSelector((store) => store.travelsUser.payload);
-  // console.log('ey, lo hicimos bien?', dataTravels)
+  //   //nos traemos el estado para saber si lo hicimos bien
+  //   const dataTravels = useSelector((store) => store.travelsUser.payload);
+  //   // console.log('ey, lo hicimos bien?', dataTravels)
 
-  const travelsCarrier = useSelector((store) => store.travelsCarrier)
-  console.log('viajes carrier', travelsCarrier)
+  const travelsCarrier = useSelector((store) => store.travelsCarrier.payload);
+  console.log("viajes carrier", travelsCarrier);
 
-  const idUserReg = datosUser.id;
+  const idUserReg = datosCarrier.id;
   useEffect(() => {
-    dispatch(getTravelUser(idUserReg));
+    dispatch(getTravelCarrier(idUserReg));
   }, [dispatch]);
 
   /// --> INICIO DEL COMPONENTE <-- ///
@@ -46,20 +53,20 @@ const HistorialDeViaje = () => {
         <View style={styles.viewAnterior}>
           <Text style={styles.textAnterior}>EN CURSO</Text>
         </View>
+        {/* DESDE ACA EMPEZARIA LA PARTE DE VIAJE EN CURSO */}
         <View style={styles.containerCards}>
           <View style={styles.cards}>
             <View style={styles.insideCard1}>
-              
-             <View>
-             <Text>Descripcion del viaje: Medicamentos</Text>
-              <Text>Villa Angela, Chaco, Argentina</Text>
-              <Text>Buenos Aires, Argentina</Text>
-              <Text style={{ color: "green", fontWeight: "bold" }}>
-                En proceso
-              </Text>
-              <Text style={styles.price1}>$ 10000</Text>
-             </View>
-             <View style={{marginTop: wp('-3%'), marginLeft: wp('11')}}>
+              <View>
+                <Text>Descripcion del viaje: Medicamentos</Text>
+                <Text>Villa Angela, Chaco, Argentina</Text>
+                <Text>Buenos Aires, Argentina</Text>
+                <Text style={{ color: "green", fontWeight: "bold" }}>
+                  En proceso
+                </Text>
+                <Text style={styles.price}>$10000</Text>
+              </View>
+              <View style={{marginTop: wp('-3%'), marginLeft: wp('11')}}>
                 <TouchableWithoutFeedback
                   onPress={() => {
                     navigation.navigate("Chat");
@@ -78,7 +85,7 @@ const HistorialDeViaje = () => {
         <View style={styles.viewAnterior}>
           <Text style={styles.textAnterior}>ANTERIORES</Text>
         </View>
-        {dataTravels?.map((datos, index) => {
+        {travelsCarrier?.map((datos, index) => {
           const orig = datos.orig.split("/");
           const dest = datos.destination.split("/");
           return (
@@ -90,7 +97,7 @@ const HistorialDeViaje = () => {
                     <Text>Peso en toneladas: {datos.weight}</Text>
                     <Text>{orig[2]}</Text>
                     <Text>{dest[2]}</Text>
-                    <Text style={{color: 'red', fontSize: 'bold'}}>{datos.finishedTravel}</Text>
+                    <Text style={{ color: "red", fontWeight: "bold" }}>{datos.finishedTravel}</Text>
                     <Text style={styles.price}>$ {datos.price}</Text>
                   </View>
                 </View>
@@ -103,7 +110,7 @@ const HistorialDeViaje = () => {
   );
 };
 
-export default HistorialDeViaje;
+export default HistorialDeViajeCarrier;
 
 const styles = StyleSheet.create({
   containerCards: {
@@ -141,12 +148,12 @@ const styles = StyleSheet.create({
   insideCard: {
     width: wp("91%"),
     padding: wp("5%"),
-    
   },
   insideCard1: {
     width: wp("91%"),
     padding: wp("5%"),
-    flexDirection: 'row'
+    flexDirection: "row",
+
   },
   price: {
     textAlign: "center",
@@ -154,21 +161,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: hp("2%"),
   },
-  price1: {
-    textAlign: "center",
-    justifyContent: "center",
-    fontWeight: "bold",
-    fontSize: hp("2%"),
-    marginLeft: wp('18%')
-  },
 });
-
-/*container: { flex: 1 },
-  textWrapper: {
-    height: hp('70%'), // 70% of height device screen
-    width: wp('80%')   // 80% of width device screen
-  },
-  myText: {
-    fontSize: hp('5%') // End result looks like the provided UI mockup
-  }
-});*/

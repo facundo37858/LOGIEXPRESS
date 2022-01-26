@@ -18,7 +18,9 @@ import { useNavigation } from "@react-navigation/core";
 import ModalContraseña from "./ModalContraseña";
 import HeaderBar from '../Utils/HeaderBar.js';
 import ModalSuccess from './ModalSuccess';
+import SimpleModal80 from "../AlertasLog/SimpleModalchangepass";
 import { desmount } from '../../actions/index.js'
+
 
 const CambiarContraseña = () => {
   const dispatch = useDispatch();
@@ -41,17 +43,37 @@ const CambiarContraseña = () => {
 
   /// --> ESTADO PARA EL INPUT <-- ///
   const [contraseña, setContraseña] = useState("");
+  const [contraseña2, setContraseña2] = useState("");
 
   /// --> ESTADO PARA EL MODAL DE WARNING <-- ///
   const [isModalVisible, setisModalVisible] = useState(false);
   const [chooseData, setchooseData] = useState();
 
   const changeModalVisible = (bool) => {
+    if(contraseña === contraseña2 && contraseña != ''){
     setisModalVisible(bool);
+    }else{
+      changeModalVisible80(true)
+    }
   };
 
   const setData = (data) => {
     setchooseData(data);
+  };
+
+
+
+
+     // CONTRASEÑA NO COINCIDEN
+ 
+   const [isModalVisible80, setisModalVisible80] = useState(false);
+   const [chooseData80, setchooseData80] = useState();
+ 
+   const changeModalVisible80 = (bool) => {
+     setisModalVisible80(bool);
+   };
+   const setData80 = (data) => {
+    setchooseData80(data);
   };
 
   /// --> ESTADO PARA EL MODAL DE SUCCESS <-- ///
@@ -89,6 +111,16 @@ const CambiarContraseña = () => {
           style={styles.textPlaceholder}
           onChangeText={(text) => setContraseña(text)}
         />
+        
+      </View>
+      <View style={styles.viewsInputs}>
+        <TextInput
+          placeholder="¡Vuelve a ingresar la contraseña!"
+          secureTextEntry={true}
+          style={styles.textPlaceholder}
+          onChangeText={(text) => setContraseña2(text)}
+        />
+        
       </View>
 
       <TouchableOpacity
@@ -120,6 +152,18 @@ const CambiarContraseña = () => {
           changeModalVisible2={changeModalVisible2}
           setData2={setData2} />
         </Modal>
+        <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible80}
+                  nRequestClose={() => changeModalVisible80(false)}
+                >
+                  <SimpleModal80
+                    changeModalVisible80={changeModalVisible80}
+                    setData80={setData80}
+                  />
+                  
+                  </Modal>
       </TouchableOpacity>
     </View>
   );

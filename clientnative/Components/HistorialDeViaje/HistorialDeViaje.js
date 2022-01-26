@@ -34,9 +34,10 @@ const HistorialDeViaje = () => {
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <HeaderBar />
+        {/* <HeaderBar /> */}
+        <HeaderBar  screen={'null'}/>
         <View style={styles.containerHeaders}>
-          <HeaderBar  screen={'null'}/>
+          
           <Text style={{ fontSize: hp("2.5%"), fontWeight: "bold" }}>
             Historial de viajes
           </Text>

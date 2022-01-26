@@ -180,10 +180,12 @@ router.post('/updateUser', async (req: Request, res: Response, next: NextFunctio
 })
 
 
+
+
 router.post('/editCarrier', async (req: Request, res: Response, next: NextFunction) => {
     
     try{
-        const { id, name, lastName, phone, documentID, license, location, Cuenta } = req.body
+        const { id, name, lastName, phone, documentID, license, location, Cuenta, photo } = req.body
     
         let carrier;
         let carrierData;
@@ -206,7 +208,7 @@ router.post('/editCarrier', async (req: Request, res: Response, next: NextFuncti
             })
         }
     
-        if (documentID || license || location || Cuenta) {
+        if (documentID || license || location || Cuenta  || photo) {
 
 
             let upDateThis: any = {}
@@ -215,7 +217,7 @@ router.post('/editCarrier', async (req: Request, res: Response, next: NextFuncti
             if(license){upDateThis.license = license}
             if(location){upDateThis.location = location}
             if(Cuenta){upDateThis.Cuenta = Cuenta}
-
+			if(photo){upDateThis.photo = photo}
 
              carrierData = await Carrier.update(upDateThis/*{documentID: documentID, license: license, location: location, Cuenta: Cuenta}*/, {
                 where: {

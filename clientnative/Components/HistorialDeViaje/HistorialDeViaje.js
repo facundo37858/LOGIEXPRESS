@@ -90,7 +90,7 @@ const HistorialDeViaje = () => {
                     <Text>Peso en toneladas: {datos.weight}</Text>
                     <Text>{orig[2]}</Text>
                     <Text>{dest[2]}</Text>
-                    <Text style={{color: 'red', fontSize: 'bold'}}>{datos.finishedTravel}</Text>
+                    <Text style={{color: 'red', fontWeight: 'bold'}}>{datos.finishedTravel}</Text>
                     <Text style={styles.price}>$ {datos.price}</Text>
                   </View>
                 </View>

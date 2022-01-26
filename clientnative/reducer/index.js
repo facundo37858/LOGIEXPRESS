@@ -151,11 +151,6 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         confirmTravel: action.payload
       }
-    case REQ_DATA_CARRIER:
-      return {
-       ...state,
-
-      }
     case 'GET_ACTUAL_TRAVEL':
       return {
         ...state,

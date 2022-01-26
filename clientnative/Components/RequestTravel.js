@@ -195,7 +195,6 @@ const RequestTravel = (props) => {
             id: data,
         };
 
-
         //VALIDACIONES
 
                 if (travel.orig === `0/0/null`) {
@@ -218,7 +217,7 @@ const RequestTravel = (props) => {
                 }
          
         sendMessage(travel)
-        
+
         console.log("Estoy enviando:", travel)
     }
 

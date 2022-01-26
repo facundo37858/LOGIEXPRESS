@@ -26,6 +26,10 @@ import Home from "./Components/home";
 import CambiarContraseña from "./Components/CambiodeContraseña/CambiarContraseña";
 import DetallesVehicule from "./Components/Detalles/DetallesVehicule";
 import HistorialDeViaje from "./Components/HistorialDeViaje/HistorialDeViaje";
+import reviewUser from "./Components/Review/ReviewUser"
+import reviewCarrier from "./Components/Review/ReviewCarrier"
+import Chat from './Components/Chat/Chat.js'
+import HistorialDeViajeCarrier from "./Components/HistorialDeViaje/HistorialDeViajeCarrier";
 import { LogBox } from 'react-native';
 
 
@@ -41,6 +45,7 @@ const App = () => {
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator>
+       
             <Stack.Screen
               name="Home"
               component={Home}
@@ -138,6 +143,16 @@ const App = () => {
               component={HistorialDeViaje}
               options={{ headerShown: false }}
             />
+            <Stack.Screen
+              name="HistorialDeViajeCarrier"
+              component={HistorialDeViajeCarrier}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Chat"
+              component={Chat}
+              options={{ headerShown: false }}
+            />
             <Stack.Screen 
             name="ScreenWaiting" 
             component={ScreenWaiting} 
@@ -146,6 +161,17 @@ const App = () => {
             <Stack.Screen 
             name="StartCarrier" 
             component={StartCarrier} 
+            options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="ReviewUser"
+              component={reviewUser}
+              options={{ headerShown: false }}
+            />
+              <Stack.Screen
+              name="ReviewCarrier"
+              component={reviewCarrier}
+              options={{ headerShown: false }}
             />
           </Stack.Navigator>
         </NavigationContainer>

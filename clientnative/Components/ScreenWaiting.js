@@ -30,9 +30,20 @@ const ScreenWaiting = (payload) => {
 
   useEffect(() => {
     dispatch(getTravelID(id));
+    
   }, [dispatch]);
 
 
+/*   useEffect(() => {
+    if(respDelete) {
+      alert('Viaje elimando');
+      navigation.navigate('ProfileUserScreen')
+    }
+    return () => {
+      setRespDelete(null)
+    };
+  }, [respDelete]); */
+  
 
   const [objCarrier, SetObjCarrrier] = useState(null)
 

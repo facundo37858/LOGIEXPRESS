@@ -35,6 +35,51 @@ function getDistanciaMetros(origen: string, destino: string) {
   return d / 1000;
 }
 
+router.get('/actualTravel',async(req:Request,res:Response,next:NextFunction)=>{
+ 
+  const{id}=req.query
+  
+    if(id===''){return res.send('El id no puede estar vacio')}
+      let carrier=await Carrier.findAll({//tengo el id de la tabla Carrier
+          where:{
+              idUserReg:id
+          }
+      })
+      
+      if(!carrier.length){
+            let user=await User.findAll({//tengo el id de la tabla Carrier
+                where:{
+                    idUserReg:id
+                }
+            })
+
+                let travel=await Travel.findAll({where:{
+                  usaerId:user[0].id,
+                  finishedTravel: { [Op.eq]: null }
+              }})
+              
+              if(!travel.length){
+                  return res.send('Carrier not travels')
+              }
+
+              else res.send(travel);
+      }else{
+       
+          let travel=await Travel.findAll({where:{
+              carrierId:carrier[0].id,
+              finishedTravel: { [Op.eq]: null }
+          }})
+          return res.send(travel)
+          
+          if(!travel.length){
+              return res.send('Carrier not travels')
+          }
+          else res.send(travel);
+        }     
+
+
+})
+
 router.post('/calculatePrice', (req: Request, res: Response) => {
   //226.49013972673578
   //price 45298,0279
@@ -126,7 +171,8 @@ router.get('/Travel', async (req: Request, res: Response, next: NextFunction) =>
   try {
     //Importante en el modelo de travel hay un error en declaración de la relacion con user User_Reg
     //hay que corregir que es de tipo string 
-    let travel = await Travel.findAll({where: { carrierId: null}})
+    /* let travel = await Travel.findAll() */
+    const travel = await Travel.findAll({ where: { carrierId:{[Op.eq]: null} }})
     // res.send(travel);
     if (travel.length > 0) {
       let tam = travel.length;

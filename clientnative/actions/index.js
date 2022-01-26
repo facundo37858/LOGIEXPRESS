@@ -42,6 +42,21 @@ export function deletePermisse () {
 }
 
 
+export function reqDataCarrier (props) {
+  return async function (dispatch) {
+    try {
+      const resp = await axios.get(`${ API_URL }/api/user/${props}`)
+      return dispatch({
+        type: REQ_DATA_CARRIER,
+        payload: resp.data
+
+      })
+    } catch (error) {
+      console.log("Error", error)
+    }
+  }
+}
+
 
 export function requestPermisse (props) {
   return async function (dispatch) {
@@ -222,13 +237,13 @@ export function enviarToken(payload) {
       const response = await axios
         .post(`${API_URL}/api/verifytoken`, payload) //aca cada uno pone su ip
         .then((r) => {
-          console.log("Token llegando a la action enviarToken", payload);
+          //console.log("Token llegando a la action enviarToken", payload);
           dispatch({
             type: "TOKEN",
             payload: r.data.payload,
           });
-          console.log("hace el dispatch");
-          console.log("Aqui esta el payload:", r.data.payload);
+          // console.log("hace el dispatch");
+          // console.log("Aqui esta el payload:", r.data.payload);
         });
       // console.log(r);
       // return response;
@@ -304,7 +319,7 @@ export function editProfileCarrier(payload) {
   };
 }
 
-//// --> Ruta para editar el perfil de carrier<-- ////
+//// --> Ruta para editar el perfil de vehicule<-- ////
 export function editVehicule(payload) {
   return async function (dispatch) {
     try {
@@ -340,6 +355,23 @@ export function getTravelUser(idUserReg) {
   };
 }
 
+////--> ACTION PARA TRAER LOS TRAVELS POR ID <--////
+export function getTravelCarrier(idUserReg) {
+  return async function (dispatch) {
+    try {
+      var json = await axios(`${API_URL}/api/historyTravelCarrier/${idUserReg}`);
+      dispatch({
+        type: "GET_TRAVEL_CARRIER",
+        payload: json.data,
+      });
+      //console.log('Esto llega a getTravelUser', json)
+    } catch (error) {
+      console.log(error);
+     // alert("Error obteniendo datos del videojuego", error);
+    }
+  };
+}
+
 //// ---> ACTION PARA TRAER INFO VEHICULOS <--- ///
 export function getVehicules(idRole) {
   return async function (dispatch) {
@@ -348,6 +380,69 @@ export function getVehicules(idRole) {
       // console.log('Soy el console.log de response', response)
       return dispatch({
         type: 'GET_VEHICULES',
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
+};
+
+  //REVIEW
+
+  export function reviewUsuario(payload) {
+    return async function (dispatch) {
+      console.log('llego la action', payload)
+      try {
+        const response = await axios
+        
+          .post(`${API_URL}/api/review/user`, payload) //aca cada uno pone su ip
+          .then((r) => {
+            dispatch({
+              type: "REVIEW_USUARIO",
+              payload: r.data.payload,
+            });
+            //console.log("hace el dispatch");
+          //  console.log("viene de login", r.data.payload);
+          });
+        // console.log(r);
+        // return response;
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
+  }
+
+  export function reviewCarrier(payload) {
+    console.log('llego action', payload)
+    return async function (dispatch) {
+      try {
+        const response = await axios
+          .post(`${API_URL}/api/review/carrier`, payload) //aca cada uno pone su ip
+          .then((r) => {
+            dispatch({
+              type: "REVIEW_CARRIER",
+              payload: r.data.payload,
+            });
+            //console.log("hace el dispatch");
+          //  console.log("viene de login", r.data.payload);
+          });
+        // console.log(r);
+        // return response;
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
+  }
+//// ---> ACTION PARA TRAER VIAJE ACTUAL <--- ////
+
+export function getActualTravel(idRole) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`${API_URL}api/vehicleDetails/${idRole}`);
+      // console.log('Soy el console.log de response', response)
+      return dispatch({
+        type: 'GET_ACTUAL_TRAVEL',
         payload: response.data,
       });
     } catch (error) {

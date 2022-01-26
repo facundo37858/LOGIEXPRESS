@@ -200,6 +200,7 @@ const ScreenMap = () => {
           )}
         >
           {travels?.map((resp, index) => {
+            console.log("ESTA ES LA RESP",resp)
             const orig = resp.travel.orig.split("/");
             const dest = resp.travel.destination.split("/");
             return (

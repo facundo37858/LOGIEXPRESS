@@ -119,131 +119,172 @@ router.get('/profile', async (req: Request, res: Response) => {
 });
 
 router.post('/updateUser', async (req: Request, res: Response, next: NextFunction) => {
-	const { id, name, lastName, phone, photo, zone, account } = req.body
+    
+    try{
+        const { id, name, lastName, phone, photo, zone, account } = req.body
+    
+        let userUpdate;
+    
+        let userDataUpdate;
 
-	let userUpdate;
+        if (name || lastName || phone) {
 
-	let userDataUpdate;
+            let upDateThis: any = {}
 
-	try{
+            if(name){upDateThis.name = name}
+            if(lastName){upDateThis.lastName = lastName}
+            if(phone){upDateThis.phone = phone}
+    
+            userUpdate = await User_Reg.update(upDateThis/*{name: name, lastName: lastName, phone: phone}*/, {
+                where: {
+                    id
+                },
+                returning: true,
+            })
+        }
+        
+        if (photo || zone || account) {
 
-		if (name || lastName || phone) {
-	
-			userUpdate = await User_Reg.update({name: name, lastName: lastName, phone: phone}, {
-				where: {
-					id
-				},
-				returning: true,
-			})
-		}
-		
-		if (photo || zone || account) {
-			userDataUpdate = await User.update({photo: photo, zone: zone, account: account}, {
-				where: {
-					idUserReg: id
-				},
-				returning: true,
-			})
-		}
-			
-		if (userUpdate && userDataUpdate){
-			res.status(200).json({"msg":"Tu informacion se actualizo exitosamente","userReg": userUpdate[1][0], "user": userDataUpdate[1][0]}) 
-		} else if (userUpdate){
-			res.status(200).json({"msg":"Tu informacion se actualizo exitosamente", /* userUpdate[1][0]*/}) //Comente userUpdate por que daba error
-			// console.log(userUpdate[1])
-		} else if (userDataUpdate){
-			res.status(200).json({"msg":"Tu informacion se actualizo exitosamente", /* userUpdate[1][0]*/})
-		}else{
-		
-			res.status(404).json({ msg: 'No se encontro usuario registrado' })
-		}
-	} catch (err){
+            let upDateThis: any = {}
 
-		res.status(404).json({msg:"rompio"})
-		
-		console.log(err)
-	}
-	
+            if(photo){upDateThis.photo = photo}
+            if(zone){upDateThis.zone = zone}
+            if(account){upDateThis.account = account}
+
+            userDataUpdate = await User.update(upDateThis/*{photo: photo, zone: zone, account: account}*/, {
+                where: {
+                    idUserReg: id
+                },
+                returning: true,
+            })
+        }
+            
+        if (userUpdate && userDataUpdate){
+            res.status(200).json({"msg":"Tu informacion se actualizo exitosamente","userReg": userUpdate[1][0], "user": userDataUpdate[1][0]}) 
+        } else if (userUpdate){
+            res.status(200).json({"msg":"Tu informacion se actualizo exitosamente","userReg": userUpdate[1][0]})
+            // console.log(userUpdate[1])
+        } else if (userDataUpdate){
+            res.status(200).json({"msg":"Tu informacion se actualizo exitosamente", "user":userDataUpdate[1][0]})
+        }else{
+        
+            res.status(404).json({ msg: 'No se encontro usuario registrado' })
+        }
+    } catch (err){
+
+        res.status(404).json({msg:"rompio"})
+        
+        console.log(err)
+    }
 
 })
 
 
 router.post('/editCarrier', async (req: Request, res: Response, next: NextFunction) => {
-	
-	try{
-		const { id, name, lastName, phone, documentID, license, location, Cuenta } = req.body
-	
-		let carrier;
-		let carrierData;
+    
+    try{
+        const { id, name, lastName, phone, documentID, license, location, Cuenta } = req.body
+    
+        let carrier;
+        let carrierData;
 
-		if (name || lastName || phone) {
-	
-			 carrier = await User_Reg.update({name: name, lastName: lastName, phone: phone}, {
-				where: {
-					id,
-				},
-				returning: true,
-			})
-		}
-	
-		if (documentID || license || location || Cuenta) {
-			carrierData = await Carrier.update({documentID: documentID, license: license, location: location, Cuenta: Cuenta}, {
-				where: {
-					idUserReg: id
-				},
-				returning: true,
-			})
-		}
-
-		if (carrier && carrierData){
-			res.status(200).json({"msg":"Tu informacion se actualizo exitosamente","userReg": carrier[1][0], "carrier": carrierData[1][0]}) 
-		} else if (carrier){
-			res.status(200).json({"msg":"Tu informacion se actualizo exitosamente", /*carrier[1][0]*/})
-		} else if (carrierData){
-			res.status(200).json({"msg":"Tu informacion se actualizo exitosamente", /*carrier[1][0]*/}) 
-		}else{
-		
-			res.status(404).json({ msg: 'No se encontro usuario registrado' })
-		}
+        if (name || lastName || phone) {
 
 
-	}catch (err){
+            let upDateThis: any = {}
 
-		res.status(404).json({msg:"rompio"})
-		
-		console.log(err)
-	}
+            if(name){upDateThis.name = name}
+            if(lastName){upDateThis.lastName = lastName}
+            if(phone){upDateThis.phone = phone}
+    
+    
+             carrier = await User_Reg.update(upDateThis/*{name: name, lastName: lastName, phone: phone}*/, {
+                where: {
+                    id,
+                },
+                returning: true,
+            })
+        }
+    
+        if (documentID || license || location || Cuenta) {
+
+
+            let upDateThis: any = {}
+
+            if(documentID){upDateThis.documentID = documentID}
+            if(license){upDateThis.license = license}
+            if(location){upDateThis.location = location}
+            if(Cuenta){upDateThis.Cuenta = Cuenta}
+
+
+             carrierData = await Carrier.update(upDateThis/*{documentID: documentID, license: license, location: location, Cuenta: Cuenta}*/, {
+                where: {
+                    idUserReg: id
+                },
+                returning: true,
+            })
+        }
+
+        if (carrier && carrierData){
+            res.status(200).json({"msg":"Tu informacion se actualizo exitosamente","userReg": carrier[1][0], "carrier": carrierData[1][0]}) 
+        } else if (carrier){
+            res.status(200).json({"msg":"Tu informacion se actualizo exitosamente", "userReg": carrier[1][0]})
+        } else if (carrierData){
+            res.status(200).json({"msg":"Tu informacion se actualizo exitosamente",  "carrier":carrierData[1][0]})
+        }else{
+        
+            res.status(404).json({ msg: 'No se encontro usuario registrado' })
+        }
+
+
+    }catch (err){
+
+        res.status(404).json({msg:"rompio"})
+        
+        console.log(err)
+    }
 
 })
 
 router.post('/updateVehicle', async (req: Request, res: Response, next: NextFunction) => {
-	
-	try{
-		const { idRole, brand, patent, model, color, capacity} = req.body
-	
-		let vehicle;
-		
-		if (brand || patent || model || color || capacity) {
-			vehicle = await Vehicle.update({brand: brand, patent: patent, model: model, color: color, capacity: capacity}, {
-				where: {
-					CarrierId: idRole
-				},
-				returning: true,
-			})
-		}
-			
-		if (vehicle){
-			res.status(200).json({"msg":"Tu informacion se actualizo exitosamente","vehicle": vehicle[1][0]}) 
-		}else{
-			res.status(404).json({ msg: 'No se encontro usuario registrado' })
-		}
+    
+    try{
+        const { id, brand, patent, model, color, capacity} = req.body
+    
+        const carrierId = await Carrier.findOne({ where: { idUserReg: id } })
 
-	} catch (err){
+        let vehicle
 
-		res.status(404).json({msg:"rompio"})
-		
-		console.log(err)
-	}
+        if (brand || patent || model || color || capacity) {
+
+            let upDateThis: any = {}
+
+            if(brand){upDateThis.brand = brand}
+            if(patent){upDateThis.patent = patent}
+            if(model){upDateThis.model = model}
+            if(color){upDateThis.color = color}
+            if(capacity){upDateThis.capacity = capacity}
+            
+            vehicle = await Vehicle.update(upDateThis/*{brand: brand, patent: patent, model: model, color: color, capacity: capacity}*/, {
+                where: {
+                    CarrierId: carrierId?.id
+                },
+                returning: true,
+            })
+        }
+            
+        if (vehicle){
+            res.status(200).json({"msg":"Tu informacion se actualizo exitosamente","vehicle": vehicle[1][0]}) 
+        }else{
+            res.status(404).json({ "msg": 'No se encontro usuario registrado' })
+        }
+
+    } catch (err){
+
+        res.status(404).json({msg:"rompio"})
+        
+        console.log(err)
+    }
 
 })
 

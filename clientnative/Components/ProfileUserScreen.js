@@ -81,7 +81,7 @@ const ProfileUserScreen = () => {
           >
             <Icon name="person-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Datos Personales</Text>
-            <Icon name="chevron-forward-outline" style={styles.icons3} />
+            {/* <Icon name="chevron-forward-outline" style={styles.icons3} /> */}
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -92,7 +92,7 @@ const ProfileUserScreen = () => {
           >
             <Icon name="bus-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Historial de viajes</Text>
-            <Icon name="chevron-forward-outline" style={styles.icons3} />
+            {/* <Icon name="chevron-forward-outline" style={styles.icons3} /> */}
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -101,7 +101,7 @@ const ProfileUserScreen = () => {
           >
             <Icon name="calculator-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Cotizar viaje</Text>
-            <Icon name="chevron-forward-outline" style={styles.icons4} />
+            {/* <Icon name="chevron-forward-outline" style={styles.icons4} /> */}
           </TouchableOpacity>
 
           <TouchableOpacity

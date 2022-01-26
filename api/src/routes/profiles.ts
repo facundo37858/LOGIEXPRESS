@@ -180,8 +180,6 @@ router.post('/updateUser', async (req: Request, res: Response, next: NextFunctio
 })
 
 
-
-
 router.post('/editCarrier', async (req: Request, res: Response, next: NextFunction) => {
     
     try{

@@ -25,6 +25,7 @@ import SimpleModal21 from "./AlertasTravel/SimpleModaldest";
 import SimpleModal22 from "./AlertasTravel/SimpleModalweight";
 import SimpleModal23 from "./AlertasTravel/SimpleModalprice";
 import HeaderBar from "./Utils/HeaderBar.js";
+import { APIKEY_GOOGLE } from "@env"
 
 
 
@@ -148,16 +149,13 @@ const RequestTravel = (props) => {
             let location = await Location.getCurrentPositionAsync({});
             /* console.log(location.coords); */
         })();
-        if (response) {
-            if(response[0] === 'Ya tiene un viaje en proceso') {
-                alert('YA TIENE UN VIAJE EN PROCESO')
-                navigation.navigate('ScreenWaiting', response[1])
-            }
-        }
+        if(response) {
+            navigation.navigate('ScreenWaiting', response)
+            } 
     }, [response]);
-/* 
+
     console.log("ESTO ES LA RESPUESTA DEL PEDIDO", response)
- */
+
 
     const [origen, setOrigen] = useState({
         latitude: 0,
@@ -197,7 +195,6 @@ const RequestTravel = (props) => {
             id: data,
         };
 
-
         //VALIDACIONES
 
                 if (travel.orig === `0/0/null`) {
@@ -220,7 +217,7 @@ const RequestTravel = (props) => {
                 }
          
         sendMessage(travel)
-        
+
         console.log("Estoy enviando:", travel)
     }
 
@@ -234,7 +231,7 @@ const RequestTravel = (props) => {
         <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
             <ScrollView keyboardShouldPersistTaps={'handled'}>
                 <View style={{ alignItems: "center", marginRight: 10 }}>
-                <HeaderBar />
+                <HeaderBar  screen={'null'} />
                     <View style={styles.title}>
                         <Text style={{ fontWeight: "bold", fontSize: 40, marginBottom: 10, }}>
                             Solicitar Carga
@@ -266,7 +263,7 @@ const RequestTravel = (props) => {
                                         })
                                     }}
                                     query={{
-                                        key: 'AIzaSyCctmpoWkqc4Te99YNkI0hgsyVfpbEci5M',
+                                        key: `${APIKEY_GOOGLE}`,
                                         language: 'en',
                                         components: "country:arg",
                                         types: "geocode",
@@ -300,7 +297,7 @@ const RequestTravel = (props) => {
                                         })
                                     }}
                                     query={{
-                                        key: 'AIzaSyCctmpoWkqc4Te99YNkI0hgsyVfpbEci5M',
+                                        key: `${APIKEY_GOOGLE}`,
                                         language: 'en',
                                         components: "country:arg",
                                         types: "geocode",

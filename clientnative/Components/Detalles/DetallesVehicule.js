@@ -39,7 +39,7 @@ const DetallesVehicule = () => {
     <View style={styles.container}>
       <ScrollView     
         showsVerticalScrollIndicator={false}> 
-        <HeaderBar />
+        <HeaderBar  screen={'null'}/>
         <Text style={styles.textDetalle}>Detalle del vehículo</Text>
         <View style={styles.viewDetail}>
           <View>

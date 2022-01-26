@@ -8,7 +8,6 @@ import {
   REQUEST_PERMISSE,
   DELETE_PERMISSE,
   CONFIRME_REQUEST,
-  REQ_DATA_CARRIER,
 } from "../actions/index.js";
 
 const initialState = {
@@ -106,6 +105,7 @@ export default function rootReducer(state = initialState, action) {
         editarPerfilUser: [],
         editarPerfilCarrier: [],
         editVehicule: [],
+        price: []
       };
     case "EDIT_PROFILE_USER":
       return {
@@ -151,11 +151,6 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         confirmTravel: action.payload
-      }
-    case REQ_DATA_CARRIER:
-      return {
-       ...state,
-
       }
     case 'GET_ACTUAL_TRAVEL':
       return {

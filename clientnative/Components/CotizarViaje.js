@@ -21,6 +21,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { cotizarViaje, requestTravel } from "../actions/index.js";
 import { LogBox } from "react-native";
 import HeaderBar from "./Utils/HeaderBar";
+import { desmount  } from "../actions/index";
 
 const CotizarViaje = () => {
   ////--> HOOK PARA LA NAVEGACION <-- ////
@@ -32,6 +33,12 @@ const CotizarViaje = () => {
   useEffect(() => {
     LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
   }, [price]);
+
+  useEffect(() => {
+    return () => {
+     dispatch(desmount())
+    };
+  }, [dispatch]);
 
   /// --> ESTADO PARA LOS INPUTS <-- ///
   const [origen, setOrigen] = useState({
@@ -62,7 +69,7 @@ const CotizarViaje = () => {
   //// --> Inicio de componente <-- ////
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <HeaderBar/>
+      <HeaderBar  screen={'null'}/>
       <ScrollView keyboardShouldPersistTaps={"handled"}>
         <View style={styles.container}>
           <Text style={styles.textCotiza}>¡Cotiza tu viaje!</Text>

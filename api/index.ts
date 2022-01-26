@@ -1,10 +1,12 @@
 import app from "./src/app";
 import { Travel } from './src/models/Travel';
+import { User } from './src/models/User';
+import { User_Reg } from './src/models/User_Reg';
+import { Carrier } from './src/models/Carrier';
 import { sequelize } from "./src/db";
 import { uuid } from 'uuidv4';
 import { callbackify } from "util";
-import { Carrier } from "./src/models/Carrier";
-import { User_Reg } from "./src/models/User_Reg";
+
 const { Op } = require("sequelize");
 const server = require('http').createServer(app);
 const io = require('socket.io')(server, { cors: { origin: "*" } });
@@ -14,9 +16,66 @@ interface error {
 ///begin Sokets
 
 
-
 io.on("connection", (socket: any) => {
     console.log("User conneted: " + socket.id)
+
+    ///codigo de chat    
+	 //en este sockets creamos una sala solo para el User y Carrier que partician
+   //en un Travel, recibiendo por el parametro data id de la tabla travel
+   //creando un room con el nombre del id recibido paa que sea unico
+socket.on("join_room",async (data:any, callback:any) => {
+    //Socket join es el que se encarga de drear el room  
+    socket.join(data);
+       //en la variable sizeRoom tenemos la cantidad de personas que estan conectadas 
+       //en esta sala, con esta variabel sabremos si ambos estan conectados
+     var sizeRoom = io.sockets.adapter.rooms.get(data)
+   
+      console.log(sizeRoom.size);
+  
+      console.log(`User with ID: ${socket.id} joined room: ${data}`);
+     // aqui me cree unos datos como si fuera el redux para controlar el chat 
+      let traveles = await Travel.findAll({where: {  carrierId:{[Op.not]: null}}})
+     
+       let Users = await User.findAll({where: {id:traveles[0].userId}})
+       let Us = await User_Reg.findAll({where: {id:Users[0].idUserReg}})
+    
+  
+     let Carriers = await Carrier.findAll({where: {id:traveles[0].carrierId}})
+     
+       let Car = await User_Reg.findAll({where: {id:Carriers[0].idUserReg}})
+       let obj={travelId:traveles[0].id,Us,Car}
+    /////////
+  
+      // por esta función callback podemos devolver información al front
+       callback({
+        status: obj
+        });
+  
+    });
+  
+    // A traves de este socket se recibe y se envia la información
+    socket.on("send_message", (data:any, callback:any) => {
+      //esn esta variable tenemos cuantas personas hay en la sala,
+      //que deberian ser 2 para que esten tanto el carrier como el User
+      var sizeRoom = io.sockets.adapter.rooms.get(data.room)
+   
+      console.log(sizeRoom.size);
+  
+      socket.to(data.room).emit("receive_message", data);
+      
+      
+      //si el numero de participantes es 1 devolvemos un mensaje de Offline user
+      //que nos servira para validar los mensaje en el front.
+      if(sizeRoom.size===1) var status='offline user'; else var status=''
+      callback({
+       status:status
+       });
+    }); 
+        
+   
+  
+  /////
+
 
     socket.on("message", async (data: any, callback: any) => {
         console.log(data)
@@ -25,11 +84,11 @@ io.on("connection", (socket: any) => {
 
 
         /* const requestTravel = await Travel.findAll() */
-        const requestTravel = await Travel.findAll({ where: { userId: id , carrierId:{[Op.eq]: null} }})
-       
+        const requestTravel = await Travel.findAll({ where: { userId: id, carrierId: { [Op.eq]: null } } })
+
         /* console.log("ESTO ES REQUEST TRAVEL", requestTravel[0]?.carrierId ) */
-        if( requestTravel.length === 0 || requestTravel[0]?.carrierId !== null) {
-            
+        if (requestTravel.length === 0 || requestTravel[0]?.carrierId !== null) {
+
             let TravelId = uuid();
             var newViaje = {
                 id: TravelId,
@@ -45,12 +104,12 @@ io.on("connection", (socket: any) => {
             socket.broadcast.emit('message', newViaje)
             let travel = await Travel.findAll()
             socket.broadcast.emit('Travel', travel)
-    
+
             callback({
                 status: TravelId
             });
         } else {
-            console.log("ESTO ES,", requestTravel[0].id )
+            console.log("ESTO ES,", requestTravel[0].id)
             callback({
                 status: ["Ya tiene un viaje en proceso", requestTravel[0].id]
             })
@@ -80,9 +139,11 @@ io.on("connection", (socket: any) => {
     socket.on("delete", async (data: any , callback: any) => {
         console.log('Esto es lo que se debe borrar', data)
         const deltTravel = await Travel.destroy({ where: { id: data.id }});
-      
+        callback({
+            status: 'Viaje eliminado exitosamente'
+        })
     })
- 
+
 
 
     socket.on("disconnect", () => {

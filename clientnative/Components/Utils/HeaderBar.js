@@ -7,11 +7,11 @@ import {
     heightPercentageToDP as hp,
   } from "react-native-responsive-screen";
 
-const HeaderBar = () => {
+const HeaderBar = (props) => {
 
     const navigation = useNavigation();
-
-
+    const screen = props.screen
+    console.log("Esto es donde tengo que volver", props.screen)
     return (
         <View style={{ paddingHorizontal:  wp('3%'), flexDirection: "row",  paddingBottom: wp('4%'), marginTop: wp('10%')}}>
             <View style={{flex: 1, alignItems: "flex-start"}}>
@@ -19,7 +19,7 @@ const HeaderBar = () => {
                     flexDirection: "row",
                     alignItems: "center"
                 }}
-                onPress={() => navigation.goBack()}
+                onPress={ screen === 'null' ? () => navigation.goBack() : () => navigation.navigate(`${screen}`)  }
                 >
                 <Icon name="arrow-back" size={27} />
                 {/* <Text style={{marginLeft: 5, fontSize: 19, fontWeight: 'bold', marginBottom: 3}}>Volver</Text> */}

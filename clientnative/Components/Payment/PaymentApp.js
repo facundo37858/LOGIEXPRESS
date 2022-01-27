@@ -9,7 +9,9 @@ export default function App(props) {
     
     <View style={styles.container}>
       <StripeProvider publishableKey="pk_test_51KHp41KDcJ8UiNxjjfe3Hu14nV8NBZdLtNKoxphiEmAc47pFn4KnSTJ7s68Hpy4dOQbtnadCYbhYtovQbPa9nkx10013QK2vqD">
-        <Payment info={props}/>
+        <Payment info={props}
+         options={{ headerShown: false }}
+        />
       </StripeProvider>
       {/* <StatusBar style="auto" backgroundColor="red" /> */}
     </View>

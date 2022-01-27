@@ -31,6 +31,7 @@ import reviewCarrier from "./Components/Review/ReviewCarrier"
 import Chat from './Components/Chat/Chat.js'
 import HistorialDeViajeCarrier from "./Components/HistorialDeViaje/HistorialDeViajeCarrier";
 import { LogBox } from 'react-native';
+import TravelOn from "./Components/Viaje Actual/TravelOn";
 
 
 const Stack = createStackNavigator();
@@ -171,6 +172,11 @@ const App = () => {
               <Stack.Screen
               name="ReviewCarrier"
               component={reviewCarrier}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="TravelOn"
+              component={TravelOn}
               options={{ headerShown: false }}
             />
           </Stack.Navigator>

@@ -193,6 +193,7 @@ const RequestTravel = (props) => {
             price: price.price,
             description: description,
             id: data,
+            finishedTravel: 'earring',
         };
 
         //VALIDACIONES

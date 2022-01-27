@@ -43,7 +43,7 @@ const DatosPersonalesCarrier = () => {
           style={{
             flexDirection: "row",
             alignContent: "flex-start",
-            marginLeft: 25,
+            marginLeft: wp('5%'),
           }}
         >
           <View style={{ marginTop: wp('5%') }}>
@@ -57,13 +57,13 @@ const DatosPersonalesCarrier = () => {
               style={styles.userImg}
             />
           </View>
-          <View style={styles.boxDatos}>
+          <View style={styles.boxDatos} >
             <Text style={styles.userName}>
               {data.name} {data.lastname}
             </Text>
             <Text style={{ fontSize: 15 }}>{data.eMail}</Text>
             <Text style={{ fontSize: 15 }}>{data.location}</Text>
-            <View style={{ marginTop: 2, marginStart:-7 }}>
+            <View style={{ marginTop: 2, marginStart:-5 }}>
               <StarRating
                 ratings={rating}
                 reviews={rating}
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     borderColor: "#7952B3",
   },
   userName: {
-    fontSize: 24,
+    fontSize: hp('2.75%'),
     fontWeight: "bold",
     marginBottom: 1,
   },
@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     marginTop: 40,
     marginLeft: 20,
+    
   },
   estrellitas: {
     marginTop: 30,
@@ -148,12 +149,15 @@ const styles = StyleSheet.create({
   },
   btn: {
     borderWidth: 4,
+    backgroundColor: "#fff",
     borderColor: "#7952B3",
     width: wp("88%"),
     height: hp("7%"),
-    marginBottom: 20,
-    borderRadius: 15,
-    justifyContent:'center'
+    marginBottom: wp('7%'),
+    borderRadius: wp('3%'),
+    justifyContent:'center',
+    shadowOpacity: 80,
+    elevation: 13,
   },
   textBtn: {
     textAlign: "center",

@@ -3,80 +3,93 @@ import { Response, Request, Router, NextFunction } from 'express';
 import { Carrier } from '../models/Carrier';
 import { Travel } from '../models/Travel';
 import { User } from '../models/User';
-
-const router=Router()
-
+import { Op } from "sequelize";
 
 
-router.get('/historyTravelUser/:idUserReg',async(req:Request,res:Response,next:NextFunction)=>{
 
-    let {idUserReg}=req.params
+
+const router = Router()
+
+
+
+router.get('/historyTravelUser/:idUserReg', async (req: Request, res: Response, next: NextFunction) => {
+
+    let { idUserReg } = req.params
     console.log(req.params)
-    
-    try{
 
-        let user=await User.findOne({where:{idUserReg:idUserReg}})
+    try {
 
-        if(!user){
-            return res.json({menssage:'Not found user'})
+        let user = await User.findOne({ where: { idUserReg: idUserReg } })
+
+        if (!user) {
+            return res.json({ menssage: 'Not found user' })
         }
-
-        let travel=await Travel.findAll({
-            where:{
-                userId:user.id,
+        let actualTravel = await Travel.findAll({
+            where: {
+                finishedTravel: { [Op.not]: 'finish' },
+                userId: user.id
+            }, include: [{ model: Carrier }]
+        })
+        let travel = await Travel.findAll({
+            where: {
+                userId: user.id,
 
             },
-            include:[{
-                model:Carrier
+            include: [{
+                model: Carrier
             }]
         })
-        
 
-        if(travel.length>0){
-            
-            return res.json({menssage:'Found Travel',payload:travel})
-        }else{
-            return res.json({menssage:'Not found Travels'})
+        if (travel.length > 0) {
+
+            return res.json({ menssage: 'Found Travel', payload: travel, actualTravel })
+        } else {
+            return res.json({ menssage: 'Not found Travels' })
         }
 
-    }catch(err){
+    } catch (err) {
         next(err)
     }
 
 
 
 })
-router.get(`/historyTravelCarrier/:idUser_Reg`,async(req:Request,res:Response,next:NextFunction)=>{
+router.get('/historyTravelCarrier/:idUser_Reg', async (req: Request, res: Response, next: NextFunction) => {
 
-    let {idUser_Reg}=req.params
+    let { idUser_Reg } = req.params
 
-    try{
-        let user=await Carrier.findOne({where:{idUserReg:idUser_Reg}})//carrier 
+    try {
+        let user = await Carrier.findOne({ where: { idUserReg: idUser_Reg } })//carrier 
 
-        if(!user){
-            return res.json({menssage:'Not found carrier'})
+        if (!user) {
+            return res.json({ menssage: 'Not found carrier' })
         }
-
-        let travel=await Travel.findAll({
-            where:{
-                carrierId:user.id//el id del carrier 
-            },
-            include:[{
-                model:User
-            }]
-        
+        let actualTravel = await Travel.findAll({
+            where: {
+                finishedTravel: { [Op.not]: 'finish' },
+                carrierId: user.id
+            }, include: [{ model: Carrier }]
         })
-        if(travel.length>0){
-            
-            res.json({menssage:'Found Travel',payload:travel})
+        let travel = await Travel.findAll({
+            where: {
+                carrierId: user.id//el id del carrier 
+            },
+            include: [{
+                model: User
+            }]
 
-        }else{
-            
-           
-            return res.json({menssage:'Not found Travels'})
+        })
+        if (travel.length > 0) {
+
+            res.json({ menssage: 'Found Travel', payload: travel, actualTravel })
+
+        } else {
+
+
+            return res.json({ menssage: 'Not found Travels' })
         }
 
-    }catch(err){
+    } catch (err) {
         next(err)
     }
 

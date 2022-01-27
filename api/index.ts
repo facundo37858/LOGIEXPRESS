@@ -144,7 +144,21 @@ socket.on("join_room",async (data:any, callback:any) => {
         })
     })
 
+    socket.on("confirm_destination", async (data: any , callback: any) => {
+        console.log('Esto es el viaje que hay que updatear', data)
+        const confirm = await Travel.update({finishedTravel: 'at_destination' }, {where: { id: data}});
+        callback({
+            status: 'Viaje confirmado exitosamente'
+        })
+    })
 
+    socket.on("finished_travel", async (data: any , callback: any) => {
+        console.log('Esto es el viaje que hay que updatear', data)
+        const confirm = await Travel.update({finishedTravel: 'finish' }, {where: { id: data}});
+        callback({
+            status: 'Viaje confirmado exitosamente'
+        })
+    })
 
     socket.on("disconnect", () => {
         console.log("User Disconnected", socket.id)

@@ -36,6 +36,8 @@ const ScreenMap = () => {
   const [pin, setPin] = useState({
     latitude: 0,
     longitude: 0,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
   });
 
   const [region, setRegion] = useState({
@@ -60,6 +62,8 @@ const ScreenMap = () => {
       setPin({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
       });
     })();
     dispatch(getTravels());
@@ -115,8 +119,15 @@ const ScreenMap = () => {
   const _map = React.useRef(null);
   const _scrollView = React.useRef(null);
 
-  console.log(travels);
+  console.log("ESTO SON LOS TRAVELS", travels[0]);
 
+
+
+
+
+
+
+  
   const rating = 3;
 
   return (
@@ -125,14 +136,12 @@ const ScreenMap = () => {
         <MapView
           style={StyleSheet.absoluteFill}
           ref={_map}
-          initialRegion={{
-            latitude: pin.latitude,
-            longitude: pin.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
+          initialRegion={pin}
           provider="google"
-        >
+        > 
+          <Marker
+          coordinate={pin}
+          />
           <View style={{ marginTop: 35, position: "absolute" }}></View>
           {travels !== 0 ? (
             travels?.map((point, index) => {

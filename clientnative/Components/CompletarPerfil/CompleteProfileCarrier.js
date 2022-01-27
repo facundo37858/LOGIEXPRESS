@@ -26,6 +26,11 @@ import SimpleModal14 from "../AlertasComplete/SimpleModalpatent.js";
 import SimpleModal15 from "../AlertasComplete/SimpleModalmodel.js";
 import SimpleModal16 from "../AlertasComplete/SimpleModalcolor.js";
 import SimpleModal17 from "../AlertasComplete/SimpleModalcapacity.js";
+// prueba para las screens responsive
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const CompleteProfileCarrier = () => {
   const dispatch = useDispatch();
@@ -377,28 +382,28 @@ const CompleteProfileCarrier = () => {
                 Datos personales
               </Text>
               <View style={styles.viewsInputs}>
-                <Icon name="person-circle-outline" size={26} />
+                <Icon name="person-circle-outline"  style={styles.icons} />
                 <Text style={{ fontSize: 18, marginLeft: 15 }}>
                   {datosCarrier.name}
                 </Text>
                 <TextInput style={styles.textPlaceholder} />
               </View>
               <View style={styles.viewsInputs}>
-                <Icon name="person-circle-outline" size={26} />
+                <Icon name="person-circle-outline"  style={styles.icons} />
                 <Text style={{ fontSize: 18, marginLeft: 15 }}>
                   {datosCarrier.lastName}
                 </Text>
                 <TextInput style={styles.textPlaceholder} />
               </View>
               <View style={styles.viewsInputs}>
-                <Icon name="mail-outline" size={25} />
+                <Icon name="mail-outline"  style={styles.icons} />
                 <Text style={{ fontSize: 18, marginLeft: 15 }}>
                   {datosCarrier.eMail}
                 </Text>
                 <TextInput style={styles.textPlaceholder} />
               </View>
               <View style={styles.viewsInputs}>
-                <Icon name="reader-outline" size={26} />
+                <Icon name="reader-outline"  style={styles.icons} />
                 <TextInput
                   value={carrier.documentID}
                   placeholder="Documento de identidad sin puntos"
@@ -411,14 +416,14 @@ const CompleteProfileCarrier = () => {
                 />
               </View>
               <View style={styles.viewsInputs}>
-                <Icon name="phone-portrait-outline" size={26} />
+                <Icon name="phone-portrait-outline"  style={styles.icons} />
                 <Text style={{ fontSize: 18, marginLeft: 15 }}>
                   {datosCarrier.phone}
                 </Text>
                 <TextInput style={styles.textPlaceholder} />
               </View>
               <View style={styles.viewsInputs}>
-                <Icon name="map-outline" size={26} />
+                <Icon name="map-outline"  style={styles.icons} />
                 <TextInput
                   value={carrier.location}
                   onChangeText={(location) => handleChangeLocation(location)}
@@ -437,7 +442,7 @@ const CompleteProfileCarrier = () => {
                   Datos del vehiculo
                 </Text>
                 <View style={styles.viewsInputs}>
-                  <Icon name="newspaper-outline" size={26} />
+                  <Icon name="newspaper-outline"  style={styles.icons} />
                   <TextInput
                     value={carrier.license}
                     onChangeText={(license) => handleChangeLicense(license)}
@@ -447,7 +452,7 @@ const CompleteProfileCarrier = () => {
                   />
                 </View>
                 <View style={styles.viewsInputs}>
-                  <Icon name="car-outline" size={26} />
+                  <Icon name="car-outline"  style={styles.icons} />
                   <TextInput
                     value={carrier.brand}
                     onChangeText={(brand) => handleChangeBrand(brand)}
@@ -457,7 +462,7 @@ const CompleteProfileCarrier = () => {
                   />
                 </View>
                 <View style={styles.viewsInputs}>
-                  <Icon name="document-outline" size={26} />
+                  <Icon name="document-outline"  style={styles.icons} />
                   <TextInput
                     value={carrier.patent}
                     onChangeText={(patent) => handleChangePatent(patent)}
@@ -467,7 +472,7 @@ const CompleteProfileCarrier = () => {
                   />
                 </View>
                 <View style={styles.viewsInputs}>
-                  <Icon name="car-sport-outline" size={26} />
+                  <Icon name="car-sport-outline"  style={styles.icons} />
                   <TextInput
                     value={carrier.model}
                     onChangeText={(model) => handleChangeModel(model)}
@@ -478,7 +483,7 @@ const CompleteProfileCarrier = () => {
                   />
                 </View>
                 <View style={styles.viewsInputs}>
-                  <Icon name="color-palette-outline" size={26} />
+                  <Icon name="color-palette-outline"  style={styles.icons} />
                   <TextInput
                     value={carrier.color}
                     onChangeText={(color) => handleChangeColor(color)}
@@ -488,7 +493,7 @@ const CompleteProfileCarrier = () => {
                   />
                 </View>
                 <View style={styles.viewsInputs}>
-                  <Icon name="construct-outline" size={26} />
+                  <Icon name="construct-outline"  style={styles.icons} />
                   <TextInput
                     value={carrier.capacity}
                     onChangeText={(capacity) => handleChangeCapacity(capacity)}
@@ -622,6 +627,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: "white",
   },
+  icons:{
+    fontSize: hp("3.5%"),
+    color: "#FFC107",
+    padding: wp("0.3%"),
+    marginTop: wp('-0.7%'), 
+  },
   containerInputs: {
     flex: 1,
     alignItems: "flex-start",
@@ -651,19 +662,21 @@ const styles = StyleSheet.create({
   },
 
   btnEditar: {
-    backgroundColor: "#7952B3",
-    borderRadius: 10,
-    width: 150,
-    height: 50,
-    marginTop: 20,
+    
+    backgroundColor: "#FFC107",
+    borderRadius: wp('3%'),
+    width: wp("88%"),
+    height: hp("7%"),
+    marginTop: wp('10%'),
     alignSelf: "center",
     marginBottom: 20,
   },
   textBtn: {
+    fontWeight: 'bold',
     color: "white",
-    fontSize: 17,
+    fontSize: 19,
     alignSelf: "center",
-    marginTop: 12,
+    marginTop: 10,
   },
   viewsInputs: {
     borderColor: "#D5D5D5",

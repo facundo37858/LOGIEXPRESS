@@ -41,7 +41,7 @@ const HistorialDeViajeCarrier = () => {
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <HeaderBar />
+        <HeaderBar screen={'null'} />
         <View style={styles.containerHeaders}>
           <Text style={{ fontSize: hp("2.5%"), fontWeight: "bold" }}>
             Historial de viajes

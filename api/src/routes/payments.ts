@@ -59,7 +59,7 @@ router.post("/pay", async (req: Request, res: Response, next: NextFunction) => {
     // if (!eMail) return res.json({ key: 400, message: "Please enter a eMail" });
 
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: parseInt(req.body.info.route.params.travel.price),
+      amount: parseInt(req.body.info.route.params.travel.price)*100,
       currency: "usd",
       payment_method_types: ["card"],
       metadata: {eMail,lastName,name,id},

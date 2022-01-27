@@ -90,6 +90,7 @@ const Payment = (props) => {
       // const response = await axios.post(`http://${config.ip}:3001/api/pay`, {
       //   name,tokenn,
       // });      `${ API_URL }/api/confirmTravel`
+      console.log(API_URL)
       const response = await axios.post(`${ API_URL }/api/pay`, props);
       //.then(res=>res.data)
 
@@ -114,7 +115,7 @@ const Payment = (props) => {
         clientSecret,
       });
       if (presentSheet.error)
-        return Alert.alert("error3", presentSheet.error.message);
+        return changeModalVisible61(true)
         changeModalVisible60(true)
         dispatch(reqTravelConfirm(obj))
       // Alert.alert("Payment complete, thank you!");

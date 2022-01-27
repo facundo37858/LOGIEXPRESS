@@ -20,6 +20,11 @@ import { completeProfileUser } from "../../actions/index.js";
 import SimpleModal from "./SimpleModal.js";
 import SimpleModal10 from '../AlertasComplete/SimpleModaldni.js'
 import SimpleModal11 from "../AlertasComplete/SimpleModalzone.js";
+// prueba para las screens responsive
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const CompleteProfileUser = () => {
   const dispatch = useDispatch();
@@ -202,7 +207,7 @@ const CompleteProfileUser = () => {
               onSubmit={(e) => handleSubmit(e)}
             >
               <View style={styles.viewsInputs}>
-                <Icon name="person-circle-outline" size={26} />
+                <Icon name="person-circle-outline"  style={styles.icons} />
                 <Text style={{ fontSize: 18, marginLeft: 15 }}>
                   {datosUser.name}
                 </Text>
@@ -210,7 +215,7 @@ const CompleteProfileUser = () => {
               </View>
 
               <View style={styles.viewsInputs}>
-                <Icon name="person-circle-outline" size={26} />
+                <Icon name="person-circle-outline"  style={styles.icons}/>
                 <Text style={{ fontSize: 18, marginLeft: 15 }}>
                   {datosUser.lastName}
                 </Text>
@@ -218,7 +223,7 @@ const CompleteProfileUser = () => {
               </View>
 
               <View style={styles.viewsInputs}>
-                <Icon name="mail-outline" size={26} />
+                <Icon name="mail-outline"  style={styles.icons} />
                 <Text style={{ fontSize: 18, marginLeft: 15 }}>
                   {datosUser.eMail}
                 </Text>
@@ -228,8 +233,7 @@ const CompleteProfileUser = () => {
               <View style={styles.viewsInputs}>
                 <Icon
                   name="reader-outline"
-                  size={26}
-                  style={{ paddingBottom: 2 }}
+                  style={styles.icons}
                 />
                 <TextInput
                   value={user.identification}
@@ -246,8 +250,7 @@ const CompleteProfileUser = () => {
               <View style={styles.viewsInputs}>
                 <Icon
                   name="navigate-outline"
-                  size={26}
-                  style={{ paddingBottom: 2 }}
+                  style={styles.icons}
                 />
                 <TextInput
                   value={user.zone}
@@ -261,8 +264,7 @@ const CompleteProfileUser = () => {
               <View style={styles.viewsInputs}>
                 <Icon
                   name="phone-portrait-outline"
-                  size={26}
-                  style={{ paddingBottom: 2 }}
+                  style={styles.icons}
                 />
                 <Text style={{ fontSize: 18, marginLeft: 15 }}>
                   {datosUser.phone}
@@ -329,6 +331,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     justifyContent: "space-between",
     backgroundColor: "white",
+    color: "#7952B3",
+  },
+  icons:{
+    fontSize: hp("3.5%"),
+    color: "#7952B3",
+    padding: wp("0.3%"),
+    marginTop: wp('-0.7%'), 
   },
   containerInputs: {
     flex: 1,
@@ -342,10 +351,10 @@ const styles = StyleSheet.create({
   },
   btnEditar: {
     backgroundColor: "#FFC107",
-    borderRadius: 10,
-    width: 150,
-    height: 50,
-    marginTop: 20,
+    borderRadius: wp('3%'),
+    width: wp("88%"),
+    height: hp("7%"),
+    marginTop: wp('10%'),
     alignSelf: "center",
   },
   textBtn: {

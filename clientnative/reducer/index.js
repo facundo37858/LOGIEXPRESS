@@ -107,6 +107,7 @@ export default function rootReducer(state = initialState, action) {
         editarPerfilUser: [],
         editarPerfilCarrier: [],
         editVehicule: [],
+        price: []
       };
     case "EDIT_PROFILE_USER":
       return {

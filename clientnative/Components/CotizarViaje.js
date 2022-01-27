@@ -22,9 +22,11 @@ import { cotizarViaje, requestTravel } from "../actions/index.js";
 import { LogBox } from "react-native";
 import HeaderBar from "./Utils/HeaderBar";
 import { APIKEY_GOOGLE } from "@env"
-
-
-
+import { desmount  } from "../actions/index";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const CotizarViaje = () => {
   ////--> HOOK PARA LA NAVEGACION <-- ////
@@ -36,6 +38,12 @@ const CotizarViaje = () => {
   useEffect(() => {
     LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
   }, [price]);
+
+  useEffect(() => {
+    return () => {
+     dispatch(desmount())
+    };
+  }, [dispatch]);
 
   /// --> ESTADO PARA LOS INPUTS <-- ///
   const [origen, setOrigen] = useState({
@@ -65,7 +73,7 @@ const CotizarViaje = () => {
 
   //// --> Inicio de componente <-- ////
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#F4F4F4' }}>
       <HeaderBar  screen={'null'}/>
       <ScrollView keyboardShouldPersistTaps={"handled"}>
         <View style={styles.container}>
@@ -180,15 +188,15 @@ const CotizarViaje = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "90%",
-    marginLeft: 18,
-    marginTop: 50,
+    width: wp('95%'),
+    padding: wp('2%'),
+    justifyContent: 'center',
+    marginLeft: wp('2.5%'),
   },
   textCotiza: {
     fontWeight: "bold",
     fontSize: 27,
-    // marginTop: 30,
-    marginBottom: 20,
+    marginBottom: wp('3%'),
     textAlign: "center",
   },
   textsOriDes: {
@@ -205,9 +213,9 @@ const styles = StyleSheet.create({
  
   textBtn: {
     color: "white",
-    fontSize: 19,
+    fontSize: hp('2.75%'),
     alignSelf: "center",
-    marginTop: 10,
+    marginTop: wp('2.25%'),
     fontWeight: "bold",
   },
   ViewPrecio: {
@@ -252,12 +260,13 @@ const styles = StyleSheet.create({
   btnEditar: {
     backgroundColor:"#FFC107",
     borderRadius: 10,
-    width: 150,
-    height: 50,
+    width: wp('90%'),
+    height: hp('7%'), 
     marginTop: 20,
     alignSelf: "center",
     marginBottom: 20,
-    marginRight: 30,
+   marginRight: 20,
+  
   },
 });
 

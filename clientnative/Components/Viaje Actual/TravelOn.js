@@ -45,7 +45,7 @@ export default function TravelOn(props) {
             console.log(resp.status); // ok
             setResponse2(resp.status);
         });
-        navigation.navigate("ReviewUser")
+        navigation.navigate("ReviewUser", data.id)
     }
 
     let [response, setResponse] = useState(null);

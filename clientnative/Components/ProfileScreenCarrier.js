@@ -61,7 +61,7 @@ const ProfileScreen = () => {
           >
             <Icon name="person-circle-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Datos Personales</Text>
-              <Icon name="chevron-forward-outline" style={styles.icons3} />
+              {/* <Icon name="chevron-forward-outline" style={styles.icons3} /> */}
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btnText}
@@ -70,7 +70,7 @@ const ProfileScreen = () => {
           }}>
             <Icon name="location-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Historial de viajes</Text>
-              <Icon name="chevron-forward-outline" style={styles.icons3} />
+              {/* <Icon name="chevron-forward-outline" style={styles.icons3} /> */}
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -79,7 +79,7 @@ const ProfileScreen = () => {
           >
             <Icon name="calculator-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Cotizar viaje</Text>
-            <Icon name="chevron-forward-outline" style={styles.icons4} />
+            {/* <Icon name="chevron-forward-outline" style={styles.icons4} /> */}
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     alignContent: "flex-end",
     alignItems: "flex-end",
     marginTop: wp('1%'),
-    marginLeft: wp('22%')
+    marginLeft: wp('24%')
   },
   icons4: {
     fontSize: hp("2.70%"),
@@ -182,6 +182,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: hp('2.2%'),
     marginTop: wp('0.9%'),
+    fontWeight: '800'
   },
   userBtnTxt2: {
     paddingLeft: wp('2%'),

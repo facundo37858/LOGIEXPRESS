@@ -81,7 +81,7 @@ const ProfileUserScreen = () => {
           >
             <Icon name="person-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Datos Personales</Text>
-            <Icon name="chevron-forward-outline" style={styles.icons3} />
+            {/* <Icon name="chevron-forward-outline" style={styles.icons3} /> */}
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -92,7 +92,7 @@ const ProfileUserScreen = () => {
           >
             <Icon name="bus-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Historial de viajes</Text>
-            <Icon name="chevron-forward-outline" style={styles.icons3} />
+            {/* <Icon name="chevron-forward-outline" style={styles.icons3} /> */}
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -101,7 +101,7 @@ const ProfileUserScreen = () => {
           >
             <Icon name="calculator-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Cotizar viaje</Text>
-            <Icon name="chevron-forward-outline" style={styles.icons4} />
+            {/* <Icon name="chevron-forward-outline" style={styles.icons4} /> */}
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -123,25 +123,6 @@ const ProfileUserScreen = () => {
 export default ProfileUserScreen;
 
 const styles = StyleSheet.create({
-/*   custom_shape_divider_bottom_1643157144: {
-    position: absolute,
-    bottom: 0,
-    left: 0,
-    width: '100%',
-    overflow: hidden,
-    line_height: 0
-}
-
-.custom-shape-divider-bottom-1643157144 svg {
-    position: relative;
-    display: block;
-    width: calc(155% + 1.3px);
-    height: 274px;
-}
-
-.custom-shape-divider-bottom-1643157144 .shape-fill {
-    fill: #FFC107;
-} */
   icons: {
     alignContent: "center",
     fontSize: hp("3.5%"),

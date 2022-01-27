@@ -444,7 +444,7 @@ export function getVehicules(idRole) {
 export function getActualTravel(idRole) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`${API_URL}api/vehicleDetails/${idRole}`);
+      const response = await axios.get(`${API_URL}/api/vehicleDetails/${idRole}`);
       // console.log('Soy el console.log de response', response)
       return dispatch({
         type: 'GET_ACTUAL_TRAVEL',

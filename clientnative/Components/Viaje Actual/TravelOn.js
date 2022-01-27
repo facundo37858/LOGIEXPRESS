@@ -9,6 +9,7 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { useNavigation } from "@react-navigation/core";
 
 
 
@@ -16,7 +17,7 @@ import {
 
 export default function TravelOn(props) {
 
-
+    const navigation = useNavigation();
 
 
     const socket = useSelector((store) => store.socket)
@@ -25,23 +26,26 @@ export default function TravelOn(props) {
 
 
     const sendConfirmation = (props) => {
-        alert('me estoy precionando')
+        // alert('me estoy precionando')
         console.log("ESTAS SON LAS PROPS QUE ENVIO", props)
         const id = props
         socket.emit('confirm_destination', id, (resp) => {
             console.log(resp.status); // ok
             setResponse(resp.status);
         });
+        navigation.navigate("ReviewCarrier")
+
     }
 
     const sendFinishedTravel = (props) => {
-        alert('me estoy precionando')
+        // alert('me estoy precionando')
         console.log("ESTAS SON LAS PROPS QUE ENVIO", props)
         const id = props
         socket.emit('finished_travel', id, (resp) => {
             console.log(resp.status); // ok
             setResponse2(resp.status);
         });
+        navigation.navigate("ReviewUser", data.id)
     }
 
     let [response, setResponse] = useState(null);

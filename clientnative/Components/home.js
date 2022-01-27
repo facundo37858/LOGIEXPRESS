@@ -27,7 +27,7 @@ const Home = () => {
     let result = await SecureStore.getItemAsync("token");
     if (result) {
       onChangeResult(result);
-     /*  console.log(result) */;
+     // console.log(result);
     } else {
       //   alert('Invalid Key')
     }

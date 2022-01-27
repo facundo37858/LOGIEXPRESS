@@ -50,7 +50,7 @@ const StartUser = (props) => {
     e.preventDefault();
     // en un objeto pongo lo que tengo en el estado inicial
     const obj = {
-      idTravel: '05c9cb04-e3b6-4d1e-be6e-ddc508f2f51e',
+      idTravel: props.route.params,
       User_raiting: review.rating,
       User_comment: review.description,
     };
@@ -74,7 +74,7 @@ const StartUser = (props) => {
       rating: "",
       description: "",
     });
-
+    navigation.navigate('ProfileScreenCarrier')
     //cuando se cumpla que respuesta != null
     //haga un console.log(respuesta)
 

@@ -7,12 +7,14 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Image,
+  Modal
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import HeaderBar from "./Utils/HeaderBar";
 import { useNavigation } from "@react-navigation/core";
 import { getTravelID, desmount } from "../actions/index";
 import { useSelector, useDispatch } from "react-redux";
+import SimpleModal70 from "./AlertasTravel/SimpleModalcanceltrip";
 
 const ScreenWaiting = (payload) => {
 
@@ -32,6 +34,23 @@ const ScreenWaiting = (payload) => {
     dispatch(getTravelID(id));
     
   }, [dispatch]);
+
+      // COMBINACION MAIL Y PASS MAL
+      const [isModalVisible70, setisModalVisible70] = useState(false);
+      const [chooseData70, setchooseData70] = useState();
+      const [activar70, setActivar70] = useState(false);
+    
+      const changeModalVisible70 = (bool) => {
+        setisModalVisible70(bool);
+      };
+    
+      const setData70 = (data) => {
+        setchooseData70(data);
+      };
+
+      const setActivacion70 = (boole) => {
+        setActivar70(boole);
+      };
 
 
 /*   useEffect(() => {
@@ -64,8 +83,7 @@ const ScreenWaiting = (payload) => {
 
   console.log("ESTO ES OBJCARRIER", objCarrier)
 
-
-  const handleDelete = () => {
+  if(activar70 === true){
     const deleteTravel = () => {
       id
       socket.emit('delete', id, (response) => {
@@ -77,6 +95,8 @@ const ScreenWaiting = (payload) => {
     deleteTravel();
   }
 
+ 
+
   const [response, setResponse] = useState(null)
   const [respDelete, setRespDelete] = useState(null)
 
@@ -87,7 +107,7 @@ const ScreenWaiting = (payload) => {
     });
     if(respDelete) {
       if(respDelete.status === 'Viaje eliminado exitosamente') {
-        alert('Viaje eliminado exitosamente')
+        // alert('Viaje eliminado exitosamente')
         navigation.navigate('ProfileUserScreen')
       }
       console.log("ESTO ES LA RESPUESTA DE DELETE",respDelete.status);
@@ -206,10 +226,23 @@ const ScreenWaiting = (payload) => {
             <View style={styles.btn2}>
               <TouchableOpacity
                 style={styles.btnEditar}
-                onPress={handleDelete}
+                onPress={()=> changeModalVisible70(true)}
               >
                 <Text style={styles.textBtn}>Cancelar Viaje</Text>
               </TouchableOpacity>
+              <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible70}
+                  nRequestClose={() => changeModalVisible70(false)}
+                >
+                  <SimpleModal70
+                    changeModalVisible70={changeModalVisible70}
+                    setData70={setData70}
+                    setActivacion70={setActivacion70}
+                  />
+                  
+                  </Modal>
             </View>
           </View>
         </View>

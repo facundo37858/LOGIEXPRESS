@@ -6,6 +6,11 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/core";
 import StarRating from "../StarRating";
 import HeaderBar from "../Utils/HeaderBar";
+// prueba para las screens responsive
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const DatosPersonalesCarrier = () => {
   const data = useSelector((store) => store.responseLog);
@@ -22,28 +27,26 @@ const DatosPersonalesCarrier = () => {
     navigation.navigate('singIn')
   }
 
-
   useEffect(() => {
     //console.log("data", data)
   }, [data]);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
       <View>
       <HeaderBar  screen={'null'}/>
         <Text style={styles.perfilTex}>Datos personales</Text>
-       
       </View>
         
         <View    
           style={{
             flexDirection: "row",
             alignContent: "flex-start",
-            marginLeft: 25,
+            marginLeft: wp('5%'),
           }}
         >
-          <View style={{ marginTop: 25 }}>
+          <View style={{ marginTop: wp('5%') }}>
             <Image
               source={{
                 uri:
@@ -54,13 +57,13 @@ const DatosPersonalesCarrier = () => {
               style={styles.userImg}
             />
           </View>
-          <View style={styles.boxDatos}>
+          <View style={styles.boxDatos} >
             <Text style={styles.userName}>
               {data.name} {data.lastname}
             </Text>
             <Text style={{ fontSize: 15 }}>{data.eMail}</Text>
             <Text style={{ fontSize: 15 }}>{data.location}</Text>
-            <View style={{ marginTop: 2, marginStart:-7 }}>
+            <View style={{ marginTop: 2, marginStart:-5 }}>
               <StarRating
                 ratings={rating}
                 reviews={rating}
@@ -103,12 +106,17 @@ const DatosPersonalesCarrier = () => {
 export default DatosPersonalesCarrier;
 
 const styles = StyleSheet.create({
+  container: { 
+    flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white'
+   },
   perfilTex: {
-    fontSize: 25,
+    marginLeft: wp("4%"),
+    fontSize: hp("2.5%"),
     fontWeight: "bold",
-    alignItems: "flex-start",
-    marginTop: 25,
-    marginLeft: 20,
   },
   userImg: {
     marginTop: 17,
@@ -119,7 +127,7 @@ const styles = StyleSheet.create({
     borderColor: "#7952B3",
   },
   userName: {
-    fontSize: 24,
+    fontSize: hp('2.75%'),
     fontWeight: "bold",
     marginBottom: 1,
   },
@@ -127,6 +135,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     marginTop: 40,
     marginLeft: 20,
+    
   },
   estrellitas: {
     marginTop: 30,
@@ -136,16 +145,19 @@ const styles = StyleSheet.create({
   botones: {
     alignContent: "center",
     alignItems: "center",
-    margin: 100,
+   marginTop : wp('15%')
   },
   btn: {
     borderWidth: 4,
+    backgroundColor: "#fff",
     borderColor: "#7952B3",
-    width: 250,
-    height: 50,
-    marginBottom: 20,
-    borderRadius: 15,
-    justifyContent:'center'
+    width: wp("88%"),
+    height: hp("7%"),
+    marginBottom: wp('7%'),
+    borderRadius: wp('3%'),
+    justifyContent:'center',
+    shadowOpacity: 80,
+    elevation: 13,
   },
   textBtn: {
     textAlign: "center",

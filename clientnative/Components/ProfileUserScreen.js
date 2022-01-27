@@ -11,20 +11,45 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/core";
-import { logiarUsuario } from "./../actions/index";
-import { useSelector } from "react-redux";
+import { requestPermisse , deletePermisse } from "./../actions/index";
+import { useSelector, useDispatch } from "react-redux";
 
 const ProfileUserScreen = () => {
   const resptoken = useSelector((store) => store.respToken);
   const data = useSelector((store) => store.responseLog);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const respPermisse = useSelector((store) => store.respPermisse) 
+
+
+
 
   useEffect(() => {
-    //console.log("data", data);
-  }, [data]);
 
-  // console.log("AQUI RESPONLOG EN PROFILEUSERScreen", data);
+      if(respPermisse === 'user sin travel') {
+        console.log("AQUI ESTA LA RESPUESTA DEL HANDLeeEEEEEEEEEEE", respPermisse)
+        navigation.navigate('RequestTravel', data?.idRole)
+       }  
+      if(respPermisse?.menssage === 'user travel') {
+        console.log("llege aca", respPermisse.payload[0].id)
+        navigation.navigate('ScreenWaiting', respPermisse.payload[0].id)
+      }  
+    return () => {
+      dispatch(deletePermisse())
+    };
+  }, [data, respPermisse]);
+  
+
+  console.log("AQUI ESTA LA RESPUESTA DEL HANDLE", respPermisse);
   // console.log("AQUI RESPTOKEN en PROFILEUSERScreen", resptoken);
+
+
+  const handleRequest = (props) => {
+    console.log(props)
+    dispatch(requestPermisse(props))
+  }
+
+
 
   return (
     <View style={{ flex: 1 }}>
@@ -37,7 +62,7 @@ const ProfileUserScreen = () => {
             <Image
               source={{
                 uri:
-                  data.photo !== null
+                  data?.photo !== null
                     ? data.photo
                     : "https://memoriamanuscrita.bnp.gob.pe/img/default-user.jpg",
               }}
@@ -62,18 +87,15 @@ const ProfileUserScreen = () => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btnText}>
+          <TouchableOpacity
+            style={styles.btnText}
+            onPress={() => {
+              navigation.navigate("HistorialDeViaje");
+            }}
+          >
             <Icon name="bus-outline" style={styles.icons} />
             <Text style={styles.userBtnTxt}>Historial de viajes</Text>
             <View style={{ marginLeft: 110 }}>
-              <Icon name="chevron-forward-outline" style={styles.icons3} />
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.btnText}>
-            <Icon name="cash-outline" style={styles.icons} />
-            <Text style={styles.userBtnTxt}>Transacciones</Text>
-            <View style={{ marginLeft: 128 }}>
               <Icon name="chevron-forward-outline" style={styles.icons3} />
             </View>
           </TouchableOpacity>
@@ -89,10 +111,10 @@ const ProfileUserScreen = () => {
 
           <TouchableOpacity
             style={styles.btn2}
-            onPress={() => navigation.navigate("RequestTravel", data?.idRole)}
+            onPress={() => handleRequest(data?.idRole)}
           >
             <Image
-              style={{ width: 70, height: 55, marginLeft: -4 }}
+              style={{ width: 60, height: 40, marginLeft: -4 }}
               source={require("./Utils/UserProfile.png")}
             />
             <Text style={styles.userBtnTxt2}>Solicitar Viaje</Text>
@@ -106,6 +128,25 @@ const ProfileUserScreen = () => {
 export default ProfileUserScreen;
 
 const styles = StyleSheet.create({
+/*   custom_shape_divider_bottom_1643157144: {
+    position: absolute,
+    bottom: 0,
+    left: 0,
+    width: '100%',
+    overflow: hidden,
+    line_height: 0
+}
+
+.custom-shape-divider-bottom-1643157144 svg {
+    position: relative;
+    display: block;
+    width: calc(155% + 1.3px);
+    height: 274px;
+}
+
+.custom-shape-divider-bottom-1643157144 .shape-fill {
+    fill: #FFC107;
+} */
   icons: {
     marginRight: 10,
     marginTop: 4,
@@ -134,7 +175,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     backgroundColor: "#fff",
     width: "85%",
-    height: "13%",
+    height: "14%",
     padding: 10,
     paddingBottom: 10,
     borderRadius: 15,
@@ -151,7 +192,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#FFC107",
     width: "85%",
-    height: "17%",
+    height: "18%",
     padding: 10,
     paddingBottom: 10,
     borderRadius: 15,

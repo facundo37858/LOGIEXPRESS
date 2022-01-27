@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   TextInput,
+  Modal
 } from "react-native";
 //iconos
 import Icon from "react-native-vector-icons/Ionicons";
@@ -15,8 +16,45 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/core";
 //Agarrar imagen del celu
 import * as ImagePicker from "expo-image-picker";
+import { useDispatch, useSelector } from "react-redux";
+import { editProfileUser } from "../../actions";
+// prueba para las screens responsive
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import SimpleModal from "./SimpleModal";
+import { desmount  } from "../../actions";
+import HeaderBar from "../Utils/HeaderBar";
 
 const EditProfile = () => {
+  const dispatch = useDispatch();
+  const datosUser = useSelector((store) => store.responseLog)
+
+  const editUser = useSelector((store) => store.editarPerfilUser)
+  console.log("ESTO LLEGA", editUser)
+
+  useEffect(() => {
+    if(editUser?.msg) {
+      changeModalVisible(true)
+    }
+  }, [datosUser, editUser]);
+
+  useEffect(() => {
+    return () => {
+     dispatch(desmount())
+    };
+  }, [dispatch]);
+
+  /// --> ESTADO PARA EL MODAL <-- ///
+  const [isModalVisible, setisModalVisible] = useState(false);
+  const [chooseData, setchooseData] = useState();
+
+  const changeModalVisible = (bool) => {
+    setisModalVisible(bool);
+  };
+
+  const setData = (data) => {
+    setchooseData(data);
+  };
+
   ////--> HOOK PARA LA NAVEGACION <-- ////
   const navigation = useNavigation();
 
@@ -32,28 +70,122 @@ const EditProfile = () => {
       return;
     }
 
-    const pickerResult = await ImagePicker.launchImageLibraryAsync();
-    if (pickerResult.cancelled === true) {
-      return;
+    //Si es true va a venir a pickerResult
+    const pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (pickerResult.cancelled !== true) {
+      let newFile = {
+        uri: pickerResult.uri,
+        type: `logi/${pickerResult.uri.split(".")[1]}`,
+        name: `logi.${pickerResult.uri.split(".")[1]}`,
+      };
+      handleUpload(newFile);
     }
-    setSelectedImage({ localUri: pickerResult.uri });
   };
+
+  const handleUpload = (image) => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "logiexpress");
+    data.append("cloud_name", "elialvarez");
+
+    fetch("https://api.cloudinary.com/v1_1/elialvarez/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        //console.log(data)
+        setSelectedImage(data.url);
+      });
+  };
+
+  //// --> ESTADO PARA LOS INPUTS <-- ////
+  const [user, setUser] = useState({
+    name: '',
+    lastName: '',
+    identification: '',
+    zone: '', 
+    phone: '',
+
+  });
+
+  
+  //// ---> HANDLERS INPUTS <--- ////
+  const handleChangeName = (name) => {
+    setUser({
+      ...user,
+      name : name,
+    });
+  };
+
+  const handleChangeLastName = (lastName) => {
+    setUser({
+      ...user,
+      lastName : lastName,
+    });
+  };
+
+  const handleChangeIdentification = (identification) => {
+    setUser({
+      ...user,
+      identification: identification,
+    });
+  };
+
+  const handleChangeZone = (zone) => {
+    setUser({
+      ...user,
+      zone: zone,
+    });
+  };
+
+  const handleChangePhone = (phone) => {
+    setUser({
+      ...user,
+      phone: phone,
+    });
+  };
+
+
+  //// --> HANDLE SUBMIT <-- ////
+ function handleSubmit(e) {
+   e.preventDefault();
+   const edit= {
+     name : user.name,
+     lastName: user.lastName,
+     identification: user.identification,
+     zone: user.zone,
+     phone: user.phone,
+     photo: selectedImage,
+      id: datosUser.id
+   }
+   dispatch(editProfileUser(edit))
+   console.log("soy lo que se envia el front", edit);
+  // changeModalVisible(true)
+ }
 
   //// --> Inicio de componente <-- ////
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
+    <View style={{ flex: 1, backgroundColor: "white" }}  onSubmit={(e) => handleSubmit(e)}>
       <ScrollView
         style={{ backgroundColor: "white" }}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.iconBar}>
+   {/*      <View style={styles.iconBar}>
           <TouchableOpacity
             //no esta conectado a ningun lugar
             onPress={() => navigation.navigate("ProfileUserScreen")}
           >
             <Icon name="chevron-back-outline" size={30} />
           </TouchableOpacity>
-        </View>
+        </View> */}
+      <HeaderBar screen={'null'}/>
         <Text style={{ fontWeight: "bold", marginLeft: 15, fontSize: 25 }}>
           Editar perfil
         </Text>
@@ -77,6 +209,7 @@ const EditProfile = () => {
             </TouchableWithoutFeedback>
           </View>
         </View>
+
         {/* INICIO DEL FORMULARIO */}
         <View style={styles.containerInputs}>
           <Text style={{ fontSize: 19, fontWeight: "bold", marginBottom: 10 }}>
@@ -85,41 +218,59 @@ const EditProfile = () => {
           <View style={styles.viewsInputs}>
             <Icon name="person-outline" size={26} />
             <TextInput
+             value={user.name}
               placeholder="Nombre"
               name="name"
               style={styles.textPlaceholder}
+              onChangeText={(name) =>
+                handleChangeName(name)
+              }
             />
           </View>
           <View style={styles.viewsInputs}>
             <Icon name="person-outline" size={26} />
             <TextInput
+            value={user.lastName}
               placeholder="Apellido"
               name="lastname"
               style={styles.textPlaceholder}
+              onChangeText={(lastName) =>
+                handleChangeLastName(lastName)
+              }
             />
           </View>
           <View style={styles.viewsInputs}>
             <Icon name="reader-outline" size={26} />
             <TextInput
+            value={user.identification}
               placeholder="Documento de identidad"
-              name="documentID"
+              name="identification"
               style={styles.textPlaceholder}
+              onChangeText={(identification) =>
+                handleChangeIdentification(identification)
+              }
             />
           </View>
           <View style={styles.viewsInputs}>
             <Icon name="phone-portrait-outline" size={26} />
             <TextInput
+            value={user.phone}
               placeholder="Celular válido"
               name="phone"
               style={styles.textPlaceholder}
+              onChangeText={(phone) =>
+                handleChangePhone(phone)
+              }
             />
           </View>
           <View style={styles.viewsInputs}>
             <Icon name="map-outline" size={26} />
             <TextInput
+            value={user.zone}
               placeholder="Lugar de residencia actual"
-              name="location"
+              name="zone"
               style={styles.textPlaceholder}
+              onChangeText={(zone) => handleChangeZone(zone)}
             />
           </View>
           <View style={styles.btn2}>
@@ -130,8 +281,20 @@ const EditProfile = () => {
             >
               <Text style={styles.textBtn}>Cancelar</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.btnEditar}>
-              <Text style={styles.textBtn}>Editar</Text>
+            <TouchableOpacity style={styles.btnEditar} onPress={handleSubmit}>
+              <Text style={styles.textBtn} >Editar</Text>
+               {/* MODAL */}
+               <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isModalVisible}
+                  nRequestClose={() => changeModalVisible(false)}
+                >
+                  <SimpleModal
+                    changeModalVisible={changeModalVisible}
+                    setData={setData}
+                  />
+                </Modal>
             </TouchableOpacity>
           </View>
         </View>
@@ -180,7 +343,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     flexDirection: "row",
     justifyContent: "flex-start",
-    width: 360,
+    width: wp('85%'),
     alignItems: "flex-start",
     marginBottom: 15,
   },

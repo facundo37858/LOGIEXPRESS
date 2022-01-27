@@ -10,7 +10,7 @@ import { Vehicle } from '../models/Vehicle';
 import { ServiceAlert } from '../models/ServiceAlert';
 
 const router = Router()
-router.get('/', async (req: Request, res: Response) => {
+router.get('/allan', async (req: Request, res: Response) => {
   res.send('Allan Torres');
 });
 
@@ -34,6 +34,51 @@ function getDistanciaMetros(origen: string, destino: string) {
   var d = R * c * 1000;
   return d / 1000;
 }
+
+router.get('/actualTravel',async(req:Request,res:Response,next:NextFunction)=>{
+ 
+  const{id}=req.query
+  
+    if(id===''){return res.send('El id no puede estar vacio')}
+      let carrier=await Carrier.findAll({//tengo el id de la tabla Carrier
+          where:{
+              idUserReg:id
+          }
+      })
+      
+      if(!carrier.length){
+            let user=await User.findAll({//tengo el id de la tabla Carrier
+                where:{
+                    idUserReg:id
+                }
+            })
+
+                let travel=await Travel.findAll({where:{
+                  usaerId:user[0].id,
+                  finishedTravel: { [Op.eq]: null }
+              }})
+              
+              if(!travel.length){
+                  return res.send('Carrier not travels')
+              }
+
+              else res.send(travel);
+      }else{
+       
+          let travel=await Travel.findAll({where:{
+              carrierId:carrier[0].id,
+              finishedTravel: { [Op.eq]: null }
+          }})
+          return res.send(travel)
+          
+          if(!travel.length){
+              return res.send('Carrier not travels')
+          }
+          else res.send(travel);
+        }     
+
+
+})
 
 router.post('/calculatePrice', (req: Request, res: Response) => {
   //226.49013972673578
@@ -72,9 +117,9 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
       userId: id
     }
 
-    
+
     let traveles = await Travel.create(newViaje)
-    
+
     /* let vehicles = await Vehicle.findAll({
       where: {
         capacity: { [Op.or]: { [Op.eq]: weight, [Op.gt]: weight } }
@@ -87,7 +132,7 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
       { TravelId: TravelId, CarrierId: vehicles[1].CarrierId }
     }
     let alertServices = await ServiceAlert.bulkCreate(obj); */
-  /*   res.send(newViaje) */
+    /*   res.send(newViaje) */
     res.send({ id: TravelId })
 
   } catch (err) {
@@ -95,33 +140,28 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
   }
 
 });
-/* router.get('/Travel', async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    let travel = await Travel.findAll()
 
-    if (travel.length > 0) {
-      return res.send(travel)
-    }
-    res.send('data not found')
-    //por consola me aparece:"Executing (default): SELECT "id", "ducumentoIdentidad", "eMail", "ubicacion", "cel", "tel", "fotoPerfil", "medioPago", "name", "lastName", "paswword", "terminosCondiciones", "createdAt", "updatedAt" FROM "Users" AS "User";"
-    //no pude corregirlo!!
-  }
-  catch (err) {
-    next(err)
-  }
-}); */
+// usuario -> userId -> Travel -> id del viaje -> sin viajes 
+
 
 router.post('/oneTravel', async (req: Request, res: Response, next: NextFunction) => {
 
   const { id } = req.body
   let getTravel = await Travel.findAll({ where: { id: id } })
-  let varUser = await User.findAll({ where: { id: getTravel[0].userId } })
-  let varUserReg = await User_Reg.findOne({ where: { id: varUser[0].idUserReg } });
-  const travelFullData = { travel: getTravel[0], user: varUser[0], userReg: varUserReg }
-  if (getTravel.length === 0) res.send('Travel not found');
-  else res.send(travelFullData);
-
+  let varUser = await User.findAll({ where: { id: getTravel[0].userId } , include:[{ model: User_Reg }]  })
+ /*  let varUserReg = await User_Reg.findOne({ where: { id: varUser[0].idUserReg } }); */
+  let varCarrier = await Carrier.findAll({where: { id: getTravel[0].carrierId}, include:[{ model: User_Reg }] })
+  const travelFullData = { travel: getTravel[0], user: varUser[0], carrier: varCarrier[0] }
+  if (getTravel.length === 0){
+    return res.send('Travel not found');
+  } 
+  else {
+    return res.send(travelFullData);}
+    /* res.send({varUser}) */
 });
+
+
+
 
 
 router.get('/Travel', async (req: Request, res: Response, next: NextFunction) => {
@@ -131,7 +171,9 @@ router.get('/Travel', async (req: Request, res: Response, next: NextFunction) =>
   try {
     //Importante en el modelo de travel hay un error en declaración de la relacion con user User_Reg
     //hay que corregir que es de tipo string 
-    let travel = await Travel.findAll()
+    /* let travel = await Travel.findAll() */
+    const travel = await Travel.findAll({ where: { carrierId:{[Op.eq]: null} }})
+    // res.send(travel);
     if (travel.length > 0) {
       let tam = travel.length;
       var travelFullData = [];
@@ -143,7 +185,7 @@ router.get('/Travel', async (req: Request, res: Response, next: NextFunction) =>
       }
       return res.send(travelFullData)
     }
-    res.send('data not found')
+    //res.send('data not found')
     //por consola me aparece:"Executing (default): SELECT "id", "ducumentoIdentidad", "eMail", "ubicacion", "cel", "tel", "fotoPerfil", "medioPago", "name", "lastName", "paswword", "terminosCondiciones", "createdAt", "updatedAt" FROM "Users" AS "User";"
     //no pude corregirlo!!
   }
@@ -175,23 +217,9 @@ router.post('/requestAlert', async (req: Request, res: Response, next: NextFunct
 router.post('/waitTravel', async (req: Request, res: Response, next: NextFunction) => {
 
   const { id } = req.body
-  let getTravel = await Travel.findAll({ where: { userId: id, carrierId: { [Op.not]: null }, finishedTravel: { [Op.is]: null } } })
+  let getTravel = await Travel.findAll({ where: { userId: id, carrierId: { [Op.eq]: null }, finishedTravel: { [Op.is]: null } } })
   if (getTravel.length === 0) res.send({ data: 0 });
   else res.send(getTravel);
-
-  // try {
-
-  //          let alert = await ServiceAlert.findAll({where:{CarrierId:id}}) 
-  //          let tamAlert=alert.length;
-  //          let notification: boolean;
-
-  //             if(tamAlert>0){notification=true}
-  //               else {notification=false}
-  //              res.send({notification});  
-
-  // } catch (err) {
-  //   next(err)
-  // }
 
 });
 router.put('/acceptTravel', async (req: Request, res: Response, next: NextFunction) => {
@@ -214,6 +242,43 @@ router.put('/acceptTravel', async (req: Request, res: Response, next: NextFuncti
   }
   else res.send('id travel incorrecto');
 
+});
+
+router.get('/userTravel/:idRole',async(req:Request,res:Response,next:NextFunction)=>{
+
+  const { idRole }=req.params
+  console.log("ESTO ES REQUEST PARAM",req.params)
+  try{
+
+    let userTravel=await Travel.findAll({
+      where:{
+        [Op.and]: [{userId:idRole }, { finishedTravel: null }],
+
+      }
+    })
+
+    if(!userTravel.length){
+      return res.send('user sin travel')
+    }
+    res.json({menssage:'user travel',payload:userTravel})
+
+
+
+  }catch(e){
+    next(e)
+  }
+
+})
+
+
+router.post('/confirmTravel', async (req:Request,res:Response,next:NextFunction) => {
+  const { userId, id } = req.body;
+  try {
+    let confirm = await Travel.update({finishedTravel: 'process'}, {where: { id: id , userId : { [Op.eq]: userId } }})
+    console.log("ESTO DEVUELVE CONFIRM TRAVEL,", confirm )
+  } catch (error) {
+    next(error)
+  }
 })
 
 

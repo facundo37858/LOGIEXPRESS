@@ -10,92 +10,48 @@ import { User } from "../models/User";
 
 const router =Router()
 
-
-
-
 router.post('/review/user',async(req:Request,res:Response,next:NextFunction)=>{
-    //necesito el id de trave
-    //pesando como el user es el primero que hace una review
+   
 
-    // const {idUserReg}=req.body//necesito el id del travel pq si no como lo identifico 
+    const {idTravel,Carrrier_raiting,Carrier_comment}=req.body
 
-    const {idTravel,Carrrier_raiting,Carrier_comment/*,travelId se genera al monmento de comenzar viaje en la ruta travel??? */}=req.body//review de user--->Carrier
+    console.log('llego review', idTravel,Carrrier_raiting,Carrier_comment)
+
     
 
-    // let user=await User.findAll({
-    //     where:{
-    //         idUserReg:idUserReg
-    //     }
-    // })
+    let review= await Review.findAll({where:{travelId:idTravel}})
 
-    // let travel=await Travel.findAll({
-    //     where:{
-    //         userId:user[0].id
-    //     }
-    // })
+    if(!review.length){
 
+        let newReviewCarrier={
+            id:v4(),
+            Carrrier_raiting,
+            Carrier_comment,
+            travelId:idTravel//travel[0].id//necesito el id del travel lo poasen desde el front
+        }
+        try{
 
-
-
-    let newReviewCarrier={
-        id:v4(),
-        Carrrier_raiting,
-        Carrier_comment,
-        travelId:idTravel//travel[0].id//necesito el id del travel lo poasen desde el front
-    }
-
-    try{
-        let reviewe=await Review.create(newReviewCarrier)
-        if(reviewe){
+            let reviewe=await Review.create(newReviewCarrier)
+                
             return res.status(200).send({mensaje:'Review creada',data:reviewe})
-    
+                
+                
+
+        }catch(err){
+
+            next(err)
         }
 
-    }catch(err){
-        next(err)
+
+    }else{
+        let upDataRewie= await review[0].update({Carrrier_raiting,Carrier_comment})
+
+        return res.status(200).send({mensaje:'Review update',data:upDataRewie})
     }
 
-    
 
-  
-
-     
 
 })
-
-router.post('/review/carrier',async(req:Request,res:Response,next:NextFunction)=>{
-
-    //luego q el user hace una review la pude hacer el trasportista???
-
-    const {User_raiting,User_comment,idTravel}=req.body//review del carrier--->user
-    try{
-        let reviewUser= await Review.findAll({where:{travelId:idTravel}})//deberia tomar travelId 
-        if(!reviewUser.length){
-           return res.status(400).json({mensaje:'Rewiew not found'})
-        }else{
-            let upDating=await reviewUser[0].update({User_raiting,User_comment})
-
-           res.status(200).json({mensaje:'Review',data:upDating}) 
-        }
-        
-    
-        
-    
-    }catch(err){
-        next(err)
-    }
-    
-    
-    
-
-
-
-    
-
-
-
-}
-)
 
 router.get('/reviewCarrier/:idUser_Reg',async(req:Request,res:Response,next:NextFunction)=>{
 
@@ -162,6 +118,47 @@ router.get('/reviewCarrier/:idUser_Reg',async(req:Request,res:Response,next:Next
 
 
 })
+
+router.post('/review/carrier',async(req:Request,res:Response,next:NextFunction)=>{
+    
+    //luego q el user hace una review la pude hacer el trasportista???
+
+    const {User_raiting,User_comment,idTravel}=req.body//review del carrier--->user
+
+    console.log('llego el post', User_raiting,User_comment,idTravel)
+    
+    let review= await Review.findAll({where:{travelId:idTravel}})
+
+    if(!review.length){
+
+        let newReviewCarrier={
+            id:v4(),
+            User_raiting,
+            User_comment,
+            travelId:idTravel//travel[0].id//necesito el id del travel lo poasen desde el front
+        }
+        try{
+
+            let reviewe=await Review.create(newReviewCarrier)
+                
+            return res.status(200).send({mensaje:'Review creada',data:reviewe})
+                
+                
+
+        }catch(err){
+            console.log('llego al error', err)
+            next(err)
+        }
+
+
+    }else{
+        let upDataRewie= await review[0].update({User_raiting,User_comment})
+
+        return res.status(200).send({mensaje:'Review update',data:upDataRewie})
+    }
+
+}
+)
 router.get('/reviewUser/:idUser_Reg',async(req:Request,res:Response,next:NextFunction)=>{
 
     const{idUser_Reg}=req.params

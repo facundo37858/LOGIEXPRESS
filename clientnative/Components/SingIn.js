@@ -13,12 +13,20 @@ import {
   Button,
   Modal
 } from "react-native";
-import { logiarUsuario } from "./../actions/index";
+import { logiarUsuario, getSocket } from "./../actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import * as SecureStore from "expo-secure-store";
 import SimpleModal5 from "./AlertasReg/SimpleModalmail.js";
 import SimpleModal6 from "./AlertasReg/SimpleModalpass.js";
 import SimpleModal30 from "./AlertasLog/SimpleModallog.js";
+import io from 'socket.io-client'
+
+
+import { API_URL } from "@env"
+
+
+const socket = io.connect(`${API_URL}`);
+socket.on('connection')
 
 const SingIn = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -32,14 +40,10 @@ const SingIn = ({ navigation }) => {
     } catch(error){
       console.log('error', error.response)
     }
-    }
-    
-
-
-
+    }  
   const nuevotoken = useSelector((store) => store.token);
   useEffect(() => {
-    console.log("verificando, que se envia", nuevotoken);
+    /* console.log("verificando, que se envia", nuevotoken); */
     save("token", nuevotoken);
   }, [nuevotoken]);
 
@@ -96,6 +100,7 @@ const SingIn = ({ navigation }) => {
       //   "La dirección de correo electrónico o la contraseña que ingresaste no son válidas!"
       // );
     }
+    dispatch(getSocket(socket))
   }, [respuesta]);
 
   /* useEffect(() => {

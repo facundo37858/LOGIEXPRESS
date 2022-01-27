@@ -24,6 +24,12 @@ import EditVehicule from "./Components/Editares/EditVehicule";
 import CotizarViaje from "./Components/CotizarViaje";
 import Home from "./Components/home";
 import CambiarContraseña from "./Components/CambiodeContraseña/CambiarContraseña";
+import DetallesVehicule from "./Components/Detalles/DetallesVehicule";
+import HistorialDeViaje from "./Components/HistorialDeViaje/HistorialDeViaje";
+import reviewUser from "./Components/Review/ReviewUser"
+import reviewCarrier from "./Components/Review/ReviewCarrier"
+import Chat from './Components/Chat/Chat.js'
+import HistorialDeViajeCarrier from "./Components/HistorialDeViaje/HistorialDeViajeCarrier";
 import { LogBox } from 'react-native';
 
 
@@ -39,6 +45,7 @@ const App = () => {
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator>
+       
             <Stack.Screen
               name="Home"
               component={Home}
@@ -126,8 +133,46 @@ const App = () => {
               component={CambiarContraseña}
               options={{ headerShown: false }}
             />
-            <Stack.Screen name="ScreenWaiting" component={ScreenWaiting} />
-            <Stack.Screen name="StartCarrier" component={StartCarrier} />
+            <Stack.Screen
+              name="DetallesVehicule"
+              component={DetallesVehicule}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="HistorialDeViaje"
+              component={HistorialDeViaje}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="HistorialDeViajeCarrier"
+              component={HistorialDeViajeCarrier}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Chat"
+              component={Chat}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen 
+            name="ScreenWaiting" 
+            component={ScreenWaiting} 
+            options={{ headerShown: false }}
+            />
+            <Stack.Screen 
+            name="StartCarrier" 
+            component={StartCarrier} 
+            options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="ReviewUser"
+              component={reviewUser}
+              options={{ headerShown: false }}
+            />
+              <Stack.Screen
+              name="ReviewCarrier"
+              component={reviewCarrier}
+              options={{ headerShown: false }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

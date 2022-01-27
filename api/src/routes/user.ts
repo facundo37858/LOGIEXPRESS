@@ -10,12 +10,14 @@ const bcrypt = require("bcryptjs");
 
 const router = Router()
 
-router.get('/user', passport.authenticate("jwt", { session: false }), async (req: Request, res: Response, next: NextFunction) => {
+router.get('/user/:user_Reg', async (req: Request, res: Response, next: NextFunction) => {
+    const { user_Reg } = req.params
+    console.log("ESTO ESTA ENTRANDO", req.params)
     try {
-        let user = await User_Reg.findAll()
-        console.log("AQUI", req.user)
-        if (user.length > 0) {
-            return res.send(user)
+        let objCarrier = await Carrier.findOne({where: { idUserReg : user_Reg  }, include:[{ model: User_Reg }]})
+        console.log("AQUI", user_Reg)
+        if (objCarrier) {
+            return res.send(objCarrier)
         }
         res.send('data not found')
     }
@@ -27,7 +29,7 @@ router.get('/user', passport.authenticate("jwt", { session: false }), async (req
 router.post('/verifytoken', async (req: Request, res: Response, next: NextFunction) => {
     const { token } = req.body;
     try {
-        const decoded = jwt.verify(token, config.jwtSecret)
+        const decoded: any = jwt.verify(token, config.jwtSecret)
         const dataUser = await User_Reg.findByPk(decoded.id)
         if (dataUser) {
 
@@ -47,7 +49,7 @@ router.post('/verifytoken', async (req: Request, res: Response, next: NextFuncti
                 mensaje: true
             }
 
-            console.log("PAYLOAD en verifytoken", payload);
+           // console.log("PAYLOAD en verifytoken", payload);
 
             return res.json({ payload, mensaje: 'the access token is valid' })
         }

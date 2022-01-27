@@ -31,11 +31,10 @@ const DatosPersonalesCarrier = (props) => {
   return (
     <View style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={{ marginTop :35}}>
-        {/* <Image source={require("../Utils/salida.png")} /> */}
-        <HeaderBar/>
+      <View style={{ marginTop: 35}}>
+        <HeaderBar  screen={'null'}/>
       </View>
-        <Text style={styles.perfilTex}>Mi perfil</Text>
+        <Text style={styles.perfilTex}>Datos personales</Text>
         <View
           style={{
             flexDirection: "row",

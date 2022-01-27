@@ -25,7 +25,7 @@ const StartUser = (props) => {
   const data = props.route.params
   const navigation = useNavigation();
 
-  console.log("ESTO ES LO QUE LLEGA", data)
+  console.log("ESTO ES LO QUE LLEGAAAAAAAAAAA", data)
 
   return (
     //Container Start

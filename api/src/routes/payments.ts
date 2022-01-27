@@ -39,9 +39,10 @@ router.post("/pay", async (req: Request, res: Response, next: NextFunction) => {
 
     // const { id } = req.body;
 
-    console.log(req.body.info.route.params.travel.price)
-    
-    const {eMail,lastName,name,id}=req.body.info.route.params.userReg
+   /*  console.log(req.body.info.route.params.travel.price) */
+   
+    console.log("ESTO LLEGA A RUTA PAY", req.body.info.route.params )
+    const {eMail,lastName,name,id} = req.body.info.route.params.user.user_Reg
 
     // console.log('aca llega el token','token',tokenn);
 
@@ -58,7 +59,7 @@ router.post("/pay", async (req: Request, res: Response, next: NextFunction) => {
     // if (!eMail) return res.json({ key: 400, message: "Please enter a eMail" });
 
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: parseInt(req.body.info.route.params.travel.price),
+      amount: parseInt(req.body.info.route.params.travel.price)*100,
       currency: "usd",
       payment_method_types: ["card"],
       metadata: {eMail,lastName,name,id},

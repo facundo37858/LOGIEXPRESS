@@ -2,16 +2,22 @@
   "name": "api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
+  "main": "index.ts",
+
+ "scripts": {
+    "start": "nodemon -L",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.ts"
   },
+
+
+
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/sequelize": "^4.28.11",
+    "@types/socket.io": "^3.0.2",
     "axios": "^0.24.0",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
@@ -19,12 +25,15 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "express-generator": "^4.16.1",
+    "nodemon": "^2.0.15",
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
     "pg": "^8.7.1",
+    "react-native-responsive-screen": "^1.4.2",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.12.5",
     "sequelize-typescript": "^2.1.2",
+    "socket.io": "^4.4.1",
     "stripe": "^8.197.0",
     "typescript": "^4.5.4",
     "uuidv4": "^6.2.12"

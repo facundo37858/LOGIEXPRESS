@@ -21,6 +21,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { cotizarViaje, requestTravel } from "../actions/index.js";
 import { LogBox } from "react-native";
 import HeaderBar from "./Utils/HeaderBar";
+import { APIKEY_GOOGLE } from "@env"
+
+
+
 
 const CotizarViaje = () => {
   ////--> HOOK PARA LA NAVEGACION <-- ////
@@ -88,7 +92,7 @@ const CotizarViaje = () => {
                   });
                 }}
                 query={{
-                  key: "AIzaSyCctmpoWkqc4Te99YNkI0hgsyVfpbEci5M",
+                  key: `${APIKEY_GOOGLE}`,
                   language: "en",
                   components: "country:arg",
                   types: "geocode",
@@ -126,7 +130,7 @@ const CotizarViaje = () => {
                   });
                 }}
                 query={{
-                  key: "AIzaSyCctmpoWkqc4Te99YNkI0hgsyVfpbEci5M",
+                  key: `${APIKEY_GOOGLE}`,
                   language: "en",
                   components: "country:arg",
                   types: "geocode",

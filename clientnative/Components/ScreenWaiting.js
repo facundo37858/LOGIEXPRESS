@@ -11,7 +11,7 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import HeaderBar from "./Utils/HeaderBar";
 import { useNavigation } from "@react-navigation/core";
-import { getTravelID, desmount, reqDataCarrier } from "../actions/index";
+import { getTravelID, desmount } from "../actions/index";
 import { useSelector, useDispatch } from "react-redux";
 
 const ScreenWaiting = (payload) => {
@@ -46,16 +46,6 @@ const ScreenWaiting = (payload) => {
   
 
   const [objCarrier, SetObjCarrrier] = useState(null)
-
-  useEffect(() => {
-    if (travel) {
-      if (travel.carrier) {
-        SetObjCarrrier(travel.carrier)
-      }
-    };
-  }, [travel]);
-
-
 
 
 

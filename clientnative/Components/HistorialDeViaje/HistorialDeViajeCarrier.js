@@ -5,8 +5,10 @@ import {
   View,
   Button,
   Image,
+  ActivityIndicator,
+  TouchableOpacity
 } from "react-native";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import HeaderBar from "../Utils/HeaderBar";
 // prueba para las screens responsive
@@ -29,13 +31,55 @@ const HistorialDeViajeCarrier = () => {
   //   const dataTravels = useSelector((store) => store.travelsUser.payload);
   //   // console.log('ey, lo hicimos bien?', dataTravels)
 
-  const travelsCarrier = useSelector((store) => store.travelsCarrier.payload);
+  const travelsCarrier = useSelector((store) => store.travelsCarrier);
   console.log("viajes carrier", travelsCarrier);
 
   const idUserReg = datosCarrier.id;
   useEffect(() => {
     dispatch(getTravelCarrier(idUserReg));
   }, [dispatch]);
+
+
+ const [state, setState] = useState({
+    origen: '',
+    destino: '',
+  })
+
+  const [userIDs, setUserIDs] = useState({
+    carrierId: '',
+    id: '',
+  })
+
+  console.log("ESTE ES EL STATE", state)
+
+
+  useEffect(() => {
+    if (travelsCarrier) {
+      if (travelsCarrier.actualTravel) {
+        const orig = travelsCarrier.actualTravel[0].orig.split('/')
+        const dest = travelsCarrier.actualTravel[0].destination.split('/')
+        setState({
+          origen: orig[2],
+          destino: dest[2],
+        });
+        setUserIDs({
+          carrierId: travelsCarrier.actualTravel[0].carrierId,
+          id: travelsCarrier.actualTravel[0].id,
+        })
+      }
+    }
+    return () => {
+      setState({
+        origen: '',
+        destino: '',
+      })
+      setUserIDs({
+        carrierId: '',
+        id: '',
+      })
+    };
+  }, [travelsCarrier]);
+
 
   /// --> INICIO DEL COMPONENTE <-- ///
   return (
@@ -54,38 +98,52 @@ const HistorialDeViajeCarrier = () => {
           <Text style={styles.textAnterior}>EN CURSO</Text>
         </View>
         {/* DESDE ACA EMPEZARIA LA PARTE DE VIAJE EN CURSO */}
-        <View style={styles.containerCards}>
-          <View style={styles.cards}>
-            <View style={styles.insideCard1}>
-              <View>
-                <Text>Descripcion del viaje: Medicamentos</Text>
-                <Text>Villa Angela, Chaco, Argentina</Text>
-                <Text>Buenos Aires, Argentina</Text>
-                <Text style={{ color: "green", fontWeight: "bold" }}>
-                  En proceso
-                </Text>
-                <Text style={styles.price}>$10000</Text>
-              </View>
-              <View style={{marginTop: wp('-3%'), marginLeft: wp('11')}}>
-                <TouchableWithoutFeedback
-                  onPress={() => {
-                    navigation.navigate("Chat");
-                  }}
-                >
-                  <Image
-                    source={require("./burbuja-de-dialogo.png")}
-                    style={{ width: wp("16%"), height: hp("7%")}}
-                  />
-                </TouchableWithoutFeedback>
-              </View>
-            </View>
-          </View>
-        </View>
+       {
+         
+         travelsCarrier.actualTravel ? <View style={styles.containerCards}>
+         <View style={styles.cards}>
+           <View style={styles.insideCard1}>
+             <View>
+               <Text>{ travelsCarrier.actualTravel[0].description}</Text>
+               <View style={styles.textAling}>
+                    <Text style={{ fontWeight: 'bold' }}>Desde: </Text>
+                    <Text>{state.origen}</Text>
+                  </View>
+                  <View style={styles.textAling}>
+                    <Text style={{ fontWeight: 'bold' }}>Hasta: </Text>
+                    <Text>{state.destino}</Text>
+                  </View>
+               <Text style={{ color: "green", fontWeight: "bold" }}>
+                 {travelsCarrier.actualTravel[0].finishedTravel}
+               </Text>
+               <TouchableOpacity onPress={() => navigation.navigate('TravelOn', userIDs)}>
+                    <Text style={{ color: "green", fontWeight: "bold" }}>
+                      Ver viaje
+                    </Text>
+                  </TouchableOpacity>
+               <Text style={styles.price}>${travelsCarrier.actualTravel[0].price}</Text>
+             </View>
+             <View style={{marginTop: wp('-3%'), marginLeft: wp('11')}}>
+               <TouchableWithoutFeedback
+                 onPress={() => {
+                   navigation.navigate("Chat");
+                 }}
+               >
+                 <Image
+                   source={require("./burbuja-de-dialogo.png")}
+                   style={{ width: wp("16%"), height: hp("7%")}}
+                 />
+               </TouchableWithoutFeedback>
+             </View>
+           </View>
+         </View>
+       </View> : <ActivityIndicator size="large" color="#0000ff" />
+       }
 
         <View style={styles.viewAnterior}>
           <Text style={styles.textAnterior}>ANTERIORES</Text>
         </View>
-        {travelsCarrier?.map((datos, index) => {
+        {travelsCarrier.payload?.map((datos, index) => {
           const orig = datos.orig.split("/");
           const dest = datos.destination.split("/");
           return (
@@ -161,4 +219,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: hp("2%"),
   },
+  textAling: {
+    flexDirection: 'row'
+  },
+
 });

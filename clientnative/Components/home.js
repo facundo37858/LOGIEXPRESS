@@ -27,7 +27,7 @@ const Home = () => {
     let result = await SecureStore.getItemAsync("token");
     if (result) {
       onChangeResult(result);
-      console.log(result);
+     /*  console.log(result) */;
     } else {
       //   alert('Invalid Key')
     }
@@ -55,15 +55,15 @@ const Home = () => {
         token: result,
       };
 
-      console.log("este es el result", obj2);
+      //console.log("este es el result", obj2);
 
       dispatch(enviarToken(obj2));
     }
   }, [result]);
 
   useEffect(() => {
-    console.log("respotoken:", resptoken);
-    console.log("resptoken.mensaje", resptoken.mensaje);
+    // console.log("respotoken:", resptoken);
+    // console.log("resptoken.mensaje", resptoken.mensaje);
 
     if (resptoken != {}) {
       if (resptoken.mensaje === true) {

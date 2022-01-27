@@ -103,7 +103,7 @@ router.post('/calculatePrice', (req: Request, res: Response) => {
 
 router.post('/requestTravel', async (req: Request, res: Response, next: NextFunction) => {
 
-  const { id, orig, destination, weight, price, description } = req.body
+  const { id, orig, destination, weight, price, description, finishedTravel} = req.body
 
   try {
     let TravelId = uuid()
@@ -114,7 +114,8 @@ router.post('/requestTravel', async (req: Request, res: Response, next: NextFunc
       weight,
       price,
       description,
-      userId: id
+      userId: id,
+      finishedTravel,
     }
 
 
@@ -269,6 +270,32 @@ router.get('/userTravel/:idRole',async(req:Request,res:Response,next:NextFunctio
   }
 
 })
+
+router.get('/TravelOn/:idRole',async(req:Request,res:Response,next:NextFunction)=>{
+
+  const { idRole }=req.params
+  console.log("ESTO ES REQUEST PARAM",req.params)
+  try{
+
+    let userTravel=await Travel.findAll({
+      where:{
+        [Op.and]: [{userId:idRole }, { finishedTravel: 'process' }],
+      }
+    })
+    console.log("ESTE ES EL VIAJE ACTUAL", userTravel)
+    if(!userTravel.length){
+      return res.send('user sin travel')
+    }
+    res.json({menssage:'user travel',payload:userTravel})
+
+
+
+  }catch(e){
+    next(e)
+  }
+
+})
+
 
 
 router.post('/confirmTravel', async (req:Request,res:Response,next:NextFunction) => {

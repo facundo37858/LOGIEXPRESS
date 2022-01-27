@@ -12,8 +12,16 @@ import { useNavigation } from "@react-navigation/core";
 const WIDTH = Dimensions.get("window").width;
 const HEIGTH_MODAL = 220;
 
+
+
+
+
 const SimpleModalpagobad = (props) => {
   const navigation = useNavigation();
+
+  const navegar=()=>{
+    navigation.navigate('ProfileUserScreen')
+  }
 
   let closeModal = (bool, data) => {
     props.changeModalVisible61(bool);
@@ -39,7 +47,7 @@ const SimpleModalpagobad = (props) => {
         </View>
         <View style={styles.containerBtn}>
           <TouchableOpacity
-            onPress={() => closeModal(false, "Aceptar")}
+            onPress={navegar}
             // onPressIn={() => navigation.navigate("CompleteProfileCarrier")}
             style={styles.btnAceptar}
           >

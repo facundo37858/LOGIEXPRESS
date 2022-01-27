@@ -10,78 +10,14 @@ import { User } from "../models/User";
 
 const router =Router()
 
-
-
-
-// router.post('/review/user',async(req:Request,res:Response,next:NextFunction)=>{
-//     //necesito el id de trave
-//     //pesando como el user es el primero que hace una review
-
-//     // const {idUserReg}=req.body//necesito el id del travel pq si no como lo identifico 
-
-//     const {idTravel,Carrrier_raiting,Carrier_comment/*,travelId se genera al monmento de comenzar viaje en la ruta travel??? */}=req.body//review de user--->Carrier
-    
-
-//     // let user=await User.findAll({
-//     //     where:{
-//     //         idUserReg:idUserReg
-//     //     }
-//     // })
-
-//     // let travel=await Travel.findAll({
-//     //     where:{
-//     //         userId:user[0].id
-//     //     }
-//     // })
-
-
-
-
-//     let newReviewCarrier={
-//         id:v4(),
-//         Carrrier_raiting,
-//         Carrier_comment,
-//         travelId:idTravel//travel[0].id//necesito el id del travel lo poasen desde el front
-//     }
-
-//     try{
-//         let reviewe=await Review.create(newReviewCarrier)
-//         if(reviewe){
-//             return res.status(200).send({mensaje:'Review creada',data:reviewe})
-    
-//         }
-
-//     }catch(err){
-//         next(err)
-//     }
-
-    
-
-  
-
-     
-
-// })
 router.post('/review/user',async(req:Request,res:Response,next:NextFunction)=>{
-    //necesito el id de trave
-    //pesando como el user es el primero que hace una review
+   
 
-    // const {idUserReg}=req.body//necesito el id del travel pq si no como lo identifico 
+    const {idTravel,Carrrier_raiting,Carrier_comment}=req.body
 
-    const {idTravel,Carrrier_raiting,Carrier_comment/*,travelId se genera al monmento de comenzar viaje en la ruta travel??? */}=req.body//review de user--->Carrier
     console.log('llego review', idTravel,Carrrier_raiting,Carrier_comment)
 
-    // let user=await User.findAll({
-    //     where:{
-    //         idUserReg:idUserReg
-    //     }
-    // })
-
-    // let travel=await Travel.findAll({
-    //     where:{
-    //         userId:user[0].id
-    //     }
-    // })
+    
 
     let review= await Review.findAll({where:{travelId:idTravel}})
 
@@ -116,40 +52,6 @@ router.post('/review/user',async(req:Request,res:Response,next:NextFunction)=>{
 
 
 })
-
-// router.post('/review/carrier',async(req:Request,res:Response,next:NextFunction)=>{
-
-//     //luego q el user hace una review la pude hacer el trasportista???
-
-//     const {User_raiting,User_comment,idTravel}=req.body//review del carrier--->user
-//     try{
-//         let reviewUser= await Review.findAll({where:{travelId:idTravel}})//deberia tomar travelId 
-//         if(!reviewUser.length){
-//            return res.status(400).json({mensaje:'Rewiew not found'})
-//         }else{
-//             let upDating=await reviewUser[0].update({User_raiting,User_comment})
-
-//            res.status(200).json({mensaje:'Review',data:upDating}) 
-//         }
-        
-    
-        
-    
-//     }catch(err){
-//         next(err)
-//     }
-    
-    
-    
-
-
-
-    
-
-
-
-// }
-// )
 
 router.get('/reviewCarrier/:idUser_Reg',async(req:Request,res:Response,next:NextFunction)=>{
 
@@ -224,23 +126,6 @@ router.post('/review/carrier',async(req:Request,res:Response,next:NextFunction)=
     const {User_raiting,User_comment,idTravel}=req.body//review del carrier--->user
 
     console.log('llego el post', User_raiting,User_comment,idTravel)
-    // try{
-    //     let reviewUser= await Review.findAll({where:{travelId:idTravel}})//deberia tomar travelId 
-    //     if(!reviewUser.length){
-    //        return res.status(400).json({mensaje:'Rewiew not found'})
-    //     }else{
-    //         let upDating=await reviewUser[0].update({User_raiting,User_comment})
-
-    //        res.status(200).json({mensaje:'Review',data:upDating}) 
-    //     }
-        
-    
-        
-    
-    // }catch(err){
-    //     next(err)
-    // }
-    ///////////////////////////////////////////////////
     
     let review= await Review.findAll({where:{travelId:idTravel}})
 
